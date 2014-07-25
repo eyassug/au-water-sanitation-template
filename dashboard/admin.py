@@ -1,14 +1,13 @@
 from django.contrib import admin
 
 
-from models import AccessCharacteristic, SectorPerformanceCategory, System, PriorityArea, AccessProperty, TenderProcedureProperty
+from models import SectorCategory,  Technology, PriorityArea, FacilityCharacter, TenderProcedureProperty
 
 #Register models
 
 
-admin.site.register(AccessCharacteristic)
-admin.site.register(SectorPerformanceCategory)
-admin.site.register(System)
+admin.site.register(SectorCategory)
+admin.site.register(Technology)
 admin.site.register(PriorityArea)
 admin.site.register(TenderProcedureProperty)
-admin.site.register(AccessProperty)
+admin.site.register(FacilityCharacter)
