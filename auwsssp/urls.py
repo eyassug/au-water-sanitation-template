@@ -16,6 +16,7 @@ urlpatterns = patterns('',
     url(r'^report/sectorperformance$', views.SectorPerformanceCreate.as_view(), name='sector_performance_create'),    
     url(r'^report/facilityaccess$', views.FacilityAccessCreate.as_view(), name='facility_access_create'),
     url(r'^report/planningperformance$', views.PlanningPerformanceCreate.as_view(), name='planning_performance_create'),
+    url(r'^report/tenderprocperformance$', views.TenderProcedurePerformanceCreate.as_view(), name='tender_proc_performance_create'),
     # url(r'^blog/', include('blog.urls')),
     #url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
