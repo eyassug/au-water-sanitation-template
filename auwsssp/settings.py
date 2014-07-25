@@ -30,6 +30,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    #'twitter_bootstrap',
+    #'django_admin_bootstrapped.bootstrap3',
+    'django_admin_bootstrapped',    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -61,8 +64,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'auwsssp',
-        'USER': 'root',
-        'PASSWORD': 'root',
+        'USER': 'admin',
+        'PASSWORD': 'admin',
         'HOST': '127.0.0.1',
         'PORT': '',
     }
