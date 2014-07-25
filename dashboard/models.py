@@ -95,3 +95,13 @@ class SectorPerformance(models.Model):
     measures_taken = models.TextField()
     success_challenges = models.TextField()
     
+class PlanningPerformance(models.Model):
+    country = models.ForeignKey('Country')
+    sector_category = models.ForeignKey('SectorCategory')
+    year = models.PositiveSmallIntegerField(null=False,blank=False)
+    plan_preparation_delay = models.PositiveSmallIntegerField(null=False,blank=False)    
+    plan_adoption_delay = models.PositiveSmallIntegerField(null=False,blank=False)
+    general_comment = models.TextField()
+    bottlenecks = models.TextField()
+    measures_taken = models.TextField()
+    success_challenges = models.TextField()

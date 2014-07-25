@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from dashboard.forms import CountryStatusForm, FacilityAccessForm, SectorPerformanceForm
-from dashboard.models import CountryDemographic, FacilityAccess, SectorPerformance
+from dashboard.models import CountryDemographic, FacilityAccess, SectorPerformance, PlanningPerformance
 from django.views.generic import View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
@@ -18,3 +18,7 @@ class FacilityAccessCreate(CreateView):
 class CountryStatusCreate(CreateView):
     model = CountryDemographic
     template_name = 'country_status_form.html'
+    
+class PlanningPerformanceCreate(CreateView):
+    model = PlanningPerformance
+    template_name = 'planning_performance_form.html'
