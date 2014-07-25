@@ -20,6 +20,7 @@ urlpatterns = patterns('',
     url(r'^report/communityapproach$', views.CommunityApproachCreate.as_view(), name='community_approach_create'),
     url(r'^report/partnercontribution$', views.PartnerContributionCreate.as_view(), name='partner_contribution_create'),
     url(r'^report/partnereventcontribution$', views.PartnerEventContributionCreate.as_view(), name='partner_event_contribution_create'),
+    url(r'^report/swot$', views.SWOTAndConclusionCreate.as_view(), name='swot_create'),
     # url(r'^blog/', include('blog.urls')),
     #url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 

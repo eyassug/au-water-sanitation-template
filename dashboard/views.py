@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from dashboard.forms import CountryStatusForm, FacilityAccessForm, SectorPerformanceForm
-from dashboard.models import CountryDemographic, FacilityAccess, SectorPerformance, PlanningPerformance, TenderProcedurePerformance, CommunityApproach, PartnerContribution, PartnerEventContribution
+from dashboard.models import CountryDemographic, FacilityAccess, SectorPerformance, PlanningPerformance, TenderProcedurePerformance, CommunityApproach, PartnerContribution, PartnerEventContribution, SWOT
 from django.views.generic import View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
@@ -38,3 +38,7 @@ class PartnerContributionCreate(CreateView):
 class PartnerEventContributionCreate(CreateView):
     model = PartnerEventContribution
     template_name = 'partner_event_contribution_form.html'
+
+class SWOTAndConclusionCreate(CreateView):
+    model = SWOT
+    template_name = 'swot_form.html'

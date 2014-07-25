@@ -173,3 +173,14 @@ class PartnerEventContribution(models.Model):
     own_staff_contribution = models.DecimalField(max_digits=15, decimal_places=4, null=False)
     total_event_contribution = models.DecimalField(max_digits=15, decimal_places=4, null=False)
     
+class SWOT(models.Model):
+    country = models.ForeignKey('Country')
+    sector_category = models.ForeignKey('SectorCategory')
+    overall_challenges = models.TextField()
+    strengths = models.TextField()
+    weaknesses = models.TextField()
+    opportunities = models.TextField()
+    risks = models.TextField()
+    mitigation_measures = models.TextField()
+    kap_recommendations = models.TextField()
+    conclusion = models.TextField()
