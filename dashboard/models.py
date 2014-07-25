@@ -64,7 +64,17 @@ class FacilityCharacter(models.Model):
         
     class Meta:
         verbose_name_plural = "Facility Characters"
-        
+    
+class CommunityApproachType(models.Model):
+    name = models.CharField(max_length=120, null=False, blank=False)
+    is_active = models.BooleanField()
+    
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name_plural = "Community Approach Types"
+    
 class CountryDemographic(models.Model):
     country = models.ForeignKey('Country')
     year = models.PositiveSmallIntegerField(null=False,blank=False)
@@ -117,4 +127,13 @@ class TenderProcedurePerformance(models.Model):
     bottlenecks = models.TextField()
     measures_taken = models.TextField()
     success_challenges = models.TextField()
-    
+
+class CommunityApproach(models.Model):
+    country = models.ForeignKey('Country')
+    sector_category = models.ForeignKey('SectorCategory')
+    year = models.PositiveSmallIntegerField(null=False,blank=False)
+    approach_type = models.ForeignKey('CommunityApproachType')
+    approach_name = models.CharField(max_length=120, null=False, blank=False)    
+    description = models.TextField()
+    cost_per_capita = models.DecimalField(max_digits=15, decimal_places=4, null=False)
+    lessons_learnt = models.TextField()
