@@ -46,18 +46,45 @@
 	<span class="icon-bar"></span>
 	<span class="icon-bar"></span>
 	</button>
-	<a class="navbar-brand" href="#">{% block content %}
-            
-            {% endblock %}</a>
+	<a class="navbar-brand" href="#"></a>
 
 	</div>
 	<div class="collapse navbar-collapse">
 	<ul class="nav navbar-nav">
-	<li class=""><a href="#">Home</a></li>
+        <li><a href="">Home</a></li>
+	<li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports<b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li class="nav-header">DEMOGRAPHIC</li>
+                    <li><a href="#">Country Status Data</a></li>
+                    <li><a href="#">Priority Status Data</a></li>
+                                        
+                    <li class="divider"></li>
+                    <li class="nav-header">FACILITY</li>
+                    <li><a href="#">Sector Performance</a></li>
+                    <li><a href="#">Planning Performance</a></li>
+                    <li><a href="#">Tender & Pro. Performance</a></li>
+                    <li><a href="#">Communities Approach</a></li>
+                    <li><a href="#">Partner Contribution to Country</a></li>
+                    <li><a href="#">Partner Contribution to Events</a></li>
+                    <li><a href="#">Sector SWOT & Conclusion</a></li>
+                    <li class="divider"></li>
+                    <li class="nav-header">REPORT</li>
+                    <li><a href="#">Generate</a></li>
+                  </ul>                  
+                </li>
 
-	<li><a href="#about">About</a></li>
+	<li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Account<b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="our_works.html">Change Password</a></li>
+                    <li class="divider"></li>
+                    <li><a href="patnerships.html">Log Out</a></li>
+                    
+                  </ul>
+                </li>
 
-	<li><a href="#contact">Contact</a></li>
+	
 
 	</ul>
 	</div><!--/.nav-collapse -->
@@ -75,7 +102,9 @@
                                                             <br>
                                                             Commitments for Accelerating the Achievement of Water and Sanitation Goals in Africa.</p>
 	</div>
-	
+	{% block content %}
+            
+            {% endblock %}
 	</div><!-- /.container -->
 	{% endblock %}
 	
@@ -83,7 +112,7 @@
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-
+        <script src="/static/js/jquery.min.js"></script>
 	<script src="/static/js/bootstrap.min.js"></script>
 
 	</body>
