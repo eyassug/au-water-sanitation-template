@@ -49,7 +49,7 @@ class Technology(models.Model):
     is_active = models.BooleanField()
    
     def __str__(self):
-        return self.name + ' - ' + self.sector_category.name
+        return self.name + ' - ' + self.facility_character.name + ' - ' + self.facility_character.sector_category.name
     
     class Meta:
         verbose_name_plural = "Technologies"
@@ -69,3 +69,13 @@ class CountryDemographic(models.Model):
     country = models.ForeignKey('Country')
     year = models.IntegerField(null=False,blank=False)
     population = models.IntegerField(null=False,blank=False)
+    
+class FacilityAccess(models.Model):
+    priority_area = models.ForeignKey('PriorityArea')
+    technology = models.ForeignKey('Technology')
+    year = models.IntegerField(null=False,blank=False)
+    planned = models.DecimalField(max_digits=19, decimal_places=10, null=False)
+    actual = models.DecimalField(max_digits=19, decimal_places=10, null=False)
+    unit_cost = models.DecimalField(max_digits=19, decimal_places=10, null=False)
+    house_hold_contribution = models.DecimalField(max_digits=5, decimal_places=2, null=False)
+    government_contribution = models.DecimalField(max_digits=5, decimal_places=2, null=False)
