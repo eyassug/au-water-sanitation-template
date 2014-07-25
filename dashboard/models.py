@@ -162,4 +162,14 @@ class PartnerContribution(models.Model):
     annual_contribution = models.DecimalField(max_digits=15, decimal_places=4, null=False)
     in_kind_contribution = models.DecimalField(max_digits=5, decimal_places=2, null=False)
     financial_contribution = models.DecimalField(max_digits=5, decimal_places=2, null=False)
-        
+    
+class PartnerEventContribution(models.Model):
+    country = models.ForeignKey('Country')
+    sector_category = models.ForeignKey('SectorCategory')
+    year = models.PositiveSmallIntegerField(null=False,blank=False)
+    partner = models.ForeignKey('Partner')
+    event = models.ForeignKey('Event')
+    government_staff_contribution = models.DecimalField(max_digits=15, decimal_places=4, null=False)
+    own_staff_contribution = models.DecimalField(max_digits=15, decimal_places=4, null=False)
+    total_event_contribution = models.DecimalField(max_digits=15, decimal_places=4, null=False)
+    
