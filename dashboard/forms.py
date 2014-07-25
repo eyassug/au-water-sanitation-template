@@ -1,9 +1,10 @@
-#!/usr/bin/env python
 from django import forms
+from dashboard.models import CountryDemographic, FacilityAccess
 
-class CountryStatusForm(forms.Form):
-    country = forms.CharField()    
-    year = forms.IntegerField()
-    population = forms.IntegerField()
-    
-    
+class CountryStatusForm(forms.ModelForm):
+    class Meta:
+        model = CountryDemographic
+        
+class FacilityAccessForm(forms.ModelForm):
+    class Meta:
+        model = FacilityAccess
