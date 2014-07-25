@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'SectorPerformanceCategory',
     'TenderProcedureProperty',
     'System',
+    'signups',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -89,8 +90,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 # Emplate Location
 TEMPLATE_DIRS = (
-    os.path.join(os.path.dirname(BASE_DIR), "static", "templates"),
+    os.path.join(os.path.dirname(BASE_DIR), "auwsssp", "static", "templates"),
 )
+# noly for local version.
 if DEBUG:
     MEDIA_URL = '/media/'
     STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "auwsssp", "static", "static-only")
