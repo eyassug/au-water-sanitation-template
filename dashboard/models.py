@@ -75,6 +75,15 @@ class CommunityApproachType(models.Model):
     class Meta:
         verbose_name_plural = "Community Approach Types"
     
+class Partner(models.Model):
+    name = models.CharField(max_length=120, null=False, blank=False)
+    mission = models.TextField()
+    key_activities = models.TextField()
+    is_active = models.BooleanField()
+    
+    def __str__(self):
+        return self.name
+    
 class CountryDemographic(models.Model):
     country = models.ForeignKey('Country')
     year = models.PositiveSmallIntegerField(null=False,blank=False)
@@ -137,3 +146,4 @@ class CommunityApproach(models.Model):
     description = models.TextField()
     cost_per_capita = models.DecimalField(max_digits=15, decimal_places=4, null=False)
     lessons_learnt = models.TextField()
+    
