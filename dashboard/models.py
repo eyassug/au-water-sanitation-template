@@ -76,4 +76,7 @@ class FacilityCharacter(models.Model):
     class Meta:
         verbose_name_plural = "Facility Character"
         
-    
+class CountryDemographic(models.Model):
+    country = models.ForeignKey('Country')
+    year = models.IntegerField(null=False,blank=False)
+    population = models.IntegerField(null=False,blank=False)
