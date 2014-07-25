@@ -105,3 +105,16 @@ class PlanningPerformance(models.Model):
     bottlenecks = models.TextField()
     measures_taken = models.TextField()
     success_challenges = models.TextField()
+
+class TenderProcedurePerformance(models.Model):
+    country = models.ForeignKey('Country')
+    sector_category = models.ForeignKey('SectorCategory')
+    year = models.PositiveSmallIntegerField(null=False,blank=False)
+    tender_procedure_property = models.ForeignKey('TenderProcedureProperty')
+    registered = models.PositiveSmallIntegerField(null=False,blank=False)
+    executed = models.PositiveSmallIntegerField(null=False,blank=False)
+    general_comment = models.TextField()
+    bottlenecks = models.TextField()
+    measures_taken = models.TextField()
+    success_challenges = models.TextField()
+    

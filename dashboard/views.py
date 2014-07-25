@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from dashboard.forms import CountryStatusForm, FacilityAccessForm, SectorPerformanceForm
-from dashboard.models import CountryDemographic, FacilityAccess, SectorPerformance, PlanningPerformance
+from dashboard.models import CountryDemographic, FacilityAccess, SectorPerformance, PlanningPerformance, TenderProcedurePerformance
 from django.views.generic import View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
@@ -22,3 +22,8 @@ class CountryStatusCreate(CreateView):
 class PlanningPerformanceCreate(CreateView):
     model = PlanningPerformance
     template_name = 'planning_performance_form.html'
+
+class TenderProcedurePerformanceCreate(CreateView):
+    model = TenderProcedurePerformance
+    template_name = 'tender_proc_performance_form.html'
+    
