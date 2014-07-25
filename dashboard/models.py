@@ -83,7 +83,15 @@ class Partner(models.Model):
     
     def __str__(self):
         return self.name
+
+class Event(models.Model):
+    name = models.CharField(max_length=120, null=False, blank=False)
+    date = models.DateField()
+    venue = models.CharField(max_length=120, null=False, blank=False)
     
+    def __str__(self):
+        return self.name + ' - ' + self.venue
+
 class CountryDemographic(models.Model):
     country = models.ForeignKey('Country')
     year = models.PositiveSmallIntegerField(null=False,blank=False)
@@ -147,3 +155,11 @@ class CommunityApproach(models.Model):
     cost_per_capita = models.DecimalField(max_digits=15, decimal_places=4, null=False)
     lessons_learnt = models.TextField()
     
+class PartnerContribution(models.Model):
+    country = models.ForeignKey('Country')
+    sector_category = models.ForeignKey('SectorCategory')
+    partner = models.ForeignKey('Partner')
+    annual_contribution = models.DecimalField(max_digits=15, decimal_places=4, null=False)
+    in_kind_contribution = models.DecimalField(max_digits=5, decimal_places=2, null=False)
+    financial_contribution = models.DecimalField(max_digits=5, decimal_places=2, null=False)
+        
