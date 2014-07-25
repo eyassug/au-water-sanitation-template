@@ -7,8 +7,10 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
-    url(r'^$', 'dashboard.views.create_coutry_status', name='home'),    
+    # Home:
+    
+    # Report Urls:
+    url(r'^report/countrystatus$', 'dashboard.views.create_coutry_status', name='home'),    
     url(r'^report/facilityaccess$', 'dashboard.views.facility_access', name='facility access'),
     # url(r'^blog/', include('blog.urls')),
     #url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
