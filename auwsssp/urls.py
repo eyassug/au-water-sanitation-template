@@ -6,12 +6,15 @@ from django.conf.urls.static import static
 from django.contrib import admin
 admin.autodiscover()
 
+from dashboard import views
+
 urlpatterns = patterns('',
     # Home:
     
     # Report Urls:
-    url(r'^report/countrystatus$', 'dashboard.views.create_coutry_status', name='home'),    
-    url(r'^report/facilityaccess$', 'dashboard.views.facility_access', name='facility access'),
+    url(r'^report/countrystatus$', views.CountryStatusCreate.as_view(), name='country_status_create'),
+    url(r'^report/sectorperformance$', views.SectorPerformanceCreate.as_view(), name='sector_performance_create'),    
+    url(r'^report/facilityaccess$', views.FacilityAccessCreate.as_view(), name='facility_access_create'),
     # url(r'^blog/', include('blog.urls')),
     #url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 

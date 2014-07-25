@@ -67,15 +67,31 @@ class FacilityCharacter(models.Model):
         
 class CountryDemographic(models.Model):
     country = models.ForeignKey('Country')
-    year = models.IntegerField(null=False,blank=False)
+    year = models.PositiveSmallIntegerField(null=False,blank=False)
     population = models.IntegerField(null=False,blank=False)
     
 class FacilityAccess(models.Model):
     priority_area = models.ForeignKey('PriorityArea')
     technology = models.ForeignKey('Technology')
-    year = models.IntegerField(null=False,blank=False)
+    year = models.PositiveSmallIntegerField(null=False,blank=False)
     planned = models.DecimalField(max_digits=19, decimal_places=10, null=False)
     actual = models.DecimalField(max_digits=19, decimal_places=10, null=False)
     unit_cost = models.DecimalField(max_digits=19, decimal_places=10, null=False)
     house_hold_contribution = models.DecimalField(max_digits=5, decimal_places=2, null=False)
     government_contribution = models.DecimalField(max_digits=5, decimal_places=2, null=False)
+    
+class SectorPerformance(models.Model):
+    country = models.ForeignKey('Country')
+    sector_category = models.ForeignKey('SectorCategory')
+    year = models.PositiveSmallIntegerField(null=False,blank=False)
+    coverage_target = models.DecimalField(max_digits=5, decimal_places=2, null=False)
+    coverage_achieved = models.DecimalField(max_digits=5, decimal_places=2, null=False)
+    fund_needed = models.DecimalField(max_digits=15, decimal_places=2, null=False)
+    fund_mobilised = models.DecimalField(max_digits=15, decimal_places=2, null=False)
+    fund_availed = models.DecimalField(max_digits=15, decimal_places=2, null=False)
+    fund_used = models.DecimalField(max_digits=15, decimal_places=2, null=False)
+    general_comment = models.TextField()
+    bottlenecks = models.TextField()
+    measures_taken = models.TextField()
+    success_challenges = models.TextField()
+    
