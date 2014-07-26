@@ -10,12 +10,13 @@ urlpatterns = patterns('',
     # Home:
     
     # Report Urls:
-    url(r'^report/countrystatus$', 'dashboard.views.create_coutry_status', name='home'),    
-    url(r'^report/facilityaccess$', 'dashboard.views.facility_access', name='facility access'),
+    url(r'^(?i)$', 'signups.views.home', name='home'),    
+    url(r'^(?i)report/countrystatus$', 'dashboard.views.create_coutry_status', name='home'),    
+    url(r'^(?i)report/facilityaccess$', 'dashboard.views.facility_access', name='facility access'),
     # url(r'^blog/', include('blog.urls')),
     #url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^(?i)admin/', include(admin.site.urls)),
 )
 
 if settings.DEBUG:
