@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content_container %}
+    <form action="" method="post">{% csrf_token %}
+        {% if auth_err %}
+            <p class="bg-danger">{{ auth_err }}</p>
+        {% endif %}
+        
+        {{ form.as_table }}
+        Password:<input id="id_password" name="password" type="password" />
+    <input type="submit" value="Submit" />
+
+
+{% endblock %}
