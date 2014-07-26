@@ -84,6 +84,7 @@
                     
                   </ul>
                 </li>
+	<li><a href="/admin">Administration</a></li>
 
 	
 
@@ -96,6 +97,7 @@
 	
 	<div class="starter-template">
             <div class ="row">
+		    {% block left_navigation %}
                 <div class ="col-lg-4">
                      <div>
         	
@@ -108,20 +110,23 @@
                     <li class="nav-header">FACILITY</li>
                     <li><a href="/report/FacilityAccess">Facility Access</a></li>
                     <li><a href="/report/SectorPerformance">Sector Performance</a></li>
-                    <li><a href="#">Planning Performance</a></li>
-                    <li><a href="#">Tender & Pro. Performance</a></li>
-                    <li><a href="#">Communities Approach</a></li>
-                    <li><a href="#">Partner Contribution to Country</a></li>
-                    <li><a href="#">Partner Contribution to Events</a></li>
-                    <li><a href="#">Sector SWOT & Conclusion</a></li>
+                    <li><a href="/report/PlanningPerformance">Planning Performance</a></li>
+                    <li><a href="/report/TenderProcPerformance">Tender & Pro. Performance</a></li>
+                    <li><a href="/report/CommunityApproach">Communities Approach</a></li>
+                    <li><a href="/report/PartnerContribution">Partner Contribution to Country</a></li>
+                    <li><a href="/report/PartnerEventContribution">Partner Contribution to Events</a></li>
+                    <li><a href="/report/swot">Sector SWOT & Conclusion</a></li>
                     <li class="divider"></li>
                     <li class="nav-header">REPORT</li>
                     <li><a href="#">Generate</a></li>
             </ul> 
          </div>
+		     {% endblock %}
                 </div>
-                <div class="col-lg-7">
-            {% block content_container %}
+		
+		
+          <div class="col-lg-5">
+          {% block content_container %}
 	<h1>Welcome To African Union</h1>
 	<p class="lead">Template for National Need Assessment<br>
                                                             for preparing the Kagame Action Plan for operationalizing the January 2014 African Union
@@ -129,12 +134,11 @@
                                                             Assembly Decision AU/DEC. 516 (XXII) on the implementation of the July 2008 Sharm EI-Sheikh
                                                             <br>
                                                             Commitments for Accelerating the Achievement of Water and Sanitation Goals in Africa.</p>
-	</div>
-	{% block content %}
-            
-            {% endblock %}
-	</div><!-- /.container -->
 	{% endblock %}
+	</div>
+	
+	</div><!-- /.container -->
+	
         </div>
 	</div>
 	<!-- Bootstrap core JavaScript
