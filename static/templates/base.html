@@ -91,10 +91,37 @@
 	</div><!--/.nav-collapse -->
 	</div>
 	</div>
-	{% block content_container %}
+	
 	<div class="container">
 	
 	<div class="starter-template">
+            <div class ="row">
+                <div class ="col-lg-4">
+                     <div>
+        	
+            <ul class="nav nav-pills nav-stacked">
+                <li class="nav-header">DEMOGRAPHIC</li>
+                    <li><a href="/report/CountryStatus">Country Status</a></li>
+                    <li><a href="/report/PriorityStatus">Priority Status</a></li>
+                                        
+                    <li class="divider"></li>
+                    <li class="nav-header">FACILITY</li>
+                    <li><a href="/report/FacilityAccess">Facility Access</a></li>
+                    <li><a href="/report/SectorPerformance">Sector Performance</a></li>
+                    <li><a href="#">Planning Performance</a></li>
+                    <li><a href="#">Tender & Pro. Performance</a></li>
+                    <li><a href="#">Communities Approach</a></li>
+                    <li><a href="#">Partner Contribution to Country</a></li>
+                    <li><a href="#">Partner Contribution to Events</a></li>
+                    <li><a href="#">Sector SWOT & Conclusion</a></li>
+                    <li class="divider"></li>
+                    <li class="nav-header">REPORT</li>
+                    <li><a href="#">Generate</a></li>
+            </ul> 
+         </div>
+                </div>
+                <div class="col-lg-7">
+            {% block content_container %}
 	<h1>Welcome To African Union</h1>
 	<p class="lead">Template for National Need Assessment<br>
                                                             for preparing the Kagame Action Plan for operationalizing the January 2014 African Union
@@ -108,7 +135,8 @@
             {% endblock %}
 	</div><!-- /.container -->
 	{% endblock %}
-	
+        </div>
+	</div>
 	<!-- Bootstrap core JavaScript
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
