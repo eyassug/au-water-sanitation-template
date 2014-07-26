@@ -1,8 +1,62 @@
 {% extends 'base.html' %}
 {% block content_container %}
+    <!-- 
     <form action="" method="post">{% csrf_token %}
         {{ form.as_table }}
     <input type="submit" value="Submit" />
+    !-->
+    <h1>Community Approach</h1>
+    <form action="" method="post" role="form">
+        {% csrf_token %}
+        <div class="form-group">
+            {% if form.community_approach.errors %}
+                <ol>
+                {% for error in form.country.errors %}
+                    <li><strong>{{ error|escape }}</strong></li>
+                {% endfor %}
+                </ol>
+            {% endif %}
+            <label for="id_country">Country:</label>
+            <select id="id_country" name="country" class="form-control">
+            <option value="" selected="selected">---------</option>
+            </select>
+        </div>
+        <div class="form-group{% if form.year.errors %} has-error{% endif %}">
+            <label for="id_sector_category">Sector category:</label>
+            <select id="id_sector_category" name="sector_category" class="form-control">
+            <option value="" selected="selected">---------</option>
+            </select>
+        </div>
+        <div class="form-group{% if form.year.errors %} has-error{% endif %}">
+            <label for="id_year">Year:</label>
+            <input id="id_year" min="0" name="year" type="number" class="form-control" />
+        </div>
+        <div class="form-group{% if form.year.errors %} has-error{% endif %}">
+            <label for="id_approach_type">Approach type:</label>
+            <select id="id_approach_type" name="approach_type" class="form-control">
+            <option value="" selected="selected">---------</option>
+            </select>
+        </div>
+        <div class="form-group{% if form.year.errors %} has-error{% endif %}">
+            <label for="id_approach_name">Approach name:</label>
+            <input id="id_approach_name" maxlength="120" name="approach_name" type="text" class="form-control" />
+        </div>
+            <div class="form-group{% if form.year.errors %} has-error{% endif %}">
+            <label for="id_description">Description:</label>
+            <textarea cols="40" id="id_description" name="description" rows="3" class="form-control">
+            </textarea>
+        </div>
+        <div class="form-group{% if form.year.errors %} has-error{% endif %}">    
+            <label for="id_cost_per_capita">Cost per capita:</label>
+            <input id="id_cost_per_capita" name="cost_per_capita" step="0.0001" type="number" class="form-control" />
+        </div>
+        <div class="form-group{% if form.year.errors %} has-error{% endif %}">
+            <label for="id_lessons_learnt">Lessons learnt:</label>
+            <textarea cols="40" id="id_lessons_learnt" name="lessons_learnt" class="form-control" rows="3">
+            </textarea>
+        </div>
+            <input type="submit" value="Submit" />
+    </form>
 
 
 {% endblock %}

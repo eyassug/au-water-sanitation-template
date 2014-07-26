@@ -1,22 +1,13 @@
 body {
-  padding-top: 50px;
+padding-top: 70px;
 }
-.starter-template {
-padding: 40px 15px;
-text-align: right;
-float: left;
-}
-.starter-template select
-{text-align: left;
-
-width: 155px;}
 
 .navbar-inverse {
-background-color: rgb(252, 235, 110);
+
 border-color: green;
 }
 .navbar-inverse .navbar-nav>li>a {
-color: #000000;
+color: #ffffff;
 font-weight: bold;
 }
 .nav-header {
@@ -30,13 +21,3 @@ text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 text-transform: uppercase;
 }
 
-.col-lg-4
-{
-   padding-right: 50px;
-  text-align: left;
-  float: left;  
-}
-.row {
-margin-right: -15px;
-margin-left: -79px;
-}

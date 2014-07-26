@@ -1,8 +1,57 @@
 {% extends 'base.html' %}
 {% block content_container %}
+    <!-- 
     <form action="" method="post">{% csrf_token %}
         {{ form.as_table }}
     <input type="submit" value="Submit" />
+!-->
+    <h1>Facility Access</h1>
+    <form action="" method="post" role="form">
+        {% csrf_token %}
+        <div class="form-group">
+            {% if form.FacilityAccess.errors %}
+            <ol>
+            {% for error in form.FacilityAccess.errors %}
+                <li><strong>{{ error|escape }}</strong></li>
+            {% endfor %}
+            </ol>
+        {% endif %}
+            <label for="id_priority_area">Priority area:</label>
+            <select id="id_priority_area" name="priority_area" class="form-control">
+            <option value="" selected="selected">---------</option>
+        </select>
+        </div>
+        <div class="form-group">
+            <label for="id_technology">Technology:</label>
+            <select id="id_technology" name="technology" class="form-control">
+            <option value="" selected="selected">---------</option>
+        </div>
+        </select>
+        <div class="form-group{% if form.year.errors %} has-error{% endif %}">        
+            <label for="id_year">Year:</label>
+            <input id="id_year" min="0" name="year" type="number" class="form-control" />
+        </div>
+        <div class="form-group{% if form.planned.errors %} has-error{% endif %}">
+            <label for="id_planned">Planned:</label>
+            <input id="id_planned" name="planned" step="1e-10" type="number" class="form-control" />
+        </div>
+        <div class="form-group{% if form.actual.errors %} has-error{% endif %}">
+            <label for="id_actual">Actual:</label>
+            <input id="id_actual" name="actual" step="1e-10" type="number" class="form-control" />
+        </div>
+        <div class="form-group{% if form.unit_cost.errors %} has-error{% endif %}" >
+            <label for="id_unit_cost">Unit cost:</label>
+            <input id="id_unit_cost" name="unit_cost" step="1e-10" type="number" class="form-control" />
+        </div>
+        <div class="form-group{% if form.house_hold_contribution.errors %} has-error{% endif %}">
+            <label for="id_house_hold_contribution">House hold contribution:</label>
+            <input id="id_house_hold_contribution" name="house_hold_contribution" step="0.01" type="number" class="form-control" />
+        </div>
+        <div class="form-group{% if form.government_contribution.errors %} has-error{% endif %}">
+            <label for="id_government_contribution">Government contribution:</label>
+            <input id="id_government_contribution" name="government_contribution" step="0.01" type="number" class="form-control" />
+        </div>
+    <button type="submit" class="btn btn-default">Submit</button>
 
 
 {% endblock %}

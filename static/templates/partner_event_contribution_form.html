@@ -1,8 +1,61 @@
 {% extends 'base.html' %}
 {% block content_container %}
-    <form action="" method="post">{% csrf_token %}
+    <!-- <form action="" method="post">{% csrf_token %}
         {{ form.as_table }}
     <input type="submit" value="Submit" />
+    !-->
+    <h1>Partner Contribution to Events</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            {% if form.country.errors %}
+                <ol>
+                {% for error in form.country.errors %}
+                    <li><strong>{{ error|escape }}</strong></li>
+                {% endfor %}
+                </ol>
+            {% endif %}
+            <label for="id_country">Country:</label>
+            <select id="id_country" name="country" class="form-control">
+            <option value="" selected="selected">---------</option>
+            </select>
+        </div>
+        <div class="form-group{% if form.sector_category.errors %} has-error{% endif %}">
+            <label for="id_sector_category">Sector category:</label>
+            <select id="id_sector_category" name="sector_category" class="form-control">
+            <option value="" selected="selected">---------</option>
+            </select>
+        </div>
+        <div class="form-group{% if form.year.errors %} has-error{% endif %}">
+            <label for="id_year">Year:</label>
+            <input id="id_year" min="0" name="year" type="number" class="form-control" />
+        </div>
+        <div class="form-group{% if form.partner.errors %} has-error{% endif %}">
+            <label for="id_partner">Partner:</label>
+            <select id="id_partner" name="partner" class="form-control">
+            <option value="" selected="selected">---------</option>
+            </select>
+        </div>
+        <div class="form-group{% if form.event.errors %} has-error{% endif %}">
+            <label for="id_event">Event:</label>
+            <select id="id_event" name="event" class="form-control">
+            <option value="" selected="selected">---------</option>
+            </select>
+        </div>
+        <div class="form-group{% if form.government_staff_contribution.errors %} has-error{% endif %}">
+            <label for="id_government_staff_contribution">Government staff contribution:</label>
+            <input id="id_government_staff_contribution" name="government_staff_contribution" step="0.0001" type="number" class="form-control" />
+        </div>
+        <div class="form-group{% if form.own_staff_contribution.errors %} has-error{% endif %}">
+            <label for="id_own_staff_contribution">Own staff contribution:</label>
+            <input id="id_own_staff_contribution" name="own_staff_contribution" step="0.0001" type="number" class="form-control" />
+        </div>
+        <div class="form-group{% if form.total_event_contribution.errors %} has-error{% endif %}">
+            <label for="id_total_event_contribution">Total event contribution:</label>
+            <input id="id_total_event_contribution" name="total_event_contribution" step="0.0001" type="number" class="form-control" />
+        </div>
+           <button type="submit" class="btn btn-default">Submit</button>
+    </form>
 
 
 {% endblock %}

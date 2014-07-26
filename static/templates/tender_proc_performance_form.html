@@ -1,8 +1,72 @@
 {% extends 'base.html' %}
 {% block content_container %}
+    <!--
     <form action="" method="post">{% csrf_token %}
         {{ form.as_table }}
     <input type="submit" value="Submit" />
+    !-->
+    <form action="" method="post"><input type='hidden' name='csrfmiddlewaretoken' value='SZKZCNEw5tyKyjVJr9s47b4sVeLB30aW' />
+        <form action="" method="post" role="form">
+    {% csrf_token %}
+        <div class="form-group">
+            {% if form.country.errors %}
+                <ol>
+                {% for error in form.country.errors %}
+                    <li><strong>{{ error|escape }}</strong></li>
+                {% endfor %}
+                </ol>
+            {% endif %}
+            <label for="id_country">Country:</label>
+            <select id="id_country" name="country" class="form-control">
+            <option value="" selected="selected">---------</option>
+            </select>
+        </div>
+        <div class="form-group{% if form.sector_category.errors %} has-error{% endif %}">
+            <label for="id_sector_category">Sector category:</label>
+            <select id="id_sector_category" name="sector_category" class="form-control"> 
+            <option value="" selected="selected">---------</option>
+            </select>
+        </div>
+        <div class="form-group{% if form.year.errors %} has-error{% endif %}">
+            <label for="id_year">Year:</label>
+            <input id="id_year" min="0" name="year" type="number" class="form-control" />
+        </div>
+        <div class="form-group{% if form.tender_procedure_property.errors %} has-error{% endif %}">
+            <label for="id_tender_procedure_property">Tender procedure property:</label>
+            <select id="id_tender_procedure_property" name="tender_procedure_property" class="form-control">
+            <option value="" selected="selected">---------</option>
+            </select>
+        </div>
+        <div class="form-group{% if form.registered.errors %} has-error{% endif %}">
+            <label for="id_registered">Registered:</label>
+            <input id="id_registered" min="0" name="registered" type="number" class="form-control" />
+        </div>
+        <div class="form-group{% if form.executed.errors %} has-error{% endif %}">
+            <label for="id_executed">Executed:</label>
+            <input id="id_executed" min="0" name="executed" type="number" class="form-control" />
+        </div>
+        <div class="form-group{% if form.general_comment.errors %} has-error{% endif %}">
+            <label for="id_general_comment">General comment:</label>
+            <textarea cols="40" id="id_general_comment" name="general_comment" class="form-control" rows="3">
+            </textarea>
+        </div>
+        <div class="form-group{% if form.bottlenecks.errors %} has-error{% endif %}">
+            <label for="id_bottlenecks">Bottlenecks:</label>
+            <textarea cols="40" id="id_bottlenecks" name="bottlenecks" class="form-control" rows="3">
+            </textarea>
+        </div>
+        <div class="form-group{% if form.year.errors %} has-error{% endif %}">
+            <label for="id_measures_taken">Measures taken:</label>
+            <textarea cols="40" id="id_measures_taken" name="measures_taken" class="form-control" rows="3">
+            </textarea>
+        </div>
+        <div class="form-group{% if form.success_challeges.errors %} has-error{% endif %}">
+            <label for="id_success_challenges">Success challenges:</label>
+            <textarea cols="40" id="id_success_challenges" name="success_challenges" class="form-control" rows="3">
+            </textarea>
+        </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+    </form>
 
 
 {% endblock %}

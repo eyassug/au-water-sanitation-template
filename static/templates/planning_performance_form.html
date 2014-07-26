@@ -1,8 +1,64 @@
 {% extends 'base.html' %}
 {% block content_container %}
+    <!-- 
     <form action="" method="post">{% csrf_token %}
         {{ form.as_table }}
     <input type="submit" value="Submit" />
-
+    !-->
+    <h1>Planning Performance</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+         <div class="form-group">
+            {% if form.country.errors %}
+                <ol>
+                {% for error in form.country.errors %}
+                    <li><strong>{{ error|escape }}</strong></li>
+                {% endfor %}
+                </ol>
+            {% endif %}
+            <label for="id_country">Country:</label>
+            <select id="id_country" name="country" class="form-control">
+            <option value="" selected="selected">---------</option>
+            </select>
+         </div>
+         <div class="form-group{% if form.sector_category.errors %} has-error{% endif %}">
+            <label for="id_sector_category">Sector category:</label>
+            <select id="id_sector_category" name="sector_category" class="form-control" >
+            <option value="" selected="selected">---------</option>
+            </select>
+         </div>
+         <div class="form-group{% if form.year.errors %} has-error{% endif %}">
+            <label for="id_year">Year:</label>
+            <input id="id_year" min="0" name="year" type="number" class="form-control" />
+         </div>
+         <div class="form-group{% if form.preparation_delay.errors %} has-error{% endif %}">
+            <label for="id_plan_preparation_delay">Plan preparation delay:</label>
+            <input id="id_plan_preparation_delay" min="0" name="plan_preparation_delay" type="number" class="form-control" />
+         </div>
+         <div class="form-group{% if form.plan_adoption_delay.errors %} has-error{% endif %}">
+            <label for="id_plan_adoption_delay">Plan adoption delay:</label>
+            <input id="id_plan_adoption_delay" min="0" name="plan_adoption_delay" type="number" class="form-control" />
+         </div>
+         <div class="form-group{% if form.general_comment.errors %} has-error{% endif %}">
+            <label for="id_general_comment">General comment:</label>
+            <textarea cols="40" id="id_general_comment" name="general_comment" class="form-control" rows="3">
+            </textarea>
+         </div>
+         <div class="form-group{% if form.bottlenecks.errors %} has-error{% endif %}">
+            <label for="id_bottlenecks">Bottlenecks:</label>
+            <textarea cols="40" id="id_bottlenecks" name="bottlenecks" class="form-control" rows="3">
+            </textarea>
+         </div>
+         <div class="form-group{% if form.measures_taken.errors %} has-error{% endif %}">
+            <label for="id_measures_taken">Measures taken:</label>
+            <textarea cols="40" id="id_measures_taken" name="measures_taken" class="form-control" rows="3">
+            </textarea>
+         </div>
+         <div class="form-group{% if form.success_challenges.errors %} has-error{% endif %}">
+            <label for="id_success_challenges">Success challenges:</label>
+            <textarea cols="40" id="id_success_challenges" name="success_challenges" class="form-control" rows="3">
+            </textarea>
+         </div>
+        <button type="submit" class="btn btn-default">Submit</button>
 
 {% endblock %}
