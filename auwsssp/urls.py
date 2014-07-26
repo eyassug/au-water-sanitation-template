@@ -6,17 +6,25 @@ from django.conf.urls.static import static
 from django.contrib import admin
 admin.autodiscover()
 
+from dashboard import views
+
 urlpatterns = patterns('',
     # Home:
     
     # Report Urls:
-    url(r'^(?i)$', 'signups.views.home', name='home'),    
-    url(r'^(?i)report/countrystatus$', 'dashboard.views.create_coutry_status', name='home'),    
-    url(r'^(?i)report/facilityaccess$', 'dashboard.views.facility_access', name='facility access'),
+    url(r'^report/countrystatus$', views.CountryStatusCreate.as_view(), name='country_status_create'),
+    url(r'^report/sectorperformance$', views.SectorPerformanceCreate.as_view(), name='sector_performance_create'),    
+    url(r'^report/facilityaccess$', views.FacilityAccessCreate.as_view(), name='facility_access_create'),
+    url(r'^report/planningperformance$', views.PlanningPerformanceCreate.as_view(), name='planning_performance_create'),
+    url(r'^report/tenderprocperformance$', views.TenderProcedurePerformanceCreate.as_view(), name='tender_proc_performance_create'),
+    url(r'^report/communityapproach$', views.CommunityApproachCreate.as_view(), name='community_approach_create'),
+    url(r'^report/partnercontribution$', views.PartnerContributionCreate.as_view(), name='partner_contribution_create'),
+    url(r'^report/partnereventcontribution$', views.PartnerEventContributionCreate.as_view(), name='partner_event_contribution_create'),
+    url(r'^report/swot$', views.SWOTAndConclusionCreate.as_view(), name='swot_create'),
     # url(r'^blog/', include('blog.urls')),
     #url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
-    url(r'^(?i)admin/', include(admin.site.urls)),
+    url(r'^admin/', include(admin.site.urls)),
 )
 
 if settings.DEBUG:
