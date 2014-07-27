@@ -33,12 +33,13 @@
             </select>
         </div>
         <div class="form-group{% if form.year.errors %} has-error{% endif %}">
-            <label for="id_annual_contribution">Annualcontribution:</label>
+            <label for="id_annual_contribution">Annual Contribution:</label>
             <input id="id_annual_contribution" name="annual_contribution" step="0.0001" type="number" class="form-control" />
         </div>
         <div class="form-group{% if form.year.errors %} has-error{% endif %}">
             <label for="id_in_kind_contribution">In kind contribution:</label>
             <input id="id_in_kind_contribution" name="in_kind_contribution" step="0.01" type="number" class="form-control" />
+        </div>
         <div class="form-group{% if form.year.errors %} has-error{% endif %}">
             <label for="id_financial_contribution">Financial contribution:</label>
             <input id="id_financial_contribution" name="financial_contribution" step="0.01" type="number" class="form-control" />
