@@ -1,33 +1,19 @@
 {% extends 'base.html' %}
 {% block content_container %}
-    <!-- 
-    <form action="" method="post">{% csrf_token %}
-        {{ form.as_table }}
-    <input type="submit" value="Submit" />
-!-->
+  {% load widget_tweaks %}
     <h1>Facility Access</h1>
     <form action="" method="post" role="form">
         {% csrf_token %}
-        <div class="form-group">
-            {% if form.FacilityAccess.errors %}
-            <ol>
-            {% for error in form.FacilityAccess.errors %}
-                <li><strong>{{ error|escape }}</strong></li>
-            {% endfor %}
-            </ol>
-        {% endif %}
+        <div class="form-group{% if form.year.errors %} has-error{% endif %}">           
             <label for="id_priority_area">Priority area:</label>
-            <select id="id_priority_area" name="priority_area" class="form-control">
-            <option value="" selected="selected">---------</option>
-        </select>
+            {% render_field form.priority_area class+="form-control" %}
         </div>
-        <div class="form-group">
+        <div class="form-group{% if form.technology.errors %} has-error{% endif %}">
             <label for="id_technology">Technology:</label>
-            <select id="id_technology" name="technology" class="form-control">
-            <option value="" selected="selected">---------</option>
+            {% render_field form.technology class+="form-control" %}
         </div>
-        </select>
-        <div class="form-group{% if form.year.errors %} has-error{% endif %}">        
+        
+        <div class="form-group{% if form.year.errors %} has-error{% endif %}">
             <label for="id_year">Year:</label>
             <input id="id_year" min="0" name="year" type="number" class="form-control" />
         </div>
