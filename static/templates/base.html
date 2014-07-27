@@ -131,19 +131,22 @@
 		
           <div class="col-lg-5">
           {% block content_container %}
-	<img src="../media/header.png" alt="AU" class="img-thumbnail">
-	  <h1 style="text-align: center">Welcome To African Union</h1>
-	       
-	<p class="lead">Template for National Need Assessment<br>
+	  <div class="jumbotron">
+		    <img src="../media/header.png" alt="AU" class="img-thumbnail">
+  <h1 style="text-align: center">Welcome To African Union</h1>
+  <p class="lead">Template for National Need Assessment<br>
                                                             for preparing the Kagame Action Plan for operationalizing the January 2014 African Union
                                                             <br>
                                                             Assembly Decision AU/DEC. 516 (XXII) on the implementation of the July 2008 Sharm EI-Sheikh
                                                             <br>
                                                             Commitments for Accelerating the Achievement of Water and Sanitation Goals in Africa.</p>
-	{% if not user.is_authenticated %}
-	<a href="/login" class="btn btn-primary btn-lg active" role="button">Login</a>
+  {% if not user.is_authenticated %}
+	<a href="/login" class="btn btn-primary active" role="button">Login</a>
 	{% endif %}
 	{% endblock %}
+</div>
+	
+	
 	</div>
 	
 	</div><!-- /.container -->
