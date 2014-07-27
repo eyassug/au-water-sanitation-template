@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from dashboard.forms import CountryStatusForm, FacilityAccessForm, SectorPerformanceForm
-from dashboard.models import CountryDemographic, FacilityAccess, SectorPerformance, PlanningPerformance, TenderProcedurePerformance, CommunityApproach, PartnerContribution, PartnerEventContribution, SWOT
+from dashboard.models import CountryDemographic, FacilityAccess, SectorPerformance, PlanningPerformance, TenderProcedurePerformance, CommunityApproach, PartnerContribution, PartnerEventContribution, SWOT, PriorityAreaStatus
 from django.views.generic import View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import authenticate, login, logout
@@ -20,6 +20,10 @@ class FacilityAccessCreate(LoginRequiredMixin,CreateView):
 class CountryStatusCreate(LoginRequiredMixin,CreateView):
     model = CountryDemographic
     template_name = 'country_status_form.html'
+    
+class PriorityAreaStatusCreate(LoginRequiredMixin,CreateView):
+    model = PriorityAreaStatus
+    template_name = 'priority_area_status_form.html'
     
 class PlanningPerformanceCreate(LoginRequiredMixin,CreateView):
     model = PlanningPerformance

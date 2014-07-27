@@ -99,6 +99,12 @@ class CountryDemographic(models.Model):
     year = models.PositiveSmallIntegerField(null=False,blank=False)
     population = models.IntegerField(null=False,blank=False)
     
+class PriorityAreaStatus(models.Model):
+    prioriry_area = models.ForeignKey('PriorityArea')
+    year = models.PositiveIntegerField()
+    population = models.IntegerField()
+    number_of_households = models.IntegerField()
+    
 class FacilityAccess(models.Model):
     priority_area = models.ForeignKey('PriorityArea')
     technology = models.ForeignKey('Technology')

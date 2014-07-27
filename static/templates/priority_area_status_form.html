@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content_container %}
+<!--
+    <form action="" method="post">{% csrf_token %}
+        {{ form }}
+    <input type="submit" value="Submit" />
+    
+    -->
+    <h1>Priority Area Status</h1>
+ <form action="" method="post" role="form">
+    {% csrf_token %}
+    {{ form }}
+ </form>
+
+
+{% endblock %}
