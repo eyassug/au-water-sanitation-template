@@ -92,6 +92,7 @@ STATIC_URL = '/static/'
 # Emplate Location
 TEMPLATE_DIRS = (
     os.path.join(os.path.dirname(BASE_DIR), "auwsssp", "static", "templates"),
+    os.path.join(os.path.dirname(BASE_DIR), "auwsssp", "static", "templates","admin"),
 )
 # noly for local version.
 if DEBUG:
