@@ -21,7 +21,7 @@ urlpatterns = patterns('',
     url(r'^(?i)report/partnercontribution$', views.PartnerContributionCreate.as_view(), name='partner_contribution_create'),
     url(r'^(?i)report/partnereventcontribution$', views.PartnerEventContributionCreate.as_view(), name='partner_event_contribution_create'),
     url(r'^(?i)report/swot$', views.SWOTAndConclusionCreate.as_view(), name='swot_create'),
-    url(r'^(?i)login/$', views.Login.as_view(), name='login'),    
+    url(r'^(?i)login/$', 'django.contrib.auth.views.login', name='login'),    
     url(r'^(?i)logout/$', views.Logout.as_view(), name='logout'),
 
     url(r'^(?i)$', 'signups.views.home', name='home'),    
