@@ -44,7 +44,6 @@ class TenderProcedureProperty(models.Model):
         verbose_name_plural = "Tender & Procedure Properties"
     
 class Technology(models.Model):
-    sector_category = models.ForeignKey('SectorCategory')
     facility_character = models.ForeignKey('FacilityCharacter')
     name = models.CharField(max_length=120, null=False, blank=False)
     is_active = models.BooleanField()
