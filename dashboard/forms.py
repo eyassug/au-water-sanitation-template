@@ -12,3 +12,9 @@ class FacilityAccessForm(forms.ModelForm):
 class SectorPerformanceForm(forms.ModelForm):
     class Meta:
         model = SectorPerformance
+        
+class LoginForm(forms.Form):
+    username = forms.CharField()
+    password = forms.PasswordInput()
+    
+    

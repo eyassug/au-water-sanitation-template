@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content_container %}
+       
+    <form role="form" method="post">{% csrf_token %}
+        <p class="bg-danger">{{ auth_err }}</p>
+        <div class="form-group">
+          <label for="id_username">Username</label>
+          <input type="email" class="form-control" id="id_username" placeholder="Enter Username">
+        </div>
+        <div class="form-group">
+          <label for="id_password">Password</label>
+          <input type="password" class="form-control" id="id_password" placeholder="Password" />
+        </div>  
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>
+
+
+{% endblock %}
