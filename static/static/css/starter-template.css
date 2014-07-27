@@ -20,4 +20,20 @@ color: #999999;
 text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 text-transform: uppercase;
 }
+.boarder {
+margin-left: 0;
+margin-right: 0;
+background-color: #D6D6D6;
+border-width: 1px;
+border-color: #ddd;
+border-radius: 4px 4px 0 0;
+box-shadow: none;
+padding-right: 40px;
+padding-left: 20px;
+padding-bottom: 10px;
+padding-top: 10px;
 
+}
+.lead {
+text-align: center;
+}
