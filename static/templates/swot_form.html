@@ -1,29 +1,21 @@
 {% extends 'base.html' %}
 {% block content_container %}
    <!-- <form action="" method="post">{% csrf_token %}
+   
         {{ form.as_table }}
     <input type="submit" value="Submit" />
 !-->
+{% load widget_tweaks %}
     <h1>Sector SWOT & Conclusion</h1>
     <form action="" method="post">
             {% csrf_token %}
-            <div class="form-group">
-                {% if form.country.errors %}
-                    <ol>
-                    {% for error in form.country.errors %}
-                        <li><strong>{{ error|escape }}</strong></li>
-                    {% endfor %}
-                    </ol>
-                {% endif %}
+             <div class="form-group{% if form.country.errors %} has-error{% endif %}">
                 <label for="id_country">Country:</label>
-                <select id="id_country" name="country" class="form-control">
-                <option value="" selected="selected">---------</option>
-                </select
+                {% render_field form.country class+="form-control" %}
             </div>
             <div class="form-group{% if form.sector_category.errors %} has-error{% endif %}">
                 <label for="id_sector_category">Sector category:</label>
-                <select id="id_sector_category" name="sector_category" class="form-control">
-                <option value="" selected="selected">---------</option>
+                {% render_field form.sector_category class+="form-control" %}
                 </select>
             </div>
             <div class="form-group{% if form.overall_challenges.errors %} has-error{% endif %}">
