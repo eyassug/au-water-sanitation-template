@@ -5,37 +5,37 @@
     <form action="" method="post" role="form">
         {% csrf_token %}
         <div class="form-group{% if form.year.errors %} has-error{% endif %}">           
-            <label for="id_priority_area">Priority area:</label>
+            <label for="id_priority_area">Priority Area</label>
             {% render_field form.priority_area class+="form-control" %}
         </div>
         <div class="form-group{% if form.technology.errors %} has-error{% endif %}">
-            <label for="id_technology">Technology:</label>
+            <label for="id_technology">Technology</label>
             {% render_field form.technology class+="form-control" %}
         </div>
         
         <div class="form-group{% if form.year.errors %} has-error{% endif %}">
-            <label for="id_year">Year:</label>
+            <label for="id_year">Year</label>
             {% render_field form.year class+="form-control" min=1990 max=2020 %}
             
         </div>
         <div class="form-group{% if form.planned.errors %} has-error{% endif %}">
-            <label for="id_planned">Planned:</label>
+            <label for="id_planned">No. Facility Planned</label>
             <input id="id_planned" name="planned" step="1e-10" type="number" class="form-control" />
         </div>
         <div class="form-group{% if form.actual.errors %} has-error{% endif %}">
-            <label for="id_actual">Actual:</label>
+            <label for="id_actual">No Facility Reported</label>
             <input id="id_actual" name="actual" step="1e-10" type="number" class="form-control" />
         </div>
         <div class="form-group{% if form.unit_cost.errors %} has-error{% endif %}" >
-            <label for="id_unit_cost">Unit cost:</label>
+            <label for="id_unit_cost">Unit Cost</label>
             <input id="id_unit_cost" name="unit_cost" step="1e-10" type="number" class="form-control" />
         </div>
         <div class="form-group{% if form.house_hold_contribution.errors %} has-error{% endif %}">
-            <label for="id_house_hold_contribution">House hold contribution:</label>
+            <label for="id_house_hold_contribution">% House Hold Contribution:</label>
             <input id="id_house_hold_contribution" name="house_hold_contribution" step="0.01" type="number" class="form-control" />
         </div>
         <div class="form-group{% if form.government_contribution.errors %} has-error{% endif %}">
-            <label for="id_government_contribution">Government contribution:</label>
+            <label for="id_government_contribution">% Government Contribution:</label>
             <input id="id_government_contribution" name="government_contribution" step="0.01" type="number" class="form-control" />
         </div>
     <button type="submit" class="btn btn-default">Submit</button>

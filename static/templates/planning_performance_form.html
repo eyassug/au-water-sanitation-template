@@ -12,43 +12,42 @@
     <form action="" method="post">
         {% csrf_token %}
          <div class="form-group{% if form.country.errors %} has-error{% endif %}">
-                <label for="id_country">Country:</label>
+                <label for="id_country">Country</label>
                 {% render_field form.country class+="form-control" %}
             </div>
-            <div class="form-group{% if form.sector_category.errors %} has-error{% endif %}">
-                <label for="id_sector_category">Sector category:</label>
-                {% render_field form.sector_category class+="form-control" %}
-                </select>
-            </div>
+        <div class="form-group{% if form.sector_category.errors %} has-error{% endif %}">
+            <label for="id_sector_category">Sector Category</label>
+            {% render_field form.sector_category class+="form-control" %}
+        </div>
          <div class="form-group{% if form.year.errors %} has-error{% endif %}">
-            <label for="id_year">Year:</label>
+            <label for="id_year">Year</label>
             <input id="id_year" min="0" name="year" type="number" class="form-control" />
          </div>
          <div class="form-group{% if form.preparation_delay.errors %} has-error{% endif %}">
-            <label for="id_plan_preparation_delay">Plan preparation delay:</label>
+            <label for="id_plan_preparation_delay">Delay of Preparing the Plan</label>
             <input id="id_plan_preparation_delay" min="0" name="plan_preparation_delay" type="number" class="form-control" />
          </div>
          <div class="form-group{% if form.plan_adoption_delay.errors %} has-error{% endif %}">
-            <label for="id_plan_adoption_delay">Plan adoption delay:</label>
+            <label for="id_plan_adoption_delay">Delay of Adopting the Plan</label>
             <input id="id_plan_adoption_delay" min="0" name="plan_adoption_delay" type="number" class="form-control" />
          </div>
          <div class="form-group{% if form.general_comment.errors %} has-error{% endif %}">
-            <label for="id_general_comment">General comment:</label>
+            <label for="id_general_comment">General Comment</label>
             <textarea cols="40" id="id_general_comment" name="general_comment" class="form-control" rows="3">
             </textarea>
          </div>
          <div class="form-group{% if form.bottlenecks.errors %} has-error{% endif %}">
-            <label for="id_bottlenecks">Bottlenecks:</label>
+            <label for="id_bottlenecks">Bottlenecks</label>
             <textarea cols="40" id="id_bottlenecks" name="bottlenecks" class="form-control" rows="3">
             </textarea>
          </div>
          <div class="form-group{% if form.measures_taken.errors %} has-error{% endif %}">
-            <label for="id_measures_taken">Measures taken:</label>
+            <label for="id_measures_taken">Measures Taken</label>
             <textarea cols="40" id="id_measures_taken" name="measures_taken" class="form-control" rows="3">
             </textarea>
          </div>
          <div class="form-group{% if form.success_challenges.errors %} has-error{% endif %}">
-            <label for="id_success_challenges">Success challenges:</label>
+            <label for="id_success_challenges">Success Challenges</label>
             <textarea cols="40" id="id_success_challenges" name="success_challenges" class="form-control" rows="3">
             </textarea>
          </div>

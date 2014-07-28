@@ -18,62 +18,58 @@
                 {% endfor %}
                 </ol>
             {% endif %}
-            <label for="id_country">Country:</label>
-            <select id="id_country" name="country" class="form-control">
-            <option value="" selected="selected">---------</option>
-            </select>
+            <label for="id_country">Country</label>
+            {% render_field form.country class+="form-control" %}
         </div>
         <div class="form-group{% if form.sector_category.errors %} has-error{% endif %}">
-            <label for="id_sector_category">Sector category:</label>
-            <select id="id_sector_category" name="sector_category" class="form-control">
-            <option value="" selected="selected">---------</option>
-            </select>
+            <label for="id_sector_category">Sector category</label>
+            {% render_field form.sector_category class+="form-control" %}
         </div>
         <div class="form-group{% if form.year.errors %} has-error{% endif %}">
-            <label for="id_year">Year:</label>
+            <label for="id_year">Year</label>
             <input id="id_year" min="0" name="year" type="number" class="form-control"/>
         </div>
         <div class="form-group{% if form.coverage_target.errors %} has-error{% endif %}">
-            <label for="id_coverage_target">Coverage target:</label>
+            <label for="id_coverage_target">Coverage Target %</label>
             <input id="id_coverage_target" name="coverage_target" step="0.01" type="number" class="form-control" />
         </div>
         <div class="form-group{% if form.coverage_achieved.errors %} has-error{% endif %}">
-            <label for="id_coverage_achieved">Coverage achieved:</label>
+            <label for="id_coverage_achieved">Coverage Achieved</label>
             <input id="id_coverage_achieved" name="coverage_achieved" step="0.01" type="number" class="form-control" />
         </div>
         <div class="form-group{% if form.fund_needed.errors %} has-error{% endif %}">
-            <label for="id_fund_needed">Fund needed:</label>
+            <label for="id_fund_needed">Fund Needed</label>
             <input id="id_fund_needed" name="fund_needed" step="0.01" type="number" class="form-control" />
         </div>
         <div class="form-group{% if form.fund_mobillised.errors %} has-error{% endif %}">
-            <label for="id_fund_mobilised">Fund mobilised:</label>
+            <label for="id_fund_mobilised">Fund Mobilized</label>
             <input id="id_fund_mobilised" name="fund_mobilised" step="0.01" type="number" class="form-control" />
         </div>
         <div class="form-group{% if form.fund_availed.errors %} has-error{% endif %}">
-            <label for="id_fund_availed">Fund availed:</label>
+            <label for="id_fund_availed">Fund Availed</label>
             <input id="id_fund_availed" name="fund_availed" step="0.01" type="number" class="form-control" />
         </div>
         <div class="form-group{% if form.fund_used.errors %} has-error{% endif %}">
-            <label for="id_fund_used">Fund used:</label>
+            <label for="id_fund_used">Fund Used</label>
             <input id="id_fund_used" name="fund_used" step="0.01" type="number" class="form-control" />
         </div>
         <div class="form-group{% if form.general_comment.errors %} has-error{% endif %}">
-            <label for="id_general_comment">General comment:</label>
+            <label for="id_general_comment">General Comment</label>
             <textarea cols="40" id="id_general_comment" name="general_comment" class="form-control" rows="3">
             </textarea>
         </div>
         <div class="form-group{% if form.bottlenecks.errors %} has-error{% endif %}">
-            <label for="id_bottlenecks">Bottlenecks:</label>
+            <label for="id_bottlenecks">Bottlenecks</label>
             <textarea cols="40" id="id_bottlenecks" name="bottlenecks" class="form-control" rows="3">
             </textarea>
         </div>
         <div class="form-group{% if form.measure_taken.errors %} has-error{% endif %}">
-            <label for="id_measures_taken">Measures taken:</label>
+            <label for="id_measures_taken">Measures Taken</label>
             <textarea cols="40" id="id_measures_taken" name="measures_taken" class="form-control" rows="3">
             </textarea>
         </div>
         <div class="form-group{% if form.success_challenges.errors %} has-error{% endif %}">
-            <label for="id_success_challenges">Success challenges:</label>
+            <label for="id_success_challenges">Success Challenges</label>
             <textarea cols="40" id="id_success_challenges" name="success_challenges" class="form-control" rows="3">
             </textarea>
         </div>

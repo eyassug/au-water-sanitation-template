@@ -11,28 +11,28 @@
         {% csrf_token %}
        
         <div class="form-group{% if form.country.errors %} has-error{% endif %}">
-                <label for="id_country">Country:</label>
+                <label for="id_country">Country</label>
                 {% render_field form.country class+="form-control" %}
             </div>
         <div class="form-group{% if form.sector_category.errors %} has-error{% endif %}">
-                <label for="id_sector_category">Sector category:</label>
+                <label for="id_sector_category">Sector Category</label>
                 {% render_field form.sector_category class+="form-control" %}
                 </select>
             </div>
         <div class="form-group{% if form.partner.errors %} has-error{% endif %}">
-            <label for="id_partner">Partner:</label>
+            <label for="id_partner">Partner</label>
             {% render_field form.partner class+="form-control" %}
         </div>
         <div class="form-group{% if form.year.errors %} has-error{% endif %}">
-            <label for="id_annual_contribution">Annual Contribution:</label>
+            <label for="id_annual_contribution">Ao. Annual Contribution</label>
             <input id="id_annual_contribution" name="annual_contribution" step="0.0001" type="number" class="form-control" />
         </div>
         <div class="form-group{% if form.year.errors %} has-error{% endif %}">
-            <label for="id_in_kind_contribution">In kind contribution:</label>
+            <label for="id_in_kind_contribution">% In kind Contribution</label>
             <input id="id_in_kind_contribution" name="in_kind_contribution" step="0.01" type="number" class="form-control" />
         </div>
         <div class="form-group{% if form.year.errors %} has-error{% endif %}">
-            <label for="id_financial_contribution">Financial contribution:</label>
+            <label for="id_financial_contribution">% Financial Contribution</label>
             <input id="id_financial_contribution" name="financial_contribution" step="0.01" type="number" class="form-control" />
         </div>
         <button type="submit" class="btn btn-default">Submit</button>

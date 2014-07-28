@@ -7,19 +7,19 @@
     {% csrf_token %}
     <div class="form-group{% if form.country.errors %} has-error{% endif %}">
         
-        <label for="id_country">Country:</label>
+        <label for="id_country">Country</label>
         {% render_field form.country class+="form-control" %}
         
         
     </div>
     
     <div class="form-group{% if form.year.errors %} has-error{% endif %}">
-    <label for="id_year">Year:</label>
+    <label for="id_year">Year</label>
     {% render_field form.year class+="form-control" %}
       
     </div>
     <div class="form-group{% if form.population.errors %} has-error{% endif %}">
-        <label for="id_population">Population:</label>
+        <label for="id_population">Population</label>
          {% render_field form.population class+="form-control" %}
     </div>
         
