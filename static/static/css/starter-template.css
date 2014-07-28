@@ -37,6 +37,10 @@ padding-top: 10px;
 .lead {
 text-align: center;
 }
+.jumbotron
+{
+padding-top: 10px;
+}
 .jumbotron a
 {
   float: right;
