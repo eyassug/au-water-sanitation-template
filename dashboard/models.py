@@ -44,7 +44,6 @@ class TenderProcedureProperty(models.Model):
         verbose_name_plural = "Tender & Procedure Properties"
     
 class Technology(models.Model):
-    sector_category = models.ForeignKey('SectorCategory')
     facility_character = models.ForeignKey('FacilityCharacter')
     name = models.CharField(max_length=120, null=False, blank=False)
     is_active = models.BooleanField()
@@ -98,6 +97,12 @@ class CountryDemographic(models.Model):
     country = models.ForeignKey('Country')
     year = models.PositiveSmallIntegerField(null=False,blank=False)
     population = models.IntegerField(null=False,blank=False)
+    
+class PriorityAreaStatus(models.Model):
+    prioriry_area = models.ForeignKey('PriorityArea')
+    year = models.PositiveIntegerField()
+    population = models.IntegerField()
+    number_of_households = models.IntegerField()
     
 class FacilityAccess(models.Model):
     priority_area = models.ForeignKey('PriorityArea')

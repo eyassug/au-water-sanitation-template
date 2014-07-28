@@ -1,13 +1,14 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from dashboard.forms import CountryStatusForm, FacilityAccessForm, SectorPerformanceForm
-from dashboard.models import CountryDemographic, FacilityAccess, SectorPerformance, PlanningPerformance, TenderProcedurePerformance, CommunityApproach, PartnerContribution, PartnerEventContribution, SWOT
+from dashboard.models import CountryDemographic, FacilityAccess, SectorPerformance, PlanningPerformance, TenderProcedurePerformance, CommunityApproach, PartnerContribution, PartnerEventContribution, SWOT, PriorityAreaStatus
 from django.views.generic import View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import authenticate, login, logout
 from dashboard.forms import LoginForm
 from dashboard.mixins import LoginRequiredMixin
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
+from django.contrib.auth.views import password_change
 # Sector Performance Category
 class SectorPerformanceCreate(LoginRequiredMixin,CreateView):
     model = SectorPerformance
@@ -20,6 +21,10 @@ class FacilityAccessCreate(LoginRequiredMixin,CreateView):
 class CountryStatusCreate(LoginRequiredMixin,CreateView):
     model = CountryDemographic
     template_name = 'country_status_form.html'
+    
+class PriorityAreaStatusCreate(LoginRequiredMixin,CreateView):
+    model = PriorityAreaStatus
+    template_name = 'priority_area_status_form.html'
     
 class PlanningPerformanceCreate(LoginRequiredMixin,CreateView):
     model = PlanningPerformance
@@ -72,4 +77,15 @@ class Logout(View):
         if(request.user.is_authenticated()):
             logout(request)
         return HttpResponseRedirect('/')
+
+class ChangePassword(View):
+    def get(self, request):
+        form = PasswordChangeForm(user=request.user, data=request.POST)
+        return render(request, 'registration/password_reset_form.html', {'form': form})
     
+    def post(self, request):
+        form = PasswordChangeForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            return password_change(request, post_change_redirect='/')
+        form = PasswordChangeForm(request.user)
+        return render(request, 'registration/password_reset_form.html', {'form': form})
