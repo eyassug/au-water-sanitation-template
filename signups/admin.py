@@ -11,4 +11,4 @@ class SignUpAdmin(admin.ModelAdmin):
     
     #code
 
-admin.site.register(SignUp, SignUpAdmin)
+#admin.site.register(SignUp, SignUpAdmin)
