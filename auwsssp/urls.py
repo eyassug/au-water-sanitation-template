@@ -2,13 +2,14 @@ from django.conf.urls import patterns, include, url
 
 from django.conf import settings
 from django.conf.urls.static import static
+from dashboard import views
 
 from django.contrib import admin
 admin.autodiscover()
 
-from dashboard import views
 
 urlpatterns = patterns('',
+    
     # Home:
     
     # Report Urls:
@@ -23,8 +24,9 @@ urlpatterns = patterns('',
     url(r'^(?i)report/partnereventcontribution$', views.PartnerEventContributionCreate.as_view(), name='partner_event_contribution_create'),
     url(r'^(?i)report/swot$', views.SWOTAndConclusionCreate.as_view(), name='swot_create'),
     url(r'^(?i)login/$', 'django.contrib.auth.views.login', name='login'),    
-    url(r'^(?i)logout/$', views.Logout.as_view(), name='logout'),
-
+    url(r'^(?i)logout/$', views.Logout.as_view(), name='logout'),      
+    url(r'^(?i)changepassword/$', views.ChangePassword.as_view(), name='change_password'),
+    
     url(r'^(?i)$', 'signups.views.home', name='home'),    
     # url(r'^blog/', include('blog.urls')),
     #url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

@@ -1,3 +1,5 @@
+	
+    {% load widget_tweaks %}
 	<!DOCTYPE html>
 	<html lang="en">
 	<head>
@@ -79,7 +81,7 @@
 	<li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Account<b class="caret"></b></a>
                   <ul class="dropdown-menu">
-                    <li><a href="our_works.html">Change Password</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#myModal">Change Password</a></li>
                     <li class="divider"></li>
                     <li><a href="/logout">Log Out</a></li>
                     
@@ -143,7 +145,46 @@
 	{% endif %}
 	{% endblock %}
 	</div>
-	
+	{% if user.is_authenticated %}
+	{% block change_password %}
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	    <div class="modal-dialog">
+	      <div class="modal-content">
+		<div class="modal-header">
+		  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		  <h4 class="modal-title" id="myModalLabel">Change Password</h4>
+		</div>
+		<div class="modal-body">
+		  <form id="change_password_form" method="post" action="/changepassword/?after_change_password={{ request.get_full_path }}" role="form">{% csrf_token %}
+		  <input type="hidden" name="after_change_password" value="{{ request.path }}" />
+		  <input type="hidden" name="form_id" value="form_9" />
+		    <div class="form-group">
+		       <label for="id_old_password">Old password</label><br/>
+		       <input id="id_old_password" name="old_password" type="password" class+="form-control" />
+		    </div>
+		    <div class="form-group">
+		       <label for="id_new_password1">New password</label><br/>
+		       <input id="id_new_password1" name="new_password1" type="password" class+="form-control" />
+		    </div>
+		    <div class="form-group">
+		       <label for="id_new_password2">Confirmation</label><br/>
+		       <input id="id_new_password2" name="new_password2" type="password" class+="form-control" >
+		    </div>
+		    <div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			<button type="submit" class="btn btn-primary">Change Password</button>
+		    </div>
+
+    </form>
+
+ 
+		</div>
+		
+	      </div>
+	    </div>
+	  </div>
+	{% endblock %}
+	{% endif %}
 	</div><!-- /.container -->
 	
         </div>
