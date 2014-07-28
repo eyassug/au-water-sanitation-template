@@ -15,7 +15,8 @@
         
         <div class="form-group{% if form.year.errors %} has-error{% endif %}">
             <label for="id_year">Year:</label>
-            <input id="id_year" min="0" name="year" type="number" class="form-control" />
+            {% render_field form.year class+="form-control" min=1990 max=2020 %}
+            
         </div>
         <div class="form-group{% if form.planned.errors %} has-error{% endif %}">
             <label for="id_planned">Planned:</label>
