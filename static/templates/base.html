@@ -155,9 +155,9 @@
 		  <h4 class="modal-title" id="myModalLabel">Change Password</h4>
 		</div>
 		<div class="modal-body">
-		  <form id="change_password_form" method="post" action="/changepassword/?after_change_password={{ request.get_full_path }}" role="form">{% csrf_token %}
+		  <form method="post" action="/changepassword/?after_change_password={{ request.get_full_path }}" role="form">{% csrf_token %}
 		  <input type="hidden" name="after_change_password" value="{{ request.path }}" />
-		  <input type="hidden" name="form_id" value="form_9" />
+		  <input type="hidden" name="form_id" value="change_password_form" />
 		    <div class="form-group">
 		       <label for="id_old_password">Old password</label><br/>
 		       <input id="id_old_password" name="old_password" type="password" class+="form-control" />
