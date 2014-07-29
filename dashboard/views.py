@@ -23,8 +23,10 @@ class FacilityAccessCreate(LoginRequiredMixin,View):
     
     def post(self,request):
         form = DFacilityAccessForm(request.POST)
-        if form.is_valid():
-            form.save()
+        if form.is_valid():            
+            m = form.save(commit=False)
+            pa_id = form.cleaned_data['priority_area']
+            m.priority_area = PriorityArea.objects.get(pk=pa_id)
             return HttpResponseRedirect('/report/facilityaccess')
         return render(request, 'facility_access_form.html', {'form': form})
     
