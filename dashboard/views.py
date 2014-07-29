@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
 from dashboard.forms import CountryStatusForm, FacilityAccessForm, SectorPerformanceForm
+from dashboard.forms import DFacilityAccessForm
 from dashboard.models import CountryDemographic, FacilityAccess, SectorPerformance, PlanningPerformance, TenderProcedurePerformance, CommunityApproach, PartnerContribution, PartnerEventContribution, SWOT, PriorityAreaStatus
+from dashboard.models import Country, PriorityArea, SectorCategory, FacilityCharacter, Technology
 from django.views.generic import View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import authenticate, login, logout
@@ -14,9 +16,17 @@ class SectorPerformanceCreate(LoginRequiredMixin,CreateView):
     model = SectorPerformance
     template_name = 'sector_performance_form.html'
     
-class FacilityAccessCreate(LoginRequiredMixin,CreateView):
-    model = FacilityAccess
-    template_name = 'facility_access_form.html'
+class FacilityAccessCreate(LoginRequiredMixin,View):
+    def get(self,request):
+        form = DFacilityAccessForm()
+        return render(request, 'facility_access_form.html', {'form': form})
+    
+    def post(self,request):
+        form = DFacilityAccessForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/report/facilityaccess')
+        return render(request, 'facility_access_form.html', {'form': form})
     
 class CountryStatusCreate(LoginRequiredMixin,CreateView):
     model = CountryDemographic
@@ -89,3 +99,18 @@ class ChangePassword(View):
             return password_change(request, post_change_redirect='/')
         form = PasswordChangeForm(request.user)
         return render(request, 'registration/password_reset_form.html', {'form': form})
+    
+def feed_priority_areas(request,country_id):
+    country = Country.objects.get(pk=country_id)
+    priority_areas = PriorityArea.objects.filter(country=country)
+    return render_to_response('feeds/priority_areas.txt', {'priority_areas':priority_areas}, mimetype="text/plain")
+
+def feed_facility_characters(request, sector_category_id):
+    sector_category = SectorCategory.objects.get(pk=sector_category_id)
+    facility_characters = FacilityCharacter.objects.filter(sector_category=sector_category)
+    return render_to_response('feeds/facility_characters.txt', {'facility_characters':facility_characters}, mimetype="text/plain")
+
+def feed_technologies(request, facility_character_id):
+    facility_character = FacilityCharacter.objects.get(pk=facility_character_id)
+    technologies = Technology.objects.filter(facility_character=facility_character)
+    return render_to_response('feeds/technologies.txt', {'technologies':technologies}, mimetype="text/plain")

@@ -1,0 +1,2 @@
+{% for t in technologies %}{{ t.id }};{{ t.name }}   
+{% endfor %}
