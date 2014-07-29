@@ -295,6 +295,11 @@
 				    onSuccess: function(transport){
 					    var response = transport.responseText || 'no response text';
 					    var kvpairs = response.split("\n");
+					    if (kvpairs.length < 2) {
+						techList.options[0] = new Option('No Facility Characters', '-1', false, false);
+						techList.disabled = true;
+						return;
+					    }
 					    for (i=0; i<kvpairs.length - 1; i++) {
 						    m = kvpairs[i].split(";");
 						    var option = new Option(m[1], m[0], false, false);
@@ -337,6 +342,11 @@
 				    onSuccess: function(transport){
 					    var response = transport.responseText || 'no response text';
 					    var kvpairs = response.split("\n");
+					    if (kvpairs.length < 2) {
+						techList.options[0] = new Option('No Technologies', '-1', false, false);
+						techList.disabled = true;
+						return;
+					    }
 					    for (i=0; i<kvpairs.length - 1; i++) {
 						    m = kvpairs[i].split(";");
 						    var option = new Option(m[1], m[0], false, false);
