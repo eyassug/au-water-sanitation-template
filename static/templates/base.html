@@ -9,7 +9,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<link rel="icon" href="../../favicon.ico">
-
+	
 	
 	<title>AU Water and Sanitation Goals in Africa</title>
 	
@@ -229,8 +229,54 @@
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="/static/js/jquery.min.js"></script>
-	<script src="/static/js/bootstrap.min.js"></script>
-
+	<script src="/static/js/bootstrap.min.js"></script>	
+	<script src="/static/js/prototype.js"></script>
+	<script type="text/javascript" charset="utf-8">	        
+	    
+	    function FilterPriorityAreas(sel_val) {
+		    var priorityAreaList = $('id_priority_area');
+		    for (var count = priorityAreaList.options.length-1; count >-1; count--){
+			    priorityAreaList.options[count] = null;
+		    }
+		    priorityAreaList.options[0] = new Option('Loading...', '-1', false, false);
+		    priorityAreaList.disabled = true;
+	    
+		    // var makeList = $('id_make');
+		    // var make_id = makeList.options[makeList.selectedIndex].value;
+		    var country = $('id_country')
+		    var country_id = country.options[country.selectedIndex].value;
+		    if (country_id > 0){
+		    //if (make_id > 0) {
+			    new Ajax.Request('/feeds/priority-areas-by-country-id/' + country_id + '/', {
+			    //new Ajax.Request('/feeds/models-by-make-id/' + make_id + '/', {
+				    method: 'get',
+				    onSuccess: function(transport){
+					    var response = transport.responseText || 'no response text';
+					    var kvpairs = response.split("\n");
+					    for (i=0; i<kvpairs.length - 1; i++) {
+						    m = kvpairs[i].split(";");
+						    var option = new Option(m[1], m[0], false, false);
+						    priorityAreaList.options[i] = option;
+					    }
+					    priorityAreaList.disabled = false;
+					    if (sel_val > 0) {
+						    priorityAreaList.value = sel_val;
+					    }
+				    },
+				    onFailure: function(){
+					    alert('An error occured trying to filter the model list.');					    
+					    priorityAreaList.disabled = false;
+				    }
+			    });
+		    }
+		    else {
+			    priorityAreaList.options[0] = new Option('Select Priority Area', '-1', false, false);
+			    priorityAreaList.disabled = true;
+		    }
+	    }
+	    
+	    
+	</script>
 	</body>
 	</html>
 	
