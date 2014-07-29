@@ -9,7 +9,7 @@ class CountryStatusForm(forms.ModelForm):
 class FacilityAccessForm(forms.ModelForm):
     class Meta:
         model = FacilityAccess
-        exclude = ['priority_area']
+        exclude = ['priority_area','technology']
         
 class SectorPerformanceForm(forms.ModelForm):
     class Meta:
