@@ -102,12 +102,21 @@
 	<div class="starter-template">
             <div class ="row">
 		    {% block left_navigation %}
-                <div class ="col-lg-4">
+                <div class ="col-md-4">
+		    {% if not user.is_authenticated %}
+		    {% block home_african_map %}
+			      <div class="sidedivau">
+					<!-- <img src="../media/african_flag.png" alt="african Flag" class="img-african flag"> -->
+					<img src="../media/logo_au.png" alt="AU logo" class="img-thumbnail-home">
+			      </div>
+		    {% endblock %}
+		    {% endif %}
+		    
 		    {% if user.is_authenticated %}
                      <div>
         	
-            <ul class="nav nav-pills nav-stacked">
-                <li class="nav-header">DEMOGRAPHIC</li>
+		    <ul class="nav nav-pills nav-stacked">
+		    <li class="nav-header">DEMOGRAPHIC</li>
                     <li><a href="/report/CountryStatus">Country Status</a></li>
                     <li><a href="/report/PriorityStatus">Priority Status</a></li>
                                         
@@ -125,34 +134,55 @@
                     <li class="nav-header">REPORT</li>
                     <li><a href="#">Generate</a></li>
             </ul> 
-         </div>
+		    </div>
 		     {% endif %}
 		    
                 </div>
 		 {% endblock %}
 		
-          <div class="col-lg-5">
+          <div class="col-md-4">
           {% block content_container %}
 	  <div class="jumbotron">
 		    <img src="../media/header.png" alt="AU" class="img-thumbnail">
-  <h1 style="text-align: center">Welcome</h1>
-  <p class="lead">Template for National Need Assessment<br>
-                                                            for preparing the Kagame Action Plan for operationalizing the January 2014 African Union
-                                                            <br>
-                                                            Assembly Decision AU/DEC. 516 (XXII) on the implementation of the July 2008 Sharm EI-Sheikh
-                                                            <br>
-                                                            Commitments for Accelerating the Achievement of Water and Sanitation Goals in Africa.</p>
-  {% if not user.is_authenticated %}
-	<a href="/login" class="btn btn-primary active" role="button">Login</a>
-	{% endif %}
-	{% endblock %}
-</div>
-	
+		    <p class="lead"><u>Template for National Need Assessment</u><br>
+									      for preparing the Kagame Action Plan for operationalizing the January 2014 African Union
+									      <br>
+									      Assembly Decision AU/DEC. 516 (XXII) on the implementation of the July 2008 Sharm EI-Sheikh
+									      <br>
+									      Commitments for Accelerating the Achievement of Water and Sanitation Goals in Africa.</p>
+		    <span>The current template intends to compile information related to the country national actions
+		    programming for water supply and sanitation in rural and urban poor settlements
+		    for the coming years, while highlighting the anticipated gaps for the year 2015
+		    for reaching the MDGs targets in specific Priority Areas. Priority Area in this
+		    document refers to a geographical setting classified as rural or urban poor
+		    (periurban) that is controlled by a Municipality or any related national
+		    Authority. Focus of the gap assessment is placed on the existing technologies,
+		    the management, institutional and funding approaches that are already in use
+		    for the communities. The Kagame Action Plan will base on those gaps and the
+		    identified strengths and weaknesses of the implementation of the national
+		    water and sanitation programmes, to define necessary interventions to quickly
+		    close the anticipated gaps for the end 2015.</span>
+		    {% if not user.is_authenticated %}
+			  <a href="/login" class="btn btn-primary active" role="button">Login</a>
+			  {% endif %}
+			  {% endblock %}
+		  </div>
+			  
 	
 	</div>
+	  <div class="col-md-4">
+		    {% block African_flag%}
+			      {% if not user.is_authenticated %}
+			      <div class="sidedivflag">
+					<img src="../media/african_flag.png" alt="african Flag" class="img-thumbnail-home">
+					<!-- <img class="sidedivau" src="../media/logo_au.png" alt="AU logo" class="img-AU logo"> -->
+			      </div>
+			      {% endif %}
+		    {% endblock %}
+	  </div>
 	{% if user.is_authenticated %}
 	{% block change_password %}
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="odal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	    <div class="modal-dialog">
 	      <div class="modal-content">
 		<div class="modal-header">

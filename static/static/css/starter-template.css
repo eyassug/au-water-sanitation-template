@@ -36,6 +36,11 @@ padding-top: 10px;
 }
 .lead {
 text-align: center;
+
+}
+.lead {
+text-align: center;
+font-size:small;
 }
 .jumbotron
 {
@@ -44,4 +49,31 @@ padding-top: 10px;
 .jumbotron a
 {
   float: right;
+}
+.sidedivflag
+{
+  padding-top: 150px;
+}
+.sidedivau
+{
+  padding-top:120px;
+}
+.img-thumbnail-home {
+display: inline-block;
+width: 100%;
+max-width: 100%;
+height: auto;
+padding: 4px;
+line-height: 1.42857143;
+background-color: #fff;
+
+transition: all .2s ease-in-out;
+}
+.container .jumbotron {
+padding-right: 5px;
+padding-left: 5px;
+}
+.jumbotron p
+{
+  font-size: 16px;
 }
