@@ -145,5 +145,8 @@ class TechnologyCreate(LoginRequiredMixin,View):
             facility_character = FacilityCharacter.objects.get(pk=fc_id)
             form.instance.facility_character = facility_character
             form.save()
+            if(request.POST['_addanother']):
+                return HttpResponseRedirect('/admin/dashboard/technology/add/')
             return HttpResponseRedirect('/admin/dashboard/technology/')
+            
         return render(request, 'technology_admin.html', {'form': form})
