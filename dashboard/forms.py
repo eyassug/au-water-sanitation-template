@@ -1,5 +1,5 @@
 from django import forms
-from dashboard.models import CountryDemographic, FacilityAccess, SectorPerformance, PriorityAreaStatus
+from dashboard.models import CountryDemographic, FacilityAccess, SectorPerformance, PriorityAreaStatus, Technology
 from dashboard.models import Country, PriorityArea, SectorCategory
 
 class CountryStatusForm(forms.ModelForm):
@@ -40,4 +40,13 @@ class DFacilityAccessForm(FacilityAccessForm):
 class DPriorityAreaStatusForm(PriorityAreaStatusForm):
     country = forms.ModelChoiceField(queryset=Country.objects.all(), widget=forms.Select(attrs={'onchange':'FilterPriorityAreas();'})) 
     priority_area = DynamicChoiceField(widget=forms.Select(attrs={'disabled':'true'}), choices=(('-1','Select Priority Area'),))
+    
+class TechnologyForm(forms.ModelForm):
+    class Meta:
+        model = Technology
+    
+class DTechnologyForm(TechnologyForm):
+    sector_category = forms.ModelChoiceField(queryset=SectorCategory.objects.all(), widget=forms.Select(attrs={'onchange':'FilterFacilityCharacters();'}))
+    facility_character = DynamicChoiceField(widget=forms.Select(attrs={'onchange':'FilterTechnologies();', 'disabled':'true'}), choices=(('-1','Select Facility Character'),))
+    technology = DynamicChoiceField(widget=forms.Select(attrs={'disabled':'true'}), choices=(('-1','Select Technology'),))
     

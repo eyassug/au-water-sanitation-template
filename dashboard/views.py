@@ -1,7 +1,7 @@
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
 from dashboard.forms import CountryStatusForm, FacilityAccessForm, SectorPerformanceForm
-from dashboard.forms import DFacilityAccessForm, DPriorityAreaStatusForm
+from dashboard.forms import DFacilityAccessForm, DPriorityAreaStatusForm, DTechnologyForm
 from dashboard.models import CountryDemographic, FacilityAccess, SectorPerformance, PlanningPerformance, TenderProcedurePerformance, CommunityApproach, PartnerContribution, PartnerEventContribution, SWOT, PriorityAreaStatus
 from dashboard.models import Country, PriorityArea, SectorCategory, FacilityCharacter, Technology
 from django.views.generic import View
@@ -52,10 +52,7 @@ class PriorityAreaStatusCreate(LoginRequiredMixin,View):
             new_form = DPriorityAreaStatusForm()
             new_form.instance.country = form.instance.country
             return render(request, 'priority_area_status_form.html', {'form': new_form})
-        
         return render(request, 'priority_area_status_form.html', {'form': new_form})
-    
-    
     
 class PlanningPerformanceCreate(LoginRequiredMixin,CreateView):
     model = PlanningPerformance
@@ -136,5 +133,14 @@ def feed_technologies(request, facility_character_id):
     technologies = Technology.objects.filter(facility_character=facility_character)
     return render_to_response('feeds/technologies.txt', {'technologies':technologies}, mimetype="text/plain")
 
-def admin_technologies(request):
-    return render_to_response('technology_admin.html')
+class TechnologyCreate(LoginRequiredMixin,View):
+    def get(self,request):
+        form = DTechnologyForm()
+        return render(request, 'technology_admin.html', {'form': form})
+    
+    def post(self, request):
+        form = DTechnologyForm()
+        if(form.is_valid()):
+            pass
+    
+        return render(request, 'technology_admin.html', {'form': form})

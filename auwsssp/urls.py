@@ -32,7 +32,7 @@ urlpatterns = patterns('',
     url(r'^(?i)$', 'signups.views.home', name='home'),    
     # url(r'^blog/', include('blog.urls')),
     #url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
+    url(r'^admin/dashboard/technology/add', views.TechnologyCreate.as_view()),
     url(r'^admin/', include(admin.site.urls)),
 )
 
