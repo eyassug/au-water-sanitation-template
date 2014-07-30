@@ -44,6 +44,7 @@ class DPriorityAreaStatusForm(PriorityAreaStatusForm):
 class TechnologyForm(forms.ModelForm):
     class Meta:
         model = Technology
+        exclude = ['facility_character']
     
 class DTechnologyForm(TechnologyForm):
     sector_category = forms.ModelChoiceField(queryset=SectorCategory.objects.all(), widget=forms.Select(attrs={'onchange':'FilterFacilityCharacters();'}))

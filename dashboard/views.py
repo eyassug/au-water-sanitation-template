@@ -139,8 +139,11 @@ class TechnologyCreate(LoginRequiredMixin,View):
         return render(request, 'technology_admin.html', {'form': form})
     
     def post(self, request):
-        form = DTechnologyForm()
+        form = DTechnologyForm(request.POST)
         if(form.is_valid()):
-            pass
-    
+            fc_id = form.cleaned_data['facility_character']
+            facility_character = FacilityCharacter.objects.get(pk=fc_id)
+            form.instance.facility_character = facility_character
+            form.save()
+            return HttpResponseRedirect('/admin/dashboard/technology/')
         return render(request, 'technology_admin.html', {'form': form})
