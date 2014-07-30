@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content_container %}
     {% load widget_tweaks %}
-    
+    <script src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
     <!-- <form action="" method="post">{% csrf_token %}
         {{ form.as_table }}
     <input type="submit" value="Submit" />
@@ -21,6 +21,8 @@
             </div>
         <div class="form-group{% if form.partner.errors %} has-error{% endif %}">
             <label for="id_partner">Partner</label>
+            <a href="/admin/dashboard/partner/add/"  class="add-another" id="add_id_partner" onclick="return showAddAnotherPopup(this);">
+                <img src="/static/admin/img/icon_addlink.gif" width="10" height="10" alt="Add Another"/></a>
             {% render_field form.partner class+="form-control" %}
         </div>
         <div class="form-group{% if form.year.errors %} has-error{% endif %}">
