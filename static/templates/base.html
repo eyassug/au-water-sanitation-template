@@ -64,7 +64,7 @@
                                         
                     <li class="divider"></li>
                     <li class="nav-header">FACILITY</li>
-                    <li><a href="/report/FacilityAccess">Access to Watson Facilities</a></li>
+                    <li><a href="/report/FacilityAccess">Access to Water & Sanitation Technology</a></li>
                     <li><a href="/report/SectorPerformance">Sector Performance</a></li>
                     <li><a href="/report/PlanningPerformance">Planning Performance</a></li>
                     <li><a href="/report/TenderProcPerformance">Tender & Pro. Performance</a></li>
@@ -122,7 +122,7 @@
                                         
                     <li class="divider"></li>
                     <li class="nav-header">FACILITY</li>
-                    <li><a href="/report/FacilityAccess">Access to Watson Facilities</a></li>
+                    <li><a href="/report/FacilityAccess">Access to Water & Sanitation Technology</a></li>
                     <li><a href="/report/SectorPerformance">Sector Performance</a></li>
                     <li><a href="/report/PlanningPerformance">Planning Performance</a></li>
                     <li><a href="/report/TenderProcPerformance">Tender & Pro. Performance</a></li>
@@ -180,46 +180,7 @@
 			      {% endif %}
 		    {% endblock %}
 	  </div>
-	{% if user.is_authenticated %}
-	{% block change_password %}
-	<div class="odal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	    <div class="modal-dialog">
-	      <div class="modal-content">
-		<div class="modal-header">
-		  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		  <h4 class="modal-title" id="myModalLabel">Change Password</h4>
-		</div>
-		<div class="modal-body">
-		  <form method="post" action="/changepassword/?after_change_password={{ request.get_full_path }}" role="form">{% csrf_token %}
-		  <input type="hidden" name="after_change_password" value="{{ request.path }}" />
-		  <input type="hidden" name="form_id" value="change_password_form" />
-		    <div class="form-group">
-		       <label for="id_old_password">Old password</label><br/>
-		       <input id="id_old_password" name="old_password" type="password" class+="form-control" />
-		    </div>
-		    <div class="form-group">
-		       <label for="id_new_password1">New password</label><br/>
-		       <input id="id_new_password1" name="new_password1" type="password" class+="form-control" />
-		    </div>
-		    <div class="form-group">
-		       <label for="id_new_password2">Confirmation</label><br/>
-		       <input id="id_new_password2" name="new_password2" type="password" class+="form-control" >
-		    </div>
-		    <div class="modal-footer">
-			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			<button type="submit" class="btn btn-primary">Change Password</button>
-		    </div>
-
-    </form>
-
- 
-		</div>
-		
-	      </div>
-	    </div>
-	  </div>
-	{% endblock %}
-	{% endif %}
+	
 	</div><!-- /.container -->
 	
         </div>
