@@ -36,6 +36,7 @@ class FacilityAccessCreate(LoginRequiredMixin,View):
 class CountryStatusCreate(LoginRequiredMixin,CreateView):
     model = CountryDemographic
     template_name = 'country_status_form.html'
+    success_url = "/report/countrystatus"
     
 class PriorityAreaStatusCreate(LoginRequiredMixin,View):
     def get(self,request):
