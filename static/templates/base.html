@@ -315,11 +315,13 @@
 					    facList.disabled = true;
 				    }
 			    });
+			FilterTechnologies();    
 		    }
 		    else {
 			    facList.options[0] = new Option('Select Facility Characteristic', '-1', false, false);
 			    facList.disabled = true;
 		    }
+		    FilterTechnologies();
 	    }
 	    
 	    function FilterTechnologies(sel_val) {
