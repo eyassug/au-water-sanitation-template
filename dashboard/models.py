@@ -11,6 +11,10 @@ class Country(models.Model):
 class UserCountry(models.Model):
     user = models.OneToOneField(User)
     country = models.ForeignKey('country')
+    
+    def __str__(self):
+        return self.country.name
+    
 
 class Period(models.Model):    
     start_year = models.PositiveIntegerField()
