@@ -1,10 +1,7 @@
-{% extends 'base.html' %}
-{% block home_african_map %}
-{% endblock %}
-{% block African_flag%}
-{% endblock %}
+{% extends 'welcome.html' %}
+
 {% block content_container %}
-    
+    <div class ="col-md-6">
     <div class="boarder">
          <h2>Login</h2>
         <form class="boarder" role="form" action="/login/" method="post">{% csrf_token %}
@@ -25,5 +22,5 @@
             <button type="submit" class="btn btn-primary btn-lg">Login</button>
         </form>
     </div>
-
+    </div>
 {% endblock %}

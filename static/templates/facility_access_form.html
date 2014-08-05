@@ -1,9 +1,10 @@
-{% extends 'base.html' %}
+{% extends 'welcome.html' %}
 
 
 {% block content_container %}
   {% load widget_tweaks %}
-    <h1>Access to Water & Sanitation Technology</h1>
+   <div class ="col-md-6">
+    <h2 class="page-header">Access to Water & Sanitation Technology</h2>
     <form action="" method="post" role="form">
         {% csrf_token %}
         <div class="form-group{% if form.country.errors %} has-error{% endif %}">
@@ -76,6 +77,7 @@
             <input id="id_government_contribution" name="government_contribution" step="0.01" type="number" class="form-control" />
         </div>
     <button type="submit" class="btn btn-default">Submit</button>
-
+    </form>
+   </div>
 
 {% endblock %}

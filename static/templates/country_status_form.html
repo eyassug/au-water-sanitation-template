@@ -1,8 +1,8 @@
-{% extends 'base.html' %}
+{% extends 'welcome.html' %}
 {% block content_container %}
     {% load widget_tweaks %}
-    
-    <h1>Country Status</h1>
+    <div class ="col-md-6">
+    <h2 class="page-header">Country Status</h2>
  <form action="" method="post" role="form">
     {% csrf_token %}
     <div class="form-group{% if form.country.errors %} has-error{% endif %}">
@@ -50,5 +50,5 @@
     
  </form>
 
-
+    </div>
 {% endblock %}

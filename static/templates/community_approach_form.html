@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'welcome.html' %}
 {% block content_container %}
     {% load widget_tweaks %}
     <!-- 
@@ -6,7 +6,8 @@
         {{ form.as_table }}
     <input type="submit" value="Submit" />
     !-->
-    <h1>Community Approach</h1>
+    <div class ="col-md-6">
+    <h2 class="page-header">Community Approach</h2>
     <form action="" method="post" role="form">
         {% csrf_token %}
         <div class="form-group{% if form.country.errors %} has-error{% endif %}">
@@ -47,6 +48,6 @@
         </div>
             <input type="submit" value="Submit" />
     </form>
-
+    </div>
 
 {% endblock %}

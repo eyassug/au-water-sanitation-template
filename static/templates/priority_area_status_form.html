@@ -1,6 +1,7 @@
-{% extends 'base.html' %}
+{% extends 'welcome.html' %}
 {% block content_container %}
 {% load widget_tweaks %}
+<script src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
 <!--
     <form action="" method="post">{% csrf_token %}
         {{ form }}
@@ -12,7 +13,8 @@
     {{ form }}
  </form>
 -->
-      <h1>Priority Area Status</h1>
+ <div class ="col-md-6">
+      <h2 class="page-header">Priority Area Status</h2>
       <form action="" method="post" role="form">
          {% csrf_token %}
          <div class="form-group{% if form.country.errors %} has-error{% endif %}">
@@ -21,6 +23,8 @@
          </div>
          <div class="form-group{% if form.priority_area.errors %} has-error{% endif %}">           
             <label for="id_priority_area">Priority Area</label>
+            <a href="/admin/dashboard/priorityarea/add/"  class="add-another" id="add_id_partner" onclick="return showAddAnotherPopup(this);">
+                <img src="/static/admin/img/icon_addlink.gif" width="10" height="10" alt="Add Another"/></a>
             {% render_field form.priority_area class+="form-control" %}
         </div>
          <div class="form-group{% if form.year.errors %} has-error{% endif %}">           
@@ -60,7 +64,7 @@
          </div>
          <button type="submit" class="btn btn-default">Submit</button>
       </form>
-
+ </div>
 
 
 {% endblock %}
