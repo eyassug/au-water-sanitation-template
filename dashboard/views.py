@@ -58,27 +58,27 @@ class PriorityAreaStatusCreate(LoginRequiredMixin,View):
 class PlanningPerformanceCreate(LoginRequiredMixin,CreateView):
     model = PlanningPerformance
     template_name = 'planning_performance_form.html'
-
+    success_url = "/report/PlanningPerformance"
 class TenderProcedurePerformanceCreate(LoginRequiredMixin,CreateView):
     model = TenderProcedurePerformance
     template_name = 'tender_proc_performance_form.html'
-
+    success_url = "/report/TenderProcPerformance"
 class CommunityApproachCreate(LoginRequiredMixin,CreateView):
     model = CommunityApproach
     template_name = 'community_approach_form.html'
-    
+    success_url = "/report/CommunityApproach"
 class PartnerContributionCreate(LoginRequiredMixin,CreateView):
     model = PartnerContribution
     template_name = 'partner_contribution_form.html'
-    
+    success_url = "/report/PartnerContribution"
 class PartnerEventContributionCreate(LoginRequiredMixin,CreateView):
     model = PartnerEventContribution
     template_name = 'partner_event_contribution_form.html'
-
+    success_url = "/report/PartnerEventContribution"
 class SWOTAndConclusionCreate(LoginRequiredMixin,CreateView):
     model = SWOT
     template_name = 'swot_form.html'
-    
+    success_url = "/report/swot"
 class Login(View):
     def get(self, request):
         auth_err = ''
