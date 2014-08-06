@@ -10,34 +10,37 @@
     <h2 class="page-header">Partner Contribution to Events for {{ country }}</h2>
     <form action="" method="post">
         {% csrf_token %}
-       
-        <div class="form-group{% if form.sector_category.errors %} has-error{% endif %}">
-            <label for="id_sector_category">Sector Category</label>
-            {% render_field form.sector_category class+="form-control" %}
-            </select>
-        </div>
-       
-        <div class="form-group{% if form.partner.errors %} has-error{% endif %}">
-            <label for="id_partner">Partner</label>
-                <a href="/admin/dashboard/partner/add/"  class="add-another" id="add_id_partner" onclick="return showAddAnotherPopup(this);">
-                <img src="/static/admin/img/icon_addlink.gif" width="10" height="10" alt="Add Another"/>[Add Partner]</a>
-                {% render_field form.partner class+="form-control" %}
-            
-            </script>
-        </div>
-        <div class="form-group{% if form.event.errors %} has-error{% endif %}">
+       <div class="col-md-6 form-group">
+            <div class="form-group{% if form.sector_category.errors %} has-error{% endif %}">
+                <label for="id_sector_category">Sector Category</label>
+                {% render_field form.sector_category class+="form-control" %}
+                </select>
+            </div>
+            <div class="form-group{% if form.event.errors %} has-error{% endif %}">
             
             <label for="id_event">Event</label>
                 <a href="/admin/dashboard/event/add/"  class="add-another" id="add_id_event" onclick="return showAddAnotherPopup(this);">
                 <img src="/static/admin/img/icon_addlink.gif" width="10" height="10" alt="Add Another"/>[Add Event]</a>
                 {% render_field form.event class+="form-control" %}
+     
+            </div>
+       
+       </div>
+            <div class="col-md-6 form-group">
+                   <div class="form-group{% if form.partner.errors %} has-error{% endif %}">
+                        <label for="id_partner">Partner</label>
+                        <a href="/admin/dashboard/partner/add/"  class="add-another" id="add_id_partner" onclick="return showAddAnotherPopup(this);">
+                        <img src="/static/admin/img/icon_addlink.gif" width="10" height="10" alt="Add Another"/>[Add Partner]</a>
+                        {% render_field form.partner class+="form-control" %}
+                    
                 
-                
-        </div>
-         <div class="form-group{% if form.year.errors %} has-error{% endif %}">
-            <label for="id_year">Partner Contribution for the Year</label>
-            {% render_field form.year class+="form-control" %}
-        </div>
+                    </div>
+        
+                    <div class="form-group{% if form.year.errors %} has-error{% endif %}">
+                       <label for="id_year">Partner Cont. for the Year</label>
+                       {% render_field form.year class+="form-control" %}
+                   </div>
+            </div>
         <h4 class="formtitle">Partner contribution for the year</h4>
         <div class="form-group{% if form.government_staff_contribution.errors %} has-error{% endif %}">
             <label for="id_government_staff_contribution">Contribution to Government Staff(USD)</label>
