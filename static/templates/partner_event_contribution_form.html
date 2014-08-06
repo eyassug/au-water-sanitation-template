@@ -7,13 +7,10 @@
     <input type="submit" value="Submit" />
     !-->
      <div class ="col-md-6">
-    <h2 class="page-header">Partner Contribution to Events</h2>
+    <h2 class="page-header">Partner Contribution to Events for {{ country }}</h2>
     <form action="" method="post">
         {% csrf_token %}
-        <!-- <div class="form-group{% if form.country.errors %} has-error{% endif %}">
-                <label for="id_country">Country</label>
-                {% render_field form.country class+="form-control" %}
-            </div>!--> 
+       
         <div class="form-group{% if form.sector_category.errors %} has-error{% endif %}">
             <label for="id_sector_category">Sector Category</label>
             {% render_field form.sector_category class+="form-control" %}
@@ -55,7 +52,15 @@
             <label for="id_total_event_contribution">Total Budget Contributed to the Country for the Event(USD)</label>
             <input id="id_total_event_contribution" name="total_event_contribution" step="1.00" type="number" class="form-control" />
         </div>
-           <button type="submit" class="btn btn-default">Submit</button>
+                    <div class="col-md-4 form-group">
+         <button type="submit" class="btn btn-success">Save</button>
+         </div>
+         <div class="col-md-4 form-group">
+         <button type="submit" class="btn btn-primary">Save & Add</button>
+         </div>
+         <div class="col-md-4 form-group" >
+         <button type="submit" class="btn btn-danger" style="float: right">Cancel</button>
+         </div>
     </form>
 
      </div>

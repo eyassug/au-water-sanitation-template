@@ -11,15 +11,11 @@
 
     
     <div class ="col-md-6">
-    <h2 class="page-header">Community Approach</h2>
+    <h2 class="page-header">Community Approach for {{ country }}</h2>
     <form action="" method="post" role="form">
         {% csrf_token %}
      
         
-        <div class="form-group{% if form.country.errors %} has-error{% endif %}">
-            <label for="id_country">Country:</label>
-            {% render_field form.country class+="form-control" %}
-            </div>
         <div class="form-group{% if form.year.errors %} has-error{% endif %}">
             <label for="id_sector_category">Sector Category</label>
             {% render_field form.sector_category class+="form-control" %}
@@ -56,7 +52,15 @@
             <textarea cols="40" id="id_lessons_learnt" name="lessons_learnt" class="form-control" rows="3">
             </textarea>
         </div>
-            <input type="submit" value="Submit" />
+                     <div class="col-md-4 form-group">
+         <button type="submit" class="btn btn-success">Save</button>
+         </div>
+         <div class="col-md-4 form-group">
+         <button type="submit" class="btn btn-primary">Save & Add</button>
+         </div>
+         <div class="col-md-4 form-group" >
+         <button type="submit" class="btn btn-danger" style="float: right">Cancel</button>
+         </div>
     </form>
     </div>
 
