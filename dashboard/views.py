@@ -4,6 +4,7 @@ from dashboard.forms import CountryStatusForm, FacilityAccessForm, SectorPerform
 from dashboard.forms import DFacilityAccessForm, DPriorityAreaStatusForm, DTechnologyForm
 from dashboard.models import CountryDemographic, FacilityAccess, SectorPerformance, PlanningPerformance, TenderProcedurePerformance, CommunityApproach, PartnerContribution, PartnerEventContribution, SWOT, PriorityAreaStatus
 from dashboard.models import Country, PriorityArea, SectorCategory, FacilityCharacter, Technology
+from dashboard.models import PriorityAreaStatus
 from django.views.generic import View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import authenticate, login, logout
@@ -11,6 +12,8 @@ from dashboard.forms import LoginForm
 from dashboard.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth.views import password_change
+from django.forms.models import modelform_factory
+from django import forms
 # Sector Performance Category
 class SectorPerformanceCreate(LoginRequiredMixin,CreateView):
     model = SectorPerformance
@@ -39,9 +42,22 @@ class CountryStatusCreate(LoginRequiredMixin,CreateView):
     success_url = "/report/countrystatus"
     
 class PriorityAreaStatusCreate(LoginRequiredMixin,View):
-    def get(self,request):
-        form = DPriorityAreaStatusForm()
-        return render(request, 'priority_area_status_form.html', {'form': form})
+    
+    def get(self, request):
+        form = modelform_factory(PriorityAreaStatus,
+                                 widgets={"priority_area": forms.Select(choices = PriorityArea.objects.all())},
+                                 )        
+        user_country = request.user.usercountry.country
+        #form.priority_area = forms.ModelChoiceField(queryset=PriorityArea.objects.all(),widget=forms.Select())
+        #form.priority_area.choices = PriorityArea.objects.all()
+        return render(request,'priority_area_status_form.html', {
+            'form': form,
+            'country': user_country
+        })
+    
+    #def get(self,request):
+    #    form = DPriorityAreaStatusForm()
+    #    return render(request, 'priority_area_status_form.html', {'form': form})
     
     def post(self,request):
         form = DPriorityAreaStatusForm(request.POST)
@@ -59,6 +75,17 @@ class PlanningPerformanceCreate(LoginRequiredMixin,CreateView):
     model = PlanningPerformance
     template_name = 'planning_performance_form.html'
     success_url = "/report/PlanningPerformance"
+    
+    def get(self, request):
+        form = modelform_factory(PlanningPerformance)        
+        user_country = request.user.usercountry.country        
+        return render(request,self.template_name, {
+            'form': form,
+            'country': user_country
+        })
+    
+    
+    
 class TenderProcedurePerformanceCreate(LoginRequiredMixin,CreateView):
     model = TenderProcedurePerformance
     template_name = 'tender_proc_performance_form.html'

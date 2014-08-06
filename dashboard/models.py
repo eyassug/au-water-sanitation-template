@@ -1,12 +1,28 @@
 from django.db import models
 from django.utils.encoding import smart_unicode
+from django.contrib.auth.models import User
 
 class Country(models.Model):    
     name = models.CharField(max_length=120, null=False, blank=False)
     
     def __str__(self):
         return self.name
+    
+class UserCountry(models.Model):
+    user = models.OneToOneField(User)
+    country = models.ForeignKey('country')
+    
+    def __str__(self):
+        return self.country.name
+    
 
+class Period(models.Model):    
+    start_year = models.PositiveIntegerField()
+    end_year = models.PositiveIntegerField()
+    
+    def __str__(self):
+        return str(self.start_year) + '-' + str(self.end_year)
+    
 class PriorityArea(models.Model):
     country = models.ForeignKey('Country')
     name = models.CharField(max_length=100, null=False, blank=False, unique=True)
@@ -95,19 +111,19 @@ class Event(models.Model):
 
 class CountryDemographic(models.Model):
     country = models.ForeignKey('Country', unique=True)
-    year = models.PositiveSmallIntegerField(null=False,blank=False, unique=True)
+    year = models.ForeignKey('Period')
     population = models.IntegerField(null=False,blank=False)
     
 class PriorityAreaStatus(models.Model):
     prioriry_area = models.ForeignKey('PriorityArea')
-    year = models.PositiveIntegerField()
+    year = models.ForeignKey('Period')
     population = models.PositiveIntegerField()
     number_of_households = models.IntegerField()
     
 class FacilityAccess(models.Model):
     priority_area = models.ForeignKey('PriorityArea', blank=False)
     technology = models.ForeignKey('Technology', blank=False)
-    year = models.PositiveSmallIntegerField(null=False,blank=False)
+    year = models.ForeignKey('Period')
     planned = models.DecimalField(max_digits=19, decimal_places=2, null=False)
     actual = models.DecimalField(max_digits=19, decimal_places=2, null=False)
     unit_cost = models.DecimalField(max_digits=19, decimal_places=2, null=False)
@@ -117,7 +133,7 @@ class FacilityAccess(models.Model):
 class SectorPerformance(models.Model):
     country = models.ForeignKey('Country', blank=False)
     sector_category = models.ForeignKey('SectorCategory', blank=False)
-    year = models.PositiveSmallIntegerField(null=False,blank=False)
+    year = models.ForeignKey('Period')
     coverage_target = models.DecimalField(max_digits=3, decimal_places=2, null=False)
     coverage_achieved = models.DecimalField(max_digits=3, decimal_places=2, null=False)
     fund_needed = models.DecimalField(max_digits=15, decimal_places=2, null=False)
@@ -132,7 +148,7 @@ class SectorPerformance(models.Model):
 class PlanningPerformance(models.Model):
     country = models.ForeignKey('Country', blank=False)
     sector_category = models.ForeignKey('SectorCategory', blank=False)
-    year = models.PositiveSmallIntegerField(null=False,blank=False)
+    year = models.ForeignKey('Period')
     plan_preparation_delay = models.PositiveSmallIntegerField(null=False,blank=False)    
     plan_adoption_delay = models.PositiveSmallIntegerField(null=False,blank=False)
     general_comment = models.TextField()
@@ -143,7 +159,7 @@ class PlanningPerformance(models.Model):
 class TenderProcedurePerformance(models.Model):
     country = models.ForeignKey('Country',blank=False)
     sector_category = models.ForeignKey('SectorCategory', blank=False)
-    year = models.PositiveSmallIntegerField(null=False,blank=False)
+    year = models.ForeignKey('Period')
     tender_procedure_property = models.ForeignKey('TenderProcedureProperty', blank=False)
     registered = models.PositiveSmallIntegerField(null=False,blank=False)
     executed = models.PositiveSmallIntegerField(null=False,blank=False)
@@ -155,7 +171,7 @@ class TenderProcedurePerformance(models.Model):
 class CommunityApproach(models.Model):
     country = models.ForeignKey('Country', blank=False)
     sector_category = models.ForeignKey('SectorCategory', blank=False)
-    year = models.PositiveSmallIntegerField(null=False,blank=False)
+    year = models.ForeignKey('Period')
     approach_type = models.ForeignKey('CommunityApproachType',blank=False)
     approach_name = models.CharField(max_length=120, null=False, blank=False)    
     description = models.TextField()
@@ -173,7 +189,7 @@ class PartnerContribution(models.Model):
 class PartnerEventContribution(models.Model):
     country = models.ForeignKey('Country', blank=False)
     sector_category = models.ForeignKey('SectorCategory', blank=False)
-    year = models.PositiveSmallIntegerField(null=False,blank=False)
+    year = models.ForeignKey('Period')
     partner = models.ForeignKey('Partner', blank=False)
     event = models.ForeignKey('Event', blank=False)
     government_staff_contribution = models.DecimalField(max_digits=3, decimal_places=2, null=False)
