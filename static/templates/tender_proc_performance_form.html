@@ -12,51 +12,70 @@
     <h2 class="page-header">Tender & Procurument Performance</h2>
         <form action="" method="post" role="form">
     {% csrf_token %}
-        <div class="form-group{% if form.country.errors %} has-error{% endif %}">
+        <!-- <div class="form-group{% if form.country.errors %} has-error{% endif %}">
             <label for="id_country">Country</label>
             {% render_field form.country class+="form-control" %}
-        </div>
+        </div>!-->
+    <div class="col-md-6 form-group">
         <div class="form-group{% if form.sector_category.errors %} has-error{% endif %}">
             <label for="id_sector_category">Sector Category</label>
             {% render_field form.sector_category class+="form-control" %}
             </select>
         </div>
+    </div>
+    <div class="col-md-6 form-group">
+        <div class="form-group{% if form.tender_procedure_property.errors %} has-error{% endif %}">
+            <label for="id_tender_procedure_property">Tend. & Proc. Property</label>
+            {% render_field form.tender_procedure_property class+="form-control" %}
+        </div>
+    </div>
+    
+    <div class="col-md-12 form-group">
         <div class="form-group{% if form.year.errors %} has-error{% endif %}">
             <label for="id_year">Year</label>
             {% render_field form.year class+="form-control" %}
         </div>
-        <div class="form-group{% if form.tender_procedure_property.errors %} has-error{% endif %}">
-            <label for="id_tender_procedure_property">Tendering & Procurement Property</label>
-            {% render_field form.tender_procedure_property class+="form-control" %}
-        </div>
+    </div>
+    <h4 class="formtitle">Enter values for the property for the year</h4>
+    <div class="col-md-6 form-group">
         <div class="form-group{% if form.registered.errors %} has-error{% endif %}">
             <label for="id_registered">Number Registered</label>
             <input id="id_registered" min="0" name="registered" type="number" class="form-control" />
         </div>
+    </div>
+    <div class="col-md-6 form-group">
         <div class="form-group{% if form.executed.errors %} has-error{% endif %}">
             <label for="id_executed">Number Executed</label>
             <input id="id_executed" min="0" name="executed" type="number" class="form-control" />
         </div>
+    </div>
+    <h4 class="formtitle">Comments on bottlenecks & successes</h4>
+    <div class="col-md-6 form-group">
         <div class="form-group{% if form.general_comment.errors %} has-error{% endif %}">
             <label for="id_general_comment">General Comment</label>
             <textarea cols="40" id="id_general_comment" name="general_comment" class="form-control" rows="3">
             </textarea>
         </div>
-        <div class="form-group{% if form.bottlenecks.errors %} has-error{% endif %}">
-            <label for="id_bottlenecks">Bottlenecks</label>
-            <textarea cols="40" id="id_bottlenecks" name="bottlenecks" class="form-control" rows="3">
-            </textarea>
-        </div>
-        <div class="form-group{% if form.year.errors %} has-error{% endif %}">
+         <div class="form-group{% if form.year.errors %} has-error{% endif %}">
             <label for="id_measures_taken">Measures Taken</label>
             <textarea cols="40" id="id_measures_taken" name="measures_taken" class="form-control" rows="3">
             </textarea>
         </div>
+        
+    </div>
+    <div class="col-md-6 form-group">
+       <div class="form-group{% if form.bottlenecks.errors %} has-error{% endif %}">
+            <label for="id_bottlenecks">Bottlenecks</label>
+            <textarea cols="40" id="id_bottlenecks" name="bottlenecks" class="form-control" rows="3">
+            </textarea>
+        </div>
+       
         <div class="form-group{% if form.success_challeges.errors %} has-error{% endif %}">
             <label for="id_success_challenges">Success Challenges</label>
             <textarea cols="40" id="id_success_challenges" name="success_challenges" class="form-control" rows="3">
             </textarea>
         </div>
+    </div>
             <button type="submit" class="btn btn-default">Submit</button>
     </form>
      </div>
