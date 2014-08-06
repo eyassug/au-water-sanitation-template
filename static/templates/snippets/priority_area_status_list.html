@@ -1,0 +1,29 @@
+<div class="table-responsive">
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Year</th>
+            <th>Population</th>
+            <th># of Households</th>
+            <th></th>
+        </tr>
+    </thead>
+<tbody>
+
+{% for d in data %}
+
+    <tr>
+        <td>{{ d.id }}</td>
+        <td>{{ d.year }}</td>
+        <td>{{ d.population }}</td>
+        <td>{{ d.number_of_households }}</td>        
+        <td><a href="#">Edit</a></td>
+    </tr>
+    
+{% endfor %}
+
+</tbody>
+</table>
+
+</div>

@@ -4,6 +4,7 @@ from dashboard.forms import CountryStatusForm, FacilityAccessForm, SectorPerform
 from dashboard.forms import DFacilityAccessForm, PriorityAreaStatusForm, DTechnologyForm
 from dashboard.models import CountryDemographic, FacilityAccess, SectorPerformance, PlanningPerformance, TenderProcedurePerformance, CommunityApproach, PartnerContribution, PartnerEventContribution, SWOT, PriorityAreaStatus
 from dashboard.models import Country, PriorityArea, SectorCategory, FacilityCharacter, Technology
+from dashboard import models
 from dashboard.models import PriorityAreaStatus
 from django.views.generic import View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -21,11 +22,16 @@ class SectorPerformanceCreate(LoginRequiredMixin,CreateView):
     
 class FacilityAccessCreate(LoginRequiredMixin,View):
     def get(self,request):
-        form = DFacilityAccessForm()
-        return render(request, 'facility_access_form.html', {'form': form})
+        user_country = request.user.usercountry.country
+        form = DFacilityAccessForm(country=user_country)
+        return render(request, 'facility_access_form.html', {
+            'form': form,
+            'country': user_country
+        })
     
     def post(self,request):
         form = DFacilityAccessForm(request.POST)
+        user_country = request.user.usercountry.country
         if form.is_valid():
             pa_id = form.cleaned_data['priority_area']
             tech_id = form.cleaned_data['technology']
@@ -34,13 +40,36 @@ class FacilityAccessCreate(LoginRequiredMixin,View):
             form.instance.priority_area = priority_area
             form.instance.technology = technology
             return HttpResponseRedirect('/report/facilityaccess')
-        return render(request, 'facility_access_form.html', {'form': form})
+        return render(request, 'facility_access_form.html', {
+            'form': form,
+            'country': user_country
+        })
     
-class CountryStatusCreate(LoginRequiredMixin,CreateView):
+class CountryStatusCreate(LoginRequiredMixin,View):
     model = CountryDemographic
     template_name = 'country_status_form.html'
     success_url = "/report/countrystatus"
     
+    def get(self,request):
+        user_country = request.user.usercountry.country
+        form = CountryStatusForm()
+        form.instance.country = user_country
+        return render(request, self.template_name, {
+            'form': form,
+            'country': user_country
+        })
+    
+    def post(self,request):
+        user_country = request.user.usercountry.country
+        form = CountryStatusForm(request.POST)
+        if(form.is_valid()):
+            form.instance.country = user_country
+            form.save()
+            return HttpResponseRedirect(self.success_url)
+        return render(request, self.template_name, {
+            'form': form,
+            'country': user_country
+        })
 class PriorityAreaStatusCreate(LoginRequiredMixin,View):
     
     def get(self, request):        
@@ -49,11 +78,7 @@ class PriorityAreaStatusCreate(LoginRequiredMixin,View):
         return render(request,'priority_area_status_form.html', {
             'form': form,
             'country': user_country
-        })
-    
-    #def get(self,request):
-    #    form = DPriorityAreaStatusForm()
-    #    return render(request, 'priority_area_status_form.html', {'form': form})
+        })    
     
     def post(self,request):
         form = PriorityAreaStatusForm(request.POST)
@@ -177,3 +202,15 @@ class TechnologyCreate(LoginRequiredMixin,View):
             return HttpResponseRedirect('/admin/dashboard/technology/')
             
         return render(request, 'technology_admin.html', {'form': form})
+
+class CountryDemographicGridView(LoginRequiredMixin,View):
+    def get(self,request):
+        user_country = request.user.usercountry.country        
+        data = models.CountryDemographic.objects.filter(country=user_country)
+        return render(request, 'data-grids/country_demographic_grid.html', {'data': data})
+
+class PAStatusGridView(LoginRequiredMixin,View):
+    def get(self,request):
+        user_country = request.user.usercountry.country        
+        data = models.PriorityAreaStatus.objects.all()
+        return render(request, 'data-grids/priority_area_status_grid.html', {'data': data})

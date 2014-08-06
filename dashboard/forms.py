@@ -5,15 +5,22 @@ from dashboard.models import Country, PriorityArea, SectorCategory
 class CountryStatusForm(forms.ModelForm):
     class Meta:
         model = CountryDemographic
+        exclude = ['country']
         
 class FacilityAccessForm(forms.ModelForm):
     class Meta:
         model = FacilityAccess
-        exclude = ['priority_area','technology']
-        
+        exclude = ['technology']
+    
+    def __init__(self, country=None, **kwargs):
+        super(FacilityAccessForm, self).__init__(**kwargs)
+        if country:
+            self.fields['priority_area'].queryset = PriorityArea.objects.filter(country=country)
+          
 class SectorPerformanceForm(forms.ModelForm):
     class Meta:
         model = SectorPerformance
+        exclude = ['country']
         
 class PriorityAreaStatusForm(forms.ModelForm):
     class Meta:
@@ -35,8 +42,6 @@ class DynamicChoiceField(forms.ChoiceField):
         return value
     
 class DFacilityAccessForm(FacilityAccessForm):    
-    country = forms.ModelChoiceField(queryset=Country.objects.all(), widget=forms.Select(attrs={'onchange':'FilterPriorityAreas();'})) 
-    priority_area = DynamicChoiceField(widget=forms.Select(attrs={'disabled':'true'}), choices=(('-1','Select Priority Area'),))
     sector_category = forms.ModelChoiceField(queryset=SectorCategory.objects.all(), widget=forms.Select(attrs={'onchange':'FilterFacilityCharacters();'}))
     facility_character = DynamicChoiceField(widget=forms.Select(attrs={'onchange':'FilterTechnologies();'}), choices=(('-1','Select Facility Character'),))
     technology = DynamicChoiceField(widget=forms.Select(attrs={'disabled':'true'}), choices=(('-1','Select Technology'),))
