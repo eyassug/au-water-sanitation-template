@@ -9,13 +9,15 @@
     <input type="submit" value="Submit" />
     !-->
      <div class ="col-md-6">
-    <h2 class="page-header">Planning Performance</h2>
+    <h2 class="page-header">Planning Performance for {{ country }}</h2>
     <form action="" method="post">
         {% csrf_token %}
+        <!--
          <div class="form-group{% if form.country.errors %} has-error{% endif %}">
                 <label for="id_country">Country</label>
                 {% render_field form.country class+="form-control" %}
             </div>
+         -->
         <div class="form-group{% if form.sector_category.errors %} has-error{% endif %}">
             <label for="id_sector_category">Sector Category</label>
             {% render_field form.sector_category class+="form-control" %}
