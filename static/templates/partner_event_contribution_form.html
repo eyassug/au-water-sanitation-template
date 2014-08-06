@@ -10,10 +10,10 @@
     <h2 class="page-header">Partner Contribution to Events</h2>
     <form action="" method="post">
         {% csrf_token %}
-        <div class="form-group{% if form.country.errors %} has-error{% endif %}">
+        <!-- <div class="form-group{% if form.country.errors %} has-error{% endif %}">
                 <label for="id_country">Country</label>
                 {% render_field form.country class+="form-control" %}
-            </div>
+            </div>!--> 
         <div class="form-group{% if form.sector_category.errors %} has-error{% endif %}">
             <label for="id_sector_category">Sector Category</label>
             {% render_field form.sector_category class+="form-control" %}
@@ -64,6 +64,7 @@
       </select>
 
         </div>
+        <h4 class="formtitle">Partner contribution for the year</h4>
         <div class="form-group{% if form.government_staff_contribution.errors %} has-error{% endif %}">
             <label for="id_government_staff_contribution">Contribution to Government Staff(USD)</label>
             <input id="id_government_staff_contribution" name="government_staff_contribution" pattern="^\d*(\.\d{2}$)?" size="4"
