@@ -1,7 +1,7 @@
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
 from dashboard.forms import CountryStatusForm, FacilityAccessForm, SectorPerformanceForm
-from dashboard.forms import DFacilityAccessForm, DPriorityAreaStatusForm, DTechnologyForm
+from dashboard.forms import DFacilityAccessForm, PriorityAreaStatusForm, DTechnologyForm
 from dashboard.models import CountryDemographic, FacilityAccess, SectorPerformance, PlanningPerformance, TenderProcedurePerformance, CommunityApproach, PartnerContribution, PartnerEventContribution, SWOT, PriorityAreaStatus
 from dashboard.models import Country, PriorityArea, SectorCategory, FacilityCharacter, Technology
 from dashboard.models import PriorityAreaStatus
@@ -43,13 +43,9 @@ class CountryStatusCreate(LoginRequiredMixin,CreateView):
     
 class PriorityAreaStatusCreate(LoginRequiredMixin,View):
     
-    def get(self, request):
-        form = modelform_factory(PriorityAreaStatus,
-                                 widgets={"priority_area": forms.Select(choices = PriorityArea.objects.all())},
-                                 )        
+    def get(self, request):        
         user_country = request.user.usercountry.country
-        #form.priority_area = forms.ModelChoiceField(queryset=PriorityArea.objects.all(),widget=forms.Select())
-        #form.priority_area.choices = PriorityArea.objects.all()
+        form = PriorityAreaStatusForm(country=user_country)
         return render(request,'priority_area_status_form.html', {
             'form': form,
             'country': user_country
@@ -60,16 +56,19 @@ class PriorityAreaStatusCreate(LoginRequiredMixin,View):
     #    return render(request, 'priority_area_status_form.html', {'form': form})
     
     def post(self,request):
-        form = DPriorityAreaStatusForm(request.POST)
+        form = PriorityAreaStatusForm(request.POST)
         if form.is_valid():
             pa_id = form.cleaned_data['priority_area']
             priority_area = PriorityArea.objects.get(pk=pa_id)
             form.instance.priority_area = priority_area
             form.save()
-            new_form = DPriorityAreaStatusForm()
-            new_form.instance.country = form.instance.country
-            return render(request, 'priority_area_status_form.html', {'form': new_form})
-        return render(request, 'priority_area_status_form.html', {'form': new_form})
+            user_country = request.user.usercountry.country
+            new_form = PriorityAreaStatusForm(country=user_country)
+            return render(request,'priority_area_status_form.html', {
+                'form': new_form,
+                'country': user_country
+            })
+        return render(request, 'priority_area_status_form.html', {'form': form})
     
 class PlanningPerformanceCreate(LoginRequiredMixin,CreateView):
     model = PlanningPerformance
