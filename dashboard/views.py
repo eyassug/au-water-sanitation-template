@@ -15,7 +15,6 @@ from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth.views import password_change
 from django.forms.models import modelform_factory
 from django import forms
-from dashboard import grids
 # Sector Performance Category
 class SectorPerformanceCreate(LoginRequiredMixin,CreateView):
     model = SectorPerformance
@@ -209,3 +208,9 @@ class CountryDemographicGridView(LoginRequiredMixin,View):
         user_country = request.user.usercountry.country        
         data = models.CountryDemographic.objects.filter(country=user_country)
         return render(request, 'data-grids/country_demographic_grid.html', {'data': data})
+
+class PAStatusGridView(LoginRequiredMixin,View):
+    def get(self,request):
+        user_country = request.user.usercountry.country        
+        data = models.PriorityAreaStatus.objects.all()
+        return render(request, 'data-grids/priority_area_status_grid.html', {'data': data})
