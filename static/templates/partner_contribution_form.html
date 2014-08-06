@@ -24,11 +24,11 @@
         <div class="form-group{% if form.partner.errors %} has-error{% endif %}">
             <label for="id_partner">Partner</label>
             <a href="/admin/dashboard/partner/add/"  class="add-another" id="add_id_partner" onclick="return showAddAnotherPopup(this);">
-                <img src="/static/admin/img/icon_addlink.gif" width="10" height="10" alt="Add Another"/></a>
+                <img src="/static/admin/img/icon_addlink.gif" width="10" height="10" alt="Add Another"/>[Add Partner]</a>
             {% render_field form.partner class+="form-control" %}
         </div>
         <div class="form-group{% if form.year.errors %} has-error{% endif %}">
-            <label for="id_annual_contribution">Ao. Annual Contribution</label>
+            <label for="id_annual_contribution">Annual Contribution</label>
             <input id="id_annual_contribution" name="annual_contribution" step="0.0001" type="number" class="form-control" />
         </div>
         <div class="form-group{% if form.year.errors %} has-error{% endif %}">

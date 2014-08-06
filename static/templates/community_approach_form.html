@@ -6,10 +6,16 @@
         {{ form.as_table }}
     <input type="submit" value="Submit" />
     !-->
+    
+   
+
+    
     <div class ="col-md-6">
     <h2 class="page-header">Community Approach</h2>
     <form action="" method="post" role="form">
         {% csrf_token %}
+     
+        
         <div class="form-group{% if form.country.errors %} has-error{% endif %}">
             <label for="id_country">Country:</label>
             {% render_field form.country class+="form-control" %}
@@ -25,8 +31,12 @@
             </select>
         </div>
         <div class="form-group{% if form.year.errors %} has-error{% endif %}">
+            <label for="id_approach_name">Approach Name</label>
+            <input id="id_approach_name" maxlength="120" name="approach_name" type="text" class="form-control" />
+        </div>
+        <div class="form-group{% if form.year.errors %} has-error{% endif %}">
             <label for="id_year">Year of Initiation</label>
-            <input id="id_year" min="0" name="year" type="number" class="form-control" />
+            <input id="id_year" min="0" name="year" type="number" title="Only numbers/year are allowed" class="form-control" />
         </div>
         <div class="form-group{% if form.year.errors %} has-error{% endif %}">
             <label for="id_approach_name">Approach Name</label>
@@ -38,7 +48,7 @@
             </textarea>
         </div>
         <div class="form-group{% if form.year.errors %} has-error{% endif %}">    
-            <label for="id_cost_per_capita">Cost/Capita</label>
+            <label for="id_cost_per_capita">Cost/Capita(USD)</label>
             <input id="id_cost_per_capita" name="cost_per_capita" step="0.0001" type="number" class="form-control" />
         </div>
         <div class="form-group{% if form.year.errors %} has-error{% endif %}">
