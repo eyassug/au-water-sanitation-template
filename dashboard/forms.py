@@ -17,8 +17,12 @@ class SectorPerformanceForm(forms.ModelForm):
         
 class PriorityAreaStatusForm(forms.ModelForm):
     class Meta:
-        model = PriorityAreaStatus
-        exclude = ['priority_area']
+        model = PriorityAreaStatus        
+        
+    def __init__(self, country=None, **kwargs):
+        super(PriorityAreaStatusForm, self).__init__(**kwargs)
+        if country:
+            self.fields['priority_area'].queryset = PriorityArea.objects.filter(country=country)
         
     
 class LoginForm(forms.Form):

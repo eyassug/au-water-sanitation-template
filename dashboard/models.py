@@ -115,7 +115,7 @@ class CountryDemographic(models.Model):
     population = models.IntegerField(null=False,blank=False)
     
 class PriorityAreaStatus(models.Model):
-    prioriry_area = models.ForeignKey('PriorityArea')
+    priority_area = models.ForeignKey('PriorityArea')
     year = models.ForeignKey('Period')
     population = models.PositiveIntegerField()
     number_of_households = models.IntegerField()
