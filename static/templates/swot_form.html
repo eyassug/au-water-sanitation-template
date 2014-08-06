@@ -35,11 +35,7 @@
                     </textarea>
                 </div>
             
-                <div class="form-group{% if form.id_conclusion.errors %} has-error{% endif %}">
-                    <label for="id_conclusion">Conclusion</label>
-                    <textarea cols="40" id="id_conclusion" name="conclusion" class="form-control" rows="3">
-                    </textarea>
-                </div>
+                
             </div>
             <div class="col-md-6 form-group">
                 <div class="form-group{% if form.overall_challenges.errors %} has-error{% endif %}">
@@ -65,16 +61,19 @@
                 </div>
             </div>
             <div class="col-md-12 form-group">
-                <div class="col-md-4 form-group">
-                <button type="submit" class="btn btn-success">Save</button>
-                </div>
-                <div class="col-md-4 form-group">
-                <button type="submit" class="btn btn-primary">Save & Add</button>
-                </div>
-                <div class="col-md-4 form-group" >
-                <button type="submit" class="btn btn-danger" style="float: right">Cancel</button>
-                </div>
+                    <div class="form-group{% if form.id_conclusion.errors %} has-error{% endif %}">
+                        <label for="id_conclusion">Conclusion</label>
+                        <textarea cols="40" id="id_conclusion" name="conclusion" class="form-control" rows="3">
+                        </textarea>
+                    </div>
             </div>
+            <div class="bt-submit">
+            <button type="submit" class="btn btn-success">Save</button>
+        
+            <button type="submit" class="btn btn-primary">Save & Add</button>
+         
+            <button type="reset" class="btn btn-danger">Cancel</button>
+         </div>
                   
     </form>
  </div>

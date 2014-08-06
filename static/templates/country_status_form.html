@@ -5,32 +5,24 @@
     <h2 class="page-header">Population for {{ country }}</h2>
  <form action="" method="post" role="form">
     {% csrf_token %}
-    <div class="form-group{% if form.country.errors %} has-error{% endif %}">
-        
-        <label for="id_country">Country</label>
-        {% render_field form.country class+="form-control" %}
-        
-        
-    </div>
-    
-    <div class="form-group{% if form.year.errors %} has-error{% endif %}">
-    <label for="id_year">Year</label>
-        {% render_field form.year class+="form-control" %}
-    </div>
-    <div class="form-group{% if form.population.errors %} has-error{% endif %}">
-        <label for="id_population">Population</label>
-         {% render_field form.population class+="form-control" %}
-    </div>
-        
-         <div class="col-md-4 form-group">
-         <button type="submit" class="btn btn-success">Save</button>
-         </div>
-         <div class="col-md-4 form-group">
-         <button type="submit" class="btn btn-primary">Save & Add</button>
-         </div>
-         <div class="col-md-4 form-group" >
-         <button type="submit" class="btn btn-danger" style="float: right">Cancel</button>
-         </div>
+         <div class="col-md-12 form-group">
+            <div class="form-group{% if form.year.errors %} has-error{% endif %}">
+            <label for="id_year">Year</label>
+                {% render_field form.year class+="form-control" %}
+            </div>
+            <div class="form-group{% if form.population.errors %} has-error{% endif %}">
+                <label for="id_population">Population</label>
+                 {% render_field form.population class+="form-control" %}
+            </div>
+           </div>
+            <div class="bt-submit">
+               <button type="submit" class="btn btn-success">Save</button>
+           
+               <button type="submit" class="btn btn-primary">Save & Add</button>
+            
+               <button type="reset" class="btn btn-danger">Cancel</button>
+            </div>
+         
     
  </form>
 

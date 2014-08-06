@@ -22,10 +22,7 @@
                     <label for="id_annual_contribution">Annual Contribution</label>
                     <input id="id_annual_contribution" name="annual_contribution" step="0.0001" type="number" class="form-control" />
                 </div>
-                <div class="form-group{% if form.year.errors %} has-error{% endif %}">
-                    <label for="id_financial_contribution">% Financial Contribution</label>
-                    <input id="id_financial_contribution" name="financial_contribution" step="0.01" type="number" class="form-control" />
-                </div>
+               
         </div>
         <div class="col-md-6 form-group">
             <div class="form-group{% if form.partner.errors %} has-error{% endif %}">
@@ -40,18 +37,20 @@
                 <input id="id_in_kind_contribution" name="in_kind_contribution" step="0.01" type="number" class="form-control" />
             </div>
         </div>
-        
         <div class="col-md-12 form-group">
-         <div class="col-md-4 form-group">
-         <button type="submit" class="btn btn-success">Save</button>
+                    <div class="form-group{% if form.year.errors %} has-error{% endif %}">
+                        <label for="id_financial_contribution">% Financial Contribution</label>
+                        <input id="id_financial_contribution" name="financial_contribution" step="0.01" type="number" class="form-control" />
+                    </div>
+        </div>
+         
+        <div class="bt-submit">
+            <button type="submit" class="btn btn-success">Save</button>
+        
+            <button type="submit" class="btn btn-primary">Save & Add</button>
+         
+            <button type="reset" class="btn btn-danger">Cancel</button>
          </div>
-         <div class="col-md-4 form-group">
-         <button type="submit" class="btn btn-primary">Save & Add</button>
-         </div>
-         <div class="col-md-4 form-group" >
-         <button type="submit" class="btn btn-danger" style="float: right">Cancel</button>
-         </div>
-        </Div>
     </form>
      </div>
 
