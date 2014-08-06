@@ -4,6 +4,7 @@ from dashboard.forms import CountryStatusForm, FacilityAccessForm, SectorPerform
 from dashboard.forms import DFacilityAccessForm, PriorityAreaStatusForm, DTechnologyForm
 from dashboard.models import CountryDemographic, FacilityAccess, SectorPerformance, PlanningPerformance, TenderProcedurePerformance, CommunityApproach, PartnerContribution, PartnerEventContribution, SWOT, PriorityAreaStatus
 from dashboard.models import Country, PriorityArea, SectorCategory, FacilityCharacter, Technology
+from dashboard import models
 from dashboard.models import PriorityAreaStatus
 from django.views.generic import View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -14,6 +15,7 @@ from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth.views import password_change
 from django.forms.models import modelform_factory
 from django import forms
+from dashboard import grids
 # Sector Performance Category
 class SectorPerformanceCreate(LoginRequiredMixin,CreateView):
     model = SectorPerformance
@@ -201,3 +203,9 @@ class TechnologyCreate(LoginRequiredMixin,View):
             return HttpResponseRedirect('/admin/dashboard/technology/')
             
         return render(request, 'technology_admin.html', {'form': form})
+
+class CountryDemographicGridView(LoginRequiredMixin,View):
+    def get(self,request):
+        user_country = request.user.usercountry.country        
+        data = models.CountryDemographic.objects.filter(country=user_country)
+        return render(request, 'data-grids/country_demographic_grid.html', {'data': data})

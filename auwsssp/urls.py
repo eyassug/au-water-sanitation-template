@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     
     # Report Urls:
     url(r'^(?i)report/countrystatus$', views.CountryStatusCreate.as_view(), name='country_status_create'),
+    url(r'^(?i)report/countrystatus/list$', views.CountryDemographicGridView.as_view(), name='country_status_list'),
     url(r'^(?i)report/prioritystatus$', views.PriorityAreaStatusCreate.as_view(), name='country_status_create'),
     url(r'^(?i)report/sectorperformance$', views.SectorPerformanceCreate.as_view(), name='sector_performance_create'),    
     url(r'^(?i)report/facilityaccess$', views.FacilityAccessCreate.as_view(), name='facility_access_create'),
