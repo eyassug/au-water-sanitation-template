@@ -21,7 +21,7 @@ class Period(models.Model):
     end_year = models.PositiveIntegerField()
     
     def __str__(self):
-        return str(self.start_year) + '-' + str(self.end_year).replace('20','').replace('19','')
+        return str(self.start_year) + '-' + str(self.end_year)
     
 class PriorityArea(models.Model):
     country = models.ForeignKey('Country')
