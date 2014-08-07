@@ -13,26 +13,38 @@
            <div class="col-md-6 form-group">
                 <div class="form-group{% if form.sector_category.errors %} has-error{% endif %}">
                     <label for="id_sector_category">Sector Category</label>
-                    {% render_field form.sector_category class+="form-control" %}
+                    {% render_field form.sector_category class+="form-control" tabindex+="1" %}
+                    {% if form.sector_category.errors %}
+                        {{ form.sector_category.errors }}
+                    {% endif %}
                     </select>
                 </div>
             
                 <div class="form-group{% if form.strengths.errors %} has-error{% endif %}">
                     <label for="id_strengths">Strengths</label>
-                    <textarea cols="40" id="id_strengths" name="strengths" class="form-control" rows="3">
+                    <textarea cols="40" id="id_strengths" name="strengths" class="form-control" rows="3" tabindex="3">
                     </textarea>
+                    {% if form.strengths.errors %}
+                        {{ form.strengths.errors }}
+                    {% endif %}
                 </div>
             
                 <div class="form-group{% if form.opportunities.errors %} has-error{% endif %}">
                     <label for="id_opportunities">Opportunity</label>
-                    <textarea cols="40" id="id_opportunities" name="opportunities" class="form-control" rows="3">
+                    <textarea cols="40" id="id_opportunities" name="opportunities" class="form-control" rows="3" tabindex="5">
                     </textarea>
+                    {% if form.opportunities.errors %}
+                        {{ form.opportunities.errors }}
+                    {% endif %}
                 </div>
             
                 <div class="form-group{% if form.opportmitigation_measuresunities.errors %} has-error{% endif %}">
                     <label for="id_mitigation_measures">Measurement of Mitigation</label>
-                    <textarea cols="40" id="id_mitigation_measures" name="mitigation_measures" class="form-control" rows="3">
+                    <textarea cols="40" id="id_mitigation_measures" name="mitigation_measures" class="form-control" rows="3" tabindex="7">
                     </textarea>
+                    {% if form.mitigation_measures.errors %}
+                        {{ form.mitigation_measures.errors }}
+                    {% endif %}
                 </div>
             
                 
@@ -40,39 +52,54 @@
             <div class="col-md-6 form-group">
                 <div class="form-group{% if form.overall_challenges.errors %} has-error{% endif %}">
                     <label for="id_overall_challenges">Overall Challenges</label>
-                    <textarea cols="40" id="id_overall_challenges" name="overall_challenges" class="form-control" rows="3">
+                    <textarea cols="40" id="id_overall_challenges" name="overall_challenges" class="form-control" rows="3" tabindex="2">
                     </textarea>
+                    {% if form.overall_challenges.errors %}
+                        {{ form.overall_challenges.errors }}
+                    {% endif %}
                 </div>
                 <div class="form-group{% if form.kap_recommendations.errors %} has-error{% endif %}">
                     <label for="id_kap_recommendations">Recommendation KAP</label>
-                    <textarea cols="40" id="id_kap_recommendations" name="kap_recommendations" class="form-control" rows="3">
+                    <textarea cols="40" id="id_kap_recommendations" name="kap_recommendations" class="form-control" rows="3" tabindex="4">
                     </textarea>
+                    {% if form.kap_recommendations.errors %}
+                        {{ form.kap_recommendations.errors }}
+                    {% endif %}
                 </div>
                 <div class="form-group{% if form.risks.errors %} has-error{% endif %}">
                     <label for="id_risks">Risks</label>
-                    <textarea cols="40" id="id_risks" name="risks" class="form-control" rows="3">
+                    <textarea cols="40" id="id_risks" name="risks" class="form-control" rows="3" tabindex="6">
                     </textarea>
+                    {% if form.risks.errors %}
+                        {{ form.risks.errors }}
+                    {% endif %}
                 </div>
                 <div class="form-group{% if form.weaknesses.errors %} has-error{% endif %}">
                     <label for="id_weaknesses">Weaknesses</label>
-                    <textarea cols="40" id="id_weaknesses" name="weaknesses" class="form-control" rows="3">
+                    <textarea cols="40" id="id_weaknesses" name="weaknesses" class="form-control" rows="3" tabindex="7">
                     </textarea>
+                     {% if form.weaknesses.errors %}
+                        {{ form.weaknesses.errors }}
+                    {% endif %}
             
                 </div>
             </div>
             <div class="col-md-12 form-group">
                     <div class="form-group{% if form.id_conclusion.errors %} has-error{% endif %}">
                         <label for="id_conclusion">Conclusion</label>
-                        <textarea cols="40" id="id_conclusion" name="conclusion" class="form-control" rows="3">
+                        <textarea cols="40" id="id_conclusion" name="conclusion" class="form-control" rows="3" tabindex="9">
                         </textarea>
+                        {% if form.conclusion.errors %}
+                            {{ form.conclusion.errors }}
+                        {% endif %}
                     </div>
             </div>
             <div class="bt-submit">
-            <button type="submit" class="btn btn-success">Save</button>
+            <button type="submit" class="btn btn-success" tabindex="10">Save</button>
         
-            <button type="submit" class="btn btn-primary">Save & Add</button>
+            <button type="submit" class="btn btn-primary" tabindex="11">Save & Add</button>
          
-            <button type="reset" class="btn btn-danger">Cancel</button>
+            <button type="reset" class="btn btn-danger" tabindex="12">Cancel</button>
          </div>
                   
     </form>
