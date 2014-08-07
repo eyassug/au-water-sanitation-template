@@ -1,0 +1,32 @@
+<div class="table-responsive">
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Sector Category</th>
+            <th>Approach Type</th>
+            <th>Approach Name</th>
+            <th>Year of Initiation</th>
+            <th>Cost/Capita (USD)</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+<tbody>
+{% for d in data %}
+
+    <tr>
+        <td>{{ d.id }}</td>
+        <td>{{ d.sector_category }}</td>
+        <td>{{ d.year }}</td>        
+        <td>{{ d.approach_type }}</td>
+        <td>{{ d.approach_name }}</td>
+        <td>{{ d.cost_per_capita }}</td>
+        <td><a href="#">Edit</a></td>
+    </tr>
+    
+{% endfor %}
+
+</tbody>
+</table>
+
+</div>

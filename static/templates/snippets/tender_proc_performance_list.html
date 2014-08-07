@@ -1,0 +1,33 @@
+<div class="table-responsive">
+    
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Sector Category</th>
+            <th>Tender & Proc. Property</th>
+            <th>Year</th>
+            <th>Number Registered</th>
+            <th>Number Executed</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+<tbody>
+{% for d in data %}
+
+    <tr>
+        <td>{{ d.id }}</td>
+        <td>{{ d.sector_category }}</td>
+        <td>{{ d.tender_procedure_property }}</td>
+        <td>{{ d.year }}</td>        
+        <td>{{ d.registered }}</td>
+        <td>{{ d.executed }}</td>
+        <td><a href="#">Edit</a></td>
+    </tr>
+    
+{% endfor %}
+
+</tbody>
+</table>
+
+</div>
