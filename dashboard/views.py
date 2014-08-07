@@ -256,3 +256,45 @@ class PAStatusGridView(LoginRequiredMixin,View):
         user_country = request.user.usercountry.country        
         data = models.PriorityAreaStatus.objects.all()
         return render(request, 'data-grids/priority_area_status_grid.html', {'data': data})
+    
+class TechnologyAccessGridView(LoginRequiredMixin,View):
+    def get(self,request):
+        user_country = request.user.usercountry.country        
+        data = models.FacilityAccess.objects.all()
+        return render(request, 'data-grids/technology_access_grid.html', {'data': data})
+    
+class SectorPerformanceGridView(LoginRequiredMixin,View):
+    def get(self,request):
+        user_country = request.user.usercountry.country        
+        data = models.SectorPerformance.objects.all()
+        return render(request, 'data-grids/sector_performance_grid.html', {'data': data})
+    
+class PlanningPerformanceGridView(LoginRequiredMixin,View):
+    def get(self,request):
+        user_country = request.user.usercountry.country        
+        data = models.PlanningPerformance.objects.filter(country=user_country)
+        return render(request, 'data-grids/planning_performance_grid.html', {'data': data})
+
+class TPPerformanceGridView(LoginRequiredMixin,View):
+    def get(self,request):
+        user_country = request.user.usercountry.country        
+        data = models.TenderProcedurePerformance.objects.filter(country=user_country)
+        return render(request, 'data-grids/tender_proc_performance_grid.html', {'data': data})
+
+class CommunityApproachGridView(LoginRequiredMixin,View):
+    def get(self,request):
+        user_country = request.user.usercountry.country        
+        data = models.CommunityApproach.objects.filter(country=user_country)
+        return render(request, 'data-grids/community_approach_grid.html', {'data': data})
+    
+class PartnerContributionGridView(LoginRequiredMixin,View):
+    def get(self,request):
+        user_country = request.user.usercountry.country        
+        data = models.PartnerContribution.objects.filter(country=user_country)
+        return render(request, 'data-grids/partner_contribution_grid.html', {'data': data})
+    
+class PartnerEventContributionGridView(LoginRequiredMixin,View):
+    def get(self,request):
+        user_country = request.user.usercountry.country        
+        data = models.PartnerEventContribution.objects.filter(country=user_country)
+        return render(request, 'data-grids/partner_event_contribution_grid.html', {'data': data})
