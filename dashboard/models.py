@@ -196,9 +196,9 @@ class PartnerEventContribution(models.Model):
     year = models.ForeignKey('Period')
     partner = models.ForeignKey('Partner', blank=False)
     event = models.ForeignKey('Event', blank=False)
-    government_staff_contribution = models.DecimalField(max_digits=3, decimal_places=2, null=False)
-    own_staff_contribution = models.DecimalField(max_digits=3, decimal_places=2, null=False)
-    total_event_contribution = models.DecimalField(max_digits=3, decimal_places=2, null=False)
+    government_staff_contribution = models.DecimalField(max_digits=10, decimal_places=2, null=True,blank=True)
+    own_staff_contribution = models.DecimalField(max_digits=10, decimal_places=2, null=True,blank=True)
+    total_event_contribution = models.DecimalField(max_digits=10, decimal_places=2, null=True,blank=True)
     
 class SWOT(models.Model):
     country = models.ForeignKey('Country', blank=False)

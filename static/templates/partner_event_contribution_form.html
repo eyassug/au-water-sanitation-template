@@ -13,15 +13,20 @@
        <div class="col-md-6 form-group">
             <div class="form-group{% if form.sector_category.errors %} has-error{% endif %}">
                 <label for="id_sector_category">Sector Category</label>
-                {% render_field form.sector_category class+="form-control" %}
-                </select>
-            </div>
+                {% render_field form.sector_category class+="form-control" tabindex+="1" %}
+                {% if form.sector_category.errors %}
+                  {{ form.sector_category.errors }}
+                {% endif %}
+                 </div>
             <div class="form-group{% if form.event.errors %} has-error{% endif %}">
             
-            <label for="id_event">Event</label>
+                <label for="id_event">Event</label>
                 <a href="/admin/dashboard/event/add/"  class="add-another" id="add_id_event" onclick="return showAddAnotherPopup(this);">
                 <img src="/static/admin/img/icon_addlink.gif" width="10" height="10" alt="Add Another"/>[Add Event]</a>
-                {% render_field form.event class+="form-control" %}
+                {% render_field form.event class+="form-control" tabindex+="3" %}
+                {% if form.event.errors %}
+                  {{ form.event.errors }}
+                {% endif %}
      
             </div>
        
@@ -31,30 +36,47 @@
                         <label for="id_partner">Partner</label>
                         <a href="/admin/dashboard/partner/add/"  class="add-another" id="add_id_partner" onclick="return showAddAnotherPopup(this);">
                         <img src="/static/admin/img/icon_addlink.gif" width="10" height="10" alt="Add Another"/>[Add Partner]</a>
-                        {% render_field form.partner class+="form-control" %}
+                        {% render_field form.partner class+="form-control" tabindex+="2" %}
+                        {% if form.partner.errors %}
+                            {{ form.partner.errors }}
+                        {% endif %}
                     
                 
                     </div>
         
                     <div class="form-group{% if form.year.errors %} has-error{% endif %}">
                        <label for="id_year">Partner Cont. for the Year</label>
-                       {% render_field form.year class+="form-control" %}
+                       {% render_field form.year class+="form-control" tabindex+="4" %}
+                       {% if form.year.errors %}
+                            {{ form.year.errors }}
+                        {% endif %}
                    </div>
             </div>
-        <h4 class="formtitle">Partner contribution for the year</h4>
+        <h4 class="formtitle">Enter Partner contribution for the year</h4>
         <div class="col-md-12 form-group">
         <div class="form-group{% if form.government_staff_contribution.errors %} has-error{% endif %}">
             <label for="id_government_staff_contribution">Contribution to Government Staff(USD)</label>
-            <input id="id_government_staff_contribution" name="government_staff_contribution" pattern="^\d*(\.\d{2}$)?" size="4"
-    title="CDA Currency Format - no dollar sign and no comma(s) - cents (.##) are optional" class="form-control" />
+            <input id="id_government_staff_contribution" name="government_staff_contribution" type="number" min="0" max="9999999" step="0.01" size="4" 
+                        title="Currency Format - no dollar sign and no comma(s) - cents (.##) are optional"  class="form-control" tabindex="5" />
+                        {% if form.government_staff_contribution.errors %}
+                            {{ form.government_staff_contribution.errors }}
+                        {% endif %}
         </div>
         <div class="form-group{% if form.own_staff_contribution.errors %} has-error{% endif %}">
             <label for="id_own_staff_contribution">Contribution to Own Staff(USD)</label>
-            <input id="id_own_staff_contribution" name="own_staff_contribution" step="1.00" type="number" class="form-control" />
+            <input id="id_own_staff_contribution" name="own_staff_contribution" type="number" min="0" max="9999999" step="0.01" size="4" 
+                        title="Currency Format - no dollar sign and no comma(s) - cents (.##) are optional"  class="form-control" tabindex="6" />
+                {% if form.own_staff_contribution.errors %}
+                            {{ form.own_staff_contribution.errors }}
+                        {% endif %}
         </div>
         <div class="form-group{% if form.total_event_contribution.errors %} has-error{% endif %}">
             <label for="id_total_event_contribution">Total Budget Contributed to the Country for the Event(USD)</label>
-            <input id="id_total_event_contribution" name="total_event_contribution" step="1.00" type="number" class="form-control" />
+            <input id="id_total_event_contribution" name="total_event_contribution" type="number" min="0" max="9999999" step="0.01" size="4" 
+                        title="Currency Format - no dollar sign and no comma(s) - cents (.##) are optional"  class="form-control" tabindex="7" />
+                        {% if form.total_event_contribution.errors %}
+                            {{ form.total_event_contribution.errors }}
+                        {% endif %}
         </div>
         </div>
         <div class="bt-submit">
