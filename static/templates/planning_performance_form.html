@@ -26,7 +26,7 @@
     <div class="col-md-12 form-group">
          <div class="form-group{% if form.year.errors %} has-error{% endif %}">
             <label for="id_year">Year</label>
-           {% render_field form.year class+="form-control" indextab+="2" %}
+           {% render_field form.year class+="form-control" tabindex+="2" %}
            {% if form.year.errors %}
                   {{ form.year.errors }}
                 {% endif %}
@@ -90,11 +90,11 @@
          </div>
     </div>
         <div class="bt-submit">
-            <button type="submit" class="btn btn-success">Save</button>
+            <button type="submit" class="btn btn-success" tabindex="9">Save</button>
         
-            <button type="submit" class="btn btn-primary">Save & Add</button>
+            <button type="submit" class="btn btn-primary" tabindex="10">Save & Add</button>
          
-            <button type="reset" class="btn btn-danger">Cancel</button>
+            <button type="reset" class="btn btn-danger" tabindex="11">Cancel</button>
          </div>
     </form>
      </div>
