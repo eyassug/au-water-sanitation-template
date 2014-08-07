@@ -9,10 +9,17 @@
             <div class="form-group{% if form.year.errors %} has-error{% endif %}">
             <label for="id_year">Year</label>
                 {% render_field form.year class+="form-control" %}
+                {% if form.year.errors %}
+                  {{ form.year.errors }}
+                {% endif %}
             </div>
             <div class="form-group{% if form.population.errors %} has-error{% endif %}">
                 <label for="id_population">Population</label>
                  {% render_field form.population class+="form-control" %}
+                  {% if form.population.errors %}
+                {{ form.population.errors }}
+                
+                {% endif %}
             </div>
            </div>
             <div class="bt-submit">
