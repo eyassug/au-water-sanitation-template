@@ -7,60 +7,74 @@
 !-->
 {% load widget_tweaks %}
  <div class ="col-md-6">
-<h2 class="page-header">Sector SWOT & Conclusion</h2>
+<h2 class="page-header">Sector SWOT & Conclusion for {{ country }}</h2>
     <form action="" method="post">
             {% csrf_token %}
-            <!-- <div class="form-group{% if form.country.errors %} has-error{% endif %}">
-                <label for="id_country">Country:</label>
-                {% render_field form.country class+="form-control" %}
-            </div> !-->
-            <div class="form-group{% if form.sector_category.errors %} has-error{% endif %}">
-                <label for="id_sector_category">Sector Category</label>
-                {% render_field form.sector_category class+="form-control" %}
-                </select>
+           <div class="col-md-6 form-group">
+                <div class="form-group{% if form.sector_category.errors %} has-error{% endif %}">
+                    <label for="id_sector_category">Sector Category</label>
+                    {% render_field form.sector_category class+="form-control" %}
+                    </select>
+                </div>
+            
+                <div class="form-group{% if form.strengths.errors %} has-error{% endif %}">
+                    <label for="id_strengths">Strengths</label>
+                    <textarea cols="40" id="id_strengths" name="strengths" class="form-control" rows="3">
+                    </textarea>
+                </div>
+            
+                <div class="form-group{% if form.opportunities.errors %} has-error{% endif %}">
+                    <label for="id_opportunities">Opportunity</label>
+                    <textarea cols="40" id="id_opportunities" name="opportunities" class="form-control" rows="3">
+                    </textarea>
+                </div>
+            
+                <div class="form-group{% if form.opportmitigation_measuresunities.errors %} has-error{% endif %}">
+                    <label for="id_mitigation_measures">Measurement of Mitigation</label>
+                    <textarea cols="40" id="id_mitigation_measures" name="mitigation_measures" class="form-control" rows="3">
+                    </textarea>
+                </div>
+            
+                
             </div>
-            <div class="form-group{% if form.overall_challenges.errors %} has-error{% endif %}">
-                <label for="id_overall_challenges">Overall Challenges</label>
-                <textarea cols="40" id="id_overall_challenges" name="overall_challenges" class="form-control" rows="3">
-                </textarea>
+            <div class="col-md-6 form-group">
+                <div class="form-group{% if form.overall_challenges.errors %} has-error{% endif %}">
+                    <label for="id_overall_challenges">Overall Challenges</label>
+                    <textarea cols="40" id="id_overall_challenges" name="overall_challenges" class="form-control" rows="3">
+                    </textarea>
+                </div>
+                <div class="form-group{% if form.kap_recommendations.errors %} has-error{% endif %}">
+                    <label for="id_kap_recommendations">Recommendation KAP</label>
+                    <textarea cols="40" id="id_kap_recommendations" name="kap_recommendations" class="form-control" rows="3">
+                    </textarea>
+                </div>
+                <div class="form-group{% if form.risks.errors %} has-error{% endif %}">
+                    <label for="id_risks">Risks</label>
+                    <textarea cols="40" id="id_risks" name="risks" class="form-control" rows="3">
+                    </textarea>
+                </div>
+                <div class="form-group{% if form.weaknesses.errors %} has-error{% endif %}">
+                    <label for="id_weaknesses">Weaknesses</label>
+                    <textarea cols="40" id="id_weaknesses" name="weaknesses" class="form-control" rows="3">
+                    </textarea>
+            
+                </div>
             </div>
-            <div class="form-group{% if form.strengths.errors %} has-error{% endif %}">
-                <label for="id_strengths">Strengths</label>
-                <textarea cols="40" id="id_strengths" name="strengths" class="form-control" rows="3">
-                </textarea>
+            <div class="col-md-12 form-group">
+                    <div class="form-group{% if form.id_conclusion.errors %} has-error{% endif %}">
+                        <label for="id_conclusion">Conclusion</label>
+                        <textarea cols="40" id="id_conclusion" name="conclusion" class="form-control" rows="3">
+                        </textarea>
+                    </div>
             </div>
-            <div class="form-group{% if form.weaknesses.errors %} has-error{% endif %}">
-                <label for="id_weaknesses">Weaknesses</label>
-                <textarea cols="40" id="id_weaknesses" name="weaknesses" class="form-control" rows="3">
-                </textarea>
-            </td>
-            <div class="form-group{% if form.opportunities.errors %} has-error{% endif %}">
-                <label for="id_opportunities">Opportunity</label>
-                <textarea cols="40" id="id_opportunities" name="opportunities" class="form-control" rows="3">
-                </textarea>
-            </div>
-            <div class="form-group{% if form.risks.errors %} has-error{% endif %}">
-                <label for="id_risks">Risks</label>
-                <textarea cols="40" id="id_risks" name="risks" class="form-control" rows="3">
-                </textarea>
-            </div>
-            <div class="form-group{% if form.opportmitigation_measuresunities.errors %} has-error{% endif %}">
-                <label for="id_mitigation_measures">Measurement of Mitigation</label>
-                <textarea cols="40" id="id_mitigation_measures" name="mitigation_measures" class="form-control" rows="3">
-                </textarea>
-            </div>
-            <div class="form-group{% if form.kap_recommendations.errors %} has-error{% endif %}">
-                <label for="id_kap_recommendations">Recommendation KAP</label>
-                <textarea cols="40" id="id_kap_recommendations" name="kap_recommendations" class="form-control" rows="3">
-                </textarea>
-            </div>
-            <div class="form-group{% if form.id_conclusion.errors %} has-error{% endif %}">
-                <label for="id_conclusion">Conclusion</label>
-                <textarea cols="40" id="id_conclusion" name="conclusion" class="form-control" rows="3">
-                </textarea>
-            </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-            </div>
+            <div class="bt-submit">
+            <button type="submit" class="btn btn-success">Save</button>
+        
+            <button type="submit" class="btn btn-primary">Save & Add</button>
+         
+            <button type="reset" class="btn btn-danger">Cancel</button>
+         </div>
+                  
     </form>
  </div>
 

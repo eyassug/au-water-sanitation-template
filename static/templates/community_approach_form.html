@@ -11,52 +11,61 @@
 
     
     <div class ="col-md-6">
-    <h2 class="page-header">Community Approach</h2>
+    <h2 class="page-header">Community Approach for {{ country }}</h2>
     <form action="" method="post" role="form">
         {% csrf_token %}
      
-        
-        <div class="form-group{% if form.country.errors %} has-error{% endif %}">
-            <label for="id_country">Country:</label>
-            {% render_field form.country class+="form-control" %}
-            </div>
-        <div class="form-group{% if form.year.errors %} has-error{% endif %}">
-            <label for="id_sector_category">Sector Category</label>
-            {% render_field form.sector_category class+="form-control" %}
-            </select>
-        </div>
-        <div class="form-group{% if form.year.errors %} has-error{% endif %}">
-            <label for="id_approach_type">Approach Type</label>
-            {% render_field form.approach_type class+="form-control" %}
-            </select>
-        </div>
-        <div class="form-group{% if form.year.errors %} has-error{% endif %}">
-            <label for="id_approach_name">Approach Name</label>
-            <input id="id_approach_name" maxlength="120" name="approach_name" type="text" class="form-control" />
-        </div>
-        <div class="form-group{% if form.year.errors %} has-error{% endif %}">
-            <label for="id_year">Year of Initiation</label>
-            <input id="id_year" min="0" name="year" type="number" title="Only numbers/year are allowed" class="form-control" />
-        </div>
-        <div class="form-group{% if form.year.errors %} has-error{% endif %}">
-            <label for="id_approach_name">Approach Name</label>
-            <input id="id_approach_name" maxlength="120" name="approach_name" type="text" class="form-control" />
-        </div>
+        <div class="col-md-6 form-group">
             <div class="form-group{% if form.year.errors %} has-error{% endif %}">
-            <label for="id_description">Short Description</label>
-            <textarea cols="40" id="id_description" name="description" rows="3" class="form-control">
-            </textarea>
+                <label for="id_sector_category">Sector Category</label>
+                {% render_field form.sector_category class+="form-control" %}
+                </select>
+            </div>
+            <div class="form-group{% if form.year.errors %} has-error{% endif %}">
+                <label for="id_approach_name">Approach Name</label>
+                <input id="id_approach_name" maxlength="120" name="approach_name" type="text" class="form-control" />
+            </div>
         </div>
-        <div class="form-group{% if form.year.errors %} has-error{% endif %}">    
-            <label for="id_cost_per_capita">Cost/Capita(USD)</label>
-            <input id="id_cost_per_capita" name="cost_per_capita" step="0.0001" type="number" class="form-control" />
+        <div class="col-md-6 form-group">
+            <div class="form-group{% if form.year.errors %} has-error{% endif %}">
+                <label for="id_approach_type">Approach Type</label>
+                {% render_field form.approach_type class+="form-control" %}
+                
+            </div>
+        
+            <div class="form-group{% if form.year.errors %} has-error{% endif %}">
+                <label for="id_year">Year of Initiation</label>
+                <input id="id_year" min="0" name="year" type="number" title="Only numbers/year are allowed" class="form-control" />
+            </div>
         </div>
-        <div class="form-group{% if form.year.errors %} has-error{% endif %}">
-            <label for="id_lessons_learnt">Lessons Learnt</label>
-            <textarea cols="40" id="id_lessons_learnt" name="lessons_learnt" class="form-control" rows="3">
-            </textarea>
+        <div class="col-md-6 form-group">
+            <div class="form-group{% if form.year.errors %} has-error{% endif %}">    
+                <label for="id_cost_per_capita">Cost/Capita(USD)</label>
+                <input id="id_cost_per_capita" name="cost_per_capita" step="0.0001" type="number" class="form-control" />
+            </div>
+           
         </div>
-            <input type="submit" value="Submit" />
+        <div class="col-md-6 form-group">
+         <div class="form-group{% if form.year.errors %} has-error{% endif %}">
+                <label for="id_description">Short Description</label>
+                <textarea cols="40" id="id_description" name="description" rows="3" class="form-control">
+                </textarea>
+            </div>
+        </div>
+        <div class="col-md-12 form-group">
+            <div class="form-group{% if form.year.errors %} has-error{% endif %}">
+                <label for="id_lessons_learnt">Lessons Learnt</label>
+                <textarea cols="40" id="id_lessons_learnt" name="lessons_learnt" class="form-control" rows="3">
+                </textarea>
+            </div>
+        </div>
+        <div class="bt-submit">
+            <button type="submit" class="btn btn-success">Save</button>
+        
+            <button type="submit" class="btn btn-primary">Save & Add</button>
+         
+            <button type="reset" class="btn btn-danger">Cancel</button>
+         </div>
     </form>
     </div>
 
