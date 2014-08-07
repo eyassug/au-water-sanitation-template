@@ -250,3 +250,9 @@ class PartnerContributionGridView(LoginRequiredMixin,View):
         user_country = request.user.usercountry.country        
         data = models.PartnerContribution.objects.filter(country=user_country)
         return render(request, 'data-grids/partner_contribution_grid.html', {'data': data})
+    
+class PartnerEventContributionGridView(LoginRequiredMixin,View):
+    def get(self,request):
+        user_country = request.user.usercountry.country        
+        data = models.PartnerEventContribution.objects.filter(country=user_country)
+        return render(request, 'data-grids/partner_event_contribution_grid.html', {'data': data})
