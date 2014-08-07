@@ -175,11 +175,11 @@ class TenderProcedurePerformance(models.Model):
 class CommunityApproach(models.Model):
     country = models.ForeignKey('Country', blank=False)
     sector_category = models.ForeignKey('SectorCategory', blank=False)
-    year = models.ForeignKey('Period')
+    year = models.ForeignKey('Period',blank=False, null=False)
     approach_type = models.ForeignKey('CommunityApproachType',blank=False)
-    approach_name = models.CharField(max_length=120, null=False, blank=False)    
+    approach_name = models.CharField(max_length=120, null=True, blank=True)    
     description = models.TextField()
-    cost_per_capita = models.DecimalField(max_digits=15, decimal_places=4, null=False)
+    cost_per_capita = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     lessons_learnt = models.TextField()
     
 class PartnerContribution(models.Model):
