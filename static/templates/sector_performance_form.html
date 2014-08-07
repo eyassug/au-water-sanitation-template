@@ -1,14 +1,17 @@
 {% extends 'welcome.html' %}
 {% block content_container %}
     {% load widget_tweaks %}
+     <h2 class="page-header">Sector Performance for {{ country }} </h2>
+    <ul class="nav nav-tabs" id="tab1">
+      <li class="active"><a href="#add" data-toggle="tab">Add</a></li>
+      <li><a href="#list" data-toggle="tab">List</a></li>
+   </ul>
     
-    <!--
-    <form action="" method="post">{% csrf_token %}
-        {{ form.as_table }}
-    <input type="submit" value="Submit" />
-    !-->
+<!-- Tab panes -->
+   <div class="tab-content">
+      <div class="tab-pane active" id="add">
      <div class ="col-md-6">
-    <h2 class="page-header">Sector Performance for {{ country }} </h2>
+   
     <form action="" method="post" role="form">
         {% csrf_token %}
       
@@ -134,4 +137,9 @@
     </form>
 
      </div>
+     </div>
+  <div class="tab-pane col-md-8" id="list">
+    {% include "snippets/sector_performance_list.html" %}
+  </div>
+</div>
 {% endblock %}

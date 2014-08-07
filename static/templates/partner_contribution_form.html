@@ -3,12 +3,17 @@
     {% load widget_tweaks %}
     
     <script src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
-    <!-- <form action="" method="post">{% csrf_token %}
-        {{ form.as_table }}
-    <input type="submit" value="Submit" />
-    !-->
-     <div class ="col-md-6">
     <h2 class="page-header">Partner Contribution to Country({{ country }})</h2>
+    <ul class="nav nav-tabs" id="tab1">
+      <li class="active"><a href="#add" data-toggle="tab">Add</a></li>
+      <li><a href="#list" data-toggle="tab">List</a></li>
+   </ul>
+    
+<!-- Tab panes -->
+   <div class="tab-content">
+      <div class="tab-pane active" id="add">
+     <div class ="col-md-6">
+    
     <form action="" method="post">
         {% csrf_token %}
        
@@ -71,5 +76,10 @@
          </div>
     </form>
      </div>
+      </div>
+  <div class="tab-pane col-md-8" id="list">
+    {% include "snippets/partner_contribution_list.html" %}
+  </div>
+</div>
 
 {% endblock %}
