@@ -61,9 +61,11 @@ class CountryStatusCreate(LoginRequiredMixin,View):
         user_country = request.user.usercountry.country
         form = CountryStatusForm()
         form.instance.country = user_country
+        data = models.CountryDemographic.objects.filter(country=user_country)
         return render(request, self.template_name, {
             'form': form,
-            'country': user_country
+            'country': user_country,
+            'data':data
         })
     
     def post(self,request):
@@ -82,9 +84,11 @@ class PriorityAreaStatusCreate(LoginRequiredMixin,View):
     def get(self, request):        
         user_country = request.user.usercountry.country
         form = PriorityAreaStatusForm(country=user_country)
+        data = models.PriorityAreaStatus.objects.all()
         return render(request,'priority_area_status_form.html', {
             'form': form,
-            'country': user_country
+            'country': user_country,
+            'data':data
         })    
     
     def post(self,request):
