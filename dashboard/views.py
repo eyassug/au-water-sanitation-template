@@ -73,8 +73,19 @@ class CountryStatusCreate(LoginRequiredMixin,View):
         form = CountryStatusForm(request.POST)
         if(form.is_valid()):
             form.instance.country = user_country
-            form.save()
-            return HttpResponseRedirect(self.success_url)
+            ins = form.save()
+            if(request.POST.has_key('save_add')):
+                new_form = CountryStatusForm(initial={'country':user_country,'year':form.instance.year})
+                new_form.instance.country = user_country
+                new_form.instance.year = form.instance.year
+                new_form.instance.population = 0
+                data = models.CountryDemographic.objects.filter(country=user_country)
+                return render(request, self.template_name, {
+                    'form': new_form,
+                    'country': user_country,
+                    'data':data
+                })
+            return HttpResponseRedirect(self.success_url+'#list')
         return render(request, self.template_name, {
             'form': form,
             'country': user_country
