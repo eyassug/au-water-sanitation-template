@@ -16,53 +16,77 @@
     <div class="col-md-12 form-group">
         <div class="form-group{% if form.sector_category.errors %} has-error{% endif %}">
             <label for="id_sector_category">Sector Category</label>
-            {% render_field form.sector_category class+="form-control" %}
+            {% render_field form.sector_category class+="form-control" tabindex+="1" %}
+            {% if form.sector_category.errors %}
+                  {{ form.sector_category.errors }}
+                {% endif %}
         </div>
         
     </div>
     <div class="col-md-12 form-group">
          <div class="form-group{% if form.year.errors %} has-error{% endif %}">
             <label for="id_year">Year</label>
-           {% render_field form.year class+="form-control" %}
+           {% render_field form.year class+="form-control" indextab+="2" %}
+           {% if form.year.errors %}
+                  {{ form.year.errors }}
+                {% endif %}
          </div>
     </div>
     <h4 class="formtitle">Enter values for planning performance for the year</h4>
         <div class="col-md-12 form-group">
-         <div class="form-group{% if form.preparation_delay.errors %} has-error{% endif %}">
+         <div class="form-group{% if form.plan_preparation_delay.errors %} has-error{% endif %}">
             <label for="id_plan_preparation_delay">Delay of Preparing the Plan(Days)</label>
-            <input id="id_plan_preparation_delay" min="0" name="plan_preparation_delay" type="number" class="form-control" />
+            <input id="id_plan_preparation_delay" min="0" name="plan_preparation_delay" type="number" title="Only number are allowed" class="form-control" tabindex="3" />
+                {% if form.plan_preparation_delay.errors %}
+                  {{ form.plan_preparation_delay.errors }}
+                {% endif %}
          </div>
     </div>
     <div class="col-md-12 form-group">
          <div class="form-group{% if form.plan_adoption_delay.errors %} has-error{% endif %}">
             <label for="id_plan_adoption_delay">Delay of Adopting the Plan(Days)</label>
-            <input id="id_plan_adoption_delay" min="0" name="plan_adoption_delay" type="number" class="form-control" />
+            <input id="id_plan_adoption_delay" min="0" name="plan_adoption_delay" type="number" class="form-control" tabindex="4"/>
+                {% if form.plan_adoption_delay.errors %}
+                  {{ form.plan_adoption_delay.errors }}
+                {% endif %}
          </div>
     </div>
     <h4 class="formtitle">Comments on bottlenecks & successes</h4>
     <div class="col-md-6 form-group">
          <div class="form-group{% if form.general_comment.errors %} has-error{% endif %}">
             <label for="id_general_comment">General Comment</label>
-            <textarea cols="40" id="id_general_comment" name="general_comment" class="form-control" rows="3">
+            <textarea cols="40" id="id_general_comment" name="general_comment" class="form-control" rows="3" tabindex="5">
             </textarea>
+            {% if form.general_comment.errors %}
+                  {{ form.general_comment.errors }}
+                {% endif %}
          </div>
          <div class="form-group{% if form.measures_taken.errors %} has-error{% endif %}">
             <label for="id_measures_taken">Measures Taken</label>
-            <textarea cols="40" id="id_measures_taken" name="measures_taken" class="form-control" rows="3">
+            <textarea cols="40" id="id_measures_taken" name="measures_taken" class="form-control" rows="3" tabindex="7">
             </textarea>
+                {% if form.measures_taken.errors %}
+                  {{ form.measures_taken.errors }}
+                {% endif %}
          </div>
         
     </div>
     <div class="col-md-6 form-group">
           <div class="form-group{% if form.bottlenecks.errors %} has-error{% endif %}">
             <label for="id_bottlenecks">Bottlenecks</label>
-            <textarea cols="40" id="id_bottlenecks" name="bottlenecks" class="form-control" rows="3">
+            <textarea cols="40" id="id_bottlenecks" name="bottlenecks" class="form-control" rows="3" tabindex="6">
             </textarea>
+                {% if form.bottlenecks.errors %}
+                  {{ form.bottlenecks.errors }}
+                {% endif %}
          </div>
          <div class="form-group{% if form.success_challenges.errors %} has-error{% endif %}">
             <label for="id_success_challenges">Success Challenges</label>
-            <textarea cols="40" id="id_success_challenges" name="success_challenges" class="form-control" rows="3">
+            <textarea cols="40" id="id_success_challenges" name="success_challenges" class="form-control" rows="3" tabindex="8">
             </textarea>
+             {% if form.success_challenges.errors %}
+                  {{ form.success_challenges.errors }}
+                {% endif %}
          </div>
     </div>
         <div class="bt-submit">
