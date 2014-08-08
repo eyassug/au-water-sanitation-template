@@ -15,6 +15,7 @@ from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth.views import password_change
 from django.forms.models import modelform_factory
 from django import forms
+from django.contrib import messages
 # Sector Performance Category
 class SectorPerformanceCreate(LoginRequiredMixin,CreateView):
     model = SectorPerformance
@@ -66,9 +67,11 @@ class CountryStatusCreate(LoginRequiredMixin,View):
         user_country = request.user.usercountry.country
         form = CountryStatusForm()
         form.instance.country = user_country
+        data = models.CountryDemographic.objects.filter(country=user_country)
         return render(request, self.template_name, {
             'form': form,
-            'country': user_country
+            'country': user_country,
+            'data':data
         })
     
     def post(self,request):
@@ -76,8 +79,20 @@ class CountryStatusCreate(LoginRequiredMixin,View):
         form = CountryStatusForm(request.POST)
         if(form.is_valid()):
             form.instance.country = user_country
-            form.save()
-            return HttpResponseRedirect(self.success_url)
+            ins = form.save()
+            messages.success(request, 'Report has been successfully submitted.')
+            if(request.POST.has_key('save_add')):
+                new_form = CountryStatusForm(initial={'country':user_country,'year':form.instance.year})
+                new_form.instance.country = user_country
+                new_form.instance.year = form.instance.year
+                new_form.instance.population = 0
+                data = models.CountryDemographic.objects.filter(country=user_country)
+                return render(request, self.template_name, {
+                    'form': new_form,
+                    'country': user_country,
+                    'data':data
+                })
+            return HttpResponseRedirect(self.success_url+'#list')
         return render(request, self.template_name, {
             'form': form,
             'country': user_country
@@ -88,9 +103,11 @@ class PriorityAreaStatusCreate(LoginRequiredMixin,View):
         user_country = request.user.usercountry.country
         form = PriorityAreaStatusForm()
         form.filter(country=user_country)
+        data = models.PriorityAreaStatus.objects.all()
         return render(request,'priority_area_status_form.html', {
             'form': form,
-            'country': user_country
+            'country': user_country,
+            'data':data
         })    
     
     def post(self,request):
@@ -99,6 +116,7 @@ class PriorityAreaStatusCreate(LoginRequiredMixin,View):
         if form.is_valid():            
             form.save()            
             new_form = PriorityAreaStatusForm()
+            messages.success(request, 'Report has been successfully submitted.')
             new_form.filter(country=user_country)
             return render(request,'priority_area_status_form.html', {
                 'form': new_form,
@@ -243,6 +261,7 @@ class TechnologyCreate(LoginRequiredMixin,View):
             facility_character = FacilityCharacter.objects.get(pk=fc_id)
             form.instance.facility_character = facility_character
             form.save()
+            messages.success(request, 'Report has been successfully submitted.')
             if(request.POST['_addanother']):
                 return HttpResponseRedirect('/admin/dashboard/technology/add/')
             return HttpResponseRedirect('/admin/dashboard/technology/')

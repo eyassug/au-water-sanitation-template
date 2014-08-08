@@ -110,7 +110,7 @@ class Event(models.Model):
     
 
 class CountryDemographic(models.Model):
-    country = models.ForeignKey('Country', unique=True)
+    country = models.ForeignKey('Country')
     year = models.ForeignKey('Period')
     population = models.IntegerField(null=False,blank=False)
     

@@ -105,3 +105,10 @@ padding-left: 15px;
   padding-left: 15px;
   color: #EC3737;
 }
+.tab-pane
+{
+  padding-top: 20px;
+}
+ol-sm-offset-3 {
+margin-left: 0%;
+}
