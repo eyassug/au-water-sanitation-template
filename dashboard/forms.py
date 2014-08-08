@@ -12,11 +12,10 @@ class FacilityAccessForm(forms.ModelForm):
         model = FacilityAccess
         exclude = ['technology']
     
-    def __init__(self, country=None, **kwargs):
-        super(FacilityAccessForm, self).__init__(**kwargs)
+    def filter(self, country):
         if country:
             self.fields['priority_area'].queryset = PriorityArea.objects.filter(country=country)
-          
+            
 class SectorPerformanceForm(forms.ModelForm):
     class Meta:
         model = SectorPerformance
@@ -26,8 +25,7 @@ class PriorityAreaStatusForm(forms.ModelForm):
     class Meta:
         model = PriorityAreaStatus        
         
-    def __init__(self, country=None, **kwargs):
-        super(PriorityAreaStatusForm, self).__init__(**kwargs)
+    def filter(self, country):
         if country:
             self.fields['priority_area'].queryset = PriorityArea.objects.filter(country=country)
         

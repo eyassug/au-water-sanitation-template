@@ -23,7 +23,8 @@ class SectorPerformanceCreate(LoginRequiredMixin,CreateView):
 class FacilityAccessCreate(LoginRequiredMixin,View):
     def get(self,request):
         user_country = request.user.usercountry.country
-        form = DFacilityAccessForm(country=user_country)
+        form = DFacilityAccessForm()
+        form.filter(country=user_country)
         return render(request, 'facility_access_form.html', {
             'form': form,
             'country': user_country
@@ -33,13 +34,17 @@ class FacilityAccessCreate(LoginRequiredMixin,View):
         form = DFacilityAccessForm(request.POST)
         user_country = request.user.usercountry.country
         if form.is_valid():
-            pa_id = form.cleaned_data['priority_area']
             tech_id = form.cleaned_data['technology']
-            priority_area = PriorityArea.objects.get(pk=pa_id)
             technology = Technology.objects.get(pk=tech_id)
-            form.instance.priority_area = priority_area
             form.instance.technology = technology
-            return HttpResponseRedirect('/report/facilityaccess')
+            if(request.POST.has_key('saveAdd')):
+                new_form = DFacilityAccessForm(initial={'technology':technology,
+                                                        'priority_area':form.instance.priority_area})
+                return render(request, 'facility_access_form.html', {
+                    'form': new_form,
+                    'country': user_country
+                })
+            return HttpResponseRedirect('/report/facilityaccess#list')
         return render(request, 'facility_access_form.html', {
             'form': form,
             'country': user_country
@@ -74,21 +79,20 @@ class PriorityAreaStatusCreate(LoginRequiredMixin,View):
     
     def get(self, request):        
         user_country = request.user.usercountry.country
-        form = PriorityAreaStatusForm(country=user_country)
+        form = PriorityAreaStatusForm()
+        form.filter(country=user_country)
         return render(request,'priority_area_status_form.html', {
             'form': form,
             'country': user_country
         })    
     
     def post(self,request):
+        user_country = request.user.usercountry.country            
         form = PriorityAreaStatusForm(request.POST)
-        if form.is_valid():
-            pa_id = form.cleaned_data['priority_area']
-            priority_area = PriorityArea.objects.get(pk=pa_id)
-            form.instance.priority_area = priority_area
-            form.save()
-            user_country = request.user.usercountry.country
-            new_form = PriorityAreaStatusForm(country=user_country)
+        if form.is_valid():            
+            form.save()            
+            new_form = PriorityAreaStatusForm()
+            new_form.filter(country=user_country)
             return render(request,'priority_area_status_form.html', {
                 'form': new_form,
                 'country': user_country
