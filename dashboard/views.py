@@ -22,10 +22,12 @@ class SectorPerformanceCreate(LoginRequiredMixin,CreateView):
     template_name = 'sector_performance_form.html'
     def get(self, request):
         form = modelform_factory(SectorPerformance)        
-        user_country = request.user.usercountry.country        
+        user_country = request.user.usercountry.country
+        data = models.SectorPerformance.objects.all()
         return render(request,self.template_name, {
             'form': form,
-            'country': user_country
+            'country': user_country,
+            'data':data
         })
     
 class FacilityAccessCreate(LoginRequiredMixin,View):
@@ -43,14 +45,14 @@ class FacilityAccessCreate(LoginRequiredMixin,View):
     def post(self,request):
         form = DFacilityAccessForm(request.POST)
         user_country = request.user.usercountry.country
+        data = models.FacilityAccess.objects.all()
         if form.is_valid():
             tech_id = form.cleaned_data['technology']
             technology = Technology.objects.get(pk=tech_id)
             form.instance.technology = technology
             form.save()
             if (request.POST.has_key('saveAdd')):
-                new_form = DFacilityAccessForm(initial={'priority_area':form.instance.priority_area})
-                data = models.FacilityAccess.objects.all()
+                new_form = DFacilityAccessForm(initial={'priority_area':form.instance.priority_area})                
                 return render(request, 'facility_access_form.html', {
                     'form': new_form,
                     'country': user_country,
@@ -59,7 +61,8 @@ class FacilityAccessCreate(LoginRequiredMixin,View):
             return HttpResponseRedirect('/report/facilityaccess#list')
         return render(request, 'facility_access_form.html', {
             'form': form,
-            'country': user_country
+            'country': user_country,
+            'data':data
         })
     
 class CountryStatusCreate(LoginRequiredMixin,View):
