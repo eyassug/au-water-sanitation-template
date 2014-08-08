@@ -15,6 +15,7 @@ from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth.views import password_change
 from django.forms.models import modelform_factory
 from django import forms
+from django.contrib import messages
 # Sector Performance Category
 class SectorPerformanceCreate(LoginRequiredMixin,CreateView):
     model = SectorPerformance
@@ -74,6 +75,7 @@ class CountryStatusCreate(LoginRequiredMixin,View):
         if(form.is_valid()):
             form.instance.country = user_country
             ins = form.save()
+            messages.success(request, 'Report has been successfully submitted.')
             if(request.POST.has_key('save_add')):
                 new_form = CountryStatusForm(initial={'country':user_country,'year':form.instance.year})
                 new_form.instance.country = user_country
@@ -109,6 +111,7 @@ class PriorityAreaStatusCreate(LoginRequiredMixin,View):
             priority_area = PriorityArea.objects.get(pk=pa_id)
             form.instance.priority_area = priority_area
             form.save()
+            messages.success(request, 'Report has been successfully submitted.')
             user_country = request.user.usercountry.country
             new_form = PriorityAreaStatusForm(country=user_country)
             return render(request,'priority_area_status_form.html', {
@@ -254,6 +257,7 @@ class TechnologyCreate(LoginRequiredMixin,View):
             facility_character = FacilityCharacter.objects.get(pk=fc_id)
             form.instance.facility_character = facility_character
             form.save()
+            messages.success(request, 'Report has been successfully submitted.')
             if(request.POST['_addanother']):
                 return HttpResponseRedirect('/admin/dashboard/technology/add/')
             return HttpResponseRedirect('/admin/dashboard/technology/')
