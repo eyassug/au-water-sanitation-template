@@ -1,6 +1,17 @@
 {% extends 'welcome.html' %}
 {% block content_container %}
     {% load widget_tweaks %}
+    <div class="container msg-scc" >
+               {% if messages %}
+           <div class="row">
+            <div  class="succuess col-sm-6">
+              {% for message in messages %}
+                   <p {% if message.tags == "success" %} class="alert alert-success"{% endif %}>{{ message }}</p
+                     {% endfor %}
+            </div>
+           </div>
+               {% endif %}
+    </div>
     <h2 class="page-header">Community Approach for {{ country }}</h2>
    
    <ul class="nav nav-tabs" id="tab1">

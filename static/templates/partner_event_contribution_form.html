@@ -2,6 +2,17 @@
 {% block content_container %}
     {% load widget_tweaks %}
     <script src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
+    <div class="container msg-scc" >
+               {% if messages %}
+           <div class="row">
+            <div  class="succuess col-sm-6">
+              {% for message in messages %}
+                   <p {% if message.tags == "success" %} class="alert alert-success"{% endif %}>{{ message }}</p
+                     {% endfor %}
+            </div>
+           </div>
+               {% endif %}
+    </div>
     <h2 class="page-header">Partner Contribution to Events for {{ country }}</h2>
     <ul class="nav nav-tabs" id="tab1">
       <li class="active"><a href="#add" data-toggle="tab">Add</a></li>
