@@ -1,14 +1,6 @@
 {% extends 'welcome.html' %}
 {% block content_container %}
     {% load widget_tweaks %}
-    <!-- 
-    <form action="" method="post">{% csrf_token %}
-        {{ form.as_table }}
-    <input type="submit" value="Submit" />
-    !-->
-    
-   
-
     
     <div class ="col-md-6">
     <h2 class="page-header">Community Approach for {{ country }}</h2>
@@ -16,47 +8,69 @@
         {% csrf_token %}
      
         <div class="col-md-6 form-group">
-            <div class="form-group{% if form.year.errors %} has-error{% endif %}">
+            <div class="form-group{% if form.sector_category.errors %} has-error{% endif %}">
                 <label for="id_sector_category">Sector Category</label>
-                {% render_field form.sector_category class+="form-control" %}
-                </select>
-            </div>
-            <div class="form-group{% if form.year.errors %} has-error{% endif %}">
+                {% render_field form.sector_category class+="form-control" tabindex+="1" %}
+                {% if form.sector_category.errors %}
+                  {{ form.sector_category.errors }}
+                {% endif %}
+           </div>
+            <div class="form-group{% if form.approach_name.errors %} has-error{% endif %}">
                 <label for="id_approach_name">Approach Name</label>
-                <input id="id_approach_name" maxlength="120" name="approach_name" type="text" class="form-control" />
+                <input id="id_approach_name" maxlength="120" name="approach_name" type="text" class="form-control" tabindex="3" />
+                {% if form.approach_name.errors %}
+                  {{ form.approach_name.errors }}
+                {% endif %}
             </div>
         </div>
         <div class="col-md-6 form-group">
-            <div class="form-group{% if form.year.errors %} has-error{% endif %}">
+            <div class="form-group{% if form.approach_type.errors %} has-error{% endif %}">
                 <label for="id_approach_type">Approach Type</label>
-                {% render_field form.approach_type class+="form-control" %}
+                {% render_field form.approach_type class+="form-control" tabindex+="2"  %}
+                {% if form.approach_type.errors %}
+                  {{ form.approach_type.errors }}
+                {% endif %}
                 
             </div>
         
             <div class="form-group{% if form.year.errors %} has-error{% endif %}">
                 <label for="id_year">Year of Initiation</label>
-                <input id="id_year" min="0" name="year" type="number" title="Only numbers/year are allowed" class="form-control" />
+                {% render_field form.year class+="form-control" tabindex+="4"  %}
+                {% if form.year.errors %}
+                  {{ form.year.errors }}
+                {% endif %}
             </div>
         </div>
         <div class="col-md-6 form-group">
-            <div class="form-group{% if form.year.errors %} has-error{% endif %}">    
+            <div class="form-group{% if form.cost_per_capita.errors %} has-error{% endif %}">    
                 <label for="id_cost_per_capita">Cost/Capita(USD)</label>
-                <input id="id_cost_per_capita" name="cost_per_capita" step="0.0001" type="number" class="form-control" />
+                <input id="id_cost_per_capita" name="cost_per_capita" type="number"
+                       class="form-control" min="0" max="9999999" step="0.01" size="4" 
+                        title="Currency Format - no dollar sign and no comma(s) - cents (.##) are optional" tabindex="5" />
+                {% if form.cost_per_capita.errors %}
+                  {{ form.cost_per_capita.errors }}
+                {% endif %}
             </div>
            
         </div>
         <div class="col-md-6 form-group">
-         <div class="form-group{% if form.year.errors %} has-error{% endif %}">
+         <div class="form-group{% if form.description.errors %} has-error{% endif %}">
                 <label for="id_description">Short Description</label>
-                <textarea cols="40" id="id_description" name="description" rows="3" class="form-control">
+                <textarea cols="40" id="id_description" name="description" rows="3" class="form-control" tabindex="6">
                 </textarea>
+                {% if form.description.errors %}
+                  {{ form.description.errors }}
+                {% endif %}
             </div>
         </div>
         <div class="col-md-12 form-group">
-            <div class="form-group{% if form.year.errors %} has-error{% endif %}">
+            <div class="form-group{% if form.lessons_learnt.errors %} has-error{% endif %}">
                 <label for="id_lessons_learnt">Lessons Learnt</label>
-                <textarea cols="40" id="id_lessons_learnt" name="lessons_learnt" class="form-control" rows="3">
+                <textarea cols="40" id="id_lessons_learnt" name="lessons_learnt" class="form-control" rows="3" tabindex="7">
                 </textarea>
+                {% if form.lessons_learnt.errors %}
+                  {{ form.lessons_learnt.errors }}
+                {% endif %}
             </div>
         </div>
         <div class="bt-submit">

@@ -123,12 +123,16 @@ class PriorityAreaStatus(models.Model):
 class FacilityAccess(models.Model):
     priority_area = models.ForeignKey('PriorityArea', blank=False)
     technology = models.ForeignKey('Technology', blank=False)
-    year = models.ForeignKey('Period')
-    planned = models.DecimalField(max_digits=19, decimal_places=2, null=False)
-    actual = models.DecimalField(max_digits=19, decimal_places=2, null=False)
-    unit_cost = models.DecimalField(max_digits=19, decimal_places=2, null=False)
-    house_hold_contribution = models.DecimalField(max_digits=3, decimal_places=2, null=False)
-    government_contribution = models.DecimalField(max_digits=3, decimal_places=2, null=False)
+    year = models.ForeignKey('Period', blank=False)
+    planned = models.PositiveSmallIntegerField(blank=True, null=True) 
+    planned_pop_affected = models.PositiveSmallIntegerField(blank=True, null=True) 
+    actual = models.PositiveSmallIntegerField(blank=True, null=True) 
+    actual_pop_affected = models.PositiveSmallIntegerField(blank=True, null=True) 
+    secured = models.PositiveSmallIntegerField(blank=True, null=True)
+    secured_pop_affected = models.PositiveSmallIntegerField(blank=True, null=True) 
+    unit_cost = models.DecimalField(max_digits=19, decimal_places=2, null=True, blank=True)
+    house_hold_contribution = models.DecimalField(max_digits=3, decimal_places=2, null=True, blank=True)
+    government_contribution = models.DecimalField(max_digits=3, decimal_places=2, null=True, blank=True)
     
 class SectorPerformance(models.Model):
     country = models.ForeignKey('Country', blank=False)
@@ -149,8 +153,8 @@ class PlanningPerformance(models.Model):
     country = models.ForeignKey('Country', blank=False)
     sector_category = models.ForeignKey('SectorCategory', blank=False)
     year = models.ForeignKey('Period')
-    plan_preparation_delay = models.PositiveSmallIntegerField(null=False,blank=False)    
-    plan_adoption_delay = models.PositiveSmallIntegerField(null=False,blank=False)
+    plan_preparation_delay = models.PositiveSmallIntegerField(null=True,blank=True)    
+    plan_adoption_delay = models.PositiveSmallIntegerField(null=True,blank=True)
     general_comment = models.TextField()
     bottlenecks = models.TextField()
     measures_taken = models.TextField()
@@ -171,20 +175,20 @@ class TenderProcedurePerformance(models.Model):
 class CommunityApproach(models.Model):
     country = models.ForeignKey('Country', blank=False)
     sector_category = models.ForeignKey('SectorCategory', blank=False)
-    year = models.ForeignKey('Period')
+    year = models.ForeignKey('Period',blank=False, null=False)
     approach_type = models.ForeignKey('CommunityApproachType',blank=False)
-    approach_name = models.CharField(max_length=120, null=False, blank=False)    
+    approach_name = models.CharField(max_length=120, null=True, blank=True)    
     description = models.TextField()
-    cost_per_capita = models.DecimalField(max_digits=15, decimal_places=4, null=False)
+    cost_per_capita = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     lessons_learnt = models.TextField()
     
 class PartnerContribution(models.Model):
     country = models.ForeignKey('Country',blank=False)
     sector_category = models.ForeignKey('SectorCategory', blank=False)
     partner = models.ForeignKey('Partner', blank=False)
-    annual_contribution = models.DecimalField(max_digits=15, decimal_places=4, null=False)
-    in_kind_contribution = models.DecimalField(max_digits=5, decimal_places=2, null=False)
-    financial_contribution = models.DecimalField(max_digits=5, decimal_places=2, null=False)
+    annual_contribution = models.DecimalField(max_digits=15, decimal_places=4, null=True,blank=True)
+    in_kind_contribution = models.DecimalField(max_digits=5, decimal_places=2, null=True,blank=True)
+    financial_contribution = models.DecimalField(max_digits=5, decimal_places=2, null=True,blank=True)
     
 class PartnerEventContribution(models.Model):
     country = models.ForeignKey('Country', blank=False)
@@ -192,9 +196,9 @@ class PartnerEventContribution(models.Model):
     year = models.ForeignKey('Period')
     partner = models.ForeignKey('Partner', blank=False)
     event = models.ForeignKey('Event', blank=False)
-    government_staff_contribution = models.DecimalField(max_digits=3, decimal_places=2, null=False)
-    own_staff_contribution = models.DecimalField(max_digits=3, decimal_places=2, null=False)
-    total_event_contribution = models.DecimalField(max_digits=3, decimal_places=2, null=False)
+    government_staff_contribution = models.DecimalField(max_digits=10, decimal_places=2, null=True,blank=True)
+    own_staff_contribution = models.DecimalField(max_digits=10, decimal_places=2, null=True,blank=True)
+    total_event_contribution = models.DecimalField(max_digits=10, decimal_places=2, null=True,blank=True)
     
 class SWOT(models.Model):
     country = models.ForeignKey('Country', blank=False)

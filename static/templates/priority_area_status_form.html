@@ -22,30 +22,42 @@
                <label for="id_priority_area">Priority Area</label>
                <a href="/admin/dashboard/priorityarea/add/"  class="add-another" id="add_id_partner" onclick="return showAddAnotherPopup(this);">
                    <img src="/static/admin/img/icon_addlink.gif" width="10" height="10" alt="Add Another"/>[Add]</a>
-               {% render_field form.priority_area class+="form-control" %}
+               {% render_field form.priority_area class+="form-control" tabindex+="1" %}
+               {% if form.priority_area.errors %}
+                  {{ form.priority_area.errors }}
+                {% endif %}
            </div>
             <div class="form-group{% if form.population.errors %} has-error{% endif %}">           
                <label for="id_population">Population</label>
-               <input id="id_population" name="population" type="number" class="form-control" />
+               <input id="id_population" name="population" value="0" min="0" max="100000000"  type="number" title="Only numbers/year are allowed" class="form-control" tabindex="3" />
+               {% if form.population.errors %}
+                  {{ form.population.errors }}
+                {% endif %}
             </div>
          </div>
          <div class="col-md-6 form-group">
             <div class="form-group{% if form.year.errors %} has-error{% endif %}">           
                <label for="id_year">Year</label>
-               {% render_field form.year class+="form-control" %}
+               {% render_field form.year class+="form-control" tabindex+="2" %}
+               {% if form.year.errors %}
+                  {{ form.year.errors }}
+                {% endif %}
             </div>
             <div class="form-group{% if form.number_of_households.errors %} has-error{% endif %}">           
                <label for="id_number_of_households">Number of Households</label>
-               <input id="id_number_of_households" name="number_of_households" type="number" class="form-control" />
+               <input id="id_number_of_households" name="number_of_households" min="0" max="100000000"  value="0" type="number" title="Only numbers/year are allowed" class="form-control" tabindex="4" />
+               {% if form.number_of_households.errors %}
+                  {{ form.number_of_households.errors }}
+                {% endif %}
             </div>
          </div>
          
          <div class="bt-submit">
-            <button type="submit" class="btn btn-success">Save</button>
+            <button type="submit" class="btn btn-success" tabindex="5">Save</button>
         
-            <button type="submit" class="btn btn-primary">Save & Add</button>
+            <button type="submit" class="btn btn-primary" tabindex="6">Save & Add</button>
          
-            <button type="reset" class="btn btn-danger">Cancel</button>
+            <button type="reset" class="btn btn-danger" tabindex="7">Cancel</button>
          </div>
       </form>
  </div>

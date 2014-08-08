@@ -100,3 +100,8 @@ box-shadow: none;
 padding-left: 15px;
 
 }
+.errorlist
+{
+  padding-left: 15px;
+  color: #EC3737;
+}

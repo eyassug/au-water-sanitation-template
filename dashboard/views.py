@@ -19,6 +19,13 @@ from django import forms
 class SectorPerformanceCreate(LoginRequiredMixin,CreateView):
     model = SectorPerformance
     template_name = 'sector_performance_form.html'
+    def get(self, request):
+        form = modelform_factory(SectorPerformance)        
+        user_country = request.user.usercountry.country        
+        return render(request,self.template_name, {
+            'form': form,
+            'country': user_country
+        })
     
 class FacilityAccessCreate(LoginRequiredMixin,View):
     def get(self,request):
@@ -118,22 +125,57 @@ class TenderProcedurePerformanceCreate(LoginRequiredMixin,CreateView):
     model = TenderProcedurePerformance
     template_name = 'tender_proc_performance_form.html'
     success_url = "/report/TenderProcPerformance"
+    def get(self, request):
+        form = modelform_factory(TenderProcedurePerformance)        
+        user_country = request.user.usercountry.country        
+        return render(request,self.template_name, {
+            'form': form,
+            'country': user_country
+        })
 class CommunityApproachCreate(LoginRequiredMixin,CreateView):
     model = CommunityApproach
     template_name = 'community_approach_form.html'
     success_url = "/report/CommunityApproach"
+    def get(self, request):
+        form = modelform_factory(CommunityApproach)        
+        user_country = request.user.usercountry.country        
+        return render(request,self.template_name, {
+            'form': form,
+            'country': user_country
+        })
 class PartnerContributionCreate(LoginRequiredMixin,CreateView):
     model = PartnerContribution
     template_name = 'partner_contribution_form.html'
     success_url = "/report/PartnerContribution"
+    def get(self, request):
+        form = modelform_factory(PartnerContribution)        
+        user_country = request.user.usercountry.country        
+        return render(request,self.template_name, {
+            'form': form,
+            'country': user_country
+        })
 class PartnerEventContributionCreate(LoginRequiredMixin,CreateView):
     model = PartnerEventContribution
     template_name = 'partner_event_contribution_form.html'
     success_url = "/report/PartnerEventContribution"
+    def get(self, request):
+        form = modelform_factory(PartnerEventContribution)        
+        user_country = request.user.usercountry.country        
+        return render(request,self.template_name, {
+            'form': form,
+            'country': user_country
+        })
 class SWOTAndConclusionCreate(LoginRequiredMixin,CreateView):
     model = SWOT
     template_name = 'swot_form.html'
     success_url = "/report/swot"
+    def get(self, request):
+        form = modelform_factory(SWOT)        
+        user_country = request.user.usercountry.country        
+        return render(request,self.template_name, {
+            'form': form,
+            'country': user_country
+        })
 class Login(View):
     def get(self, request):
         auth_err = ''

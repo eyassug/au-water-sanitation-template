@@ -16,13 +16,20 @@
                 <label for="id_priority_area">Priority Area</label>
                 <a href="/admin/dashboard/priorityarea/add/"  class="add-another" id="add_id_partner" onclick="return showAddAnotherPopup(this);">
                 <img src="/static/admin/img/icon_addlink.gif" width="10" height="10" alt="Add Another"/>[Add]</a>
-                {% render_field form.priority_area class+="form-control" %}
+                {% render_field form.priority_area class+="form-control" tabindex+="1" %}
+                {% if form.priority_area.errors %}
+                  {{ form.priority_area.errors }}
+                {% endif %}
+                
             </div>
         
         
         <div class="form-group{% if form.facility_character.errors %} has-error{% endif %}">
             <label for="id_facility_character">Facility Character</label>
-            {% render_field form.facility_character class+="form-control" disabled=true %}
+            {% render_field form.facility_character class+="form-control" disabled=true tabindex+="3" %}
+            {% if form.facility_character.errors %}
+                  {{ form.facility_character.errors }}
+            {% endif %}
         </div>
         
        
@@ -30,11 +37,17 @@
      <div class="col-md-6 form-group">
             <div class="form-group{% if form.sector_category.errors %} has-error{% endif %}">
                 <label for="id_sector_category">Sector Category</label>
-                {% render_field form.sector_category class+="form-control" %}
+                {% render_field form.sector_category class+="form-control" tabindex+="2" %}
+                {% if form.sector_category.errors %}
+                  {{ form.sector_category.errors }}
+                {% endif %}
             </div>
             <div class="form-group{% if form.technology.errors %} has-error{% endif %}">
                 <label for="id_technology">Technology</label>
-                {% render_field form.technology class+="form-control" %}
+                {% render_field form.technology class+="form-control" tabindex+="4" %}
+                {% if form.technology.errors %}
+                  {{ form.technology.errors }}
+                {% endif %}
             </div>
             
             
@@ -44,7 +57,11 @@
             <div class="col-md-12 form-group">  
                  <div class="form-group{% if form.year.errors %} has-error{% endif %}">
                         <label for="id_year">Year</label>
-                        {% render_field form.year class+="form-control" %}
+                        {% render_field form.year class+="form-control" tabindex+="5" %}
+                        {% if form.year.errors %}
+                            {{ form.year.errors }}
+                        {% endif %}
+                        
                 </div>
                 
             </div>
@@ -52,47 +69,75 @@
             <div class="col-md-6 form-group">
                 <div class="form-group{% if form.planned.errors %} has-error{% endif %}">
                     <label for="id_planned">No. Facility Planned</label>
-                    <input id="id_planned" name="planned" step="1e-10" type="number" class="form-control" />
+                    <input id="id_planned" name="planned" step="0" type="number" class="form-control" tabindex="6" title="Only number allowed" />
+                    {% if form.planned.errors %}
+                            {{ form.planned.errors }}
+                    {% endif %}
                 </div>
                 <div class="form-group{% if form.actual.errors %} has-error{% endif %}">
-                    <label for="id_actual">No Facility Reported</label>
-                    <input id="id_actual" name="actual" step="1e-10" type="number" class="form-control" />
+                    <label for="id_actual">No. Facility Reported</label>
+                    <input id="id_actual" name="actual" step="0" type="number" class="form-control" tabindex="8" title="Only number allowed"/>
+                    {% if form.planned.errors %}
+                            {{ form.planned.errors }}
+                    {% endif %}
                 </div>
-                <div class="form-group{% if form.actual.errors %} has-error{% endif %}">
-                    <label for="id_actual">Nb.Tech secured</label>
-                    <input id="id_actual" name="actual" step="1e-10" type="number" class="form-control" />
+                <div class="form-group{% if form.secured.errors %} has-error{% endif %}">
+                    <label for="id_secured">No.Tech secured</label>
+                    <input id="id_secured" name="secured" step="0" type="number" class="form-control" tabindex="10" title="Only number allowed" />
+                    {% if form.secured.errors %}
+                            {{ form.secured.errors }}
+                    {% endif %}
                 </div>
             </div>
             <div class="col-md-6 form-group">
-                <div class="form-group{% if form.planned.errors %} has-error{% endif %}">
-                    <label for="id_planned">Pop affected</label>
-                    <input id="id_planned" name="planned" step="1e-10" type="number" class="form-control" />
+                <div class="form-group{% if form.planned_pop_affected.errors %} has-error{% endif %}">
+                    <label for="id_planned_pop_affected">Pop affected</label>
+                    <input id="id_planned_pop_affected" name="planned_pop_affected" step="0" type="number" class="form-control" tabindex="7" title="Only number allowed"/>
+                    {% if form.planned_pop_affected.errors %}
+                            {{ form.planned_pop_affected.errors }}
+                    {% endif %}
                 </div>
-                <div class="form-group{% if form.actual.errors %} has-error{% endif %}">
-                    <label for="id_actual">Pop affected</label>
-                    <input id="id_actual" name="actual" step="1e-10" type="number" class="form-control" />
+                <div class="form-group{% if form.actual_pop_affected.errors %} has-error{% endif %}">
+                    <label for="id_actual_pop_affected">Pop affected</label>
+                    <input id="id_actual_pop_affected" name="actual_pop_affected" step="0" type="number" class="form-control" tabindex="9" title="Only number allowed"/>
+                    {% if form.actual_pop_affected.errors %}
+                            {{ form.actual_pop_affected.errors }}
+                    {% endif %}
                 </div>
-                <div class="form-group{% if form.actual.errors %} has-error{% endif %}">
-                    <label for="id_actual">Pop affected</label>
-                    <input id="id_actual" name="actual" step="1e-10" type="number" class="form-control" />
+                <div class="form-group{% if form.secured_pop_affected.errors %} has-error{% endif %}">
+                    <label for="id_secured_pop_affected">Pop affected</label>
+                    <input id="id_secured_pop_affected" name="secured_pop_affected" step="0" type="number" class="form-control" tabindex="11" title="Only number allowed"/>
+                    {% if form.secured_pop_affected.errors %}
+                            {{ form.secured_pop_affected.errors }}
+                    {% endif %}
                 </div>
             </div>
         <div class="col-md-12 form-group">
             <div class="form-group{% if form.unit_cost.errors %} has-error{% endif %}" >
                 <label for="id_unit_cost">Unit Cost(USD)</label>
-                <input id="id_unit_cost" name="unit_cost" step="1e-10" type="number" class="form-control" />
+                <input id="id_unit_cost" name="unit_cost" type="number" class="form-control" min="0" max="9999999" step="0.01" size="4" 
+                title="Currency Format - no dollar sign and no comma(s) - cents (.##) are optional" tabindex="12" />
+                {% if form.unit_cost.errors %}
+                    {{ form.unit_cost.errors }}
+                {% endif %}
             </div>
         </div>
         <div class="col-md-12 form-group">
             <div class="form-group{% if form.house_hold_contribution.errors %} has-error{% endif %}">
                 <label for="id_house_hold_contribution">% House Hold Contribution:</label>
-                <input id="id_house_hold_contribution" name="house_hold_contribution" step="0.01" type="number" class="form-control" />
+                <input id="id_house_hold_contribution" name="house_hold_contribution" type="number" min="0" max=100 step="0.01" size="4"  title="Only numbers/year are allowed" class="form-control" tabindex="13" />
+                {% if form.house_hold_contribution.errors %}
+                    {{ form.house_hold_contribution.errors }}
+                {% endif %}
             </div>
         </div>
         <div class="col-md-12 form-group">
             <div class="form-group{% if form.government_contribution.errors %} has-error{% endif %}">
                 <label for="id_government_contribution">% Government Contribution:</label>
-                <input id="id_government_contribution" name="government_contribution" step="0.01" type="number" class="form-control" />
+                <input id="id_government_contribution" name="government_contribution"  type="number" min="0" max=100 step="0.01" size="4"  title="Only numbers/year are allowed" class="form-control" tabindex="14" />
+                {% if form.government_contribution.errors %}
+                    {{ form.government_contribution.errors }}
+                {% endif %}
             </div>
         </div>
          <div class="bt-submit">
