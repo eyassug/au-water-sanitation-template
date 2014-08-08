@@ -37,14 +37,14 @@ class FacilityAccessCreate(LoginRequiredMixin,View):
             tech_id = form.cleaned_data['technology']
             technology = Technology.objects.get(pk=tech_id)
             form.instance.technology = technology
-            if(request.POST.has_key('saveAdd')):
-                new_form = DFacilityAccessForm(initial={'technology':technology,
-                                                        'priority_area':form.instance.priority_area})
+            form.save()
+            if (request.POST.has_key('saveAdd')):
+                new_form = DFacilityAccessForm(initial={'priority_area':form.instance.priority_area})
                 return render(request, 'facility_access_form.html', {
                     'form': new_form,
                     'country': user_country
                 })
-            return HttpResponseRedirect('/report/facilityaccess#list')
+            return HttpResponseRedirect('/report/facilityaccess/list')
         return render(request, 'facility_access_form.html', {
             'form': form,
             'country': user_country
