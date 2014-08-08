@@ -33,9 +33,11 @@ class FacilityAccessCreate(LoginRequiredMixin,View):
         user_country = request.user.usercountry.country
         form = DFacilityAccessForm()
         form.filter(country=user_country)
+        data = models.FacilityAccess.objects.all()
         return render(request, 'facility_access_form.html', {
             'form': form,
-            'country': user_country
+            'country': user_country,
+            'data':data
         })
     
     def post(self,request):
@@ -48,11 +50,13 @@ class FacilityAccessCreate(LoginRequiredMixin,View):
             form.save()
             if (request.POST.has_key('saveAdd')):
                 new_form = DFacilityAccessForm(initial={'priority_area':form.instance.priority_area})
+                data = models.FacilityAccess.objects.all()
                 return render(request, 'facility_access_form.html', {
                     'form': new_form,
-                    'country': user_country
+                    'country': user_country,
+                    'data':data
                 })
-            return HttpResponseRedirect('/report/facilityaccess/list')
+            return HttpResponseRedirect('/report/facilityaccess#list')
         return render(request, 'facility_access_form.html', {
             'form': form,
             'country': user_country
