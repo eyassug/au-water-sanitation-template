@@ -122,9 +122,11 @@ class PriorityAreaStatusCreate(LoginRequiredMixin,View):
             new_form = PriorityAreaStatusForm()
             messages.success(request, 'Report has been successfully submitted.')
             new_form.filter(country=user_country)
+            data = models.PriorityAreaStatus.objects.all()
             return render(request,'priority_area_status_form.html', {
                 'form': new_form,
-                'country': user_country
+                'country': user_country,
+                'data':data
             })
         return render(request, 'priority_area_status_form.html', {'form': form})
     
