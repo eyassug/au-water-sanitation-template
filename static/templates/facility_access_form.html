@@ -87,14 +87,14 @@
            <h4 class="formtitle">Enter values for each year</h4>
             <div class="col-md-6 form-group">
                 <div class="form-group{% if form.planned.errors %} has-error{% endif %}">
-                    <label for="id_planned">No. Facility Planned</label>
+                    <label for="id_planned">No.Tech Planned</label>
                     <input id="id_planned" name="planned" step="0" type="number" class="form-control" tabindex="6" title="Only number allowed" />
                     {% if form.planned.errors %}
                             {{ form.planned.errors }}
                     {% endif %}
                 </div>
                 <div class="form-group{% if form.actual.errors %} has-error{% endif %}">
-                    <label for="id_actual">No. Facility Reported</label>
+                    <label for="id_actual">No.Tech Reported</label>
                     <input id="id_actual" name="actual" step="0" type="number" class="form-control" tabindex="8" title="Only number allowed"/>
                     {% if form.planned.errors %}
                             {{ form.planned.errors }}
@@ -110,21 +110,21 @@
             </div>
             <div class="col-md-6 form-group">
                 <div class="form-group{% if form.planned_pop_affected.errors %} has-error{% endif %}">
-                    <label for="id_planned_pop_affected">Pop affected</label>
+                    <label for="id_planned_pop_affected">Pop planned</label>
                     <input id="id_planned_pop_affected" name="planned_pop_affected" step="0" type="number" class="form-control" tabindex="7" title="Only number allowed"/>
                     {% if form.planned_pop_affected.errors %}
                             {{ form.planned_pop_affected.errors }}
                     {% endif %}
                 </div>
                 <div class="form-group{% if form.actual_pop_affected.errors %} has-error{% endif %}">
-                    <label for="id_actual_pop_affected">Pop affected</label>
+                    <label for="id_actual_pop_affected">Pop reached</label>
                     <input id="id_actual_pop_affected" name="actual_pop_affected" step="0" type="number" class="form-control" tabindex="9" title="Only number allowed"/>
                     {% if form.actual_pop_affected.errors %}
                             {{ form.actual_pop_affected.errors }}
                     {% endif %}
                 </div>
                 <div class="form-group{% if form.secured_pop_affected.errors %} has-error{% endif %}">
-                    <label for="id_secured_pop_affected">Pop affected</label>
+                    <label for="id_secured_pop_affected">Pop secured</label>
                     <input id="id_secured_pop_affected" name="secured_pop_affected" step="0" type="number" class="form-control" tabindex="11" title="Only number allowed"/>
                     {% if form.secured_pop_affected.errors %}
                             {{ form.secured_pop_affected.errors }}
