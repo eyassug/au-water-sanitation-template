@@ -462,3 +462,10 @@ class ListofPriorityAreasReport(LoginRequiredMixin,View):
         report_factory = reports.PriorityAreaPopulationReport()
         report = report_factory.generate(user_country)
         return render(request, 'reports/list_of_priority_areas_report.html',report)
+    
+class TechnologyGapPerPriorityAreaReport(LoginRequiredMixin,View):
+    def get(self,request):
+        return render(request, 'reports/technology_gap_per_priority_area_report.html')
+    
+    def post(self,request):
+        
