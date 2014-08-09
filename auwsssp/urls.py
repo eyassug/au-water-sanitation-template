@@ -12,7 +12,7 @@ urlpatterns = patterns('',
     
     # Home:
     
-    # Report Urls:
+    # Grid / for Urls:
     url(r'^(?i)report/countrystatus$', views.CountryStatusCreate.as_view(), name='country_status_create'),
     url(r'^(?i)report/countrystatus/list$', views.CountryDemographicGridView.as_view(), name='country_status_list'),
     url(r'^(?i)report/prioritystatus$', views.PriorityAreaStatusCreate.as_view(), name='country_status_create'),
@@ -32,10 +32,11 @@ urlpatterns = patterns('',
     url(r'^(?i)report/partnereventcontribution$', views.PartnerEventContributionCreate.as_view(), name='partner_event_contribution_create'),
     url(r'^(?i)report/partnereventcontribution/list$', views.PartnerEventContributionGridView.as_view(), name='partner_event_contribution_create'),
     url(r'^(?i)report/swot$', views.SWOTAndConclusionCreate.as_view(), name='swot_create'),
-    #report
+    #Report url
     url(r'^(?i)report/listofpriorityareas$', views.ListofPriorityAreasReport.as_view(), name='list_of_priority_areas_report'),
     url(r'^(?i)report/technologygapperpriorityarea$', views.TechnologyGapPerPriorityAreaReport.as_view(), name='technology_gap_per_priority_area_report'),
-    url(r'^(?i)report/technologiesgapsforthecategory$', views.TechnologiesGapsForTheCategory.as_view(), name='technologies_gaps_for_the_category'),
+    url(r'^(?i)report/technologiesgapsforthecategory$', views.TechnologiesGapsForTheCategory.as_view(), name='technologies_gaps_for_the_category_report'),
+    url(r'^(?i)report/estimatedoverallgaps$', views.EstimatedOverallGapsReport.as_view(), name='estimated_overall_gaps_report'),
     
     url(r'^(?i)login/$', 'django.contrib.auth.views.login', name='login'),    
     url(r'^(?i)logout/$', views.Logout.as_view(), name='logout'),      
