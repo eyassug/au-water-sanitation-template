@@ -300,6 +300,7 @@ class CommunityApproachCreate(LoginRequiredMixin,View):
         data = models.CommunityApproach.objects.all()
         if(form.is_valid()):
             form.save()
+            messages.success(request, 'Report has been successfully submitted.')
             if (request.POST.has_key('save_add')):
                 new_form = form_class(initial={'approach_type':form.cleaned_data['approach_type'], 'sector_category':form.cleaned_data['sector_category']})                
                 return render(request,self.template_name, {
