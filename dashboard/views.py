@@ -228,7 +228,7 @@ class TenderProcedurePerformanceCreate(LoginRequiredMixin,CreateView):
             'country': user_country,
             'data': data
         })
-class CommunityApproachCreate(LoginRequiredMixin,CreateView):
+class CommunityApproachCreate(LoginRequiredMixin,View):
     model = CommunityApproach
     template_name = 'community_approach_form.html'
     success_url = "/report/CommunityApproach"
@@ -241,6 +241,30 @@ class CommunityApproachCreate(LoginRequiredMixin,CreateView):
             'country': user_country,
             'data': data
         })
+    
+    def post(self, request):
+        user_country = request.user.usercountry.country            
+        form_class = modelform_factory(CommunityApproach, exclude=['country'])
+        form = form_class(request.POST)
+        form.instance.country = user_country
+        data = models.CommunityApproach.objects.all()
+        if(form.is_valid()):
+            form.save()
+            if (request.POST.has_key('save_add')):
+                new_form = form_class(initial={'approach_type':form.cleaned_data['approach_type'], 'sector_category':form.cleaned_data['sector_category']})                
+                return render(request,self.template_name, {
+                    'form': new_form,
+                    'country': user_country,
+                    'data': data
+                })
+            return HttpResponseRedirect('/report/communityapproach')
+        
+        return render(request,self.template_name, {
+            'form': form,
+            'country': user_country,
+            'data': data
+        })
+    
 class PartnerContributionCreate(LoginRequiredMixin,CreateView):
     model = PartnerContribution
     template_name = 'partner_contribution_form.html'
