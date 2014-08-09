@@ -7,4 +7,5 @@ static/media/african_flagold.png
 static/media/header1.png
 static/media/old.png
 static/media/headerold.png
-dashboard/views.py.orig
+static/static/js/pdf.html
+static/static/js/exp/sample export.html

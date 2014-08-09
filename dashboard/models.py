@@ -131,8 +131,8 @@ class FacilityAccess(models.Model):
     secured = models.PositiveSmallIntegerField(blank=True, null=True)
     secured_pop_affected = models.PositiveSmallIntegerField(blank=True, null=True) 
     unit_cost = models.DecimalField(max_digits=19, decimal_places=2, null=True, blank=True)
-    house_hold_contribution = models.DecimalField(max_digits=3, decimal_places=2, null=True, blank=True)
-    government_contribution = models.DecimalField(max_digits=3, decimal_places=2, null=True, blank=True)
+    house_hold_contribution = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    government_contribution = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     
 class SectorPerformance(models.Model):
     country = models.ForeignKey('Country', blank=False)
