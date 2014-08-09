@@ -162,7 +162,7 @@
          <div class="bt-submit">
             <button type="submit" class="btn btn-success">Save</button>
         
-            <button type="submit" class="btn btn-primary">Save & Add</button>
+            <button type="submit" class="btn btn-primary" id="save_add" name="save_add">Save & Add</button>
          
             <button type="reset" class="btn btn-danger">Cancel</button>
          </div>
@@ -173,5 +173,10 @@
     {% include "snippets/technology_access_list.html" %}
   </div>
 </div>
-
+<script>
+    FilterFacilityCharacters({{ facility_character }});
+    FilterTechnologies({{ technology }});
+    
+</script>
+<h1></h1>
 {% endblock %}

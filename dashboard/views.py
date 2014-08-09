@@ -24,7 +24,7 @@ from django.template import Context
 from django.template.loader import get_template
 import StringIO
 import os
-
+from django.forms.util import ErrorList
 # html to pdf example
 
     
@@ -99,15 +99,29 @@ class FacilityAccessCreate(LoginRequiredMixin,View):
         data = models.FacilityAccess.objects.all()
         if form.is_valid():
             tech_id = form.cleaned_data['technology']
-            technology = Technology.objects.get(pk=tech_id)
+            try:
+                technology = Technology.objects.get(pk=tech_id)
+            except Technology.DoesNotExist:
+                technology = None
+            
+            if not (technology):
+                form._errors["technology"] = ErrorList([u"This field is required"])
+                return render(request, 'facility_access_form.html', {
+                    'form': form,
+                    'country': user_country,
+                    'data':data
+                })
+    
             form.instance.technology = technology
             form.save()
-            if (request.POST.has_key('saveAdd')):
-                new_form = DFacilityAccessForm(initial={'priority_area':form.instance.priority_area})                
+            if (request.POST.has_key('save_add')):
+                new_form = DFacilityAccessForm(initial={'priority_area':form.instance.priority_area, 'sector_category':form.cleaned_data['sector_category']})                
                 return render(request, 'facility_access_form.html', {
                     'form': new_form,
                     'country': user_country,
-                    'data':data
+                    'data':data,
+                    'facility_character':form.cleaned_data['facility_character'],
+                    'technology':form.cleaned_data['technology']
                 })
             return HttpResponseRedirect('/report/facilityaccess#list')
         return render(request, 'facility_access_form.html', {
