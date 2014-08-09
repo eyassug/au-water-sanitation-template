@@ -461,3 +461,7 @@ class ListofPriorityAreasReport(LoginRequiredMixin,View):
 class TechnologyGapPerPriorityAreaReport(LoginRequiredMixin,View):
     def get(self,request):
         return render(request, 'reports/technology_gap_per_priority_area_report.html')
+
+class TechnologiesGapsForTheCategory(LoginRequiredMixin,View):
+    def get(self,request):
+        return render(request, 'reports/technologies_gaps_for_the_category.html')
