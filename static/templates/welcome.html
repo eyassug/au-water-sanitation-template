@@ -66,7 +66,12 @@
             {% if not user.is_authenticated %}
             <li><a href="/login">Log In</a></li>
             {% endif %}
-          </ul>
+                         
+        </ul>
+         
+          
+         
+          
           <!-- <form class="navbar-form navbar-right">
             <input type="text" class="form-control" placeholder="Search...">
           </form>-->
@@ -93,9 +98,13 @@
             <li><a href="/report/PartnerContribution">Contribution to Country</a></li>
             <li><a href="/report/PartnerEventContribution">Contribution to Events</a></li>
             <li><a href="/report/swot">Sector SWOT & Conclusion</a></li>
+            
           </ul>
           <ul class="nav nav-sidebar">
-            <li><a href="#">Generate Report</a></li>
+            <li><a href="/report/listofpriorityareas">List of Priority Areas</a></li>
+            <li><a href="/report/swot">Technology gap clustered by PA</a></li>
+            <li><a href="/report/swot">Technologies gaps for the category</a></li>
+            <li><a href="/report/swot">Estimated overall gaps</a></li>
           </ul>
         </div>
         {% endif %}
@@ -287,7 +296,7 @@
       </div>
     </div>
     -->
-        
+         
 	</body>
 	</html>
 	
