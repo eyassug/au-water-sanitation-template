@@ -365,6 +365,29 @@ class PartnerEventContributionCreate(LoginRequiredMixin,CreateView):
             'country': user_country,
             'data': data    
         })
+    def post(self, request):
+        user_country = request.user.usercountry.country            
+        form_class = modelform_factory(PartnerEventContribution, exclude=['country'])
+        form = form_class(request.POST)
+        form.instance.country = user_country
+        data = models.PartnerEventContribution.objects.all()
+        if(form.is_valid()):
+            form.save()
+            messages.success(request, 'Report has been successfully submitted.')
+            if (request.POST.has_key('save_add')):
+                new_form = form_class(initial={'sector_category':form.cleaned_data['sector_category'], 'partner':form.cleaned_data['partner'], 'event':form.cleaned_data['event']})                
+                return render(request,self.template_name, {
+                    'form': new_form,
+                    'country': user_country,
+                    'data': data
+                })
+            return HttpResponseRedirect('/report/PartnerContribution')
+        
+        return render(request,self.template_name, {
+            'form': form,
+            'country': user_country,
+            'data': data
+        })
 class SWOTAndConclusionCreate(LoginRequiredMixin,CreateView):
     model = SWOT
     template_name = 'swot_form.html'
