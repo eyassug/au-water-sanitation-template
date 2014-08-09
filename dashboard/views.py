@@ -240,19 +240,44 @@ class PlanningPerformanceCreate(LoginRequiredMixin,View):
             'data': data
         })
     
-class TenderProcedurePerformanceCreate(LoginRequiredMixin,CreateView):
+class TenderProcedurePerformanceCreate(LoginRequiredMixin,View):
     model = TenderProcedurePerformance
     template_name = 'tender_proc_performance_form.html'
     success_url = "/report/TenderProcPerformance"
     def get(self, request):
         form = modelform_factory(TenderProcedurePerformance)        
         user_country = request.user.usercountry.country
-        data = models.TenderProcedurePerformance.objects.all()
+        data = models.TenderProcedurePerformance.objects.filter(country=user_country)
+
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
             'data': data
         })
+    def post(self, request):
+        user_country = request.user.usercountry.country            
+        form_class = modelform_factory(TenderProcedurePerformance, exclude=['country'])
+        form = form_class(request.POST)
+        form.instance.country = user_country
+        data = models.TenderProcedurePerformance.objects.filter(country=user_country)
+        if(form.is_valid()):
+            form.save()
+            messages.success(request, 'Report has been successfully submitted.')
+            if (request.POST.has_key('save_add')):
+                new_form = form_class(initial={'sector_category':form.cleaned_data['sector_category'], 'tender_procedure_property':form.cleaned_data['tender_procedure_property']})                
+                return render(request,self.template_name, {
+                    'form': new_form,
+                    'country': user_country,
+                    'data': data
+                })
+            return HttpResponseRedirect('/report/TenderProcPerformance')
+        
+        return render(request,self.template_name, {
+            'form': form,
+            'country': user_country,
+            'data': data
+        })
+
 class CommunityApproachCreate(LoginRequiredMixin,View):
     model = CommunityApproach
     template_name = 'community_approach_form.html'
