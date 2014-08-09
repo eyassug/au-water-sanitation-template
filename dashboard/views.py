@@ -185,17 +185,20 @@ class PriorityAreaStatusCreate(LoginRequiredMixin,View):
     def post(self,request):
         user_country = request.user.usercountry.country            
         form = PriorityAreaStatusForm(request.POST)
+        data = models.PriorityAreaStatus.objects.all()
         if form.is_valid():            
             form.save()            
             new_form = PriorityAreaStatusForm()
             messages.success(request, 'Report has been successfully submitted.')
             new_form.filter(country=user_country)
-            data = models.PriorityAreaStatus.objects.all()
-            return render(request,'priority_area_status_form.html', {
-                'form': new_form,
-                'country': user_country,
-                'data':data
-            })
+            if (request.POST.has_key('save_add')):
+                new_form = PriorityAreaStatusForm(initial={'priority_area':form.cleaned_data['priority_area']})                
+                return render(request,'priority_area_status_form.html', {
+                    'form': new_form,
+                    'country': user_country,
+                    'data':data
+                })
+            return HttpResponseRedirect('/report/prioritystatus#list')
         return render(request, 'priority_area_status_form.html', {'form': form})
     
 class PlanningPerformanceCreate(LoginRequiredMixin,CreateView):
