@@ -329,6 +329,29 @@ class PartnerContributionCreate(LoginRequiredMixin,CreateView):
             'country': user_country,
             'data': data
         })
+    def post(self, request):
+        user_country = request.user.usercountry.country            
+        form_class = modelform_factory(PartnerContribution, exclude=['country'])
+        form = form_class(request.POST)
+        form.instance.country = user_country
+        data = models.PartnerContribution.objects.all()
+        if(form.is_valid()):
+            form.save()
+            messages.success(request, 'Report has been successfully submitted.')
+            if (request.POST.has_key('save_add')):
+                new_form = form_class(initial={'sector_category':form.cleaned_data['sector_category'], 'partner':form.cleaned_data['partner']})                
+                return render(request,self.template_name, {
+                    'form': new_form,
+                    'country': user_country,
+                    'data': data
+                })
+            return HttpResponseRedirect('/report/PartnerContribution')
+        
+        return render(request,self.template_name, {
+            'form': form,
+            'country': user_country,
+            'data': data
+        })
 class PartnerEventContributionCreate(LoginRequiredMixin,CreateView):
     model = PartnerEventContribution
     template_name = 'partner_event_contribution_form.html'
