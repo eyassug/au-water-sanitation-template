@@ -2,25 +2,13 @@ from dashboard import models
 
 class PriorityAreaPopultionReport():
     
-    report = ()
-    def __init__(self,country):
-        self.country = country
+    def generate(country=None):    
+        priority_areas = models.PriorityArea.objects.filter(country=self.country)
+        population = models.PriorityAreaStatus.objects.filter(priority_area__country=country)
         
-    def generate():        
-        if(self.country):
-            priority_areas = models.PriorityArea.objects.filter(country=self.country)
-        else:
-            priority_areas = models.PriorityArea.objects.all()
-        for p in priority_areas:            
-            d = models.PriorityAreaStatus.objects.latest()
-            r = PriorityAreaPopultion()
-            r.population = d.population
-            r.name = p.name
-            r.households = d.households
-            self.report.add(r)
+        return {
+            'priority_areas':priority_areas,
+            'population':population
+        }
             
-            
-    class PriorityAreaPopultion():
-        name = ""
-        population = 0
-        households = 0
+    
