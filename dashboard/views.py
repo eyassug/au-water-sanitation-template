@@ -175,7 +175,7 @@ class PriorityAreaStatusCreate(LoginRequiredMixin,View):
         user_country = request.user.usercountry.country
         form = PriorityAreaStatusForm()
         form.filter(country=user_country)
-        data = models.PriorityAreaStatus.objects.all()
+        data = models.PriorityAreaStatus.objects.filter(priority_area__country = user_country)
         return render(request,'priority_area_status_form.html', {
             'form': form,
             'country': user_country,
