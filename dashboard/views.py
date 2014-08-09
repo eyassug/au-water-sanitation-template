@@ -24,7 +24,7 @@ from django.template import Context
 from django.template.loader import get_template
 import StringIO
 import os
-
+from django.forms.util import ErrorList
 # html to pdf example
 
     
@@ -99,15 +99,29 @@ class FacilityAccessCreate(LoginRequiredMixin,View):
         data = models.FacilityAccess.objects.all()
         if form.is_valid():
             tech_id = form.cleaned_data['technology']
-            technology = Technology.objects.get(pk=tech_id)
+            try:
+                technology = Technology.objects.get(pk=tech_id)
+            except Technology.DoesNotExist:
+                technology = None
+            
+            if not (technology):
+                form._errors["technology"] = ErrorList([u"This field is required"])
+                return render(request, 'facility_access_form.html', {
+                    'form': form,
+                    'country': user_country,
+                    'data':data
+                })
+    
             form.instance.technology = technology
             form.save()
-            if (request.POST.has_key('saveAdd')):
-                new_form = DFacilityAccessForm(initial={'priority_area':form.instance.priority_area})                
+            if (request.POST.has_key('save_add')):
+                new_form = DFacilityAccessForm(initial={'priority_area':form.instance.priority_area, 'sector_category':form.cleaned_data['sector_category']})                
                 return render(request, 'facility_access_form.html', {
                     'form': new_form,
                     'country': user_country,
-                    'data':data
+                    'data':data,
+                    'facility_character':form.cleaned_data['facility_character'],
+                    'technology':form.cleaned_data['technology']
                 })
             return HttpResponseRedirect('/report/facilityaccess#list')
         return render(request, 'facility_access_form.html', {
@@ -171,20 +185,23 @@ class PriorityAreaStatusCreate(LoginRequiredMixin,View):
     def post(self,request):
         user_country = request.user.usercountry.country            
         form = PriorityAreaStatusForm(request.POST)
+        data = models.PriorityAreaStatus.objects.all()
         if form.is_valid():            
             form.save()            
             new_form = PriorityAreaStatusForm()
             messages.success(request, 'Report has been successfully submitted.')
             new_form.filter(country=user_country)
-            data = models.PriorityAreaStatus.objects.all()
-            return render(request,'priority_area_status_form.html', {
-                'form': new_form,
-                'country': user_country,
-                'data':data
-            })
+            if (request.POST.has_key('save_add')):
+                new_form = PriorityAreaStatusForm(initial={'priority_area':form.cleaned_data['priority_area']})                
+                return render(request,'priority_area_status_form.html', {
+                    'form': new_form,
+                    'country': user_country,
+                    'data':data
+                })
+            return HttpResponseRedirect('/report/prioritystatus#list')
         return render(request, 'priority_area_status_form.html', {'form': form})
     
-class PlanningPerformanceCreate(LoginRequiredMixin,CreateView):
+class PlanningPerformanceCreate(LoginRequiredMixin,View):
     model = PlanningPerformance
     template_name = 'planning_performance_form.html'
     success_url = "/report/PlanningPerformance"
@@ -192,14 +209,36 @@ class PlanningPerformanceCreate(LoginRequiredMixin,CreateView):
     def get(self, request):
         form = modelform_factory(PlanningPerformance)        
         user_country = request.user.usercountry.country
-        data = models.PlanningPerformance.objects.all()
+        data = models.PlanningPerformance.objects.filter(country=user_country)
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
             'data': data
         })
     
-    
+    def post(self, request):
+        user_country = request.user.usercountry.country            
+        form_class = modelform_factory(PlanningPerformance, exclude=['country'])
+        form = form_class(request.POST)
+        form.instance.country = user_country
+        data = models.PlanningPerformance.objects.filter(country=user_country)
+        if(form.is_valid()):
+            form.save()
+            messages.success(request, 'Report has been successfully submitted.')
+            if (request.POST.has_key('save_add')):
+                new_form = form_class(initial={'sector_category':form.cleaned_data['sector_category']})                
+                return render(request,self.template_name, {
+                    'form': new_form,
+                    'country': user_country,
+                    'data': data
+                })
+            return HttpResponseRedirect('/report/planningperformance')
+        
+        return render(request,self.template_name, {
+            'form': form,
+            'country': user_country,
+            'data': data
+        })
     
 class TenderProcedurePerformanceCreate(LoginRequiredMixin,CreateView):
     model = TenderProcedurePerformance
@@ -214,7 +253,7 @@ class TenderProcedurePerformanceCreate(LoginRequiredMixin,CreateView):
             'country': user_country,
             'data': data
         })
-class CommunityApproachCreate(LoginRequiredMixin,CreateView):
+class CommunityApproachCreate(LoginRequiredMixin,View):
     model = CommunityApproach
     template_name = 'community_approach_form.html'
     success_url = "/report/CommunityApproach"
@@ -227,6 +266,30 @@ class CommunityApproachCreate(LoginRequiredMixin,CreateView):
             'country': user_country,
             'data': data
         })
+    
+    def post(self, request):
+        user_country = request.user.usercountry.country            
+        form_class = modelform_factory(CommunityApproach, exclude=['country'])
+        form = form_class(request.POST)
+        form.instance.country = user_country
+        data = models.CommunityApproach.objects.all()
+        if(form.is_valid()):
+            form.save()
+            if (request.POST.has_key('save_add')):
+                new_form = form_class(initial={'approach_type':form.cleaned_data['approach_type'], 'sector_category':form.cleaned_data['sector_category']})                
+                return render(request,self.template_name, {
+                    'form': new_form,
+                    'country': user_country,
+                    'data': data
+                })
+            return HttpResponseRedirect('/report/communityapproach')
+        
+        return render(request,self.template_name, {
+            'form': form,
+            'country': user_country,
+            'data': data
+        })
+    
 class PartnerContributionCreate(LoginRequiredMixin,CreateView):
     model = PartnerContribution
     template_name = 'partner_contribution_form.html'

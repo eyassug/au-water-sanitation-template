@@ -61,14 +61,15 @@ function FilterPriorityAreas(sel_val) {
 					    var response = transport.responseText || 'no response text';
 					    var kvpairs = response.split("\n");
 					    if (kvpairs.length < 2) {
-						techList.options[0] = new Option('No Facility Characters', '-1', false, false);
-						techList.disabled = true;
+						facList.options[0] = new Option('No Facility Characters', '-1', false, false);
+						facList.disabled = true;
 						return;
 					    }
+                                            facList.options[0] = new Option('Select Facility Character', '-1', true, false);
 					    for (i=0; i<kvpairs.length - 1; i++) {
 						    m = kvpairs[i].split(";");
 						    var option = new Option(m[1], m[0], false, false);
-						    facList.options[i] = option;
+						    facList.options[i+1] = option;
 					    }
 					    facList.disabled = false;
 					    if (sel_val > 0) {
@@ -114,10 +115,11 @@ function FilterPriorityAreas(sel_val) {
 						techList.disabled = true;
 						return;
 					    }
+                                            techList.options[0] = new Option('Select Technology', '-1', true, false);
 					    for (i=0; i<kvpairs.length - 1; i++) {
 						    m = kvpairs[i].split(";");
 						    var option = new Option(m[1], m[0], false, false);
-						    techList.options[i] = option;
+						    techList.options[i+1] = option;
 					    }
 					    techList.disabled = false;
 					    if (sel_val > 0) {
