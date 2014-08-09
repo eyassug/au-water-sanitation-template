@@ -457,3 +457,7 @@ class PartnerEventContributionGridView(LoginRequiredMixin,View):
 class ListofPriorityAreasReport(LoginRequiredMixin,View):
     def get(self,request):
         return render(request, 'reports/list_of_priority_areas_report.html')
+    
+class TechnologyGapPerPriorityAreaReport(LoginRequiredMixin,View):
+    def get(self,request):
+        return render(request, 'reports/technology_gap_per_priority_area_report.html')

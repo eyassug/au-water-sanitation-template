@@ -32,7 +32,10 @@ urlpatterns = patterns('',
     url(r'^(?i)report/partnereventcontribution$', views.PartnerEventContributionCreate.as_view(), name='partner_event_contribution_create'),
     url(r'^(?i)report/partnereventcontribution/list$', views.PartnerEventContributionGridView.as_view(), name='partner_event_contribution_create'),
     url(r'^(?i)report/swot$', views.SWOTAndConclusionCreate.as_view(), name='swot_create'),
-    url(r'^(?i)report/listofpriorityareas$', views.ListofPriorityAreasReport.as_view(), name='List_of_Priority_Areas_Report'),
+    #report
+    url(r'^(?i)report/listofpriorityareas$', views.ListofPriorityAreasReport.as_view(), name='list_of_priority_areas_report'),
+    url(r'^(?i)report/technologygapperpriorityarea$', views.TechnologyGapPerPriorityAreaReport.as_view(), name='technology_gap_per_priority_area_report'),
+    
     url(r'^(?i)login/$', 'django.contrib.auth.views.login', name='login'),    
     url(r'^(?i)logout/$', views.Logout.as_view(), name='logout'),      
     url(r'^(?i)changepassword/$', views.ChangePassword.as_view(), name='change_password'),
