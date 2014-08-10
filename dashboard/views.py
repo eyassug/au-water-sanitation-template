@@ -564,30 +564,4 @@ class EstimatedOverallGapsReport(LoginRequiredMixin,View):
     def get(self,request):
         return render(request, 'reports/estimated_overall_gaps.html')
 
-        
-class ListofPriorityAreasReportToPdf(LoginRequiredMixin,View):
-    def get(self,request):
-        user_country = request.user.usercountry.country
-        report_factory = reports.PriorityAreaPopulationReport()
-        context_dict = report_factory.generate(user_country)
-       
-        context_dict.update({'pagesize': 'Portrait'})
-    
-        BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-        path = os.path.join(os.path.dirname(BASE_DIR), "auwsssp", "static", "templates")
-        template_name = "snippets/list_of_priority_areas_report_pdf.html"
-        template = get_template(template_name)
-        context = Context(context_dict)
-        html = template.render(context)   
-        result = StringIO.StringIO()
-        
-        pisa.CreatePDF(html.encode("UTF-8"), result , encoding='UTF-8',
-                       link_callback=path)
-        try:
-            return HttpResponse(result.getvalue(), mimetype='application/pdf')
-            
-            #""" Enable if you want to generate pdf in a new file """
-            response['Content-Disposition'] = 'attachment; filename=output.pdf'
-            return response
-        except:
-            return HttpResponse('We had some errors<pre>%s</pre>' % escape(html))
+   

@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 
 from django.conf import settings
 from django.conf.urls.static import static
-from dashboard import views
+from dashboard import views, report_views
 
 from django.contrib import admin
 admin.autodiscover()
@@ -38,7 +38,7 @@ urlpatterns = patterns('',
     url(r'^(?i)report/technologiesgapsforthecategory$', views.TechnologiesGapsForTheCategory.as_view(), name='technologies_gaps_for_the_category_report'),
     url(r'^(?i)report/estimatedoverallgaps$', views.EstimatedOverallGapsReport.as_view(), name='estimated_overall_gaps_report'),
     #Report To PDF
-    url(r'^(?i)report/listofpriorityareasreportpdf$', views.ListofPriorityAreasReportToPdf.as_view(), name='list_of_priority_areas_report_to_pdf'),
+    url(r'^(?i)report/listofpriorityareasreportpdf$', report_views.ListofPriorityAreasReportToPdf.as_view(), name='list_of_priority_areas_report_to_pdf'),
     
     url(r'^(?i)login/$', 'django.contrib.auth.views.login', name='login'),    
     url(r'^(?i)logout/$', views.Logout.as_view(), name='logout'),      
