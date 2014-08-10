@@ -21,40 +21,34 @@
     </thead>
 <tbody>
 
+{% for gap in technology_gaps %}
 
+{% for pa_gap in gap.pa_technology_gaps %}
+
+{% if forloop.first %}
     <tr>
-        <td rowspan="3">1</td>
-        <td rowspan="3">Jimma</td>        
-        <td>4324</td>
-        <td>5435</td>
-        <td>5435</td>        
-        <td>4556</td>
-        <td>9444</td>
-        <td>5843</td>
+        <td rowspan="{{ pa_gap|length }}">{{ forloop.parentloop.counter }}</td>
+        <td rowspan="{{ pa_gap|length }}">{{ pa_gap.priority_area }}</td>        
+        <td>{{ pa_gap.year }}</td>
+        <td>{{ pa_gap.number }}</td>
+        <td>{{ pa_gap.unit_cost }}</td>
+        <td>{{ pa_gap.total_cost }}</td>        
+        <td>{{ pa_gap.government_contribution }}</td>
+        <td>{{ pa_gap.population_affected }}</td>
         
     </tr>
+{% else %}
     <tr>
-        
-        
-        <td>4324</td>
-        <td>5435</td>
-        <td>5435</td>        
-        <td>4556</td>
-        <td>9444</td>
-        <td>5843</td>
-        
+        <td>{{ pa_gap.year }}</td>
+        <td>{{ pa_gap.number }}</td>
+        <td>{{ pa_gap.unit_cost }}</td>
+        <td>{{ pa_gap.total_cost }}</td>        
+        <td>{{ pa_gap.government_contribution }}</td>
+        <td>{{ pa_gap.population_affected }}</td>
     </tr>
-    <tr>
-        
-        
-        <td>4324</td>
-        <td>5435</td>
-        <td>5435</td>        
-        <td>4556</td>
-        <td>9444</td>
-        <td>5843</td>
-        
-    </tr>
+{% endif %}
+    
+{% endfor %}
     <tr>
         <td></td>
         <td>Total</td>
@@ -64,9 +58,9 @@
         <td>5435</td>        
         <td>4556</td>
         <td>9444</td>
-        
-        
     </tr>
+{% endfor %}
+    
      <tr>
         <td></td>
         <td>Grand Total</td>

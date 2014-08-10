@@ -25,7 +25,7 @@ class TechnologyGapReport():
         priority_areas = models.PriorityArea.objects.filter(country=country)
         country_technology_gaps = []
         for p in priority_areas:
-            gap = self.get_technology_gap(p,technology)
+            gap = self.get_technology_gap(p,technology,start_year,end_year)
             country_technology_gaps.append(gap)
         
         grand_total_number = sum(item['totals']['total_number'] for item in country_technology_gaps)
@@ -44,12 +44,12 @@ class TechnologyGapReport():
             }
         }
     
-    def get_technology_gap(self,priority_area,technology):
+    def get_technology_gap(self,priority_area,technology,start_year,end_year):
         technology_access = models.FacilityAccess.objects.filter(priority_area=priority_area).filter(technology=technology).filter(year__start_year__gt=start_year).filter(year__end_year__lt=end_year)
         technology_gaps = []
         for ta in technology_access:
             number = random.randrange(0, 1000, 2)
-            unit_cost = get_unit_cost(ta.Technology)
+            unit_cost = self.get_unit_cost(ta.technology)
             total_cost = number * unit_cost
             government_contribution = total_cost * ta.government_contribution
             population_affected = random.randrange(0, 1000, 2)

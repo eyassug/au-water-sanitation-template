@@ -553,9 +553,8 @@ class TechnologyGapPerPriorityAreaReport(LoginRequiredMixin,View):
             report_factory = reports.TechnologyGapReport()
             report = report_factory.generate(user_country,technology,start_year,end_year)
             report['form'] = form
-            return render_to_response(request, 'reports/technology_gap_per_priority_area_report.html',report)
-        return render_to_response(request, 'reports/technology_gap_per_priority_area_report.html',{'form':form})
-
+            return render(request, 'reports/technology_gap_per_priority_area_report.html', report)            
+        return render(request, 'reports/technology_gap_per_priority_area_report.html', {'form':form})
 class TechnologiesGapsForTheCategory(LoginRequiredMixin,View):
     def get(self,request):
         pass
