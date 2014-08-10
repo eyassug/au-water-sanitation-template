@@ -177,7 +177,9 @@ class PriorityAreaStatusCreate(LoginRequiredMixin,View):
         user_country = request.user.usercountry.country
         form = PriorityAreaStatusForm()
         form.filter(country=user_country)
+        #data = models.PriorityAreaStatus.objects.all()
         data = models.PriorityAreaStatus.objects.filter(priority_area__country = user_country)
+
         return render(request,'priority_area_status_form.html', {
             'form': form,
             'country': user_country,
@@ -242,19 +244,44 @@ class PlanningPerformanceCreate(LoginRequiredMixin,View):
             'data': data
         })
     
-class TenderProcedurePerformanceCreate(LoginRequiredMixin,CreateView):
+class TenderProcedurePerformanceCreate(LoginRequiredMixin,View):
     model = TenderProcedurePerformance
     template_name = 'tender_proc_performance_form.html'
     success_url = "/report/TenderProcPerformance"
     def get(self, request):
         form = modelform_factory(TenderProcedurePerformance)        
         user_country = request.user.usercountry.country
-        data = models.TenderProcedurePerformance.objects.all()
+        data = models.TenderProcedurePerformance.objects.filter(country=user_country)
+
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
             'data': data
         })
+    def post(self, request):
+        user_country = request.user.usercountry.country            
+        form_class = modelform_factory(TenderProcedurePerformance, exclude=['country'])
+        form = form_class(request.POST)
+        form.instance.country = user_country
+        data = models.TenderProcedurePerformance.objects.filter(country=user_country)
+        if(form.is_valid()):
+            form.save()
+            messages.success(request, 'Report has been successfully submitted.')
+            if (request.POST.has_key('save_add')):
+                new_form = form_class(initial={'sector_category':form.cleaned_data['sector_category'], 'tender_procedure_property':form.cleaned_data['tender_procedure_property']})                
+                return render(request,self.template_name, {
+                    'form': new_form,
+                    'country': user_country,
+                    'data': data
+                })
+            return HttpResponseRedirect('/report/TenderProcPerformance')
+        
+        return render(request,self.template_name, {
+            'form': form,
+            'country': user_country,
+            'data': data
+        })
+
 class CommunityApproachCreate(LoginRequiredMixin,View):
     model = CommunityApproach
     template_name = 'community_approach_form.html'
@@ -277,6 +304,7 @@ class CommunityApproachCreate(LoginRequiredMixin,View):
         data = models.CommunityApproach.objects.all()
         if(form.is_valid()):
             form.save()
+            messages.success(request, 'Report has been successfully submitted.')
             if (request.POST.has_key('save_add')):
                 new_form = form_class(initial={'approach_type':form.cleaned_data['approach_type'], 'sector_category':form.cleaned_data['sector_category']})                
                 return render(request,self.template_name, {
@@ -305,6 +333,29 @@ class PartnerContributionCreate(LoginRequiredMixin,CreateView):
             'country': user_country,
             'data': data
         })
+    def post(self, request):
+        user_country = request.user.usercountry.country            
+        form_class = modelform_factory(PartnerContribution, exclude=['country'])
+        form = form_class(request.POST)
+        form.instance.country = user_country
+        data = models.PartnerContribution.objects.all()
+        if(form.is_valid()):
+            form.save()
+            messages.success(request, 'Report has been successfully submitted.')
+            if (request.POST.has_key('save_add')):
+                new_form = form_class(initial={'sector_category':form.cleaned_data['sector_category'], 'partner':form.cleaned_data['partner']})                
+                return render(request,self.template_name, {
+                    'form': new_form,
+                    'country': user_country,
+                    'data': data
+                })
+            return HttpResponseRedirect('/report/PartnerContribution')
+        
+        return render(request,self.template_name, {
+            'form': form,
+            'country': user_country,
+            'data': data
+        })
 class PartnerEventContributionCreate(LoginRequiredMixin,CreateView):
     model = PartnerEventContribution
     template_name = 'partner_event_contribution_form.html'
@@ -317,6 +368,29 @@ class PartnerEventContributionCreate(LoginRequiredMixin,CreateView):
             'form': form,
             'country': user_country,
             'data': data    
+        })
+    def post(self, request):
+        user_country = request.user.usercountry.country            
+        form_class = modelform_factory(PartnerEventContribution, exclude=['country'])
+        form = form_class(request.POST)
+        form.instance.country = user_country
+        data = models.PartnerEventContribution.objects.all()
+        if(form.is_valid()):
+            form.save()
+            messages.success(request, 'Report has been successfully submitted.')
+            if (request.POST.has_key('save_add')):
+                new_form = form_class(initial={'sector_category':form.cleaned_data['sector_category'], 'partner':form.cleaned_data['partner'], 'event':form.cleaned_data['event']})                
+                return render(request,self.template_name, {
+                    'form': new_form,
+                    'country': user_country,
+                    'data': data
+                })
+            return HttpResponseRedirect('/report/PartnerEventContribution')
+        
+        return render(request,self.template_name, {
+            'form': form,
+            'country': user_country,
+            'data': data
         })
 class SWOTAndConclusionCreate(LoginRequiredMixin,CreateView):
     model = SWOT
@@ -456,7 +530,6 @@ class PartnerEventContributionGridView(LoginRequiredMixin,View):
         user_country = request.user.usercountry.country        
         data = models.PartnerEventContribution.objects.filter(country=user_country)
         return render(request, 'data-grids/partner_event_contribution_grid.html', {'data': data})
-    
 class ListofPriorityAreasReport(LoginRequiredMixin,View):
     def get(self,request):
         user_country = request.user.usercountry.country
@@ -466,7 +539,7 @@ class ListofPriorityAreasReport(LoginRequiredMixin,View):
     
 class TechnologyGapPerPriorityAreaReport(LoginRequiredMixin,View):
     def get(self,request):
-        form = report_forms.TechnologyGapByPriorityArea()
+        form = report_forms.TechnologyGapByPriorityArea()        
         return render(request, 'reports/technology_gap_per_priority_area_report.html', {'form':form})
     
     def post(self,request):
@@ -481,3 +554,33 @@ class TechnologyGapPerPriorityAreaReport(LoginRequiredMixin,View):
             report['form'] = form
             return render_to_response(request, 'reports/technology_gap_per_priority_area_report.html',report)
         return render_to_response(request, 'reports/technology_gap_per_priority_area_report.html',{'form':form})
+
+class TechnologiesGapsForTheCategory(LoginRequiredMixin,View):
+        
+        
+class ListofPriorityAreasReportToPdf(LoginRequiredMixin,View):
+    def get(self,request):
+        user_country = request.user.usercountry.country
+        report_factory = reports.PriorityAreaPopulationReport()
+        context_dict = report_factory.generate(user_country)
+       
+        context_dict.update({'pagesize': 'Portrait'})
+    
+        BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+        path = os.path.join(os.path.dirname(BASE_DIR), "auwsssp", "static", "templates")
+        template_name = "snippets/list_of_priority_areas_report_pdf.html"
+        template = get_template(template_name)
+        context = Context(context_dict)
+        html = template.render(context)   
+        result = StringIO.StringIO()
+        
+        pisa.CreatePDF(html.encode("UTF-8"), result , encoding='UTF-8',
+                       link_callback=path)
+        try:
+            return HttpResponse(result.getvalue(), mimetype='application/pdf')
+            
+            #""" Enable if you want to generate pdf in a new file """
+            response['Content-Disposition'] = 'attachment; filename=output.pdf'
+            return response
+        except:
+            return HttpResponse('We had some errors<pre>%s</pre>' % escape(html))

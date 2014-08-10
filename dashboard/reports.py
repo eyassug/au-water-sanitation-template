@@ -13,7 +13,8 @@ class PriorityAreaPopulationReport():
             'priority_areas':priority_areas,
             'population':population,
             'total_population':total_population['population__sum'],
-            'total_households':total_households['number_of_households__sum']
+            'total_households':total_households['number_of_households__sum'],
+            'country':country
         }
             
 class TechnologyGapReport():
