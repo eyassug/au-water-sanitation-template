@@ -18,7 +18,7 @@ from django import forms
 from django.contrib import messages
 # html to pdf imports
 from cgi import escape
-from xhtml2pdf import pisa # TODO: Change this when the lib changes.
+#from xhtml2pdf import pisa # TODO: Change this when the lib changes.
 from django.shortcuts import render
 from django.template import Context
 from django.template.loader import get_template
@@ -26,6 +26,7 @@ import StringIO
 import os
 from django.forms.util import ErrorList
 from dashboard import reports
+import xhtml2pdf.pisa as pisa 
 
 # html to pdf example
 
