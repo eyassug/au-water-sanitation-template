@@ -6,6 +6,7 @@
             @page {
                 size: {{ pagesize|default:'legal landscape' }};
                 margin: 1.5cm 1cm;
+                border: 1px solid #fff;
                 @frame header {
                     -pdf-frame-content: headerContent;
                     top: 1cm;
@@ -24,12 +25,13 @@
                 }     
             }
             #report_lists {
-                border: 1px solid #000;
+                border: 1px solid #ccc;
                 line-height: 12px;
                 padding: 3px;
+                
             }
             #report_head {
-                background-color: #ccc;
+                background-color: #000;
                 font-size: 12px;
             }
         </style>
@@ -45,30 +47,30 @@
             </table>
         </div>
 <div class="">
-    <a href=/report/listofpriorityareasreportpdf>Export to pdf</a>
+    
 <table id="report_lists" class="">
     <thead id="report_head">
         
         <tr>
-            <th rowspan="2">No</th>
+            <th  rowspan="2" style="background-color: #CBD5F5;">No</th>
             
-            <th rowspan="2">Priority Area name</th>
-            <th colspan="2" >Demographic Data</th>
+            <th rowspan="2" style="background-color: #CBD5F5;">Priority Area name</th>
+            <th colspan="2" style="background-color: #CBD5F5;" >Demographic Data</th>
         </tr>
         <tr>
-            <th>Latest Population</th>
-            <th>Latest number of Households</th>
+            <th style="background-color: #CBD5F5;">Latest Population</th>
+            <th style="background-color: #CBD5F5;">Latest number of Households</th>
             
         </tr>
     </thead>
 <tbody>
     
     {% for p in population %}
-    <tr style="background-color: black;">
-            <td {% if forloop.counter0|divisibleby:2 %} style="background-color: #CC9999"{% endif %}> {{ forloop.counter }}</th>
-            <td>{{ p.priority_area }}</th>
-            <td>{{ p.population }}</th>
-            <td>{{ p.number_of_households }}</th>
+    <tr>
+            <td {% if not forloop.counter0|divisibleby:2 %} style="background-color: #ccc; "{% endif %}> {{ forloop.counter }}</td>
+            <td {% if not forloop.counter0|divisibleby:2 %} style="background-color: #ccc; "{% endif %}>{{ p.priority_area }}</td>
+            <td {% if not forloop.counter0|divisibleby:2 %} style="background-color: #ccc; "{% endif %}>{{ p.population }}</td>
+            <td {% if not forloop.counter0|divisibleby:2 %} style="background-color: #ccc; "{% endif %}>{{ p.number_of_households }}</td>
         
        
     </tr>
@@ -86,5 +88,9 @@
 </table>
 
 </div>
+<div id="footerContent">
+            <table><tr><td>Kigali Action Plan</td>
+            <td align="center">Page <pdf:pagenumber> / <pdf:pagecount> </td> <td align="right">{% now "M d, Y" %} {% now "P" %}</td></tr></table>
+        </div>
 </body>
 </html>
