@@ -44,8 +44,13 @@ class ListofPriorityAreasReportToPdf(LoginRequiredMixin,View):
 class TechnologyGapClusteredByPAReport(LoginRequiredMixin,View):
     def get(self,request):
         user_country = request.user.usercountry.country
-        report_factory = reports.PriorityAreaPopulationReport()
-        context_dict = report_factory.generate(user_country)
+        form = report_forms.TechnologyGapByPriorityArea(request.POST)
+        technology = request.GET['technology']
+        start_year = request.GET['start_year']
+        end_year = request.GET['end_year']
+        report_factory = reports.TechnologyGapReport()
+        #report = report_factory.generate(user_country,technology,start_year,end_year)
+        context_dict = report_factory.generate(user_country,technology,start_year,end_year)
         #
         context_dict.update({'pagesize': 'Portrait'})
     
