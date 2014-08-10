@@ -79,7 +79,7 @@ class TechnologiesGapsForTheCategoryReport(LoginRequiredMixin,View):
         report_factory = reports.PriorityAreaPopulationReport()
         context_dict = report_factory.generate(user_country)
         #
-        context_dict.update({'pagesize': 'Portrait'})
+        #context_dict.update({'pagesize': 'Portrait'})
     
         BASE_DIR = os.path.dirname(os.path.dirname(__file__))
         path = os.path.join(os.path.dirname(BASE_DIR), "auwsssp", "static", "templates")
