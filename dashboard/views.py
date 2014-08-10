@@ -26,6 +26,7 @@ import StringIO
 import os
 from django.forms.util import ErrorList
 from dashboard import reports
+from dashboard import report_forms
 # html to pdf example
 
     
@@ -465,7 +466,18 @@ class ListofPriorityAreasReport(LoginRequiredMixin,View):
     
 class TechnologyGapPerPriorityAreaReport(LoginRequiredMixin,View):
     def get(self,request):
-        return render(request, 'reports/technology_gap_per_priority_area_report.html')
+        form = report_forms.TechnologyGapByPriorityArea()
+        return render(request, 'reports/technology_gap_per_priority_area_report.html', {'form':form})
     
     def post(self,request):
-        
+        form = report_forms.TechnologyGapByPriorityArea(request.POST)
+        user_country = request.user.usercountry.country        
+        if(form.is_valid()):
+            technology = form.cleaned_data['technology']
+            start_year = form.cleaned_data['start_year']
+            end_year = form.cleaned_data['end_year']
+            report_factory = reports.TechnologyGapReport()
+            report = report_factory.generate(user_country,technology,start_year,end_year)
+            report['form'] = form
+            return render_to_response(request, 'reports/technology_gap_per_priority_area_report.html',report)
+        return render_to_response(request, 'reports/technology_gap_per_priority_area_report.html',{'form':form})

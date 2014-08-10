@@ -18,9 +18,10 @@ class PriorityAreaPopulationReport():
             
 class TechnologyGapReport():
     
-    def generate(country,technology,start_year,end_year):
+    def generate(self,country,technology,start_year,end_year):
+        start_year,end_year = start_year - 1,end_year + 1        
         priority_areas = models.PriorityArea.objects.filter(country=country)
-        technology_gap = models.FacilityAccess.objects.filter(priority_area__country=country).filter(year__start_year >= start_year).filter(year__end_year <= end_year)
+        technology_gap = models.FacilityAccess.objects.filter(priority_area__country=country).filter(year__start_year__gt=start_year).filter(year__end_year__lt=end_year)
         
         return {
             'priority_areas':priority_areas,
