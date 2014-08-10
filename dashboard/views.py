@@ -25,6 +25,7 @@ from django.template.loader import get_template
 import StringIO
 import os
 from django.forms.util import ErrorList
+from dashboard import reports
 # html to pdf example
 
     
@@ -175,7 +176,7 @@ class PriorityAreaStatusCreate(LoginRequiredMixin,View):
         user_country = request.user.usercountry.country
         form = PriorityAreaStatusForm()
         form.filter(country=user_country)
-        data = models.PriorityAreaStatus.objects.all()
+        data = models.PriorityAreaStatus.objects.filter(priority_area__country = user_country)
         return render(request,'priority_area_status_form.html', {
             'form': form,
             'country': user_country,
@@ -526,9 +527,13 @@ class PartnerEventContributionGridView(LoginRequiredMixin,View):
         user_country = request.user.usercountry.country        
         data = models.PartnerEventContribution.objects.filter(country=user_country)
         return render(request, 'data-grids/partner_event_contribution_grid.html', {'data': data})
+    
 class ListofPriorityAreasReport(LoginRequiredMixin,View):
     def get(self,request):
-        return render(request, 'reports/list_of_priority_areas_report.html')
+        user_country = request.user.usercountry.country
+        report_factory = reports.PriorityAreaPopulationReport()
+        report = report_factory.generate(user_country)
+        return render(request, 'reports/list_of_priority_areas_report.html',report)
     
 class TechnologyGapPerPriorityAreaReport(LoginRequiredMixin,View):
     def get(self,request):

@@ -1,26 +1,28 @@
 from dashboard import models
+from django.db.models import Sum
 
-class PriorityAreaPopultionReport():
+class PriorityAreaPopulationReport():
     
-    report = ()
-    def __init__(self,country):
-        self.country = country
+    def generate(self,country):    
+        priority_areas = models.PriorityArea.objects.filter(country=country)
+        population = models.PriorityAreaStatus.objects.filter(priority_area__country=country)
+        total_population = models.PriorityAreaStatus.objects.aggregate(Sum('population'))
+        total_households = models.PriorityAreaStatus.objects.aggregate(Sum('number_of_households'))
         
-    def generate():        
-        if(self.country):
-            priority_areas = models.PriorityArea.objects.filter(country=self.country)
-        else:
-            priority_areas = models.PriorityArea.objects.all()
-        for p in priority_areas:            
-            d = models.PriorityAreaStatus.objects.latest()
-            r = PriorityAreaPopultion()
-            r.population = d.population
-            r.name = p.name
-            r.households = d.households
-            self.report.add(r)
+        return {
+            'priority_areas':priority_areas,
+            'population':population,
+            'total_population':total_population['population__sum'],
+            'total_households':total_households['number_of_households__sum']
+        }
             
-            
-    class PriorityAreaPopultion():
-        name = ""
-        population = 0
-        households = 0
+class TechnologyGapReport():
+    
+    def generate(country,technology,start_year,end_year):
+        priority_areas = models.PriorityArea.objects.filter(country=country)
+        technology_gap = models.FacilityAccess.objects.filter(priority_area__country=country).filter(year__start_year >= start_year).filter(year__end_year <= end_year)
+        
+        return {
+            'priority_areas':priority_areas,
+            'gaps':technology_gap
+        }
