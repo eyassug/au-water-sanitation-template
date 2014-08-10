@@ -89,6 +89,7 @@ class TechnologyGapReport():
 class TechnologyGapByCategoryReport():    
     
     def generate(self,country,sector_category,start_year,end_year):
+        start_year,end_year = start_year - 1,end_year + 1
         priority_areas = models.PriorityArea.objects.filter(country=country)
         gaps_by_category = []
         for p in priority_areas:
@@ -106,7 +107,8 @@ class TechnologyGapByCategoryReport():
                 'total_cost':sum(item['total_cost'] for item in gaps_by_category),
                 'government_contribution':sum(item['government_contribution'] for item in gaps_by_category),
                 'population_affected':sum(item['population_affected'] for item in gaps_by_category)                
-            }
+            },
+            'rows':len(gaps_by_category)
         }
     
     def get_technology_gaps(self,priority_area,category,start_year,end_year):
@@ -123,7 +125,8 @@ class TechnologyGapByCategoryReport():
                 'total_cost':sum(item['total_cost'] for item in gaps_by_character),
                 'government_contribution':sum(item['government_contribution'] for item in gaps_by_character),
                 'population_affected':sum(item['population_affected'] for item in gaps_by_character)                
-            }
+            },
+            'rows':len(gaps_by_character)
         }
     
     def get_technology_gaps_by_characteristic(self,priority_area,characteristic,start_year,end_year):
@@ -140,7 +143,8 @@ class TechnologyGapByCategoryReport():
                 'total_cost':sum(item['total_cost'] for item in gaps_by_technology),
                 'government_contribution':sum(item['government_contribution'] for item in gaps_by_technology),
                 'population_affected':sum(item['population_affected'] for item in gaps_by_technology)                
-            }
+            },
+            'rows':len(gaps_by_technology)
         }
     
     def get_technology_gaps_by_technology(self,priority_area,technology,start_year,end_year):
@@ -168,9 +172,9 @@ class TechnologyGapByCategoryReport():
         }
         
     def get_latest_unit_cost(self,technology,priority_area):
-        technology_access = models.FacilityAccess.objects.filter(priority_area=priority_area,technology=technology).order_by('-year__end_year','-year__end_year').first()        
+        technology_access = models.FacilityAccess.objects.filter(priority_area=priority_area,technology=technology).order_by('-year__end_year','-year__start_year').first()        
         return technology_access.unit_cost
     
     def get_latest_government_contribution(self,technology,priority_area):
-        technology_access = models.FacilityAccess.objects.filter(priority_area=priority_area,technology=technology).order_by('-year__end_year','-year__end_year').first()        
+        technology_access = models.FacilityAccess.objects.filter(priority_area=priority_area,technology=technology).order_by('-year__end_year','-year__start_year').first()        
         return technology_access.government_contribution    
