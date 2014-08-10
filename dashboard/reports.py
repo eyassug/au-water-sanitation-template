@@ -25,17 +25,18 @@ class TechnologyGapReport():
         priority_areas = models.PriorityArea.objects.filter(country=country)
         country_technology_gaps = []
         for p in priority_areas:
-            gap = self.get_technology_gap(p,technology)
+            gap = self.get_technology_gap(p,technology,start_year,end_year)
             country_technology_gaps.append(gap)
         
         grand_total_number = sum(item['totals']['total_number'] for item in country_technology_gaps)
-        grand_total_cost = sum(item['totals']['total_number'] for item in country_technology_gaps)
-        grand_total_government_contribution = sum(item['totals']['total_number'] for item in country_technology_gaps)
-        grand_total_population_affected = sum(item['totals']['total_number'] for item in country_technology_gaps)
+        grand_total_cost = sum(item['totals']['pa_total_cost'] for item in country_technology_gaps)
+        grand_total_government_contribution = sum(item['totals']['total_government_contribution'] for item in country_technology_gaps)
+        grand_total_population_affected = sum(item['totals']['total_population_affected'] for item in country_technology_gaps)
         return {
             'country':country,
-            'technology_gaps':country_technology_gaps,
+            'technology_gap_list':country_technology_gaps,
             'technology':technology,
+            'rows':len(country_technology_gaps),
             'totals':{
                 'grand_total_number':grand_total_number,
                 'grand_total_cost':grand_total_cost,
@@ -44,22 +45,23 @@ class TechnologyGapReport():
             }
         }
     
-    def get_technology_gap(self,priority_area,technology):
-        technology_access = models.FacilityAccess.objects.filter(priority_area=priority_area).filter(technology=technology).filter(year__start_year__gt=start_year).filter(year__end_year__lt=end_year)
+    def get_technology_gap(self,priority_area,technology,start_year,end_year):
+        technology_access = models.FacilityAccess.objects.filter(priority_area=priority_area,technology=technology).filter(year__start_year__gt=start_year).filter(year__end_year__lt=end_year)
         technology_gaps = []
         for ta in technology_access:
-            number = random.randrange(0, 1000, 2)
-            unit_cost = get_unit_cost(ta.Technology)
+            number = ta.planned - ta.actual - ta.secured
+            unit_cost = self.get_latest_unit_cost(ta.technology,priority_area)
             total_cost = number * unit_cost
-            government_contribution = total_cost * ta.government_contribution
-            population_affected = random.randrange(0, 1000, 2)
+            government_contribution = total_cost * ta.government_contribution / 100
+            population_affected = ta.planned_pop_affected - ta.actual_pop_affected - ta.secured_pop_affected
             gap = {
+                'priority_area':priority_area,
                 'year':ta.year,
                 'number':number,
                 'unit_cost': unit_cost,
                 'total_cost': total_cost,
                 'government_contribution':government_contribution,
-                'population_affected': population_affected
+                'population_affected': population_affected                
             }
             technology_gaps.append(gap)
         
@@ -70,13 +72,15 @@ class TechnologyGapReport():
         return {
             'priority_area':priority_area,
             'pa_technology_gaps':technology_gaps,
-            'totals':{
+            'rows':len(technology_gaps),
+            'totals': {
                 'total_number':total_number,
                 'pa_total_cost':pa_total_cost,
                 'total_government_contribution':total_government_contribution,
                 'total_population_affected':total_population_affected,
-            }
+            },
+            
         }
             
-    def get_unit_cost(self,technology):
+    def get_latest_unit_cost(self,technology,priority_area):
         return random.randrange(1000, 5000, 2)
