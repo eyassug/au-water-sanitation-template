@@ -26,6 +26,7 @@ import StringIO
 import os
 from django.forms.util import ErrorList
 from dashboard import reports
+
 # html to pdf example
 
     
@@ -176,7 +177,9 @@ class PriorityAreaStatusCreate(LoginRequiredMixin,View):
         user_country = request.user.usercountry.country
         form = PriorityAreaStatusForm()
         form.filter(country=user_country)
+        #data = models.PriorityAreaStatus.objects.all()
         data = models.PriorityAreaStatus.objects.filter(priority_area__country = user_country)
+
         return render(request,'priority_area_status_form.html', {
             'form': form,
             'country': user_country,
@@ -382,7 +385,7 @@ class PartnerEventContributionCreate(LoginRequiredMixin,CreateView):
                     'country': user_country,
                     'data': data
                 })
-            return HttpResponseRedirect('/report/PartnerContribution')
+            return HttpResponseRedirect('/report/PartnerEventContribution')
         
         return render(request,self.template_name, {
             'form': form,
@@ -527,7 +530,6 @@ class PartnerEventContributionGridView(LoginRequiredMixin,View):
         user_country = request.user.usercountry.country        
         data = models.PartnerEventContribution.objects.filter(country=user_country)
         return render(request, 'data-grids/partner_event_contribution_grid.html', {'data': data})
-    
 class ListofPriorityAreasReport(LoginRequiredMixin,View):
     def get(self,request):
         user_country = request.user.usercountry.country
@@ -538,7 +540,6 @@ class ListofPriorityAreasReport(LoginRequiredMixin,View):
 class TechnologyGapPerPriorityAreaReport(LoginRequiredMixin,View):
     def get(self,request):
         return render(request, 'reports/technology_gap_per_priority_area_report.html')
-<<<<<<< HEAD
 
 class TechnologiesGapsForTheCategory(LoginRequiredMixin,View):
     def get(self,request):
@@ -547,8 +548,32 @@ class TechnologiesGapsForTheCategory(LoginRequiredMixin,View):
 class EstimatedOverallGapsReport(LoginRequiredMixin,View):
     def get(self,request):
         return render(request, 'reports/estimated_overall_gaps.html')
-=======
     
-    def post(self,request):
+class ListofPriorityAreasReportToPdf(LoginRequiredMixin,View):
+    
         
->>>>>>> 1f1ab83a81f05abb2dde2e82665901d2ec6b7765
+    def get(self,request):
+        user_country = request.user.usercountry.country
+        report_factory = reports.PriorityAreaPopulationReport()
+        context_dict = report_factory.generate(user_country)
+       
+        context_dict.update({'pagesize': 'Portrait'})
+    
+        BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+        path = os.path.join(os.path.dirname(BASE_DIR), "auwsssp", "static", "templates")
+        template_name = "snippets/list_of_priority_areas_report_pdf.html"
+        template = get_template(template_name)
+        context = Context(context_dict)
+        html = template.render(context)   
+        result = StringIO.StringIO()
+        
+        pisa.CreatePDF(html.encode("UTF-8"), result , encoding='UTF-8',
+                       link_callback=path)
+        try:
+            return HttpResponse(result.getvalue(), mimetype='application/pdf')
+            
+            #""" Enable if you want to generate pdf in a new file """
+            response['Content-Disposition'] = 'attachment; filename=output.pdf'
+            return response
+        except:
+            return HttpResponse('We had some errors<pre>%s</pre>' % escape(html))
