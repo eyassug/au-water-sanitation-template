@@ -40,3 +40,31 @@ class ListofPriorityAreasReportToPdf(LoginRequiredMixin,View):
             return response
         except:
             return HttpResponse('We had some errors<pre>%s</pre>' % escape(html))
+        
+class TechnologyGapClusteredByPAReport(LoginRequiredMixin,View):
+    def get(self,request):
+        user_country = request.user.usercountry.country
+        report_factory = reports.PriorityAreaPopulationReport()
+        context_dict = report_factory.generate(user_country)
+        #
+        #context_dict.update({'pagesize': 'Portrait'})
+    
+        BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+        path = os.path.join(os.path.dirname(BASE_DIR), "auwsssp", "static", "templates")
+        template_name = "snippets/technology_gap_clustered_by_pa_report_pdf.html"
+        template = get_template(template_name)
+        context = Context(context_dict)
+        html = template.render(context)   
+        result = StringIO.StringIO()
+        
+        pisa.CreatePDF(html.encode("UTF-8"), result , encoding='UTF-8',
+                       link_callback=path)
+        try:
+            return HttpResponse(result.getvalue(), mimetype='application/pdf')
+            
+            #""" Enable if you want to generate pdf in a new file """
+            response['Content-Disposition'] = 'attachment; filename=output.pdf'
+            return response
+        except:
+            return HttpResponse('We had some errors<pre>%s</pre>' % escape(html))
+

@@ -112,10 +112,19 @@ padding-left: 15px;
 ol-sm-offset-3 {
 margin-left: 0%;
 }
+.exportpdf
+{
+  float: right;
+  
+  
+}
+.exportpdfdiv 
+{
+  
+  padding-bottom: 40px;
+  
+}
 .nav>li>a {
 padding: 5px 15px;
 }
-a {
-color: #0970F3;
-text-decoration: none;
-}
+
