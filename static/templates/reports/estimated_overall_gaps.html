@@ -1,6 +1,15 @@
 {% extends 'welcome.html' %}
 {% block content_container %}
+    
 <div class ="col-md-8">
-{% include "snippets/estimated_overall_gaps_report.html" %}
+    <h2 class="page-header">Estimated Overall Gaps</h2>
+    <form method="post" action="">{% csrf_token %}
+        {{ form }}
+        <button type="submit" class="btn btn-success">Generate</button>
+    </form>
+{% if estimated_gaps %}
+    {% include "snippets/report_style.html" %}   
+    {% include "snippets/estimated_overall_gaps_report.html" %}
+{% endif %}
 </div>
 {% endblock %}

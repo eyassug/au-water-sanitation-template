@@ -82,71 +82,57 @@
         </tr>
     </thead>
 <tbody>
-
-
+{% for gap_c in gaps_by_category %}
+{% for gap_fc in gap_c.gaps_by_characteristic %}
+{% for gap_t in gap_fc.gaps_by_technology %}
+    {% if forloop.first %}
     <tr>
-        <td rowspan=3>1</td>
-        <td rowspan=3>Jimma</td>
-        
-        <td>5435</td>
-        <td>5435</td>        
-        <td>4556</td>
-        <td>9444</td>
-        <td>5843</td>
-        <td>7686</td>
-        <td>7686</td>
+        <td rowspan="{{ rows|add:"1" }}">{{ forloop.parentloop.parentloop.counter }}</td>
+        <td rowspan="{{ gap_c.rows }}">{{ gap_c.priority_area }}</td>        
+        <td rowspan="{{ gap_fc.rows }}">{{ gap_fc.characteristic }}</td>        
+        <td>{{ gap_t.technology }}</td>
+        <td>{{ gap_t.number }}</td>       
+        <td>{{ gap_t.unit_cost }}</td>
+        <td>{{ gap_t.total_cost }}</td>
+        <td>{{ gap_t.government_contribution }}</td>
+        <td>{{ gap_t.population_affected }}</td>
     </tr>
+    {% else %}
     <tr>
-        
-        
-        
-        <td>5435</td>
-        <td>5435</td>        
-        <td>4556</td>
-        <td>9444</td>
-        <td>5843</td>
-        <td>7686</td>
-        <td>7686</td>
+        <td>{{ gap_t.technology }}</td>
+        <td>{{ gap_t.number }}</td>       
+        <td>{{ gap_t.unit_cost }}</td>
+        <td>{{ gap_t.total_cost }}</td>
+        <td>{{ gap_t.government_contribution }}</td>
+        <td>{{ gap_t.population_affected }}</td>    
     </tr>
+    {% endif %}
+    {% if forloop.last %}
      <tr>
-        
-        
-        
-        <td>5435</td>
-        <td>5435</td>        
-        <td>4556</td>
-        <td>9444</td>
-        <td>5843</td>
-        <td>7686</td>
-        <td>7686</td>
-    </tr>
-    <tr>
-        <td></td>
-        
         <td>Total</td>
-        <td>4324</td>
-        <td>5435</td>
-        <td>5435</td>        
-        <td>4556</td>
-        <td>9444</td>
-        <td>3676</td>
-        <td>3676</td>
-        
-    </tr>
-     <tr>
         <td></td>
-        
-        <td>Grand Total</td>        
-        <td>4324</td>
-        <td>5435</td>
-        <td>5435</td>        
-        <td>4556</td>
-        <td>9444</td>
-        <td>7867</td>
-        <td>7867</td>
-        
+        <td></td>
+        <td>{{ gap_c.total.number }}</td>       
+        <td>{{ gap_c.total.unit_cost }}</td>
+        <td>{{ gap_c.total.total_cost }}</td>
+        <td>{{ gap_c.total.government_contribution }}</td>
+        <td>{{ gap_c.total.population_affected }}</td>  
     </tr>
-    
+    {% endif %}
+{% endfor %}
+{% endfor %}
+{% endfor %}
+    <tr>
+        <td></td>
+        <td>Grand Total</td>
+        <td>-</td>
+        <td>-</td>
+        <td>{{ total.number }}</td>       
+        <td></td>
+        <td>{{ total.total_cost }}</td>
+        <td>{{ total.government_contribution }}</td>
+        <td>{{ total.population_affected }}</td>  
+    </tr>
 
 
 </tbody>

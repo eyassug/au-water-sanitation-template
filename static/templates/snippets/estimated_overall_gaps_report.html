@@ -1,51 +1,45 @@
-<h2 class="page-header">Estimated Overall Gaps</h2>
 <div class="exportpdfdiv">
-<a href="/report/estimatedoverallgapspdf" target="_blank" class="btn btn-danger exportpdf active" role="button">Export to PDF</a>
+<a href="/report/estimatedoverallgapspdf?start_year={{ start_year }}&end_year={{ end_year }}" target="_blank" class="btn btn-danger exportpdf active" role="button">Export to PDF</a>
 </div>
 
+
 <div class="table-responsive">
-<table class="table table-hover table-bordered">
-    <thead>
+<table id="report_lists" class="table table-hover table-bordered">
+    <thead id="report_head">
         <tr>
-            <th>No</th>
-            <th>Priority Area name</th>
-            <th>Water Supply</th>
-            <th>Sanitation</th>
-            <th>Water Supply</th>
-            <th>Sanitation</th>
+            <th rowspan=2 style="background-color: #CBD5F5;">No</th>
+            <th rowspan=2 style="background-color: #CBD5F5;">Priority Area name</th>
+            <th colspan=2 style="background-color: #CBD5F5;">Cost Gap</th>
+            <th colspan=2 style="background-color: #CBD5F5;">Population Gap</th>
+        </tr>
+        <tr>
+            <th style="background-color: #CBD5F5;">Water Supply</th>
+            <th style="background-color: #CBD5F5;">Sanitation</th>
+            <th style="background-color: #CBD5F5;">Water Supply</th>
+            <th style="background-color: #CBD5F5;">Sanitation</th>
             
             
         </tr>
     </thead>
 <tbody>
-
-
+{% for gap in estimated_gaps %}
     <tr>
-        <td>1</td>
-        <td>Jimma</td>        
-        <td>4324</td>
-        <td>5435</td>
-        <td>5435</td>        
-        <td>4556</td>
-        
-        
+        <td>{{ forloop.counter }}</td>
+        <td>{{ gap.priority_area }}</td>        
+        <td>{{ gap.water_supply.total_cost }}</td>
+        <td>{{ gap.sanitation.total_cost }}</td>
+        <td>{{ gap.water_supply.population_affected }}</td>        
+        <td>{{ gap.sanitation.population_affected }}</td>
     </tr>
+{% endfor %}    
      <tr>
         <td></td>
         <td>Grand Total</td>        
-        <td>4324</td>
-        <td>5435</td>
-        <td>5435</td>        
-        <td>4556</td>
-        
-        
+        <td>{{ total.water_supply_total_cost }}</td>
+        <td>{{ total.sanitation_total_cost }}</td>
+        <td>{{ total.water_supply_population_affected }}</td>        
+        <td>{{ total.sanitation_population_affected }}</td>
     </tr>
-    
-    
-     
-    
-
-
 </tbody>
 </table>
 

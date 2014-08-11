@@ -3,6 +3,9 @@
 {% load widget_tweaks %}
     <h2 class="page-header">Technology Gap Clustered by Priority area</h2>
    
+    
+<h2 class="page-header">Technology Gaps Clustered By Priority Area</h2>
+
     <form method="post" action="">{% csrf_token %}
        <div class="col-md-6 form-group">
             
@@ -35,13 +38,13 @@
        <button type="submit" class="btn btn-success ">Generate</button>
        </div>
        </div>
-       
-        </form>        
+{% if technology_gap_list %}
+    {% include "snippets/report_style.html" %}   
     
-<div class ="col-md-8">
      
             
 
-{% include "snippets/technology_gap_clustered_by_pa_report.html" %}
+    {% include "snippets/technology_gap_clustered_by_pa_report.html" %}
+{% endif %}
 </div>
 {% endblock %}
