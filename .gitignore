@@ -10,3 +10,5 @@ static/media/headerold.png
 static/static/js/pdf.html
 static/static/js/exp/sample export.html
 dashboard/views.py.orig
+static/templates/reports/technology_gap_per_priority_area_report.html.orig
+static/templates/snippets/technology_gap_clustered_by_pa_report.html.orig
