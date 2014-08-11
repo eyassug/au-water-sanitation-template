@@ -1,6 +1,6 @@
-from dashboard import models
+import models
 from django.db.models import Sum
-import random
+
 
 class PriorityAreaPopulationReport():
     
@@ -194,4 +194,60 @@ class TechnologyGapByCategoryReport():
     
     def get_latest_government_contribution(self,technology,priority_area):
         technology_access = models.FacilityAccess.objects.filter(priority_area=priority_area,technology=technology).order_by('-year__end_year','-year__start_year').first()        
-        return technology_access.government_contribution    
+        return technology_access.government_contribution
+    
+class EstimatedGapReport():
+    
+    def generate(self,country,start_year,end_year):
+        start_year,end_year = start_year - 1,end_year + 1
+        priority_areas = models.PriorityArea.objects.filter(country=country)
+        estimated_gaps = []
+        
+        for p in priority_areas:
+            gap = self.get_technology_gap(p,start_year,end_year)
+            estimated_gaps.append(gap)
+        
+        return {
+            'country':country,
+            'start_year':start_year,
+            'end_year':end_year,
+            'estimated_gaps':estimated_gaps,
+            'rows':len(estimated_gaps),
+            'total':{
+                'water_supply_total_cost':sum(item['water_supply']['total_cost'] for item in estimated_gaps),
+                'sanitation_total_cost':sum(item['sanitation']['population_affected'] for item in estimated_gaps),
+                'water_supply_population_affected':sum(item['water_supply']['total_cost'] for item in estimated_gaps),
+                'sanitation_population_affected':sum(item['sanitation']['population_affected'] for item in estimated_gaps),
+            }
+        }
+    
+    def get_technology_gap(self,priority_area,start_year,end_year):
+        water_supply_technologies = models.Technology.objects.filter(facility_character__sector_category__name__startswith='Water')
+        sanitation_technologies = models.Technology.objects.filter(facility_character__sector_category__name__startswith='Sanitation')
+        
+        gap_report_factory = TechnologyGapReport()
+        water_supply_gaps,sanitation_gaps = [],[]
+        for t in water_supply_technologies:
+            gaps_by_year = gap_report_factory.get_technology_gap(priority_area,t,start_year,end_year)
+            if gaps_by_year:
+                water_supply_gaps.extend(gaps_by_year['pa_technology_gaps'])
+        
+        for t in sanitation_technologies:
+            gaps_by_year = gap_report_factory.get_technology_gap(priority_area,t,start_year,end_year)
+            if gaps_by_year:
+                sanitation_gaps.extend(gaps_by_year['pa_technology_gaps'])
+        water_supply = {
+            'total_cost': sum(item['total_cost'] for item in water_supply_gaps),
+            'population_affected':sum(item['population_affected'] for item in water_supply_gaps)
+        }
+        
+        sanitation = {
+            'total_cost':sum(item['total_cost'] for item in sanitation_gaps),
+            'population_affected':sum(item['population_affected'] for item in sanitation_gaps)
+        }
+        return {
+            'priority_area':priority_area,
+            'water_supply':water_supply,
+            'sanitation':sanitation
+        }
+        

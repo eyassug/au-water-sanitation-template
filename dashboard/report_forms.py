@@ -11,3 +11,7 @@ class TechnologyGapByCategory(forms.Form):
     sector_category = forms.ModelChoiceField(required=True,queryset=models.SectorCategory.objects.all(), widget=forms.Select())
     start_year = forms.IntegerField(required=True)
     end_year = forms.IntegerField(required=True)
+    
+class EstimatedGap(forms.Form):
+    start_year = forms.IntegerField(required=True)
+    end_year = forms.IntegerField(required=True)
