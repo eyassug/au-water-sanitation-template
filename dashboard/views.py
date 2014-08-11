@@ -575,6 +575,19 @@ class TechnologiesGapsForTheCategory(LoginRequiredMixin,View):
 
 class EstimatedOverallGapsReport(LoginRequiredMixin,View):
     def get(self,request):
-        return render(request, 'reports/estimated_overall_gaps.html')
+        form = report_forms.EstimatedGap()
+        return render(request, 'reports/estimated_overall_gaps.html',{'form':form})
+    
+    def post(self,request):
+        form = report_forms.EstimatedGap(request.POST)
+        user_country = request.user.usercountry.country        
+        if(form.is_valid()):            
+            start_year = form.cleaned_data['start_year']
+            end_year = form.cleaned_data['end_year']
+            report_factory = reports.EstimatedGapReport()
+            report = report_factory.generate(user_country,start_year,end_year)
+            report['form'] = form
+            return render(request, 'reports/estimated_overall_gaps.html', report)            
+        return render(request, 'reports/estimated_overall_gaps.html', {'form':form})
 
    
