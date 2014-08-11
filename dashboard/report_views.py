@@ -106,8 +106,11 @@ class TechnologiesGapsForTheCategoryReport(LoginRequiredMixin,View):
 class EstimatedOverallGaps(LoginRequiredMixin,View):
     def get(self,request):
         user_country = request.user.usercountry.country
-        report_factory = reports.PriorityAreaPopulationReport()
-        context_dict = report_factory.generate(user_country)
+        
+        start_year = int(request.GET['start_year'])
+        end_year = int(request.GET['end_year'])
+        report_factory = reports.EstimatedGapReport()
+        context_dict = report_factory.generate(user_country,start_year,end_year)
         #
         context_dict.update({'pagesize': 'Portrait'})
     
