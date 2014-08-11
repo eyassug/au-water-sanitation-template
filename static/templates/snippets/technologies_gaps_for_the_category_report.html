@@ -47,20 +47,30 @@
     {% endif %}
     {% if forloop.last %}
      <tr>
-        <td rowspan="{{ gap_c.rows }}">Total</td>        
-        <td rowspan="{{ gap_fc.rows }}"></td>        
+        <td>Total</td>
         <td></td>
-        <td>{{ gap_t.number }}</td>       
-        <td>{{ gap_t.unit_cost }}</td>
-        <td>{{ gap_t.total_cost }}</td>
-        <td>{{ gap_t.government_contribution }}</td>
-        <td>{{ gap_t.population_affected }}</td>  
+        <td></td>
+        <td>{{ gap_c.total.number }}</td>       
+        <td>{{ gap_c.total.unit_cost }}</td>
+        <td>{{ gap_c.total.total_cost }}</td>
+        <td>{{ gap_c.total.government_contribution }}</td>
+        <td>{{ gap_c.total.population_affected }}</td>  
     </tr>
     {% endif %}
 {% endfor %}
 {% endfor %}
 {% endfor %}
-
+    <tr>
+        <td></td>
+        <td>Grand Total</td>
+        <td>-</td>
+        <td>-</td>
+        <td>{{ total.number }}</td>       
+        <td></td>
+        <td>{{ total.total_cost }}</td>
+        <td>{{ total.government_contribution }}</td>
+        <td>{{ total.population_affected }}</td>  
+    </tr>
 
 </tbody>
 </table>
