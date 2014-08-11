@@ -94,7 +94,8 @@ class TechnologyGapByCategoryReport():
         gaps_by_category = []
         for p in priority_areas:
             gap = self.get_technology_gaps(p,sector_category,start_year,end_year)
-            gaps_by_category.append(gap)
+            if gap is not None:
+                gaps_by_category.append(gap)
                 
         return {
             'country':country,
@@ -103,12 +104,12 @@ class TechnologyGapByCategoryReport():
             'end_year':end_year,
             'gaps_by_category':gaps_by_category,
             'total': {
-                'number':sum(item['number'] for item in gaps_by_category),
-                'total_cost':sum(item['total_cost'] for item in gaps_by_category),
-                'government_contribution':sum(item['government_contribution'] for item in gaps_by_category),
-                'population_affected':sum(item['population_affected'] for item in gaps_by_category)                
+                'number':sum(item['total']['number'] for item in gaps_by_category),
+                'total_cost':sum(item['total']['total_cost'] for item in gaps_by_category),
+                'government_contribution':sum(item['total']['government_contribution'] for item in gaps_by_category),
+                'population_affected':sum(item['total']['population_affected'] for item in gaps_by_category)                
             },
-            'rows':len(gaps_by_category)
+            'rows':sum(item['rows'] for item in gaps_by_category),
         }
     
     def get_technology_gaps(self,priority_area,category,start_year,end_year):
@@ -116,25 +117,35 @@ class TechnologyGapByCategoryReport():
         gaps_by_character = []
         for c in facility_characters:
             gap = self.get_technology_gaps_by_characteristic(priority_area,c,start_year,end_year)
-            gaps_by_character.append(gap)
+            if gap is not None:
+                gaps_by_character.append(gap)
+                
+        if len(gaps_by_character) < 1:
+            return None;
+        
         return {
             'priority_area':priority_area,
             'gaps_by_characteristic':gaps_by_character,
             'total': {
-                'number':sum(item['number'] for item in gaps_by_character),
-                'total_cost':sum(item['total_cost'] for item in gaps_by_character),
-                'government_contribution':sum(item['government_contribution'] for item in gaps_by_character),
-                'population_affected':sum(item['population_affected'] for item in gaps_by_character)                
+                'number':sum(item['total']['number'] for item in gaps_by_character),
+                'total_cost':sum(item['total']['total_cost'] for item in gaps_by_character),
+                'government_contribution':sum(item['total']['government_contribution'] for item in gaps_by_character),
+                'population_affected':sum(item['total']['population_affected'] for item in gaps_by_character)                
             },
-            'rows':len(gaps_by_character)
+            'rows':sum(item['rows'] for item in gaps_by_character),
         }
     
     def get_technology_gaps_by_characteristic(self,priority_area,characteristic,start_year,end_year):
         technologies = models.Technology.objects.filter(facility_character=characteristic)
         gaps_by_technology = []
         for t in technologies:
-            gap = self.get_technology_gaps_by_technology(self,priority_area,t,start_year,end_year)
-            gaps_by_technology.append(gap)
+            gap = self.get_technology_gaps_by_technology(priority_area,t,start_year,end_year)
+            if gap is not None:
+                gaps_by_technology.append(gap)
+        
+        if len(gaps_by_technology) < 1:
+            return None
+        
         return {
             'characteristic':characteristic,
             'gaps_by_technology':gaps_by_technology,
@@ -149,15 +160,19 @@ class TechnologyGapByCategoryReport():
     
     def get_technology_gaps_by_technology(self,priority_area,technology,start_year,end_year):
         technology_access = models.FacilityAccess.objects.filter(priority_area=priority_area,technology=technology).filter(year__start_year__gt=start_year).filter(year__end_year__lt=end_year)
+        if not technology_access:
+            return None
         # aggregate number
+        #planned = technology_access.aggregate(Sum('planned'))['planned__sum']
         planned = technology_access.aggregate(Sum('planned'))['planned__sum']
         actual = technology_access.aggregate(Sum('actual'))['actual__sum']
         secured = technology_access.aggregate(Sum('secured'))['secured__sum']
+        
         number = planned - actual - secured
         # aggregate affected population
-        pop_planned = technology_access.aggregate(Sum('planned_pop_affected'))['planned__sum']
-        pop_actual = technology_access.aggregate(Sum('actual_pop_affected'))['actual__sum']
-        pop_secured = technology_access.aggregate(Sum('secured_pop_affected'))['secured__sum']
+        pop_planned = technology_access.aggregate(Sum('planned_pop_affected'))['planned_pop_affected__sum']
+        pop_actual = technology_access.aggregate(Sum('actual_pop_affected'))['actual_pop_affected__sum']
+        pop_secured = technology_access.aggregate(Sum('secured_pop_affected'))['secured_pop_affected__sum']
         population_affected = pop_planned - pop_actual - pop_secured
         # unit cost
         latest_unit_cost = self.get_latest_unit_cost(technology,priority_area)
@@ -165,9 +180,9 @@ class TechnologyGapByCategoryReport():
         return {
             'technology':technology,
             'number':number,
-            'unit_cost':unit_cost,
-            'total_cost':number * unit_cost,
-            'government_contribution': number * unit_cost * latest_gov_contribution / 100,
+            'unit_cost':latest_unit_cost,
+            'total_cost':number * latest_unit_cost,
+            'government_contribution': number * latest_unit_cost * latest_gov_contribution / 100,
             'population_affected':population_affected
         }
         
