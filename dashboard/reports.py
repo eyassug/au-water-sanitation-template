@@ -36,6 +36,8 @@ class TechnologyGapReport():
             'country':country,
             'technology_gap_list':country_technology_gaps,
             'technology':technology,
+            'start_year':start_year,
+            'end_year':end_year,
             'rows':len(country_technology_gaps),
             'totals':{
                 'grand_total_number':grand_total_number,
