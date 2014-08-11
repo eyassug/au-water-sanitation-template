@@ -40,7 +40,7 @@ urlpatterns = patterns('',
     #Report To PDF
     url(r'^(?i)report/listofpriorityareasreportpdf$', report_views.ListofPriorityAreasReportToPdf.as_view(), name='list_of_priority_areas_report_to_pdf'),
     url(r'^(?i)report/technologygapclusteredbypa$', report_views.TechnologyGapClusteredByPAReport.as_view(), name='technology_gap_clustered_by_pa_report'),
-    url(r'^(?i)report/technologiesgapsforthecategory$', report_views.TechnologiesGapsForTheCategoryReport.as_view(), name='technologiesgaps_for_the_category_report'),
+    url(r'^(?i)report/technologiesgapsforthecategorypdf$', report_views.TechnologiesGapsForTheCategoryReport.as_view(), name='technologiesgaps_for_the_category_report'),
     url(r'^(?i)report/technologygapclusteredbypa$', report_views.TechnologyGapClusteredByPAReport.as_view(), name='technology_gap_clustered_by_pa_report'),
     
     url(r'^(?i)login/$', 'django.contrib.auth.views.login', name='login'),    

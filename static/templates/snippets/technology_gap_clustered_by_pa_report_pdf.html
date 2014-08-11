@@ -81,42 +81,65 @@
         </tr>
     </thead>
 <tbody>
-
+    {% for gap in technology_gap_list %}
+    
+    {% for pa_gap in gap.pa_technology_gaps %}
+    
+    {% if forloop.first %}
 
     <tr>
-        <td rowspan="3">1</td>
+        <!--<td rowspan="3">1</td>
         <td rowspan="3">Jimma</td>        
         <td>4324</td>
         <td>5435</td>
         <td>5435</td>        
         <td>4556</td>
         <td>9444</td>
-        <td>5843</td>
-        
+        <td>5843</td>-->
+        <td rowspan="{{ gap.rows|add:"1" }}">{{ forloop.parentloop.counter }}</td>
+        <td rowspan="{{ gap.rows }}">{{ pa_gap.priority_area }}</td>        
+        <td>{{ pa_gap.year }}</td>
+        <td>{{ pa_gap.number }}</td>
+        <td>{{ pa_gap.unit_cost }}</td>
+        <td>{{ pa_gap.total_cost }}</td>        
+        <td>{{ pa_gap.government_contribution }}</td>
+        <td>{{ pa_gap.population_affected }}</td>
     </tr>
+    {% else %}
     <tr>
-        
-        
-        <td>4324</td>
-        <td>5435</td>
-        <td>5435</td>        
-        <td>4556</td>
-        <td>9444</td>
-        <td>5843</td>
-        
+        <td>{{ pa_gap.year }}</td>
+        <td>{{ pa_gap.number }}</td>
+        <td>{{ pa_gap.unit_cost }}</td>
+        <td>{{ pa_gap.total_cost }}</td>        
+        <td>{{ pa_gap.government_contribution }}</td>
+        <td>{{ pa_gap.population_affected }}</td>
     </tr>
+    {% endif %}
+    {% if forloop.last %}
     <tr>
-        
-        
-        <td>4324</td>
-        <td>5435</td>
-        <td>5435</td>        
-        <td>4556</td>
-        <td>9444</td>
-        <td>5843</td>
-        
+        <td><p style="font-style: italic; font-weight: bolder">Total</p></td>
+        <td>-</td>        
+        <td><p style="font-style: italic; font-weight: bolder"{{ gap.totals.total_number }}</p></td>
+        <td>-</td>
+        <td><p style="font-style: italic; font-weight: bolder"{{ gap.totals.pa_total_cost }}</p></td>        
+        <td><p style="font-style: italic; font-weight: bolder"{{ gap.totals.total_government_contribution }}</p></td>
+        <td><p style="font-style: italic; font-weight: bolder"{{ gap.totals.total_population_affected }}</p></td>
     </tr>
-    <tr style="border-bottom:2px solid #000;">
+{% endif %}    
+{% endfor %}    
+{% endfor %}
+    <tr style="border-bottom:1px solid #000; border-top: 1px solid #000;">
+        <td></td>
+        <td> <p style="font-weight: bolder">Grand Total</p></td>
+        <td>-</td>        
+        <td><p style="font-weight: bolder">{{ totals.grand_total_number }}</p></td>
+        <td></td>
+        <td><p style="font-weight: bolder">{{ totals.grand_total_cost }}</p></td>        
+        <td><p style="font-weight: bolder">{{ totals.grand_total_government_contribution }}</p></td>
+        <td><p style="font-weight: bolder">{{ totals.grand_total_population_affected }}</p></td>
+    </tr>
+    
+    <!--<tr style="border-bottom:2px solid #000;">
         <td></td>
         <td><p style="font-style: italic; font-weight: bolder">Total</p></td>
         <td><p style="font-style: italic; font-weight: bolder">4234</p></td>        
@@ -127,8 +150,8 @@
         <td><p style="font-style: italic; font-weight: bolder">9444</p></td>
         
         
-    </tr>
-     <tr style="border-bottom:1px solid #000; border-top: 1px solid #000;">
+    </tr>-->
+     <!--<tr style="border-bottom:1px solid #000; border-top: 1px solid #000;">
         <td></td>
         <td><p style="font-weight: bolder">Grand Total</p></td>
         <td><p style="font-weight: bolder">4234</p></td>        
@@ -140,7 +163,7 @@
         
         
     </tr>
-    
+    -->
 
 
 </tbody>

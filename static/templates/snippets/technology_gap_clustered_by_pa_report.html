@@ -4,19 +4,25 @@
 
 <div class="table-responsive">
     <div class="exportpdfdiv">
-<a href="/report/technologygapclusteredbypa" target="_blank" class="btn btn-danger exportpdf active" role="button">Export to PDF</a>
+<a href="/report/technologygapclusteredbypa?technology={{technology}}&start_year={{start_year}}&end_year={{end_year}}" target="_blank" class="btn btn-danger exportpdf active" role="button">Export to PDF</a>
 </div>
 <table class="table table-hover table-bordered">
     <thead>
         <tr>
-            <th>No</th>
-            <th>Priority Area name</th>
-            <th>Year</th>
-            <th>Number</th>
-            <th>Unit Cost(USD)</th>
-            <th>Total Cost(USD)</th>
-            <th>Govt Contribution(USD)</th>
-            <th>Population affected</th>
+            <th rowspan=2 style="background-color: #CBD5F5;">No</th>
+            <th rowspan=2 style="background-color: #CBD5F5;">Priority Area name</th>
+            <th rowspan=2 style="background-color: #CBD5F5;">Year</th>
+            <th colspan=5  style="background-color: #CBD5F5;"><p align="center">Gaps</p></th>
+            
+            
+        </tr>
+        <tr>
+            
+            <th style="background-color: #CBD5F5;">Number</th>
+            <th style="background-color: #CBD5F5;">Unit Cost(USD)</th>
+            <th style="background-color: #CBD5F5;">Total Cost(USD)</th>
+            <th style="background-color: #CBD5F5;">Govt Contribution(USD)</th>
+            <th style="background-color: #CBD5F5;">Population affected</th>
             
         </tr>
     </thead>
