@@ -40,7 +40,7 @@
         <div id="headerContent">
             <table >
                 <tr style="border-bottom:1px solid #000;  ">
-                    <td><p style="color: rgb(9, 101, 238); font-weight: bolder; font-size:  large ">Gap for all Technologies for</p></td>
+                    <td><p style="color: rgb(9, 101, 238); font-weight: bolder; font-size:  large ">Overall costs and population gaps</p></td>
                     <td align="right"><p style="color: red; font-weight: bolder; font-size: large ">[Start Year] to [End Year] in {{ country }}</p>
                    
                     </td>
@@ -53,31 +53,22 @@
                 </tr>
             </table>
         </div>
+
 <div class="table-responsive">
-    <table >
-                <tr>
-                    <td><p ></p>Gap for [Category]</p></td>
-                    
-                   
-                    </td>
-                </tr>
-                
-<table id="report_lists" >
+<table id="report_lists" class="table table-hover table-bordered">
     <thead id="report_head">
         <tr>
             <th rowspan=2 style="background-color: #CBD5F5;">No</th>
             <th rowspan=2 style="background-color: #CBD5F5;">Priority Area name</th>
-            <th colspan=2 style="background-color: #CBD5F5;">Facilities</th>
-            <th colspan=5 style="background-color: #CBD5F5;">Gaps (total period)</th>
+            <th colspan=2 style="background-color: #CBD5F5;">Cost Gap</th>
+            <th colspan=2 style="background-color: #CBD5F5;">Population Gap</th>
         </tr>
         <tr>
-            <th style="background-color: #CBD5F5;">Character</th>
-            <th style="background-color: #CBD5F5;">Technology</th>
-            <th style="background-color: #CBD5F5;">Number</th>
-            <th style="background-color: #CBD5F5;">Unit Cost(USD)</th>
-            <th style="background-color: #CBD5F5;">Total Cost (USD</th>
-            <th style="background-color: #CBD5F5;">Govt Contribution(USD)</th>
-            <th style="background-color: #CBD5F5;">Population affected</th>
+            <th style="background-color: #CBD5F5;">Water Supply</th>
+            <th style="background-color: #CBD5F5;">Sanitation</th>
+            <th style="background-color: #CBD5F5;">Water Supply</th>
+            <th style="background-color: #CBD5F5;">Sanitation</th>
+            
             
         </tr>
     </thead>
@@ -85,67 +76,48 @@
 
 
     <tr>
-        <td rowspan=3>1</td>
-        <td rowspan=3>Jimma</td>
-        
-        <td>5435</td>
-        <td>5435</td>        
-        <td>4556</td>
-        <td>9444</td>
-        <td>5843</td>
-        <td>7686</td>
-        <td>7686</td>
-    </tr>
-    <tr>
-        
-        
-        
-        <td>5435</td>
-        <td>5435</td>        
-        <td>4556</td>
-        <td>9444</td>
-        <td>5843</td>
-        <td>7686</td>
-        <td>7686</td>
-    </tr>
-     <tr>
-        
-        
-        
-        <td>5435</td>
-        <td>5435</td>        
-        <td>4556</td>
-        <td>9444</td>
-        <td>5843</td>
-        <td>7686</td>
-        <td>7686</td>
-    </tr>
-    <tr>
-        <td></td>
-        
-        <td>Total</td>
+        <td>1</td>
+        <td>Jimma</td>        
         <td>4324</td>
         <td>5435</td>
         <td>5435</td>        
         <td>4556</td>
-        <td>9444</td>
-        <td>3676</td>
-        <td>3676</td>
+        
+        
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>Addis Ababa</td>        
+        <td>4324</td>
+        <td>5435</td>
+        <td>5435</td>        
+        <td>4556</td>
+        
+        
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>Harar</td>        
+        <td>4324</td>
+        <td>5435</td>
+        <td>5435</td>        
+        <td>4556</td>
+        
         
     </tr>
      <tr>
         <td></td>
-        
         <td>Grand Total</td>        
         <td>4324</td>
         <td>5435</td>
         <td>5435</td>        
         <td>4556</td>
-        <td>9444</td>
-        <td>7867</td>
-        <td>7867</td>
+        
         
     </tr>
+    
+    
+     
     
 
 
@@ -153,10 +125,10 @@
 </table>
 
 </div>
-
 <div id="footerContent">
             <table><tr><td>Kigali Action Plan</td>
-            <td align="center">Category Gap <pdf:pagenumber> / <pdf:pagecount> </td> <td align="right">{% now "M d, Y" %} {% now "P" %}</td></tr></table>
+            <td align="center">Overall Gap <pdf:pagenumber> / <pdf:pagecount> </td> <td align="right">{% now "M d, Y" %} {% now "P" %}</td></tr></table>
         </div>
 </body>
 </html>
+
