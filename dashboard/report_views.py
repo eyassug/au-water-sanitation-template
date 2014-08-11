@@ -12,7 +12,7 @@ import os
 from django.forms.util import ErrorList
 from dashboard import reports
 import xhtml2pdf.pisa as pisa 
-from dashboard import report_forms
+from dashboard import report_forms,models
 
 class ListofPriorityAreasReportToPdf(LoginRequiredMixin,View):
     def get(self,request):
@@ -44,12 +44,13 @@ class ListofPriorityAreasReportToPdf(LoginRequiredMixin,View):
 class TechnologyGapClusteredByPAReport(LoginRequiredMixin,View):
     def get(self,request):
         user_country = request.user.usercountry.country
-        form = report_forms.TechnologyGapByPriorityArea(request.POST)
-        technology = request.GET['technology']
-        start_year = request.GET['start_year']
-        end_year = request.GET['end_year']
+        technology_id = int(request.GET['technology'])
+        start_year = int(request.GET['start_year'])
+        end_year = int(request.GET['end_year'])
+        technology = models.Technology.objects.get(id=technology_id)
         report_factory = reports.TechnologyGapReport()
         #report = report_factory.generate(user_country,technology,start_year,end_year)
+        
         context_dict = report_factory.generate(user_country,technology,start_year,end_year)
         #
         context_dict.update({'pagesize': 'Portrait'})
@@ -75,12 +76,14 @@ class TechnologyGapClusteredByPAReport(LoginRequiredMixin,View):
 
 class TechnologiesGapsForTheCategoryReport(LoginRequiredMixin,View):
     def get(self,request):
-        user_country = request.user.usercountry.country
-        report_factory = reports.PriorityAreaPopulationReport()
-        context_dict = report_factory.generate(user_country)
-        #
-        #context_dict.update({'pagesize': 'Portrait'})
-    
+        user_country = request.user.usercountry.country        
+        category_id = int(request.GET['category'])
+        start_year = int(request.GET['start_year'])
+        end_year = int(request.GET['end_year'])
+        report_factory = reports.TechnologyGapByCategoryReport()
+        category = models.SectorCategory.objects.get(id=category_id)
+        context_dict = report_factory.generate(user_country,category,start_year,end_year)
+        context_dict.update({'pagesize': 'Portrait'})
         BASE_DIR = os.path.dirname(os.path.dirname(__file__))
         path = os.path.join(os.path.dirname(BASE_DIR), "auwsssp", "static", "templates")
         template_name = "snippets/technologies_gaps_for_the_category_report_pdf.html"
