@@ -557,8 +557,22 @@ class TechnologyGapPerPriorityAreaReport(LoginRequiredMixin,View):
         return render(request, 'reports/technology_gap_per_priority_area_report.html', {'form':form})
 class TechnologiesGapsForTheCategory(LoginRequiredMixin,View):
     def get(self,request):
-        return render(request, 'reports/technologies_gaps_for_the_category.html')
-        
+        form = report_forms.TechnologyGapByCategory()
+        return render(request, 'reports/technologies_gaps_for_the_category.html',{'form':form})
+    
+    def post(self,request):
+        form = report_forms.TechnologyGapByCategory(request.POST)
+        user_country = request.user.usercountry.country        
+        if(form.is_valid()):
+            category = form.cleaned_data['sector_category']
+            start_year = form.cleaned_data['start_year']
+            end_year = form.cleaned_data['end_year']
+            report_factory = reports.TechnologyGapByCategoryReport()
+            report = report_factory.generate(user_country,category,start_year,end_year)
+            report['form'] = form
+            return render(request, 'reports/technologies_gaps_for_the_category.html', report)            
+        return render(request, 'reports/technologies_gaps_for_the_category.html', {'form':form})
+
 class EstimatedOverallGapsReport(LoginRequiredMixin,View):
     def get(self,request):
         return render(request, 'reports/estimated_overall_gaps.html')
