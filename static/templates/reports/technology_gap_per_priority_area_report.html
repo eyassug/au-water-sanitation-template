@@ -1,13 +1,20 @@
 {% extends 'welcome.html' %}
 {% block content_container %}
+    
+    
+<div class ="col-md-8">
+    
+<h2 class="page-header">Technology Gaps Clustered By Priority Area</h2>
+
     <div>
         <form method="post" action="">{% csrf_token %}
         {{ form }}
         <button type="submit" class="btn btn-success">Generate</button>
         </form>
     </div>
-    
-<div class ="col-md-8">
-{% include "snippets/technology_gap_clustered_by_pa_report.html" %}
+{% if technology_gap_list %}
+    {% include "snippets/report_style.html" %}   
+    {% include "snippets/technology_gap_clustered_by_pa_report.html" %}
+{% endif %}
 </div>
 {% endblock %}

@@ -1,13 +1,10 @@
 
-<h2 class="page-header">Technology Gap Clustered By PA</h2>
-{% if technology_gap_list %}
-
 <div class="table-responsive">
     <div class="exportpdfdiv">
 <a href="/report/technologygapclusteredbypa?technology={{technology.id}}&start_year={{start_year}}&end_year={{end_year}}" target="_blank" class="btn btn-danger exportpdf active" role="button">Export to PDF</a>
 </div>
-<table class="table table-hover table-bordered">
-    <thead>
+<table class="table table-hover table-bordered" id="report_lists">
+    <thead id="report_head">
         <tr>
             <th rowspan=2 style="background-color: #CBD5F5;">No</th>
             <th rowspan=2 style="background-color: #CBD5F5;">Priority Area name</th>
@@ -86,4 +83,3 @@
 </table>
 
 </div>
-{% endif %}
