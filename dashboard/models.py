@@ -65,7 +65,7 @@ class Technology(models.Model):
     is_active = models.BooleanField(default=True)
    
     def __str__(self):
-        return self.name + ' - ' + self.facility_character.name + ' - ' + self.facility_character.sector_category.name
+        return self.name #+ ' - ' + self.facility_character.name + ' - ' + self.facility_character.sector_category.name
     
     class Meta:
         verbose_name_plural = "Technologies"

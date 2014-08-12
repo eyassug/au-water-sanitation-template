@@ -1,7 +1,7 @@
 {% extends 'welcome.html' %}
 {% block content_container %}
 {% load widget_tweaks %}
-    <h2 class="page-header">Technology Gap Clustered by Priority area</h2>
+
    
     
 <h2 class="page-header">Technology Gaps Clustered By Priority Area</h2>
@@ -34,9 +34,18 @@
                 {% endif %}
             </div>
         
-        <div  style="display: block; float: left;">
+        
        <button type="submit" class="btn btn-success ">Generate</button>
-       </div>
+       <br>
+        <br>
+    {% if technology_gap_list %}
+       <div class="exportpdfdiv">
+        <a href="/report/technologygapclusteredbypa?technology={{technology.id}}&start_year={{start_year}}&end_year={{end_year}}" target="_blank" class="btn btn-danger exportpdf active" role="button">Export to PDF</a>
+        </div>
+       {% endif %}
+       
+        
+        
        </div>
 {% if technology_gap_list %}
     {% include "snippets/report_style.html" %}   
