@@ -38,51 +38,16 @@ from dashboard import report_forms
 class SectorPerformanceCreate(LoginRequiredMixin,CreateView):
     model = SectorPerformance
     template_name = 'sector_performance_form.html'
-    #def get(self, request):
-    #    form = modelform_factory(SectorPerformance)        
-    #    user_country = request.user.usercountry.country
-    #    data = models.SectorPerformance.objects.all()
-    #    return render(request,self.template_name, {
-    #        'form': form,
-    #        'country': user_country,
-    #        'data':data
-    #    })
-    #def fetch_resources(uri, rel):
-    #    #""" Access files and images."""
-    #        path = os.path.join(os.path.dirname(BASE_DIR), "auwsssp", "static", "templates")
-    #        return path
+    def get(self, request):
+        form = modelform_factory(SectorPerformance)        
+        user_country = request.user.usercountry.country
+        data = models.SectorPerformance.objects.all()
+        return render(request,self.template_name, {
+            'form': form,
+            'country': user_country,
+            'data':data
+        })
     
-    def get(self,request): 
-        context_dict = {
-            'object_lists': models.SectorPerformance.objects.all(),
-            
-        }
-        context_dict.update({'pagesize': 'Portrait'})
-    
-        BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-        path = os.path.join(os.path.dirname(BASE_DIR), "auwsssp", "static", "templates")
-        template_name = "pdf.html"
-        template = get_template(template_name)
-        context = Context(context_dict)
-        html = template.render(context)   
-        result = StringIO.StringIO()
-        
-        pisa.CreatePDF(html.encode("UTF-8"), result , encoding='UTF-8',
-                       link_callback=path)
-        try:
-            return HttpResponse(result.getvalue(), mimetype='application/pdf')
-            
-            #""" Enable if you want to generate pdf in a new file """
-            response['Content-Disposition'] = 'attachment; filename=output.pdf'
-            return response
-        except:
-            return HttpResponse('We had some errors<pre>%s</pre>' % escape(html))
-        
-        
-    
-    
-    
-    # html topdf ends here
     
 class FacilityAccessCreate(LoginRequiredMixin,View):
     def get(self,request):

@@ -1,3 +1,14 @@
+<script type="text/javascript">
+				/* Table initialisation */
+			$(document).ready(function() {
+				$('#report_lists').dataTable( {
+					"bSort": true,        // Disable sorting
+					"iDisplayLength": 5,   // records per page
+					"sDom": "t<'row'<'col-md-6'i><'col-md-6'p>>",
+					"sPaginationType": "bootstrap"
+				});
+			});
+		</script>
 
 <h2 class="page-header">List of Priortiy Areas of {{ country }}</h2>
 <div class="exportpdfdiv">

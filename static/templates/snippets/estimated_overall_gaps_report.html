@@ -1,3 +1,14 @@
+<script type="text/javascript">
+				/* Table initialisation */
+			$(document).ready(function() {
+				$('#report_lists').dataTable( {
+					"bSort": true,        // Disable sorting
+					"iDisplayLength": 5,   // records per page
+					"sDom": "t<'row'<'col-md-6'i><'col-md-6'p>>",
+					"sPaginationType": "bootstrap"
+				});
+			});
+		</script>
 <div class="exportpdfdiv">
 <a href="/report/estimatedoverallgapspdf?start_year={{ start_year }}&end_year={{ end_year }}" target="_blank" class="btn btn-danger exportpdf active" role="button">Export to PDF</a>
 </div>
