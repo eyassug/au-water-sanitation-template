@@ -516,7 +516,7 @@ class TechnologyGapPerPriorityAreaReport(LoginRequiredMixin,View):
             start_year = form.cleaned_data['start_year']
             end_year = form.cleaned_data['end_year']
             report_factory = reports.TechnologyGapReport()
-            report = report_factory.generate(user_country,technology,start_year,end_year)
+            report = report_factory.generate(user_country,technology,int(start_year),int(end_year))
             report['form'] = form
             return render(request, 'reports/technology_gap_per_priority_area_report.html', report)            
         return render(request, 'reports/technology_gap_per_priority_area_report.html', {'form':form})
@@ -533,7 +533,7 @@ class TechnologiesGapsForTheCategory(LoginRequiredMixin,View):
             start_year = form.cleaned_data['start_year']
             end_year = form.cleaned_data['end_year']
             report_factory = reports.TechnologyGapByCategoryReport()
-            report = report_factory.generate(user_country,category,start_year,end_year)
+            report = report_factory.generate(user_country,category,int(start_year),int(end_year))
             report['form'] = form
             return render(request, 'reports/technologies_gaps_for_the_category.html', report)            
         return render(request, 'reports/technologies_gaps_for_the_category.html', {'form':form})
@@ -550,7 +550,7 @@ class EstimatedOverallGapsReport(LoginRequiredMixin,View):
             start_year = form.cleaned_data['start_year']
             end_year = form.cleaned_data['end_year']
             report_factory = reports.EstimatedGapReport()
-            report = report_factory.generate(user_country,start_year,end_year)
+            report = report_factory.generate(user_country,int(start_year),int(end_year))
             report['form'] = form
             return render(request, 'reports/estimated_overall_gaps.html', report)            
         return render(request, 'reports/estimated_overall_gaps.html', {'form':form})
