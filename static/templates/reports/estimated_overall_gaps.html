@@ -24,8 +24,13 @@
                 {% endif %}
             </div>
             <div class="form-group ">           
-              <button type="submit" class="btn btn-success">Generate</button> 
+              <button type="submit" class="btn btn-success">Generate</button>
             </div>
+            {% if estimated_gaps %}
+            <div class="form-group">
+                <a href="/report/technologiesgapsforthecategorypdf?category={{ category.id }}&start_year={{ start_year }}&end_year={{ end_year }}" target="_blank" class="btn btn-danger exportpdf active" role="button">Export to PDF</a>
+            </div>
+            {% endif %}
          </div>
      
     </div>
