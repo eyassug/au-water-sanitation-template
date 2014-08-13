@@ -30,11 +30,13 @@
             <div class="form-group ">           
               <button type="submit" class="btn btn-success">Generate</button>
             </div>
+            {% if gaps_by_category %}
             <div class="form-group">
-                
+                <div class="exportpdfdiv">
                 <a href="/report/technologiesgapsforthecategorypdf?category={{ category.id }}&start_year={{ start_year }}&end_year={{ end_year }}" target="_blank" class="btn btn-danger exportpdf active" role="button">Export to PDF</a>
-
+                </div>
             </div>
+            {% endif %}
         </div>
     </form>
 {% if gaps_by_category %}
