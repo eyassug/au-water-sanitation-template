@@ -36,8 +36,8 @@ class TechnologyGapReport():
             'country':country,
             'technology_gap_list':country_technology_gaps,
             'technology':technology,
-            'start_year':start_year,
-            'end_year':end_year,
+            'start_year':start_year + 1,
+            'end_year':end_year + 1,
             'rows':len(country_technology_gaps),
             'totals':{
                 'grand_total_number':grand_total_number,
@@ -102,8 +102,8 @@ class TechnologyGapByCategoryReport():
         return {
             'country':country,
             'category':sector_category,
-            'start_year':start_year,
-            'end_year':end_year,
+            'start_year':start_year + 1,
+            'end_year':end_year + 1,
             'gaps_by_category':gaps_by_category,
             'total': {
                 'number':sum(item['total']['number'] for item in gaps_by_category),
