@@ -90,11 +90,10 @@
     {% if forloop.first and forloop.parentloop.first and forloop.parentloop.parentloop.first %}
     <tr>
         <td rowspan="{{ gap_c.rows|add:"1" }}">{{ forloop.parentloop.parentloop.counter }}</td>
+        <td rowspan="{{ gap_c.rows }}">{{ gap_c.priority_area }}</td>
+        
     {% endif %}
         {% if forloop.first %}
-        {% if forloop.parentloop.first %}
-        <td rowspan="{{ gap_c.rows }}">{{ gap_c.priority_area }}</td>
-        {% endif %}
         <td rowspan="{{ gap_fc.rows }}">{{ gap_fc.characteristic }}</td>
         {% endif %}
         <td>{{ gap_t.technology }}</td>
