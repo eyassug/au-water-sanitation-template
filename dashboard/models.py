@@ -26,8 +26,8 @@ class Period(models.Model):
 class PriorityArea(models.Model):
     country = models.ForeignKey('Country')
     name = models.CharField(max_length=100, null=False, blank=False, unique=True)
-    latitude = models.DecimalField(max_digits=19, decimal_places=10, null=False)
-    longitude = models.DecimalField(max_digits=19, decimal_places=10, null=False)
+    latitude = models.DecimalField(max_digits=19, decimal_places=10, null=False, blank=True)
+    longitude = models.DecimalField(max_digits=19, decimal_places=10, null=False, blank=True)
     is_active = models.BooleanField(default=True)
     
     def __str__(self):
@@ -138,8 +138,8 @@ class SectorPerformance(models.Model):
     country = models.ForeignKey('Country', blank=False)
     sector_category = models.ForeignKey('SectorCategory', blank=False)
     year = models.ForeignKey('Period')
-    coverage_target = models.DecimalField(max_digits=3, decimal_places=2, null=False)
-    coverage_achieved = models.DecimalField(max_digits=3, decimal_places=2, null=False)
+    coverage_target = models.DecimalField(max_digits=5, decimal_places=2, null=False)
+    coverage_achieved = models.DecimalField(max_digits=5, decimal_places=2, null=False)
     fund_needed = models.DecimalField(max_digits=15, decimal_places=2, null=False)
     fund_mobilised = models.DecimalField(max_digits=15, decimal_places=2, null=False)
     fund_availed = models.DecimalField(max_digits=15, decimal_places=2, null=False)
