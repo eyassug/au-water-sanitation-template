@@ -82,14 +82,21 @@
         </tr>
     </thead>
 <tbody>
+
 {% for gap_c in gaps_by_category %}
 {% for gap_fc in gap_c.gaps_by_characteristic %}
 {% for gap_t in gap_fc.gaps_by_technology %}
-    {% if forloop.first %}
+    
+    {% if forloop.first and forloop.parentloop.first and forloop.parentloop.parentloop.first %}
     <tr>
-        <td rowspan="{{ rows|add:"1" }}">{{ forloop.parentloop.parentloop.counter }}</td>
-        <td rowspan="{{ gap_c.rows }}">{{ gap_c.priority_area }}</td>        
-        <td rowspan="{{ gap_fc.rows }}">{{ gap_fc.characteristic }}</td>        
+        <td rowspan="{{ gap_c.rows|add:"1" }}">{{ forloop.parentloop.parentloop.counter }}</td>
+    {% endif %}
+        {% if forloop.first %}
+        {% if forloop.parentloop.first %}
+        <td rowspan="{{ gap_c.rows }}">{{ gap_c.priority_area }}</td>
+        {% endif %}
+        <td rowspan="{{ gap_fc.rows }}">{{ gap_fc.characteristic }}</td>
+        {% endif %}
         <td>{{ gap_t.technology }}</td>
         <td>{{ gap_t.number }}</td>       
         <td>{{ gap_t.unit_cost }}</td>
@@ -97,17 +104,7 @@
         <td>{{ gap_t.government_contribution }}</td>
         <td>{{ gap_t.population_affected }}</td>
     </tr>
-    {% else %}
-    <tr>
-        <td>{{ gap_t.technology }}</td>
-        <td>{{ gap_t.number }}</td>       
-        <td>{{ gap_t.unit_cost }}</td>
-        <td>{{ gap_t.total_cost }}</td>
-        <td>{{ gap_t.government_contribution }}</td>
-        <td>{{ gap_t.population_affected }}</td>    
-    </tr>
-    {% endif %}
-    {% if forloop.last %}
+    {% if forloop.parentloop.last and forloop.last %}
      <tr>
         <td>Total</td>
         <td></td>
@@ -119,6 +116,14 @@
         <td>{{ gap_c.total.population_affected }}</td>  
     </tr>
     {% endif %}
+    {% if not forloop.parentloop.last or not forloop.last or not forloop.parentloop.parentloop.last %}
+    <tr>
+        {% if forloop.parentloop.last and forloop.last %}
+        <td rowspan="{{ gap_c.rows|add:"1" }}">{{ forloop.parentloop.parentloop.counter }}</td>
+        <td rowspan="{{ gap_c.rows }}">{{ gap_c.priority_area }}</td>
+       {% endif %}
+    {% endif %}
+    
 {% endfor %}
 {% endfor %}
 {% endfor %}
@@ -133,7 +138,6 @@
         <td>{{ total.government_contribution }}</td>
         <td>{{ total.population_affected }}</td>  
     </tr>
-
 
 </tbody>
 </table>
