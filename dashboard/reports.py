@@ -209,14 +209,14 @@ class EstimatedGapReport():
         
         return {
             'country':country,
-            'start_year':start_year,
-            'end_year':end_year,
+            'start_year':start_year + 1,
+            'end_year':end_year - 1,
             'estimated_gaps':estimated_gaps,
             'rows':len(estimated_gaps),
             'total':{
                 'water_supply_total_cost':sum(item['water_supply']['total_cost'] for item in estimated_gaps),
-                'sanitation_total_cost':sum(item['sanitation']['population_affected'] for item in estimated_gaps),
-                'water_supply_population_affected':sum(item['water_supply']['total_cost'] for item in estimated_gaps),
+                'sanitation_total_cost':sum(item['sanitation']['total_cost'] for item in estimated_gaps),
+                'water_supply_population_affected':sum(item['water_supply']['population_affected'] for item in estimated_gaps),
                 'sanitation_population_affected':sum(item['sanitation']['population_affected'] for item in estimated_gaps),
             }
         }
