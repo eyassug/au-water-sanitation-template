@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     
     # Grid / for Urls:
     url(r'^(?i)report/countrystatus$', views.CountryStatusCreate.as_view(), name='country_status_create'),
+    url(r'^(?i)report/countrystatus/(?P<id>[0-9]+)/$', views.CountryStatusCreate.as_view(), name='country_status_create'),
     url(r'^(?i)report/countrystatus/list$', views.CountryDemographicGridView.as_view(), name='country_status_list'),
     url(r'^(?i)report/prioritystatus$', views.PriorityAreaStatusCreate.as_view(), name='country_status_create'),
     url(r'^(?i)report/prioritystatus/list$', views.PAStatusGridView.as_view(), name='country_status_create'),

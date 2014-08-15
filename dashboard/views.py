@@ -126,9 +126,13 @@ class CountryStatusCreate(LoginRequiredMixin,View):
     template_name = 'country_status_form.html'
     success_url = "/report/countrystatus"
     
-    def get(self,request):
+    def get(self,request,id=None):
         user_country = request.user.usercountry.country
-        form = CountryStatusForm()
+        if(id):
+            instance = models.CountryDemographic.objects.get(pk=int(id))
+            form = CountryStatusForm(instance=instance)
+        else:
+            form = CountryStatusForm()
         form.instance.country = user_country
         data = models.CountryDemographic.objects.filter(country=user_country)
         return render(request, self.template_name, {
@@ -137,11 +141,13 @@ class CountryStatusCreate(LoginRequiredMixin,View):
             'data':data
         })
     
-    def post(self,request):
+    def post(self,request,id=None):
         user_country = request.user.usercountry.country
         form = CountryStatusForm(request.POST)
         if(form.is_valid()):
             form.instance.country = user_country
+            if(id):
+                form.instance.id = int(id)
             ins = form.save()
             messages.success(request, 'Report has been successfully submitted.')
             if(request.POST.has_key('save_add')):
