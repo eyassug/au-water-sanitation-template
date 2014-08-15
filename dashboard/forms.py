@@ -41,8 +41,8 @@ class DynamicChoiceField(forms.ChoiceField):
     
 class DFacilityAccessForm(FacilityAccessForm):    
     sector_category = forms.ModelChoiceField(required=False,queryset=SectorCategory.objects.all(), widget=forms.Select(attrs={'onchange':'FilterFacilityCharacters();'}))
-    facility_character = DynamicChoiceField(widget=forms.Select(attrs={'onchange':'FilterTechnologies();'}), choices=(('-1','Select Facility Character'),))
-    technology = DynamicChoiceField(widget=forms.Select(attrs={'disabled':'true'}), choices=(('-1','Select Technology'),))
+    facility_character = DynamicChoiceField(widget=forms.Select(attrs={'onchange':'FilterTechnologies();'}),)
+    technology = DynamicChoiceField(widget=forms.Select(),)
 
 class DPriorityAreaStatusForm(PriorityAreaStatusForm):
     country = forms.ModelChoiceField(queryset=Country.objects.all(), widget=forms.Select(attrs={'onchange':'FilterPriorityAreas();'})) 

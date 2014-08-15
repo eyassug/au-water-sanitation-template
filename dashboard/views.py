@@ -83,10 +83,16 @@ class FacilityAccessCreate(LoginRequiredMixin,View):
         user_country = request.user.usercountry.country
         if(id):
             instance=models.FacilityAccess.objects.get(pk=int(id))
-            form=DFacilityAccessForm(instance=instance)
+            form=DFacilityAccessForm(instance=instance,initial={
+                    'sector_category':instance.technology.facility_character.sector_category,
+                    'priority_area':instance.priority_area,
+                    'facility_character':instance.technology.facility_character,
+                    'technology':instance.technology
+                })
         else:
             form = DFacilityAccessForm()
-            form.filter(country=user_country)
+        
+        form.filter(country=user_country)
         data = models.FacilityAccess.objects.all()
         return render(request, 'facility_access_form.html', {
             'form': form,
