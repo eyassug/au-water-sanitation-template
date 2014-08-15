@@ -168,10 +168,14 @@ class CountryStatusCreate(LoginRequiredMixin,View):
         })
 class PriorityAreaStatusCreate(LoginRequiredMixin,View):
     
-    def get(self, request):        
+    def get(self, request,id=None):        
         user_country = request.user.usercountry.country
-        form = PriorityAreaStatusForm()
-        form.filter(country=user_country)
+        if(id):
+            instance = models.PriorityAreaStatus.objects.get(pk=int(id))
+            form = PriorityAreaStatusForm(instance=instance)
+        else:
+            form = PriorityAreaStatusForm()
+            form.filter(country=user_country)
         #data = models.PriorityAreaStatus.objects.all()
         data = models.PriorityAreaStatus.objects.filter(priority_area__country = user_country)
 
@@ -181,11 +185,13 @@ class PriorityAreaStatusCreate(LoginRequiredMixin,View):
             'data':data
         })    
     
-    def post(self,request):
+    def post(self,request,id=None):
         user_country = request.user.usercountry.country            
         form = PriorityAreaStatusForm(request.POST)
         data = models.PriorityAreaStatus.objects.all()
         if form.is_valid():            
+            if(id):
+                form.instance.id = int(id)
             form.save()            
             new_form = PriorityAreaStatusForm()
             messages.success(request, 'Report has been successfully submitted.')
