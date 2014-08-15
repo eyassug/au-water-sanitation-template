@@ -17,6 +17,14 @@
            </div>
                {% endif %}
     </div>
+ <ul class="nav nav-tabs" id="tab1">
+      <li class="active"><a href="#add" data-toggle="tab">Add</a></li>
+      <li><a href="#list" data-toggle="tab">List</a></li>
+   </ul>
+    
+<!-- Tab panes -->
+   <div class="tab-content">
+      <div class="tab-pane active" id="add">
  <div class ="col-md-6">
 <h2 class="page-header">Sector SWOT & Conclusion for {{ country }}</h2>
     <form action="" method="post">
@@ -108,12 +116,19 @@
             <div class="bt-submit">
             <button type="submit" class="btn btn-success" tabindex="10">Save</button>
         
-            <button type="submit" class="btn btn-primary" tabindex="11">Save & Add</button>
+            <button type="submit" class="btn btn-primary" tabindex="11" name="save_add">Save & Add</button>
          
             <button type="reset" class="btn btn-danger" tabindex="12">Cancel</button>
          </div>
                   
     </form>
+ </div>
+      </div>
+   
+ 
+    <div class="tab-pane col-md-8" id="list">
+    {% include "snippets/swot_conclusion_list.html" %}
+  </div>
  </div>
 
 {% endblock %}

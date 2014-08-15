@@ -381,17 +381,43 @@ class PartnerEventContributionCreate(LoginRequiredMixin,CreateView):
             'country': user_country,
             'data': data
         })
-class SWOTAndConclusionCreate(LoginRequiredMixin,CreateView):
+class SWOTAndConclusionCreate(LoginRequiredMixin,View):
     model = SWOT
     template_name = 'swot_form.html'
     success_url = "/report/swot"
     def get(self, request):
         form = modelform_factory(SWOT)        
-        user_country = request.user.usercountry.country        
+        user_country = request.user.usercountry.country
+        data = models.SWOT.objects.all()
         return render(request,self.template_name, {
             'form': form,
-            'country': user_country
+            'country': user_country,
+            'data': data
         })
+    def post(self, request):
+        user_country = request.user.usercountry.country            
+        form_class = modelform_factory(SWOT)
+        form = form_class(request.POST)
+        form.instance.country = user_country
+        data = models.SWOT.objects.all()
+        if(form.is_valid()):
+            form.save()
+            messages.success(request, 'Report has been successfully submitted.')
+            if (request.POST.has_key('save_add')):
+                new_form = form_class(initial={'sector_category':form.cleaned_data['sector_category']})                
+                return render(request,self.template_name, {
+                    'form': new_form,
+                    'country': user_country,
+                    'data': data
+                })
+            return HttpResponseRedirect('/report/swot')
+        
+        return render(request,self.template_name, {
+            'form': form,
+            'country': user_country,
+            'data': data
+        })
+    
 class Login(View):
     def get(self, request):
         auth_err = ''
