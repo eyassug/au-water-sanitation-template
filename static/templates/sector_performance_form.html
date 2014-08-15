@@ -48,7 +48,7 @@
         <div class="col-md-6 form-group">
             <div class="form-group{% if form.coverage_target.errors %} has-error{% endif %}">
                 <label for="id_coverage_target">Coverage Target %</label>
-                <input id="id_coverage_target" name="coverage_target" type="number" min="0" max="100" value="0" step="0.01" size="4" 
+                <input id="id_coverage_target" name="coverage_target" type="number" min="0" max="100" value="{{ form.coverage_target.value }}" step="0.01" size="4" 
                         title="only number is Allowed" class="form-control" tabindex="3" />
                 {% if form.coverage_target.errors %}
                   {{ form.coverage_target.errors }}
@@ -57,7 +57,7 @@
             
             <div class="form-group{% if form.fund_needed.errors %} has-error{% endif %}">
                 <label for="id_fund_needed">Fund Needed(USD)</label>
-                <input id="id_fund_needed" name="fund_needed" type="number" min="0" max="99999999" value="0" step="0.01" size="4" 
+                <input id="id_fund_needed" name="fund_needed" type="number" min="0" max="99999999" value="{{ form.fund_needed.value }}" step="0.01" size="4" 
                         title="Currency Format - no dollar sign and no comma(s) - cents (.##) are optional"  class="form-control" tabindex="5" />
                 {% if form.fund_needed.errors %}
                   {{ form.fund_needed.errors }}
@@ -65,7 +65,7 @@
             </div>
             <div class="form-group{% if form.fund_availed.errors %} has-error{% endif %}">
                 <label for="id_fund_availed">Fund Availed(USD)</label>
-                <input id="id_fund_availed" name="fund_availed" type="number" min="0" max="99999999" value="0" step="0.01" size="4" 
+                <input id="id_fund_availed" name="fund_availed" type="number" min="0" max="99999999" value="{{ form.fund_availed.value }}" step="0.01" size="4" 
                         title="Currency Format - no dollar sign and no comma(s) - cents (.##) are optional"  class="form-control" tabindex="7" />
                 {% if form.fund_availed.errors %}
                   {{ form.fund_availed.errors }}
@@ -77,14 +77,14 @@
         <div class="col-md-6 form-group">
             <div class="form-group{% if form.coverage_achieved.errors %} has-error{% endif %}">
                 <label for="id_coverage_achieved">Coverage Achieved %</label>
-                <input id="id_coverage_achieved" name="coverage_achieved" type="number" value="0" min="0" max="100" step="0.01" class="form-control" tabindex="4" />
+                <input id="id_coverage_achieved" name="coverage_achieved" type="number" value="{{ form.coverage_achieved.value }}" min="0" max="100" step="0.01" class="form-control" tabindex="4" />
                 {% if form.coverage_achieved.errors %}
                   {{ form.coverage_achieved.errors }}
                 {% endif %}
             </div>
             <div class="form-group{% if form.fund_mobilised.errors %} has-error{% endif %}">
                 <label for="id_fund_mobilised">Fund Mobilized(USD)</label>
-                <input id="id_fund_mobilised" name="fund_mobilised" type="number" value="0" min="0" max="99999999" step="0.01" size="4" 
+                <input id="id_fund_mobilised" name="fund_mobilised" type="number" value="{{ form.fund_mobilised.value }}" min="0" max="99999999" step="0.01" size="4" 
                         title="Currency Format - no dollar sign and no comma(s) - cents (.##) are optional"  class="form-control" tabindex="6" />
                 {% if form.fund_mobilised.errors %}
                   {{ form.fund_mobilised.errors }}
@@ -93,7 +93,7 @@
             
             <div class="form-group{% if form.fund_used.errors %} has-error{% endif %}">
                 <label for="id_fund_used">Fund Used(USD)</label>
-                <input id="id_fund_used" name="fund_used" type="number" min="0" value="0" max="99999999" step="0.01" size="4" 
+                <input id="id_fund_used" name="fund_used" type="number" min="0" value="{{ form.fund_used.value }}" max="99999999" step="0.01" size="4" 
                         title="Currency Format - no dollar sign and no comma(s) - cents (.##) are optional"  class="form-control" tabindex="8" />
                 {% if form.fund_used.errors %}
                   {{ form.fund_used.errors }}
@@ -104,16 +104,14 @@
         <div class="col-md-6 form-group">
             <div class="form-group{% if form.general_comment.errors %} has-error{% endif %}">
                 <label for="id_general_comment">General Comment</label>
-                <textarea cols="40" id="id_general_comment" name="general_comment" class="form-control" rows="3" tabindex="10">
-                </textarea>
+                <textarea cols="40" id="id_general_comment" name="general_comment" class="form-control" rows="3" tabindex="10">{{ form.general_comment.value }}</textarea>
                 {% if form.general_comment.errors %}
                   {{ form.general_comment.errors }}
                 {% endif %}
             </div>
-            <div class="form-group{% if form.measure_taken.errors %} has-error{% endif %}">
+            <div class="form-group{% if form.measures_taken.errors %} has-error{% endif %}">
                 <label for="id_measures_taken">Measures Taken</label>
-                <textarea cols="40" id="id_measures_taken" name="measures_taken" class="form-control" rows="3" tabindex="12">
-                </textarea>
+                <textarea cols="40" id="id_measures_taken" name="measures_taken" class="form-control" rows="3" tabindex="12">{{ form.measures_taken.value }}</textarea>
                 {% if form.measures_taken.errors %}
                   {{ form.measures_taken.errors }}
                 {% endif %}
@@ -123,16 +121,14 @@
         <div class="col-md-6 form-group">
             <div class="form-group{% if form.bottlenecks.errors %} has-error{% endif %}">
                 <label for="id_bottlenecks">Bottlenecks</label>
-                <textarea cols="40" id="id_bottlenecks" name="bottlenecks" class="form-control" rows="3" tabindex="11">
-                </textarea>
+                <textarea cols="40" id="id_bottlenecks" name="bottlenecks" class="form-control" rows="3" tabindex="11">{{ form.bottlenecks.value }}</textarea>
                 {% if form.bottlenecks.errors %}
                   {{ form.bottlenecks.errors }}
                 {% endif %}
             </div>
             <div class="form-group{% if form.success_challenges.errors %} has-error{% endif %}">
                 <label for="id_success_challenges">Success Challenges</label>
-                <textarea cols="40" id="id_success_challenges" name="success_challenges" class="form-control" rows="3" tabindex="12">
-                </textarea>
+                <textarea cols="40" id="id_success_challenges" name="success_challenges" class="form-control" rows="3" tabindex="12">{{ form.success_challenges.value }}</textarea>
                 {% if form.success_challenges.errors %}
                   {{ form.success_challenges.errors }}
                 {% endif %}

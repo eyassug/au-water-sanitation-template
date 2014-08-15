@@ -38,22 +38,28 @@ from dashboard import report_forms
 class SectorPerformanceCreate(LoginRequiredMixin,CreateView):
     model = SectorPerformance
     template_name = 'sector_performance_form.html'
-    def get(self, request):
-        form = modelform_factory(SectorPerformance)        
-        user_country = request.user.usercountry.country
-        data = models.SectorPerformance.objects.all()
+    def get(self, request,id=None):
+        user_country = request.user.usercountry.country        
+        if(id):
+            instance = models.SectorPerformance.objects.get(pk=int(id))
+            form = SectorPerformanceForm(instance=instance)
+        else:
+            form = SectorPerformanceForm()
+        data = models.SectorPerformance.objects.filter(country=user_country)
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
             'data':data
         })
-    def post(self, request):
+    def post(self, request,id=None):
         user_country = request.user.usercountry.country            
         form_class = modelform_factory(SectorPerformance, exclude=['country'])
         form = form_class(request.POST)
         form.instance.country = user_country
         data = models.SectorPerformance.objects.filter(country=user_country)
         if(form.is_valid()):
+            if(id):
+                form.instance.id = int(id)
             form.save()
             messages.success(request, 'Report has been successfully submitted.')
             if (request.POST.has_key('save_add')):
@@ -217,9 +223,14 @@ class PlanningPerformanceCreate(LoginRequiredMixin,View):
     template_name = 'planning_performance_form.html'
     success_url = "/report/PlanningPerformance"
     
-    def get(self, request):
-        form = modelform_factory(PlanningPerformance)        
+    def get(self, request,id=None):
+        form_class = modelform_factory(PlanningPerformance)        
         user_country = request.user.usercountry.country
+        if(id):
+            instance = models.PlanningPerformance.objects.get(pk=int(id))
+            form = form_class(instance=instance)
+        else:
+            form = form_class()
         data = models.PlanningPerformance.objects.filter(country=user_country)
         return render(request,self.template_name, {
             'form': form,
@@ -227,13 +238,15 @@ class PlanningPerformanceCreate(LoginRequiredMixin,View):
             'data': data
         })
     
-    def post(self, request):
+    def post(self, request,id=None):
         user_country = request.user.usercountry.country            
         form_class = modelform_factory(PlanningPerformance, exclude=['country'])
         form = form_class(request.POST)
         form.instance.country = user_country
         data = models.PlanningPerformance.objects.filter(country=user_country)
         if(form.is_valid()):
+            if(id):
+                form.instance.id = int(id)
             form.save()
             messages.success(request, 'Report has been successfully submitted.')
             if (request.POST.has_key('save_add')):
