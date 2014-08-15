@@ -73,10 +73,14 @@ class SectorPerformanceCreate(LoginRequiredMixin,CreateView):
     
     
 class FacilityAccessCreate(LoginRequiredMixin,View):
-    def get(self,request):
+    def get(self,request, id=None):
         user_country = request.user.usercountry.country
-        form = DFacilityAccessForm()
-        form.filter(country=user_country)
+        if(id):
+            instance=models.FacilityAccess.objects.get(pk=int(id))
+            form=DFacilityAccessForm(instance=instance)
+        else:
+            form = DFacilityAccessForm()
+            form.filter(country=user_country)
         data = models.FacilityAccess.objects.all()
         return render(request, 'facility_access_form.html', {
             'form': form,
@@ -84,11 +88,13 @@ class FacilityAccessCreate(LoginRequiredMixin,View):
             'data':data
         })
     
-    def post(self,request):
+    def post(self,request, id=None):
         form = DFacilityAccessForm(request.POST)
         user_country = request.user.usercountry.country
         data = models.FacilityAccess.objects.all()
         if form.is_valid():
+            if(id):
+                form.instance.id = int(id)
             tech_id = form.cleaned_data['technology']
             try:
                 technology = Technology.objects.get(pk=tech_id)
