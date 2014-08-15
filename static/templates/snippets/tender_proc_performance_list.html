@@ -27,13 +27,13 @@
 {% for d in data %}
 
     <tr>
-        <td>{{ d.id }}</td>
+        <td>{{ forloop.counter }}</td>
         <td>{{ d.sector_category }}</td>
         <td>{{ d.tender_procedure_property }}</td>
         <td>{{ d.year }}</td>        
         <td>{{ d.registered }}</td>
         <td>{{ d.executed }}</td>
-        <td><a href="#">Edit</a></td>
+        <td><a href="/report/TenderProcPerformance/{{ d.id }}">Edit</a></td>
     </tr>
     
 {% endfor %}

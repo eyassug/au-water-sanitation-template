@@ -138,7 +138,52 @@ function FilterPriorityAreas(sel_val) {
 		    }
 	    }
             
-            
+            function FilterTenderProcProperties(sel_val) {		    
+		    var propList = $('id_tender_procedure_property');
+		    for (var count = propList.options.length-1; count >-1; count--){
+			    propList.options[count] = null;
+		    }
+		    propList.options[0] = new Option('Loading...', '-1', false, false);
+		    propList.disabled = true;
+		    // var makeList = $('id_make');
+		    // var make_id = makeList.options[makeList.selectedIndex].value;
+		    var category = $('id_sector_category')
+		    var category_id = category.options[category.selectedIndex].value;
+		    if (category_id > 0){
+		    //if (make_id > 0) {
+			    new Ajax.Request('/feeds/tender-proc-properties-by-sector-category-id/' + category_id + '/', {
+			    //new Ajax.Request('/feeds/models-by-make-id/' + make_id + '/', {
+				    method: 'get',
+				    onSuccess: function(transport){
+					    var response = transport.responseText || 'no response text';
+					    var kvpairs = response.split("\n");
+					    if (kvpairs.length < 2) {
+						propList.options[0] = new Option('No Tender Proc Properties', '-1', false, false);
+						propList.disabled = true;
+						return;
+					    }
+                                            propList.options[0] = new Option('Select Tender Proc Property', '-1', true, false);
+					    for (i=0; i<kvpairs.length - 1; i++) {
+						    m = kvpairs[i].split(";");
+						    var option = new Option(m[1], m[0], false, false);
+						    propList.options[i+1] = option;
+					    }
+					    propList.disabled = false;
+					    if (sel_val > 0) {
+						    propList.value = sel_val;
+					    }
+				    },
+				    onFailure: function(){
+					    alert('An error occured trying to filter the Tender & Proc Properties list.');					    
+					    propList.disabled = true;
+				    }
+			    });   
+		    }
+		    else {
+			    propList.options[0] = new Option('Select Tender & Proc. Property', '-1', false, false);
+			    propList.disabled = true;
+		    }
+	    }
  
  
  (function ( $ ) {
