@@ -23,6 +23,9 @@ class Period(models.Model):
     def __str__(self):
         return str(self.start_year) + '-' + str(self.end_year)
     
+    class Meta:
+        ordering = ['start_year']
+    
 class PriorityArea(models.Model):
     country = models.ForeignKey('Country')
     name = models.CharField(max_length=100, null=False, blank=False, unique=True)
@@ -45,6 +48,7 @@ class SectorCategory(models.Model):
     
     class Meta:
         verbose_name_plural = "Sector Categories"
+        ordering = ['name']
         
     
 
@@ -58,6 +62,7 @@ class TenderProcedureProperty(models.Model):
     
     class Meta:
         verbose_name_plural = "Tender & Procedure Properties"
+        ordering = ['name']
     
 class Technology(models.Model):
     facility_character = models.ForeignKey('FacilityCharacter')
@@ -69,6 +74,7 @@ class Technology(models.Model):
     
     class Meta:
         verbose_name_plural = "Technologies"
+        ordering = ['name']
         
 class FacilityCharacter(models.Model):
     sector_category = models.ForeignKey('SectorCategory')
@@ -77,9 +83,11 @@ class FacilityCharacter(models.Model):
    
     def __str__(self):
         return self.name + ' - ' + self.sector_category.name
+    
         
     class Meta:
         verbose_name_plural = "Facility Characters"
+        ordering = ['name']
     
 class CommunityApproachType(models.Model):
     name = models.CharField(max_length=120, null=False, blank=False, unique=True)
@@ -90,6 +98,7 @@ class CommunityApproachType(models.Model):
     
     class Meta:
         verbose_name_plural = "Community Approach Types"
+        ordering = ['name']
     
 class Partner(models.Model):
     name = models.CharField(max_length=120, null=False, blank=False, unique=True)
@@ -99,6 +108,9 @@ class Partner(models.Model):
     
     def __str__(self):
         return self.name
+    class Meta:
+        verbose_name_plural = "Partners"
+        ordering = ['name']
 
 class Event(models.Model):
     name = models.CharField(max_length=120, null=False, blank=False, unique=True)
@@ -107,6 +119,10 @@ class Event(models.Model):
     
     def __str__(self):
         return self.name + ' - ' + self.venue
+    class Meta:
+        verbose_name_plural = "Events"
+        ordering = ['name']
+    
     
 
 class CountryDemographic(models.Model):
