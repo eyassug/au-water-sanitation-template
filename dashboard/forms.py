@@ -1,6 +1,6 @@
 from django import forms
 from dashboard.models import CountryDemographic, FacilityAccess, SectorPerformance, PriorityAreaStatus, Technology
-from dashboard.models import Country, PriorityArea, SectorCategory, TenderProcedurePerformance
+from dashboard.models import Country, PriorityArea, SectorCategory, TenderProcedurePerformance, TenderProcedureProperty
 
 class CountryStatusForm(forms.ModelForm):
     class Meta:
@@ -51,10 +51,13 @@ class DPriorityAreaStatusForm(PriorityAreaStatusForm):
 class DTenderProcPerformanceForm(forms.ModelForm):
     class Meta:
         model = TenderProcedurePerformance
-        exclude = ['tender_procedure_property']
-    sector_category = forms.ModelChoiceField(required=False,queryset=SectorCategory.objects.all(), widget=forms.Select(attrs={'onchange':'FilterTenderProcProperties();'}))
-    tender_procedure_property = DynamicChoiceField(widget=forms.Select(attrs={'disabled':'true'}), choices=(('-1','Select Tender Proc Property'),))
-
+        exclude = ['tender_procedure_property','country']
+    sector_category = forms.ModelChoiceField(required=True,queryset=SectorCategory.objects.all(), widget=forms.Select(attrs={'onchange':'FilterTenderProcProperties();'}))
+    tender_procedure_property = DynamicChoiceField(required=True,widget=forms.Select(),)
+    
+    #def filter(self,sector_category):
+    #    self.fields['tender_procedure_property'].queryset = TenderProcedureProperty.objects.filter(sector_category=sector_category)
+    #    
 class TechnologyForm(forms.ModelForm):
     class Meta:
         model = Technology

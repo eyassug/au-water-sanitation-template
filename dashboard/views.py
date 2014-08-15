@@ -268,8 +268,13 @@ class TenderProcedurePerformanceCreate(LoginRequiredMixin,View):
     model = TenderProcedurePerformance
     template_name = 'tender_proc_performance_form.html'
     success_url = "/report/TenderProcPerformance"
-    def get(self, request):
-        form = DTenderProcPerformanceForm()      
+    def get(self, request,id=None):
+        if(id):
+            instance = TenderProcedurePerformance.objects.get(pk=int(id))
+            form = DTenderProcPerformanceForm(instance=instance,initial={'sector_category':instance.tender_procedure_property.sector_category,'tender_procedure_property':instance.tender_procedure_property})
+            #form.filter(instance.tender_procedure_property.sector_category)
+        else:
+            form = DTenderProcPerformanceForm()      
         user_country = request.user.usercountry.country
         data = models.TenderProcedurePerformance.objects.filter(country=user_country)
 
@@ -278,12 +283,21 @@ class TenderProcedurePerformanceCreate(LoginRequiredMixin,View):
             'country': user_country,
             'data': data
         })
-    def post(self, request):
+    def post(self, request,id=None):
         user_country = request.user.usercountry.country            
-        form = forms.DTenderProcPerformanceForm(request.POST)
+        form = DTenderProcPerformanceForm(request.POST)
         form.instance.country = user_country
         data = models.TenderProcedurePerformance.objects.filter(country=user_country)
         if(form.is_valid()):
+            form.instance.country = user_country
+            if(id):
+                form.instance.id=int(id)
+            prop_id = form.cleaned_data['tender_procedure_property']
+            try:
+                prop = models.TenderProcedureProperty.objects.get(pk=prop_id)
+            except models.TenderProcedureProperty.DoesNotExist:
+                prop = None
+            form.instance.tender_procedure_property = prop
             form.save()
             messages.success(request, 'Report has been successfully submitted.')
             if (request.POST.has_key('save_add')):
