@@ -7,6 +7,8 @@ class Country(models.Model):
     
     def __str__(self):
         return self.name
+    class Meta:
+        ordering = ['name']
     
 class UserCountry(models.Model):
     user = models.OneToOneField(User)
@@ -14,6 +16,8 @@ class UserCountry(models.Model):
     
     def __str__(self):
         return self.country.name
+    class Meta:
+        ordering = ['country']
     
 
 class Period(models.Model):    

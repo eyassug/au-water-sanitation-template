@@ -402,7 +402,7 @@ class SWOTAndConclusionCreate(LoginRequiredMixin,View):
         })
     def post(self, request):
         user_country = request.user.usercountry.country            
-        form_class = modelform_factory(SWOT)
+        form_class = modelform_factory(SWOT,exclude=['country'])
         form = form_class(request.POST)
         form.instance.country = user_country
         data = models.SWOT.objects.all()
