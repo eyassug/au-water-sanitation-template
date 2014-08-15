@@ -2,7 +2,7 @@
 
 {% block content_container %}
   {% load widget_tweaks %}
- 
+ <script src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
   <div class="container msg-scc" >
                {% if messages %}
            <div class="row">
@@ -34,8 +34,8 @@
 
         <div class="form-group{% if form.priority_area.errors %} has-error{% endif %}">           
                 <label for="id_priority_area">Priority Area</label>
-                <a href="/admin/dashboard/priorityarea/add/"  class="add-another" id="add_id_partner" onclick="return showAddAnotherPopup(this);">
-                <img src="/static/admin/img/icon_addlink.gif" width="10" height="10" alt="Add Another"/>[Add]</a>
+                <a href="/admin/dashboard/priorityarea/add/"  class="add-another" id="add_id_priority_area" onclick="return showAddAnotherPopup(this);">
+               <img src="/static/admin/img/icon_addlink.gif" width="10" height="10" alt="Add Another"/>[Add]</a>
                 {% render_field form.priority_area class+="form-control" tabindex+="1" %}
                 {% if form.priority_area.errors %}
                   {{ form.priority_area.errors }}
