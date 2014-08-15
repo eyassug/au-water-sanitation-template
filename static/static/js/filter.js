@@ -152,7 +152,7 @@ function FilterPriorityAreas(sel_val) {
                     if (fac_id) {
                         category_id = fac_id
                     }
-                    alert('Selected Facility Character: ' + category_id);
+                    //alert('Selected Facility Character: ' + category_id);
 		    if (category_id > 0){
 		    //if (make_id > 0) {
 			    new Ajax.Request('/feeds/technologies-by-facility-character-id/' + category_id + '/', {
