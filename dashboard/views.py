@@ -319,9 +319,14 @@ class CommunityApproachCreate(LoginRequiredMixin,View):
     model = CommunityApproach
     template_name = 'community_approach_form.html'
     success_url = "/report/CommunityApproach"
-    def get(self, request):
-        form = modelform_factory(CommunityApproach)        
+    def get(self, request, id=None):
+        form_class = modelform_factory(CommunityApproach)        
         user_country = request.user.usercountry.country
+        if(id):
+            instance = models.CommunityApproach.objects.get(pk=int(id))
+            form=form_class(instance=instance)
+        else:
+            form=form_class()
         data = models.CommunityApproach.objects.all()
         return render(request,self.template_name, {
             'form': form,
@@ -329,13 +334,15 @@ class CommunityApproachCreate(LoginRequiredMixin,View):
             'data': data
         })
     
-    def post(self, request):
+    def post(self, request, id=None):
         user_country = request.user.usercountry.country            
         form_class = modelform_factory(CommunityApproach, exclude=['country'])
         form = form_class(request.POST)
         form.instance.country = user_country
         data = models.CommunityApproach.objects.all()
         if(form.is_valid()):
+            if(id):
+                form.instance.id = int(id)
             form.save()
             messages.success(request, 'Report has been successfully submitted.')
             if (request.POST.has_key('save_add')):
