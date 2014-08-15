@@ -138,6 +138,57 @@ function FilterPriorityAreas(sel_val) {
 		    }
 	    }
             
+            function FilterTechnologiesNew(sel_val,fac_id) {		    
+		    var techList = $('id_technology');
+		    for (var count = techList.options.length-1; count >-1; count--){
+			    techList.options[count] = null;
+		    }
+		    techList.options[0] = new Option('Loading...', '-1', false, false);
+		    techList.disabled = true;
+		    // var makeList = $('id_make');
+		    // var make_id = makeList.options[makeList.selectedIndex].value;
+		    var category = $('id_facility_character')
+		    var category_id = category.options[category.selectedIndex].value;
+                    if (fac_id) {
+                        category_id = fac_id
+                    }
+                    alert('Selected Facility Character: ' + category_id);
+		    if (category_id > 0){
+		    //if (make_id > 0) {
+			    new Ajax.Request('/feeds/technologies-by-facility-character-id/' + category_id + '/', {
+			    //new Ajax.Request('/feeds/models-by-make-id/' + make_id + '/', {
+				    method: 'get',
+				    onSuccess: function(transport){
+					    var response = transport.responseText || 'no response text';
+					    var kvpairs = response.split("\n");
+					    if (kvpairs.length < 2) {
+						techList.options[0] = new Option('No Technologies', '-1', false, false);
+						techList.disabled = true;
+						return;
+					    }
+                                            techList.options[0] = new Option('Select Technology', '-1', true, false);
+					    for (i=0; i<kvpairs.length - 1; i++) {
+						    m = kvpairs[i].split(";");
+						    var option = new Option(m[1], m[0], false, false);
+						    techList.options[i+1] = option;
+					    }
+					    techList.disabled = false;
+					    if (sel_val > 0) {
+						    techList.value = sel_val;
+					    }
+				    },
+				    onFailure: function(){
+					    alert('An error occured trying to filter the Technologies list.');					    
+					    techList.disabled = true;
+				    }
+			    });   
+		    }
+		    else {
+			    techList.options[0] = new Option('Select Technology', '-1', false, false);
+			    techList.disabled = true;
+		    }
+	    }
+            
             function FilterTenderProcProperties(sel_val) {		    
 		    var propList = $('id_tender_procedure_property');
 		    for (var count = propList.options.length-1; count >-1; count--){

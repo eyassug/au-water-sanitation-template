@@ -46,7 +46,7 @@
         
         <div class="form-group{% if form.facility_character.errors %} has-error{% endif %}">
             <label for="id_facility_character">Facility Character</label>
-            {% render_field form.facility_character class+="form-control" disabled=true tabindex+="3" %}
+            {% render_field form.facility_character class+="form-control" tabindex+="3" %}
             {% if form.facility_character.errors %}
                   {{ form.facility_character.errors }}
             {% endif %}
@@ -177,7 +177,7 @@
 </div>
 <script>
     FilterFacilityCharacters({{ form.facility_character.value.id }});
-    FilterTechnologies({{ form.technology.value.id }});
+    FilterTechnologiesNew({{ form.technology.value.id }},{{ form.facility_character.value.id }});
     
 </script>
 <h1></h1>
