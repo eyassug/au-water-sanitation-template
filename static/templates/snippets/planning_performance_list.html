@@ -25,12 +25,13 @@
 {% for d in data %}
 
     <tr>
-        <td>{{ d.id }}</td>
+        
+        <td>{{forloop.counter}}</td>
         <td>{{ d.sector_category }}</td>
         <td>{{ d.year }}</td>        
         <td>{{ d.plan_preparation_delay }}</td>
         <td>{{ d.plan_adoption_delay }}</td>
-        <td><a href="#">Edit</a></td>
+        <td><a href="/report/planningperformance/{{d.id}}">Edit</a></td>
     </tr>
     
 {% endfor %}
