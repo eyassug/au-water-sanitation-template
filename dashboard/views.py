@@ -44,7 +44,7 @@ class SectorPerformanceCreate(LoginRequiredMixin,CreateView):
             instance = models.SectorPerformance.objects.get(pk=int(id))
             form = SectorPerformanceForm(instance=instance)
         else:
-            form = SectorPerformanceForm()
+            form = SectorPerformanceForm(initial={'success_challenges':'','general_comment':'','bottlenecks':'','measures_taken':''})
         data = models.SectorPerformance.objects.filter(country=user_country)
         return render(request,self.template_name, {
             'form': form,
@@ -240,7 +240,7 @@ class PlanningPerformanceCreate(LoginRequiredMixin,View):
             instance = models.PlanningPerformance.objects.get(pk=int(id))
             form = form_class(instance=instance)
         else:
-            form = form_class()
+            form = form_class(initial={'success_challenges':'','general_comment':'','bottlenecks':'','measures_taken':''})
         data = models.PlanningPerformance.objects.filter(country=user_country)
         return render(request,self.template_name, {
             'form': form,
@@ -284,7 +284,7 @@ class TenderProcedurePerformanceCreate(LoginRequiredMixin,View):
             form = DTenderProcPerformanceForm(instance=instance,initial={'sector_category':instance.tender_procedure_property.sector_category,'tender_procedure_property':instance.tender_procedure_property})
             #form.filter(instance.tender_procedure_property.sector_category)
         else:
-            form = DTenderProcPerformanceForm()      
+            form = DTenderProcPerformanceForm(initial={'success_challenges':'','general_comment':'','bottlenecks':'','measures_taken':''})      
         user_country = request.user.usercountry.country
         data = models.TenderProcedurePerformance.objects.filter(country=user_country)
 
@@ -336,7 +336,7 @@ class CommunityApproachCreate(LoginRequiredMixin,View):
             instance = models.CommunityApproach.objects.get(pk=int(id))
             form=form_class(instance=instance)
         else:
-            form=form_class()
+            form=form_class(initial={'approach_name':"", 'description':"",'lessons_learnt':''})
         data = models.CommunityApproach.objects.all()
         return render(request,self.template_name, {
             'form': form,
@@ -381,7 +381,7 @@ class PartnerContributionCreate(LoginRequiredMixin,CreateView):
             instance = models.PartnerContribution.objects.get(pk=int(id))
             form = form_class(instance=instance)
         else:
-            form = form_class()
+            form = form_class(initial={'in_kind_contribution':'','financial_contribution':'', 'annual_contribution':''})
         data = models.PartnerContribution.objects.all()
         return render(request,self.template_name, {
             'form': form,
@@ -460,9 +460,14 @@ class SWOTAndConclusionCreate(LoginRequiredMixin,View):
     model = SWOT
     template_name = 'swot_form.html'
     success_url = "/report/swot"
-    def get(self, request):
-        form = modelform_factory(SWOT)        
+    def get(self, request, id=None):
+        form_class = modelform_factory(SWOT)        
         user_country = request.user.usercountry.country
+        if(id):
+            instance = models.SWOT.objects.get(pk=int(id))
+            form = form_class(instance=instance)
+        else:
+            form = form_class(initial={'strengths':'', 'opportunities':'','mitigation_measures':'','overall_challenges':'','kap_recommendations':'','risks':'','weaknesses':'','conclusion':''})
         data = models.SWOT.objects.all()
         return render(request,self.template_name, {
             'form': form,
@@ -476,6 +481,8 @@ class SWOTAndConclusionCreate(LoginRequiredMixin,View):
         form.instance.country = user_country
         data = models.SWOT.objects.all()
         if(form.is_valid()):
+            if(id):
+                form.instance.id = int(id)
             form.save()
             messages.success(request, 'Report has been successfully submitted.')
             if (request.POST.has_key('save_add')):
