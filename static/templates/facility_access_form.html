@@ -89,21 +89,22 @@
             <div class="col-md-6 form-group">
                 <div class="form-group{% if form.planned.errors %} has-error{% endif %}">
                     <label for="id_planned">No.Tech Planned</label>
-                    <input id="id_planned" name="planned" step="0" type="number" class="form-control" tabindex="6" title="Only number allowed" />
+                    <input id="id_planned" name="planned" step="0" type="number" class="form-control" tabindex="6" title="Only number allowed" value="{{ form.planned.value }}" />
+ 
                     {% if form.planned.errors %}
                             {{ form.planned.errors }}
                     {% endif %}
                 </div>
                 <div class="form-group{% if form.actual.errors %} has-error{% endif %}">
                     <label for="id_actual">No.Tech Reported</label>
-                    <input id="id_actual" name="actual" step="0" type="number" class="form-control" tabindex="8" title="Only number allowed"/>
+                    <input id="id_actual" name="actual" step="0" value="{{ form.actual.value }}" type="number" class="form-control" tabindex="8" title="Only number allowed"/>
                     {% if form.planned.errors %}
                             {{ form.planned.errors }}
                     {% endif %}
                 </div>
                 <div class="form-group{% if form.secured.errors %} has-error{% endif %}">
                     <label for="id_secured">No.Tech secured</label>
-                    <input id="id_secured" name="secured" step="0" type="number" class="form-control" tabindex="10" title="Only number allowed" />
+                    <input id="id_secured" name="secured" step="0" type="number" value="{{ form.secured.value }}" class="form-control" tabindex="10" title="Only number allowed" />
                     {% if form.secured.errors %}
                             {{ form.secured.errors }}
                     {% endif %}
@@ -112,21 +113,21 @@
             <div class="col-md-6 form-group">
                 <div class="form-group{% if form.planned_pop_affected.errors %} has-error{% endif %}">
                     <label for="id_planned_pop_affected">Pop planned</label>
-                    <input id="id_planned_pop_affected" name="planned_pop_affected" step="0" type="number" class="form-control" tabindex="7" title="Only number allowed"/>
+                    <input id="id_planned_pop_affected" name="planned_pop_affected" step="0" value="{{ form.planned_pop_affected.value }}" type="number" class="form-control" tabindex="7" title="Only number allowed"/>
                     {% if form.planned_pop_affected.errors %}
                             {{ form.planned_pop_affected.errors }}
                     {% endif %}
                 </div>
                 <div class="form-group{% if form.actual_pop_affected.errors %} has-error{% endif %}">
                     <label for="id_actual_pop_affected">Pop reached</label>
-                    <input id="id_actual_pop_affected" name="actual_pop_affected" step="0" type="number" class="form-control" tabindex="9" title="Only number allowed"/>
+                    <input id="id_actual_pop_affected" name="actual_pop_affected" step="0" type="number" value="{{ form.actual_pop_affected.value }}" class="form-control" tabindex="9" title="Only number allowed"/>
                     {% if form.actual_pop_affected.errors %}
                             {{ form.actual_pop_affected.errors }}
                     {% endif %}
                 </div>
                 <div class="form-group{% if form.secured_pop_affected.errors %} has-error{% endif %}">
                     <label for="id_secured_pop_affected">Pop secured</label>
-                    <input id="id_secured_pop_affected" name="secured_pop_affected" step="0" type="number" class="form-control" tabindex="11" title="Only number allowed"/>
+                    <input id="id_secured_pop_affected" name="secured_pop_affected" step="0" type="number" value="{{ form.secured_pop_affected.value }}" class="form-control" tabindex="11" title="Only number allowed"/>
                     {% if form.secured_pop_affected.errors %}
                             {{ form.secured_pop_affected.errors }}
                     {% endif %}
@@ -135,7 +136,7 @@
         <div class="col-md-12 form-group">
             <div class="form-group{% if form.unit_cost.errors %} has-error{% endif %}" >
                 <label for="id_unit_cost">Unit Cost(USD)</label>
-                <input id="id_unit_cost" name="unit_cost" type="number" class="form-control" min="0" max="9999999" step="0.01" size="4" 
+                <input id="id_unit_cost" name="unit_cost" type="number" class="form-control" value="{{ form.unit_cost.value }}" min="0" max="9999999" step="0.01" size="4" 
                 title="Currency Format - no dollar sign and no comma(s) - cents (.##) are optional" tabindex="12" />
                 {% if form.unit_cost.errors %}
                     {{ form.unit_cost.errors }}
@@ -145,7 +146,7 @@
         <div class="col-md-12 form-group">
             <div class="form-group{% if form.house_hold_contribution.errors %} has-error{% endif %}">
                 <label for="id_house_hold_contribution">% House Hold Contribution:</label>
-                <input id="id_house_hold_contribution" name="house_hold_contribution" type="number" min="0" max=100 step="0.01" size="4"  title="Only numbers/year are allowed" class="form-control" tabindex="13" />
+                <input id="id_house_hold_contribution" name="house_hold_contribution" type="number" min="0" max=100 value="{{ form.house_hold_contribution.value }}" step="0.01" size="4"  title="Only numbers/year are allowed" class="form-control" tabindex="13" />
                 {% if form.house_hold_contribution.errors %}
                     {{ form.house_hold_contribution.errors }}
                 {% endif %}
@@ -154,7 +155,7 @@
         <div class="col-md-12 form-group">
             <div class="form-group{% if form.government_contribution.errors %} has-error{% endif %}">
                 <label for="id_government_contribution">% Government Contribution:</label>
-                <input id="id_government_contribution" name="government_contribution"  type="number" min="0" max=100 step="0.01" size="4"  title="Only numbers/year are allowed" class="form-control" tabindex="14" />
+                <input id="id_government_contribution" name="government_contribution"  type="number" min="0" max=100 value="{{ form.government_contribution.value }}" step="0.01" size="4"  title="Only numbers/year are allowed" class="form-control" tabindex="14" />
                 {% if form.government_contribution.errors %}
                     {{ form.government_contribution.errors }}
                 {% endif %}
