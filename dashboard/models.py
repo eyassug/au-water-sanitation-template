@@ -182,7 +182,6 @@ class PlanningPerformance(models.Model):
 
 class TenderProcedurePerformance(models.Model):
     country = models.ForeignKey('Country',blank=False)
-    sector_category = models.ForeignKey('SectorCategory', blank=False)
     year = models.ForeignKey('Period')
     tender_procedure_property = models.ForeignKey('TenderProcedureProperty', blank=False)
     registered = models.PositiveSmallIntegerField(null=False,blank=False)

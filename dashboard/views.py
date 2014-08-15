@@ -1,9 +1,9 @@
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
 from dashboard.forms import CountryStatusForm, FacilityAccessForm, SectorPerformanceForm
-from dashboard.forms import DFacilityAccessForm, PriorityAreaStatusForm, DTechnologyForm
+from dashboard.forms import DFacilityAccessForm, PriorityAreaStatusForm, DTechnologyForm,DTenderProcPerformanceForm
 from dashboard.models import CountryDemographic, FacilityAccess, SectorPerformance, PlanningPerformance, TenderProcedurePerformance, CommunityApproach, PartnerContribution, PartnerEventContribution, SWOT, PriorityAreaStatus
-from dashboard.models import Country, PriorityArea, SectorCategory, FacilityCharacter, Technology
+from dashboard.models import Country, PriorityArea, SectorCategory, FacilityCharacter, Technology, TenderProcedureProperty
 from dashboard import models
 from dashboard.models import PriorityAreaStatus
 from django.views.generic import View
@@ -268,8 +268,13 @@ class TenderProcedurePerformanceCreate(LoginRequiredMixin,View):
     model = TenderProcedurePerformance
     template_name = 'tender_proc_performance_form.html'
     success_url = "/report/TenderProcPerformance"
-    def get(self, request):
-        form = modelform_factory(TenderProcedurePerformance)        
+    def get(self, request,id=None):
+        if(id):
+            instance = TenderProcedurePerformance.objects.get(pk=int(id))
+            form = DTenderProcPerformanceForm(instance=instance,initial={'sector_category':instance.tender_procedure_property.sector_category,'tender_procedure_property':instance.tender_procedure_property})
+            #form.filter(instance.tender_procedure_property.sector_category)
+        else:
+            form = DTenderProcPerformanceForm()      
         user_country = request.user.usercountry.country
         data = models.TenderProcedurePerformance.objects.filter(country=user_country)
 
@@ -278,13 +283,21 @@ class TenderProcedurePerformanceCreate(LoginRequiredMixin,View):
             'country': user_country,
             'data': data
         })
-    def post(self, request):
+    def post(self, request,id=None):
         user_country = request.user.usercountry.country            
-        form_class = modelform_factory(TenderProcedurePerformance, exclude=['country'])
-        form = form_class(request.POST)
+        form = DTenderProcPerformanceForm(request.POST)
         form.instance.country = user_country
         data = models.TenderProcedurePerformance.objects.filter(country=user_country)
         if(form.is_valid()):
+            form.instance.country = user_country
+            if(id):
+                form.instance.id=int(id)
+            prop_id = form.cleaned_data['tender_procedure_property']
+            try:
+                prop = models.TenderProcedureProperty.objects.get(pk=prop_id)
+            except models.TenderProcedureProperty.DoesNotExist:
+                prop = None
+            form.instance.tender_procedure_property = prop
             form.save()
             messages.success(request, 'Report has been successfully submitted.')
             if (request.POST.has_key('save_add')):
@@ -503,6 +516,11 @@ def feed_technologies(request, facility_character_id):
     facility_character = FacilityCharacter.objects.get(pk=facility_character_id)
     technologies = Technology.objects.filter(facility_character=facility_character)
     return render_to_response('feeds/technologies.txt', {'technologies':technologies}, mimetype="text/plain")
+
+def feed_tender_proc_properties(request, sector_category_id):
+    sector_category = SectorCategory.objects.get(pk=sector_category_id)
+    properties = TenderProcedureProperty.objects.filter(sector_category=sector_category)
+    return render_to_response('feeds/tender_proc_properties.txt', {'properties':properties}, mimetype="text/plain")
 
 class TechnologyCreate(LoginRequiredMixin,View):
     def get(self,request):
