@@ -83,10 +83,16 @@ class FacilityAccessCreate(LoginRequiredMixin,View):
         user_country = request.user.usercountry.country
         if(id):
             instance=models.FacilityAccess.objects.get(pk=int(id))
-            form=DFacilityAccessForm(instance=instance)
+            form=DFacilityAccessForm(instance=instance,initial={
+                    'sector_category':instance.technology.facility_character.sector_category,
+                    'priority_area':instance.priority_area,
+                    'facility_character':instance.technology.facility_character,
+                    'technology':instance.technology
+                })
         else:
             form = DFacilityAccessForm()
-            form.filter(country=user_country)
+        
+        form.filter(country=user_country)
         data = models.FacilityAccess.objects.all()
         return render(request, 'facility_access_form.html', {
             'form': form,
@@ -118,7 +124,11 @@ class FacilityAccessCreate(LoginRequiredMixin,View):
             form.instance.technology = technology
             form.save()
             if (request.POST.has_key('save_add')):
-                new_form = DFacilityAccessForm(initial={'priority_area':form.instance.priority_area, 'sector_category':form.cleaned_data['sector_category']})                
+                new_form = DFacilityAccessForm(initial={'priority_area':form.instance.priority_area,
+                                                        'sector_category':form.cleaned_data['sector_category'],
+                                                        'facility_character':form.instance.technology.facility_character,
+                                                        'technology':form.instance.technology
+                                                        })                
                 return render(request, 'facility_access_form.html', {
                     'form': new_form,
                     'country': user_country,
