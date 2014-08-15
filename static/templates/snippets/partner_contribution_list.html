@@ -26,13 +26,13 @@
 {% for d in data %}
 
     <tr>
-        <td>{{ d.id }}</td>
+        <td>{{ loop.counter }}</td>
         <td>{{ d.sector_category }}</td>
         <td>{{ d.partner }}</td>        
         <td>{{ d.annual_contribution }}</td>
         <td>{{ d.in_kind_contribution }}</td>        
         <td>{{ d.financial_contribution }}</td>
-        <td><a href="#">Edit</a></td>
+        <td><a href="/report/planningperformance/{{d.id}}">Edit</a></td>
     </tr>
     
 {% endfor %}

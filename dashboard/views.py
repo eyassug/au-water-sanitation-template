@@ -364,22 +364,29 @@ class PartnerContributionCreate(LoginRequiredMixin,CreateView):
     model = PartnerContribution
     template_name = 'partner_contribution_form.html'
     success_url = "/report/PartnerContribution"
-    def get(self, request):
-        form = modelform_factory(PartnerContribution)        
+    def get(self, request, id=None):
+        form_class = modelform_factory(PartnerContribution)        
         user_country = request.user.usercountry.country
+        if(id):
+            instance = models.PartnerContribution.objects.get(pk=int(d))
+            form = form_class(instance=instance)
+        else:
+            form = form_class()
         data = models.PartnerContribution.objects.all()
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
             'data': data
         })
-    def post(self, request):
+    def post(self, request, id=None):
         user_country = request.user.usercountry.country            
         form_class = modelform_factory(PartnerContribution, exclude=['country'])
         form = form_class(request.POST)
         form.instance.country = user_country
         data = models.PartnerContribution.objects.all()
         if(form.is_valid()):
+            if(id):
+                form.instance.id = int(id)
             form.save()
             messages.success(request, 'Report has been successfully submitted.')
             if (request.POST.has_key('save_add')):
