@@ -19,7 +19,7 @@
 {% for d in data %}
 
     <tr>
-        <td>{{ d.id }}</td>
+        <td>{{ forloop.counter }}</td>
         <td>{{ d.sector_category }}</td>
         <td>{{ d.overall_challenges }}</td>        
         <td>{{ d.strengths }}</td>
@@ -30,7 +30,7 @@
         <td>{{ d.kap_recommendations }}</td>
         <td>{{d.conclusion}}</td>
         
-        <td><a href="#">Edit</a></td>
+        <td><a href="/report/swot/{{d.id}}">Edit</a></td>
     </tr>
     
 {% endfor %}

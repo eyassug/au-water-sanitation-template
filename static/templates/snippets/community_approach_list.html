@@ -26,7 +26,7 @@
 {% for d in data %}
 
     <tr>
-        <td>{{ loop.counter }}</td>
+        <td>{{ forloop.counter }}</td>
         <td>{{ d.sector_category }}</td>
         <td>{{ d.approach_type }}</td>        
         <td>{{ d.approach_name }}</td>
