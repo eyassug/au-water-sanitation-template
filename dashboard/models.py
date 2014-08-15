@@ -134,6 +134,8 @@ class CountryDemographic(models.Model):
     year = models.ForeignKey('Period')
     population = models.IntegerField(null=False,blank=False)
     
+    class Meta:
+        unique_together = ("country", "year")
 class PriorityAreaStatus(models.Model):
     priority_area = models.ForeignKey('PriorityArea')
     year = models.ForeignKey('Period')
