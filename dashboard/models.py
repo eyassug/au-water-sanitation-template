@@ -214,9 +214,12 @@ class CommunityApproach(models.Model):
     year = models.ForeignKey('Period',blank=False, null=False)
     approach_type = models.ForeignKey('CommunityApproachType',blank=False)
     approach_name = models.CharField(max_length=120, null=True, blank=True)    
-    description = models.TextField()
+    description = models.TextField(blank=True)
     cost_per_capita = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
-    lessons_learnt = models.TextField()
+    lessons_learnt = models.TextField(blank=True)
+    
+    class Meta:
+        unique_together = ("country", "sector_category", "year")
     
 class PartnerContribution(models.Model):
     country = models.ForeignKey('Country',blank=False)
