@@ -229,6 +229,9 @@ class PartnerContribution(models.Model):
     in_kind_contribution = models.DecimalField(max_digits=5, decimal_places=2, null=True,blank=True)
     financial_contribution = models.DecimalField(max_digits=5, decimal_places=2, null=True,blank=True)
     
+    class Meta:
+        unique_together = ("country", "sector_category", "partner")
+    
 class PartnerEventContribution(models.Model):
     country = models.ForeignKey('Country', blank=False)
     sector_category = models.ForeignKey('SectorCategory', blank=False)
