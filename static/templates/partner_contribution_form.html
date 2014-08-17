@@ -3,12 +3,19 @@
     {% load widget_tweaks %}
     
     <script src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
-    <div class="container msg-scc" >
+    <div class="container msg-scc" id='message' >
                {% if messages %}
            <div class="row">
             <div  class="succuess col-sm-6">
               {% for message in messages %}
-                   <p {% if message.tags == "success" %} class="alert alert-success"{% endif %}>{{ message }}</p
+                   <p {% if message.tags == "success" %}
+                      class="alert alert-success">{{ message }}
+                      {% endif %}
+                   </p>
+                   <p {%if message.tags == "error" %}
+                      class="alert alert-danger">{{ message }}
+                      {% endif %}
+                   </p>
                      {% endfor %}
             </div>
            </div>
