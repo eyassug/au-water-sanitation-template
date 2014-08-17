@@ -30,6 +30,10 @@ class UserCountryInline(admin.TabularInline):
 # Define a new User admin
 class UserAdmin(UserAdmin):
     inlines = (UserCountryInline, )
+    list_display = UserAdmin.list_display + ('country',)
+        
+    def country(self,obj):
+        return obj.usercountry.country.name
     
 class PriorityAreaAdmin(admin.ModelAdmin):
     form = CustomPriortyAreaForm
