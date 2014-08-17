@@ -200,10 +200,13 @@ class TenderProcedurePerformance(models.Model):
     tender_procedure_property = models.ForeignKey('TenderProcedureProperty', blank=False)
     registered = models.PositiveSmallIntegerField(null=False,blank=False)
     executed = models.PositiveSmallIntegerField(null=False,blank=False)
-    general_comment = models.TextField()
-    bottlenecks = models.TextField()
-    measures_taken = models.TextField()
-    success_challenges = models.TextField()
+    general_comment = models.TextField(blank=True)
+    bottlenecks = models.TextField(blank=True)
+    measures_taken = models.TextField(blank=True)
+    success_challenges = models.TextField(blank=True)
+    
+    class Meta:
+        unique_together = ("country", "tender_procedure_property", "year")
 
 class CommunityApproach(models.Model):
     country = models.ForeignKey('Country', blank=False)
