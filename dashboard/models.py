@@ -6,7 +6,7 @@ class Country(models.Model):
     name = models.CharField(max_length=120, null=False, blank=False)
     
     def __str__(self):
-        return self.name
+        return self.name 
     class Meta:
         ordering = ['name']
     
@@ -15,7 +15,7 @@ class UserCountry(models.Model):
     country = models.ForeignKey('country')
     
     def __str__(self):
-        return self.country.name
+        return self.country.name 
     class Meta:
         ordering = ['country']
     

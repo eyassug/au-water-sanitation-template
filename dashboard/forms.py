@@ -68,3 +68,11 @@ class DTechnologyForm(TechnologyForm):
     facility_character = DynamicChoiceField(widget=forms.Select(attrs={'onchange':'FilterTechnologies();', 'disabled':'true'}), choices=(('-1','Select Facility Character'),))
     technology = DynamicChoiceField(widget=forms.Select(attrs={'disabled':'true'}), choices=(('-1','Select Technology'),))
     
+class CustomPriortyAreaForm(forms.ModelForm):
+        
+    class Meta:
+        model = PriorityArea
+        
+    
+    
+        
