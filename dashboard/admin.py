@@ -33,12 +33,28 @@ class UserAdmin(UserAdmin):
     
 class PriorityAreaAdmin(admin.ModelAdmin):
     form = CustomPriortyAreaForm
-    exclude = ['country']
+    list_display = ['name','country']
+    
+    def queryset(self,request):
+        qs = super(PriorityAreaAdmin,self).queryset(request)
+        if request.user.is_superuser:
+            return qs
+        user_country = request.user.usercountry.country
+        return qs.filter(country__id=user_country.id)
+        
+    
+    def get_form(self,request,obj=None, **kwargs):
+        self.exclude = []
+        if not request.user.is_superuser:
+            self.exclude.append('country')
+        return super(PriorityAreaAdmin,self).get_form(request,obj,**kwargs)
+    
     def save_model(self, request, obj, form, change):
-        obj.country = request.user.usercountry.country
+        if not request.user.is_superuser():
+            obj.country = request.user.usercountry.country
         obj.save()
-        
-        
+    def get_country(self, obj):    
+            return obj.country.name
      
     #code
 
