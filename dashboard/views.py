@@ -712,7 +712,8 @@ class EstimatedOverallGapsReport(LoginRequiredMixin,View):
     def post(self,request):
         form = report_forms.EstimatedGap(request.POST)
         user_country = request.user.usercountry.country        
-        if(form.is_valid()):            
+        if(form.is_valid()):
+            
             start_year = form.cleaned_data['start_year']
             end_year = form.cleaned_data['end_year']
             report_factory = reports.EstimatedGapReport()

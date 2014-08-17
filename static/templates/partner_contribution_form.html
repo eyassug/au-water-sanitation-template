@@ -3,6 +3,8 @@
     {% load widget_tweaks %}
     
     <script src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
+    <h2 class="page-header">Partner Contribution to Country({{ country }})</h2>
+    
     <div class="container msg-scc" id='message' >
                {% if messages %}
            <div class="row">
@@ -22,7 +24,7 @@
                {% endif %}
     </div>
     
-    <h2 class="page-header">Partner Contribution to Country({{ country }})</h2>
+    
     <ul class="nav nav-tabs" id="tab1">
       <li class="active"><a href="#add" data-toggle="tab">Add</a></li>
       <li><a href="#list" data-toggle="tab">List</a></li>
@@ -31,6 +33,7 @@
 <!-- Tab panes -->
    <div class="tab-content">
       <div class="tab-pane active" id="add">
+        <div class="alert alert-warning">Fields in <strong>bold</strong> are required.</div> 
      <div class ="col-md-6">
     
     <form action="" method="post">
