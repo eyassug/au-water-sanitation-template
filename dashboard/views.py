@@ -466,8 +466,12 @@ class PartnerEventContributionCreate(LoginRequiredMixin,CreateView):
         if(form.is_valid()):
             if(id):
                 form.instance.id = int(id)
-            form.save()
-            messages.success(request, 'Report has been successfully submitted.')
+            try:
+                form.save()
+                messages.success(request, 'Report has been successfully submitted.')
+            except IntegrityError as e:
+                messages.error(request,'Could not Save! Duplicate Entry for Country '+ str(form.instance.country) + ', Sector Category '+ str(form.instance.sector_category) + ' and Year '+ str(form.instance.year))
+            
             if (request.POST.has_key('save_add')):
                 new_form = form_class(initial={'sector_category':form.cleaned_data['sector_category'], 'partner':form.cleaned_data['partner'], 'event':form.cleaned_data['event']})                
                 return render(request,self.template_name, {

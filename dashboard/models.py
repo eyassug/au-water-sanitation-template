@@ -240,7 +240,9 @@ class PartnerEventContribution(models.Model):
     event = models.ForeignKey('Event', blank=False)
     government_staff_contribution = models.DecimalField(max_digits=10, decimal_places=2, null=True,blank=True)
     own_staff_contribution = models.DecimalField(max_digits=10, decimal_places=2, null=True,blank=True)
-    total_event_contribution = models.DecimalField(max_digits=10, decimal_places=2, null=True,blank=True)
+    
+    class Meta:
+        unique_together = ("country", "sector_category", "year")
     
 class SWOT(models.Model):
     country = models.ForeignKey('Country', blank=False)
