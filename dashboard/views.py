@@ -329,7 +329,7 @@ class TenderProcedurePerformanceCreate(LoginRequiredMixin,View):
                 messages.error(request,'Could not Save! Duplicate Entry for Country '+ str(form.instance.country) + ' and Tender Procedure Property '+ str(form.instance.tender_procedure_property) + ' and Year '+ str(form.instance.year))
             
             if (request.POST.has_key('save_add')):
-                new_form = form_class(initial={'sector_category':form.cleaned_data['sector_category'], 'tender_procedure_property':form.cleaned_data['tender_procedure_property']})                
+                new_form = DTenderProcPerformanceForm(initial={'sector_category':form.cleaned_data['sector_category'], 'tender_procedure_property':form.cleaned_data['tender_procedure_property']})
                 return render(request,self.template_name, {
                     'form': new_form,
                     'country': user_country,
