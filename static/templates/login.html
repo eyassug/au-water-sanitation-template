@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content_container %}
+   <!--    
+    <form role="form" method="post">{% csrf_token %}
+        {{ form }}
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>
+-->
+
+        <div id="content-main">
+        <form role="form" class="form-signin form-horizontal" method="post" id="login-form">
+            {% csrf_token %}
+          <div class="form-signin-inner">
+          <h2>Login</h2>
+                
+          <div class="control-group">
+            <div class="control-label">
+                <label for="id_username" class="required">Username:</label> 
+            </div>
+            <div class="controls">
+                <input id="id_username" maxlength="254" name="username" type="text" />
+                <span class="help-inline"></span>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="control-label">
+                <label for="id_password" class="required">Password:</label> 
+            </div>
+            <div class="controls">
+                <input id="id_password" name="password" type="password" />
+                <span class="help-inline"></span>
+            </div>
+            <input type="hidden" name="this_is_the_login_form" value="1" />
+            
+          </div>
+          
+          
+          </div>
+          <div class="form-actions">
+            <input type="submit" value="Log in" class="btn btn-primary" />
+          </div>
+        </form>
+        
+        <script type="text/javascript">
+        $(document).ready(function() {
+          $('#id_username').attr('autocapitalize', 'off').focus();
+        })
+        </script>
+        </div>
+
+
+{% endblock %}

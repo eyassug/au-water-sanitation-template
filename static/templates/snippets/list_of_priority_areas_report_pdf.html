@@ -1,0 +1,96 @@
+<!DOCTYPE>
+<html>
+    <head>
+    <title>Report - List of Accounts</title>
+        <style type="text/css">
+            @page {
+                size: {{ pagesize|default:'legal landscape' }};
+                margin: 1.5cm 1cm;
+                border: 1px solid #fff;
+                @frame header {
+                    -pdf-frame-content: headerContent;
+                    top: 1cm;
+                    margin-left: 1cm;
+                    margin-right: 1cm;
+                    height: 0.5cm;
+                    border-color: #FFF;
+                    
+                }
+                @frame footer {
+                    -pdf-frame-content: footerContent;
+                    bottom: 0.5cm;
+                    margin-left: 1cm;
+                    margin-right: 1cm;
+                    height: 0.5cm;
+                }     
+            }
+            #report_lists {
+                border: 1px solid #ccc;
+                line-height: 12px;
+                padding: 3px;
+                
+            }
+            #report_head {
+                background-color: #000;
+                font-size: 12px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="headerContent">
+            <table >
+                <tr style=>
+                    <td><p style="color: rgb(9, 101, 238); font-weight: bolder; font-size: larger ">List of Priortiy Areas of</p></td>
+                    <td align="right"><p style="color: red; font-weight: bolder; font-size: larger ">{{ country }}</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+<div class="">
+    
+<table id="report_lists" class="">
+    <thead id="report_head">
+        
+        <tr>
+            <th  rowspan="2" style="background-color: #CBD5F5;">No</th>
+            
+            <th rowspan="2" style="background-color: #CBD5F5;">Priority Area name</th>
+            <th colspan="2" style="background-color: #CBD5F5;" >Demographic Data</th>
+        </tr>
+        <tr>
+            <th style="background-color: #CBD5F5;">Latest Population</th>
+            <th style="background-color: #CBD5F5;">Latest number of Households</th>
+            
+        </tr>
+    </thead>
+<tbody>
+    
+    {% for p in population %}
+    <tr>
+            <td {% if not forloop.counter0|divisibleby:2 %} style="background-color: #ccc; "{% endif %}> {{ forloop.counter }}</td>
+            <td {% if not forloop.counter0|divisibleby:2 %} style="background-color: #ccc; "{% endif %}>{{ p.priority_area }}</td>
+            <td {% if not forloop.counter0|divisibleby:2 %} style="background-color: #ccc; "{% endif %}>{{ p.population }}</td>
+            <td {% if not forloop.counter0|divisibleby:2 %} style="background-color: #ccc; "{% endif %}>{{ p.number_of_households }}</td>
+        
+       
+    </tr>
+    {% endfor %}
+    <tr>
+        <td></td>
+        <td>Total</td>
+        <td>{{ total_population }}</td>
+        <td>{{ total_households }}</td>
+    </tr>
+    
+
+
+</tbody>
+</table>
+
+</div>
+<div id="footerContent">
+            <table><tr><td>Kigali Action Plan</td>
+            <td align="center">Page <pdf:pagenumber> / <pdf:pagecount> </td> <td align="right">{% now "M d, Y" %} {% now "P" %}</td></tr></table>
+        </div>
+</body>
+</html>

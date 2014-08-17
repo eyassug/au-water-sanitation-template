@@ -1,0 +1,95 @@
+<script type="text/javascript">
+				/* Table initialisation */
+			$(document).ready(function() {
+				$('#report_lists').dataTable( {
+					"bSort": true,        // Disable sorting
+					"iDisplayLength": 5,   // records per page
+					"sDom": "t<'row'<'col-md-6'i><'col-md-6'p>>",
+					"sPaginationType": "bootstrap"
+				});
+			});
+		</script>
+
+<div class="table-responsive">
+    
+<table class="table table-hover table-bordered" id="report_lists">
+    
+    <thead id="report_head">
+        <tr>
+            <th rowspan=2 style="background-color: #CBD5F5;">No</th>
+            <th rowspan=2 style="background-color: #CBD5F5;">Priority Area name</th>
+            <th rowspan=2 style="background-color: #CBD5F5;">Year</th>
+            <th colspan=5  style="background-color: #CBD5F5;"><p align="center">Gaps</p></th>
+            
+            
+        </tr>
+        <tr>
+            
+            <th style="background-color: #CBD5F5;">Number</th>
+            <th style="background-color: #CBD5F5;">Unit Cost(USD)</th>
+            <th style="background-color: #CBD5F5;">Total Cost(USD)</th>
+            <th style="background-color: #CBD5F5;">Govt Contribution(USD)</th>
+            <th style="background-color: #CBD5F5;">Population affected</th>
+            
+        </tr>
+    </thead>
+<tbody>
+
+{% for gap in technology_gap_list %}
+
+{% for pa_gap in gap.pa_technology_gaps %}
+
+{% if forloop.first %}
+    <tr>
+        <td rowspan="{{ gap.rows|add:"1" }}">{{ forloop.parentloop.counter }}</td>
+        <td rowspan="{{ gap.rows }}">{{ pa_gap.priority_area }}</td>        
+        <td>{{ pa_gap.year }}</td>
+        <td>{{ pa_gap.number }}</td>
+        <td>{{ pa_gap.unit_cost }}</td>
+        <td>{{ pa_gap.total_cost }}</td>        
+        <td>{{ pa_gap.government_contribution }}</td>
+        <td>{{ pa_gap.population_affected }}</td>
+        
+    </tr>
+
+{% else %}
+    <tr>
+        <td>{{ pa_gap.year }}</td>
+        <td>{{ pa_gap.number }}</td>
+        <td>{{ pa_gap.unit_cost }}</td>
+        <td>{{ pa_gap.total_cost }}</td>        
+        <td>{{ pa_gap.government_contribution }}</td>
+        <td>{{ pa_gap.population_affected }}</td>
+    </tr>
+{% endif %}
+
+{% if forloop.last %}
+    <tr>
+        <td>Total</td>
+        <td>-</td>        
+        <td>{{ gap.totals.total_number }}</td>
+        <td>-</td>
+        <td>{{ gap.totals.pa_total_cost }}</td>        
+        <td>{{ gap.totals.total_government_contribution }}</td>
+        <td>{{ gap.totals.total_population_affected }}</td>
+    </tr>
+{% endif %}    
+{% endfor %}    
+{% endfor %}
+     <tr>
+        <td></td>
+        <td>Grand Total</td>
+        <td>-</td>        
+        <td>{{ totals.grand_total_number }}</td>
+        <td></td>
+        <td>{{ totals.grand_total_cost }}</td>        
+        <td>{{ totals.grand_total_government_contribution }}</td>
+        <td>{{ totals.grand_total_population_affected }}</td>
+    </tr>
+    
+
+
+</tbody>
+</table>
+
+</div>

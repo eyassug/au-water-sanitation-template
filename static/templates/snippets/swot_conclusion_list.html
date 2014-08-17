@@ -1,0 +1,41 @@
+<div class="table-responsive">
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Sector Category</th>
+            <th>Overall Challenges</th>
+            <th>Strengths</th>
+            <th>Recommendation KAP</th>
+            <th>Opportunity</th>
+            <th>Risks</th>
+            <th>Measurement of Mitigation</th>
+            <th>Weaknesses</th>
+            <th>Conclusion</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+<tbody>
+{% for d in data %}
+
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ d.sector_category }}</td>
+        <td>{{ d.overall_challenges }}</td>        
+        <td>{{ d.strengths }}</td>
+        <td>{{ d.weaknesses }}</td>
+        <td>{{ d.opportunities }}</td>        
+        <td>{{ d.risks }}</td>
+        <td>{{ d.mitigation_measures }}</td>
+        <td>{{ d.kap_recommendations }}</td>
+        <td>{{d.conclusion}}</td>
+        
+        <td><a href="/report/swot/{{d.id}}">Edit</a></td>
+    </tr>
+    
+{% endfor %}
+
+</tbody>
+</table>
+
+</div>

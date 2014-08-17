@@ -1,0 +1,131 @@
+body {
+padding-top: 40px;
+}
+
+
+.boarder {
+margin-left: 0;
+margin-right: 0;
+background-color: #D6D6D6;
+border-width: 1px;
+border-color: #ddd;
+border-radius: 4px 4px 0 0;
+box-shadow: none;
+padding-right: 40px;
+padding-left: 20px;
+padding-bottom: 10px;
+padding-top: 10px;
+
+}
+
+.lead {
+text-align: left;
+font-size:18px;
+}
+.jumbotron
+{
+padding-top: 10px;
+}
+.jumbotron a
+{
+  float: right;
+}
+.sidedivflag
+{
+  padding-top: 150px;
+}
+.sidedivau
+{
+  padding-top:120px;
+}
+.img-thumbnail-home {
+display: inline-block;
+width: 100%;
+max-width: 100%;
+height: auto;
+padding: 4px;
+line-height: 1.42857143;
+background-color: #fff;
+
+transition: all .2s ease-in-out;
+}
+.container .jumbotron {
+padding-right: 5px;
+padding-left: 5px;
+}
+.jumbotron p
+{
+  font-size: 16px;
+}
+.add-another
+{
+  float: right;
+}
+
+.formtitle
+{
+  padding-bottom: 9px;
+  margin: 40px 0 20px;
+  border-bottom: 1px solid #8A8585;
+  color: #F35A12;
+}
+.col-md-2 {
+width: 18.666667%;
+}
+.main {
+padding-right: 40px;
+padding-left: 55px;
+}
+.navbar-brand {
+
+float: left;
+height: 50px;
+padding: 15px 15px;
+font-size: 22px;
+line-height: 20px;
+font-weight: bolder;
+}
+
+.navbar-inverse .navbar-brand { 
+color:#AFAFAF;;
+}
+.bt-submit {
+margin-left: 0;
+margin-right: 0;
+background-color: #fff;
+border-width: 1px;
+border-color: #ddd;
+border-radius: 4px 4px 0 0;
+box-shadow: none;
+padding-left: 15px;
+
+}
+.errorlist
+{
+  padding-left: 15px;
+  color: #EC3737;
+}
+.tab-pane
+{
+  padding-top: 20px;
+}
+ol-sm-offset-3 {
+margin-left: 0%;
+}
+.exportpdf
+{
+  float: left;
+  
+  
+}
+.exportpdfdiv 
+{
+  
+  padding-bottom: 25px;
+  padding-top: 20px;
+  
+}
+.nav>li>a {
+padding: 5px 15px;
+}
+

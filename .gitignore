@@ -1,0 +1,17 @@
+*.pyc
+static/media/africa_flags.jpg
+static/media/logo_au.jpg
+static/media/logo_au1.jpg
+static/templates/facility_character_grid.html
+static/media/african_flagold.png
+static/media/header1.png
+static/media/old.png
+static/media/headerold.png
+static/static/js/pdf.html
+static/static/js/exp/sample export.html
+dashboard/views.py.orig
+static/templates/reports/technology_gap_per_priority_area_report.html.orig
+static/templates/snippets/technology_gap_clustered_by_pa_report.html.orig
+static/static/js/jquery-2.1.1.min.js
+static/static/js/jquery-git1.js
+static/static/js/exp/icons/Thumbs.db

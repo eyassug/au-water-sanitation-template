@@ -1,0 +1,59 @@
+{% extends 'welcome.html' %}
+{% block content_container %}
+{% load widget_tweaks %}
+
+   
+    
+<h2 class="page-header">Technology Gaps Clustered By Priority Area</h2>
+
+    <form method="post" action="">{% csrf_token %}
+       <div class="col-md-6 form-group">
+            
+            <div class="form-group{% if form.technology.errors %} has-error{% endif %}">
+                <label for="id_technology">Technology</label>
+                {% render_field form.technology class+="form-control" tabindex+="4" %}
+                {% if form.technology.errors %}
+                  {{ form.technology.errors }}
+                {% endif %}
+            </div>
+       
+       
+            <div class="form-group{% if form.start_year.errors %} has-error{% endif %}">
+                <label for="id_start_year">Start Year</label>
+                {% render_field form.start_year class+="form-control" tabindex+="4" %}
+                {% if form.start_year.errors %}
+                  {{ form.start_year.errors }}
+                {% endif %}
+            </div>
+       
+            <div class="form-group{% if form.end_year.errors %} has-error{% endif %}">
+                <label for="id_end_year">End Year</label>
+                {% render_field form.end_year class+="form-control" tabindex+="4" %}
+                {% if form.end_year.errors %}
+                  {{ form.end_year.errors }}
+                {% endif %}
+            </div>
+        
+        
+       <button type="submit" class="btn btn-success ">Generate</button>
+       <br>
+        <br>
+    {% if technology_gap_list %}
+       <div class="exportpdfdiv">
+        <a href="/report/technologygapclusteredbypa?technology={{technology.id}}&start_year={{start_year}}&end_year={{end_year}}" target="_blank" class="btn btn-danger exportpdf active" role="button">Export to PDF</a>
+        </div>
+       {% endif %}
+       
+        
+        
+       </div>
+{% if technology_gap_list %}
+    {% include "snippets/report_style.html" %}   
+    
+     
+            
+
+    {% include "snippets/technology_gap_clustered_by_pa_report.html" %}
+{% endif %}
+</div>
+{% endblock %}

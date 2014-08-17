@@ -1,0 +1,93 @@
+<script type="text/javascript">
+				/* Table initialisation */
+			$(document).ready(function() {
+				$('#report_lists').dataTable( {
+					"bSort": false,        // Disable sorting
+					"iDisplayLength": 5,   // records per page
+					"sDom": "t<'row'<'col-md-6'i><'col-md-6'p>>",
+					"sPaginationType": "bootstrap"
+				});
+			});
+		</script>
+
+
+<div class="table-responsive">
+<table class="table table-hover table-bordered" id="report_lists">
+    <thead id="report_head">
+        <tr>
+            <th rowspan=2 style="background-color: #CBD5F5;">No</th>
+            <th rowspan=2 style="background-color: #CBD5F5;">Priority Area name</th>
+            <th colspan=2 style="background-color: #CBD5F5;">Facilities</th>
+            <th colspan=5 style="background-color: #CBD5F5;">Gaps (total period)</th>
+        </tr>
+        <tr>
+            <th style="background-color: #CBD5F5;">Character</th>
+            <th style="background-color: #CBD5F5;">Technology</th>
+            <th style="background-color: #CBD5F5;">Number</th>
+            <th style="background-color: #CBD5F5;">Unit Cost(USD)</th>
+            <th style="background-color: #CBD5F5;">Total Cost (USD</th>
+            <th style="background-color: #CBD5F5;">Govt Contribution(USD)</th>
+            <th style="background-color: #CBD5F5;">Population affected</th>
+            
+        </tr>
+    </thead>
+<tbody>
+
+{% for gap_c in gaps_by_category %}
+{% for gap_fc in gap_c.gaps_by_characteristic %}
+{% for gap_t in gap_fc.gaps_by_technology %}
+    
+    {% if forloop.first and forloop.parentloop.first and forloop.parentloop.parentloop.first %}
+    <tr>
+        <td rowspan="{{ gap_c.rows|add:"1" }}">{{ forloop.parentloop.parentloop.counter }}</td>
+        <td rowspan="{{ gap_c.rows }}">{{ gap_c.priority_area }}</td>
+    {% endif %}
+        {% if forloop.first %}
+        <td rowspan="{{ gap_fc.rows }}">{{ gap_fc.characteristic }}</td>
+        {% endif %}
+        <td>{{ gap_t.technology }}</td>
+        <td>{{ gap_t.number }}</td>       
+        <td>{{ gap_t.unit_cost }}</td>
+        <td>{{ gap_t.total_cost }}</td>
+        <td>{{ gap_t.government_contribution }}</td>
+        <td>{{ gap_t.population_affected }}</td>
+    </tr>
+    {% if forloop.parentloop.last and forloop.last %}
+     <tr>
+        <td>Total</td>
+        <td></td>
+        <td></td>
+        <td>{{ gap_c.total.number }}</td>       
+        <td>{{ gap_c.total.unit_cost }}</td>
+        <td>{{ gap_c.total.total_cost }}</td>
+        <td>{{ gap_c.total.government_contribution }}</td>
+        <td>{{ gap_c.total.population_affected }}</td>  
+    </tr>
+    {% endif %}
+    {% if not forloop.parentloop.last or not forloop.last or not forloop.parentloop.parentloop.last %}
+    <tr>
+        {% if forloop.parentloop.last and forloop.last %}
+        <td rowspan="{{ gap_c.rows|add:"1" }}">{{ forloop.parentloop.parentloop.counter }}</td>
+        <td rowspan="{{ gap_c.rows }}">{{ gap_c.priority_area }}</td>
+       {% endif %}
+    {% endif %}
+    
+{% endfor %}
+{% endfor %}
+{% endfor %}
+    <tr>
+        <td></td>
+        <td>Grand Total</td>
+        <td>-</td>
+        <td>-</td>
+        <td>{{ total.number }}</td>       
+        <td></td>
+        <td>{{ total.total_cost }}</td>
+        <td>{{ total.government_contribution }}</td>
+        <td>{{ total.population_affected }}</td>  
+    </tr>
+
+</tbody>
+</table>
+
+</div>

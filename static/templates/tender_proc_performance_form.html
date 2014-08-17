@@ -1,0 +1,138 @@
+{% extends 'welcome.html' %}
+{% block content_container %}
+    
+    {% load widget_tweaks %}
+    <div class="container msg-scc" id='message' >
+               {% if messages %}
+           <div class="row">
+            <div  class="succuess col-sm-6">
+              {% for message in messages %}
+                   <p {% if message.tags == "success" %}
+                      class="alert alert-success">{{ message }}
+                      {% endif %}
+                   </p>
+                   <p {%if message.tags == "error" %}
+                      class="alert alert-danger">{{ message }}
+                      {% endif %}
+                   </p>
+                     {% endfor %}
+            </div>
+           </div>
+               {% endif %}
+    </div>
+    <h2 class="page-header">Tender & Procurument Performance for {{ country }}</h2>
+     <ul class="nav nav-tabs" id="tab1">
+      <li class="active"><a href="#add" data-toggle="tab">Add</a></li>
+      <li><a href="#list" data-toggle="tab">List</a></li>
+   </ul>
+    
+<!-- Tab panes -->
+   <div class="tab-content">
+      <div class="tab-pane active" id="add">
+     <div class ="col-md-6">
+    
+        <form action="" method="post" role="form">
+    {% csrf_token %}
+        
+    <div class="col-md-6 form-group">
+        <div class="form-group{% if form.sector_category.errors %} has-error{% endif %}">
+            <label for="id_sector_category">Sector Category</label>
+            {% render_field form.sector_category class+="form-control" tabindex+="1" %}
+            {% if form.sector_category.errors %}
+                  {{ form.sector_category.errors }}
+                {% endif %}
+            
+        </div>
+    </div>
+    <div class="col-md-6 form-group">
+        <div class="form-group{% if form.tender_procedure_property.errors %} has-error{% endif %}">
+            <label for="id_tender_procedure_property">Tend. & Proc. Property</label>
+            {% render_field form.tender_procedure_property class+="form-control" tabindex+="2"%}
+                {% if form.tender_procedure_property.errors %}
+                  {{ form.tender_procedure_property.errors }}
+                {% endif %}
+        </div>
+    </div>
+    
+    <div class="col-md-12 form-group">
+        <div class="form-group{% if form.year.errors %} has-error{% endif %}">
+            <label for="id_year">Year</label>
+            {% render_field form.year class+="form-control" tabindex+="3" %}
+                {% if form.year.errors %}
+                  {{ form.year.errors }}
+                {% endif %}
+        </div>
+    </div>
+    <h4 class="formtitle">Enter values for the property for the year</h4>
+    <div class="col-md-6 form-group">
+        <div class="form-group{% if form.registered.errors %} has-error{% endif %}">
+            <label for="id_registered">Number Registered</label>
+            <input id="id_registered"  name="registered" min="0" value="{{ form.registered.value }}"  type="number" title="Only numbers are allowed" class="form-control" tabindex="4" />
+                {% if form.registered.errors %}
+                  {{ form.registered.errors }}
+                {% endif %}
+ 
+        </div>
+    </div>
+    <div class="col-md-6 form-group">
+        <div class="form-group{% if form.executed.errors %} has-error{% endif %}">
+            <label for="id_executed">Number Executed</label>
+            <input id="id_executed" min="0" value="{{ form.executed.value }}" name="executed" type="number" title="Only numbers are allowed" class="form-control" tabindex="5" />
+                {% if form.executed.errors %}
+                  {{ form.executed.errors }}
+                {% endif %}
+        </div>
+    </div>
+    <h4 class="formtitle">Comments on bottlenecks & successes</h4>
+    <div class="col-md-6 form-group">
+        <div class="form-group{% if form.general_comment.errors %} has-error{% endif %}">
+            <label for="id_general_comment">General Comment</label>
+            <textarea cols="40" id="id_general_comment" name="general_comment" class="form-control" rows="3" tabindex="6">{{ form.general_comment.value }}</textarea>
+                {% if form.general_comment.errors %}
+                  {{ form.general_comment.errors }}
+                {% endif %}
+        </div>
+         <div class="form-group{% if form.measures_taken.errors %} has-error{% endif %}">
+            <label for="id_measures_taken">Measures Taken</label>
+            <textarea cols="40" id="id_measures_taken" name="measures_taken" class="form-control" rows="3" tabindex="8">{{ form.measures_taken.value }}</textarea>
+                {% if form.measures_taken.errors %}
+                  {{ form.measures_taken.errors }}
+                {% endif %}
+        </div>
+        
+    </div>
+    <div class="col-md-6 form-group">
+       <div class="form-group{% if form.bottlenecks.errors %} has-error{% endif %}">
+            <label for="id_bottlenecks">Bottlenecks</label>
+            <textarea cols="40" id="id_bottlenecks" name="bottlenecks" class="form-control" rows="3" tabindex="7">{{ form.bottlenecks.value }}</textarea>
+                {% if form.bottlenecks.errors %}
+                  {{ form.bottlenecks.errors }}
+                {% endif %}
+        </div>
+       
+        <div class="form-group{% if form.success_challenges.errors %} has-error{% endif %}">
+            <label for="id_success_challenges">Success Challenges</label>
+            <textarea cols="40" id="id_success_challenges" name="success_challenges" class="form-control" rows="3" tabindex="9">{{ form.success_challenges.value }}</textarea>
+                {% if form.success_challenges.errors %}
+                  {{ form.success_challenges.errors }}
+                {% endif %}
+        </div>
+    </div>
+        <div class="bt-submit">
+            <button type="submit" class="btn btn-success" tabindex="10">Save</button>
+        
+            <button type="submit" class="btn btn-primary" tabindex="11" name="save_add">Save & Add</button>
+         
+            <button type="reset" class="btn btn-danger" tabindex="12">Cancel</button>
+         </div>
+    </form>
+     </div>
+</div>
+  <div class="tab-pane col-md-8" id="list">
+    {% include "snippets/tender_proc_performance_list.html" %}
+  </div>
+</div>
+   <script>
+        FilterTenderProcProperties({{ form.tender_procedure_property.value.id }})
+   </script>
+{% endblock %}

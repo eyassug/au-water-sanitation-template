@@ -1,0 +1,41 @@
+<script type="text/javascript">
+				/* Table initialisation */
+			$(document).ready(function() {
+				$('#pp').dataTable( {
+					"bSort": true,        // Disable sorting
+					"iDisplayLength": 5,   // records per page
+					"sDom": "t<'row'<'col-md-6'i><'col-md-6'p>>",
+					"sPaginationType": "bootstrap"
+				});
+			});
+		</script>
+<div class="table-responsive">
+<table class="table table-hover table-bordered" id="pp">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Sector Category</th>
+            <th>Year</th>
+            <th>Delay in preparing plan (days)</th>
+            <th>Delay in adopting plan (days)</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+<tbody>
+{% for d in data %}
+
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ d.sector_category }}</td>
+        <td>{{ d.year }}</td>        
+        <td>{{ d.plan_preparation_delay }}</td>
+        <td>{{ d.plan_adoption_delay }}</td>
+        <td><a href="/report/PlanningPerformance/{{ d.id }}">Edit</a></td>
+    </tr>
+    
+{% endfor %}
+
+</tbody>
+</table>
+
+</div>

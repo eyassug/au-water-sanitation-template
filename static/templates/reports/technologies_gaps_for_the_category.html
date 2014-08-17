@@ -1,0 +1,47 @@
+{% extends 'welcome.html' %}
+{% block content_container %}
+{% load widget_tweaks %}
+    
+<div class ="col-md-8">
+    <h2 class="page-header">Technology Gap Clustered By category</h2>
+    <form method="post" action="">{% csrf_token %}
+        <div class ="col-md-6">
+        <div class="form-group{% if form.sector_category.errors %} has-error{% endif %}">           
+               <label for="id_Start_year">Sector category</label>
+               {% render_field form.sector_category class+="form-control" tabindex+="2" %}
+               {% if form.sector_category.errors %}
+                  {{ form.sector_category.errors }}
+                {% endif %}
+            </div>
+            <div class="form-group{% if form.start_year.errors %} has-error{% endif %}">           
+               <label for="id_end_year">From</label>
+               {% render_field form.start_year class+="form-control" tabindex+="2" %}
+               {% if form.start_year.errors %}
+                  {{ form.strat_year.errors }}
+                {% endif %}
+            </div>
+            <div class="form-group{% if form.end_year.errors %} has-error{% endif %}">           
+               <label for="id_end_year">To</label>
+               {% render_field form.end_year class+="form-control" tabindex+="2" %}
+               {% if form.end_year.errors %}
+                  {{ form.end_year.errors }}
+                {% endif %}
+            </div>
+            <div class="form-group ">           
+              <button type="submit" class="btn btn-success">Generate</button>
+            </div>
+            {% if gaps_by_category %}
+            <div class="form-group">
+                <div class="exportpdfdiv">
+                <a href="/report/technologiesgapsforthecategorypdf?category={{ category.id }}&start_year={{ start_year }}&end_year={{ end_year }}" target="_blank" class="btn btn-danger exportpdf active" role="button">Export to PDF</a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </form>
+{% if gaps_by_category %}
+    {% include "snippets/report_style.html" %}  
+    {% include "snippets/technologies_gaps_for_the_category_report.html" %}
+{% endif %}
+</div>
+{% endblock %}

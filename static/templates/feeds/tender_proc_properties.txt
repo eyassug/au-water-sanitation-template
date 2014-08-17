@@ -1,0 +1,2 @@
+{% for p in properties %}{{ p.id }};{{ p.name }}   
+{% endfor %}

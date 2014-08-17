@@ -1,0 +1,52 @@
+<script type="text/javascript">
+				/* Table initialisation */
+			$(document).ready(function() {
+				$('#ta').dataTable( {
+					"bSort": true,        // Disable sorting
+					"iDisplayLength": 5,   // records per page
+					"sDom": "t<'row'<'col-md-6'i><'col-md-6'p>>",
+					"sPaginationType": "bootstrap"
+				});
+			});
+		</script>
+<div class="table-responsive">
+<table class="table table-hover table-bordered" id="ta">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Priority Area</th>
+            <th>Technology</th>
+            <th>Year</th>
+            <th>No of Facilities Planned</th>
+            <th>No of Facilities Reported</th>
+            <th>No of Tech Secured</th>
+            <th>Unit Cost (USD)</th>
+            <th>Household Contribution (%)</th>
+            <th>Government Contribution (%)</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+<tbody>
+    
+{% for d in data %}
+
+    <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{ d.priority_area }}</td>
+        <td>{{ d.technology }}</td>
+        <td>{{ d.year }}</td>        
+        <td>{{ d.planned }}</td>
+        <td>{{ d.actual }}</td>
+        <td>{{d.secured}}</td>
+        <td>{{ d.unit_cost }}</td>        
+        <td>{{ d.house_hold_contribution }}</td>
+        <td>{{ d.government_contribution }}</td>
+        <td><a href="/report/facilityaccess/{{d.id}}">Edit</a></td>
+    </tr>
+    
+{% endfor %}
+
+</tbody>
+</table>
+
+</div>

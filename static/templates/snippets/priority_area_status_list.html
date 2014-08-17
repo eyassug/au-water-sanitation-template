@@ -1,0 +1,42 @@
+<script type="text/javascript">
+				/* Table initialisation */
+			$(document).ready(function() {
+				$('#ps').dataTable( {
+					"bSort": true,        // Disable sorting
+					"iDisplayLength": 5,   // records per page
+					"sDom": "t<'row'<'col-md-6'i><'col-md-6'p>>",
+					"sPaginationType": "bootstrap"
+				});
+			});
+		</script>
+<div class="table-responsive">
+<table class="table table-striped table-bordered" id="ps">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Priority Area</th>
+            <th>Year</th>
+            <th>Population</th>
+            <th># of Households</th>
+            <th></th>
+        </tr>
+    </thead>
+<tbody>
+
+{% for d in data %}
+
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{d.priority_area.name}}</td>
+        <td>{{ d.year }}</td>
+        <td>{{ d.population }}</td>
+        <td>{{ d.number_of_households }}</td>        
+        <td><a href="/report/PriorityStatus/{{ d.id }}">Edit</a></td>
+    </tr>
+    
+{% endfor %}
+
+</tbody>
+</table>
+
+</div>

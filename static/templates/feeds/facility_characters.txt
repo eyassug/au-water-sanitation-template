@@ -1,0 +1,2 @@
+{% for fc in facility_characters %}{{ fc.id }};{{ fc.name }}   
+{% endfor %}

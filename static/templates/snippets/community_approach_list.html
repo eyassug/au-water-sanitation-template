@@ -1,0 +1,43 @@
+<script type="text/javascript">
+				/* Table initialisation */
+			$(document).ready(function() {
+				$('#ca').dataTable( {
+					"bSort": true,        // Disable sorting
+					"iDisplayLength": 5,   // records per page
+					"sDom": "t<'row'<'col-md-6'i><'col-md-6'p>>",
+					"sPaginationType": "bootstrap"
+				});
+			});
+		</script>
+<div class="table-responsive">
+<table class="table table-hover table-bordered" id="ca">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Sector Category</th>
+            <th>Approach Type</th>
+            <th>Approach Name</th>
+            <th>Year of Initiation</th>
+            <th>Cost/Capita (USD)</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+<tbody>
+{% for d in data %}
+
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ d.sector_category }}</td>
+        <td>{{ d.approach_type }}</td>        
+        <td>{{ d.approach_name }}</td>
+        <td>{{ d.year }}</td>
+        <td>{{ d.cost_per_capita }}</td>
+        <td><a href="/report/communityapproach/{{d.id}}">Edit</a></td>
+    </tr>
+    
+{% endfor %}
+
+</tbody>
+</table>
+
+</div>

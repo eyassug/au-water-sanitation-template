@@ -1,0 +1,43 @@
+<script type="text/javascript">
+				/* Table initialisation */
+			$(document).ready(function() {
+				$('#pc').dataTable( {
+					"bSort": true,        // Disable sorting
+					"iDisplayLength": 5,   // records per page
+					"sDom": "t<'row'<'col-md-6'i><'col-md-6'p>>",
+					"sPaginationType": "bootstrap"
+				});
+			});
+		</script>
+<div class="table-responsive">
+<table class="table table-hover table-bordered" id="pc">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Sector Category</th>
+            <th>Partner</th>
+            <th>Annual Contribution (USD)</th>
+            <th>In-kind Contribution (%)</th>
+            <th>Financial Contribution (%)</th>            
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+<tbody>
+{% for d in data %}
+
+    <tr>
+        <td>{{ loop.counter }}</td>
+        <td>{{ d.sector_category }}</td>
+        <td>{{ d.partner }}</td>        
+        <td>{{ d.annual_contribution }}</td>
+        <td>{{ d.in_kind_contribution }}</td>        
+        <td>{{ d.financial_contribution }}</td>
+        <td><a href="/report/partnercontribution/{{d.id}}">Edit</a></td>
+    </tr>
+    
+{% endfor %}
+
+</tbody>
+</table>
+
+</div>
