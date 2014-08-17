@@ -208,8 +208,8 @@ class PriorityAreaStatusCreate(LoginRequiredMixin,View):
             form = PriorityAreaStatusForm(instance=instance)
         else:
             form = PriorityAreaStatusForm()
-            form.filter(country=user_country)
-        #data = models.PriorityAreaStatus.objects.all()
+            
+        form.filter(country=user_country)
         data = models.PriorityAreaStatus.objects.filter(priority_area__country = user_country)
 
         return render(request,'priority_area_status_form.html', {
@@ -221,23 +221,33 @@ class PriorityAreaStatusCreate(LoginRequiredMixin,View):
     def post(self,request,id=None):
         user_country = request.user.usercountry.country            
         form = PriorityAreaStatusForm(request.POST)
-        data = models.PriorityAreaStatus.objects.all()
-        if form.is_valid():            
+        form.filter(country=user_country)
+        data = models.PriorityAreaStatus.objects.filter(priority_area__country = user_country)
+
+        if form.is_valid():
+            aaa()
             if(id):
                 form.instance.id = int(id)
-            form.save()            
-            new_form = PriorityAreaStatusForm()
-            messages.success(request, 'Report has been successfully submitted.')
-            new_form.filter(country=user_country)
+            try:
+                ins = form.save()
+                messages.success(request, 'Report has been successfully submitted.')
+            except IntegrityError as e:
+                messages.error(request,'Could not Save! Duplicate Entry for Priority Area: '+ str(form.instance.priority_area) + ' and Year '+ str(form.instance.year))
+                messages.show()
+            except:
+                messages.error(request,'An unexpected error occured.\n'+ str(sys.exc_info()[0]) + '\n'+ str(ex))
+                messages.show()
+                
             if (request.POST.has_key('save_add')):
-                new_form = PriorityAreaStatusForm(initial={'priority_area':form.cleaned_data['priority_area']})                
+                new_form = PriorityAreaStatusForm(initial={'priority_area':form.cleaned_data['priority_area']})
+                new_form.filter(country=user_country)
                 return render(request,'priority_area_status_form.html', {
                     'form': new_form,
                     'country': user_country,
                     'data':data
                 })
-            return HttpResponseRedirect('/report/prioritystatus#list')
-        return render(request, 'priority_area_status_form.html', {'form': form})
+            return HttpResponseRedirect('/report/prioritystatus')
+        return render(request, 'priority_area_status_form.html', {'form': form,'country':user_country,'data':data})
     
 class PlanningPerformanceCreate(LoginRequiredMixin,View):
     model = PlanningPerformance
