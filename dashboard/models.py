@@ -142,6 +142,9 @@ class PriorityAreaStatus(models.Model):
     population = models.PositiveIntegerField()
     number_of_households = models.IntegerField()
     
+    class Meta:
+        unique_together = ("priority_area", "year")
+    
 class FacilityAccess(models.Model):
     priority_area = models.ForeignKey('PriorityArea', blank=False)
     technology = models.ForeignKey('Technology', blank=False)
@@ -156,6 +159,9 @@ class FacilityAccess(models.Model):
     house_hold_contribution = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     government_contribution = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     
+    class Meta:
+        unique_together = ("priority_area","technology", "year")
+        
 class SectorPerformance(models.Model):
     country = models.ForeignKey('Country', blank=False)
     sector_category = models.ForeignKey('SectorCategory', blank=False)

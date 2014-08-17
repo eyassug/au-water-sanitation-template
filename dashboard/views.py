@@ -123,7 +123,11 @@ class FacilityAccessCreate(LoginRequiredMixin,View):
                 })
     
             form.instance.technology = technology
-            form.save()
+            try:
+                form.save()
+                messages.success(request, 'Report has been successfully submitted.')
+            except IntegrityError as e:
+                messages.error(request,'Could not Save! Duplicate Entry for Priority Area '+ str(form.instance.priority_area) + ' and Year '+ str(form.instance.year) + ' and Technology '+ str(form.instance.technology))
             if (request.POST.has_key('save_add')):
                 new_form = DFacilityAccessForm(initial={'priority_area':form.instance.priority_area,
                                                         'sector_category':form.cleaned_data['sector_category'],
@@ -171,8 +175,11 @@ class CountryStatusCreate(LoginRequiredMixin,View):
             form.instance.country = user_country
             if(id):
                 form.instance.id = int(id)
-            ins = form.save()
-            messages.success(request, 'Report has been successfully submitted.')
+            try:
+                ins = form.save()
+                messages.success(request, 'Report has been successfully submitted.')
+            except IntegrityError as e:
+                messages.error(request,'Could not Save! Duplicate Entry for Country '+ str(user_country) + ' and Year '+ str(form.instance.year))
             if(request.POST.has_key('save_add')):
                 new_form = CountryStatusForm(initial={'country':user_country,'year':form.instance.year})
                 new_form.instance.country = user_country
