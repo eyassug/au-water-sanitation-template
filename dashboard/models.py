@@ -186,10 +186,13 @@ class PlanningPerformance(models.Model):
     year = models.ForeignKey('Period')
     plan_preparation_delay = models.PositiveSmallIntegerField(null=True,blank=True)    
     plan_adoption_delay = models.PositiveSmallIntegerField(null=True,blank=True)
-    general_comment = models.TextField()
-    bottlenecks = models.TextField()
-    measures_taken = models.TextField()
-    success_challenges = models.TextField()
+    general_comment = models.TextField(blank=True)
+    bottlenecks = models.TextField(blank=True)
+    measures_taken = models.TextField(blank=True)
+    success_challenges = models.TextField(blank=True)
+    
+    class Meta:
+        unique_together = ("country", "sector_category", "year")
 
 class TenderProcedurePerformance(models.Model):
     country = models.ForeignKey('Country',blank=False)
