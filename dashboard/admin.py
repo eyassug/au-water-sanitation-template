@@ -54,7 +54,7 @@ class PriorityAreaAdmin(admin.ModelAdmin):
         return super(PriorityAreaAdmin,self).get_form(request,obj,**kwargs)
     
     def save_model(self, request, obj, form, change):
-        if not request.user.is_superuser():
+        if not request.user.is_superuser:
             obj.country = request.user.usercountry.country
         obj.save()
     def get_country(self, obj):    
