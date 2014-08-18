@@ -52,9 +52,9 @@ class TechnologyGapReport():
         technology_gaps = []
         for ta in technology_access:
             number = ta.planned - ta.actual - ta.secured
-            unit_cost = self.get_latest_unit_cost(ta.technology,priority_area)
-            total_cost = number * unit_cost
-            government_contribution = total_cost * ta.government_contribution / 100
+            unit_cost = self.get_latest_unit_cost(ta.technology,priority_area) 
+            total_cost = number or 0 * unit_cost or 0
+            government_contribution = total_cost or 0 * ta.government_contribution / 100
             population_affected = ta.planned_pop_affected - ta.actual_pop_affected - ta.secured_pop_affected
             gap = {
                 'priority_area':priority_area,
@@ -177,14 +177,14 @@ class TechnologyGapByCategoryReport():
         pop_secured = technology_access.aggregate(Sum('secured_pop_affected'))['secured_pop_affected__sum']
         population_affected = pop_planned - pop_actual - pop_secured
         # unit cost
-        latest_unit_cost = self.get_latest_unit_cost(technology,priority_area)
-        latest_gov_contribution = self.get_latest_government_contribution(technology,priority_area)
+        latest_unit_cost = self.get_latest_unit_cost(technology,priority_area) or 0
+        latest_gov_contribution = self.get_latest_government_contribution(technology,priority_area) or 0
         return {
             'technology':technology,
-            'number':number,
-            'unit_cost':latest_unit_cost,
-            'total_cost':number * latest_unit_cost,
-            'government_contribution': number * latest_unit_cost * latest_gov_contribution / 100,
+            'number':number or 0,
+            'unit_cost':latest_unit_cost or 0,
+            'total_cost':(number * latest_unit_cost),
+            'government_contribution': (number * latest_unit_cost * latest_gov_contribution / 100) ,
             'population_affected':population_affected
         }
         
