@@ -225,7 +225,7 @@ class PriorityAreaStatusCreate(LoginRequiredMixin,View):
         data = models.PriorityAreaStatus.objects.filter(priority_area__country = user_country)
 
         if form.is_valid():
-            aaa()
+            
             if(id):
                 form.instance.id = int(id)
             try:
@@ -521,10 +521,14 @@ class SWOTAndConclusionCreate(LoginRequiredMixin,View):
         form.instance.country = user_country
         data = models.SWOT.objects.all()
         if(form.is_valid()):
-            if(id):
-                form.instance.id = int(id)
-            form.save()
-            messages.success(request, 'Report has been successfully submitted.')
+            #if(id):
+            #    form.instance.id = int(id)
+            try:
+                form.save()
+                messages.success(request, 'Report has been successfully submitted.')
+            except IntegrityError as e:
+                messages.error(request,'Could not Save!' )
+            
             if (request.POST.has_key('save_add')):
                 new_form = form_class(initial={'sector_category':form.cleaned_data['sector_category']})                
                 return render(request,self.template_name, {
