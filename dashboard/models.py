@@ -70,7 +70,7 @@ class TenderProcedureProperty(models.Model):
     
 class Technology(models.Model):
     facility_character = models.ForeignKey('FacilityCharacter')
-    name = models.CharField(max_length=120, null=False, blank=False, unique=True)
+    name = models.CharField(max_length=120, null=False, blank=False, unique=True, verbose_name = "Technology")
     is_active = models.BooleanField(default=True)
    
     def __str__(self):

@@ -73,7 +73,7 @@
            <div class="col-md-6 form-group">
             <div class="form-group{% if form.weaknesses.errors %} has-error{% endif %}">
                     <label for="id_weaknesses">Weaknesses</label>
-                    <textarea cols="40" id="id_weaknesses" name="weaknesses" class="form-control" rows="3" tabindex="7">{{form.weaknesses.value}}</textarea>
+                    <textarea cols="40" id="id_weaknesses" name="weaknesses" class="form-control" rows="3" tabindex="4">{{form.weaknesses.value}}</textarea>
                      {% if form.weaknesses.errors %}
                         {{ form.weaknesses.errors }}
                     {% endif %}
@@ -102,7 +102,7 @@
                 
                 <div class="form-group{% if form.kap_recommendations.errors %} has-error{% endif %}">
                     <label for="id_kap_recommendations">Recommendation KAP</label>
-                    <textarea cols="40" id="id_kap_recommendations" name="kap_recommendations" class="form-control" rows="3" tabindex="4">{{form.kap_recommendations.value}}</textarea>
+                    <textarea cols="40" id="id_kap_recommendations" name="kap_recommendations" class="form-control" rows="3" tabindex="8">{{form.kap_recommendations.value}}</textarea>
                     {% if form.kap_recommendations.errors %}
                         {{ form.kap_recommendations.errors }}
                     {% endif %}
