@@ -61,6 +61,7 @@
         
        </div>
 {% if technology_gap_list %}
+    
     {% include "snippets/report_style.html" %}   
     
      
@@ -69,4 +70,9 @@
     {% include "snippets/technology_gap_clustered_by_pa_report.html" %}
 {% endif %}
 </div>
+<script>
+    FilterFacilityCharacters({{ technology.facility_character.id }});
+    FilterTechnologiesNew({{ technology.id }},{{ technology.facility_character.id }});
+    
+</script>
 {% endblock %}
