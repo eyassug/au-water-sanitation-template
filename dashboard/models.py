@@ -86,7 +86,7 @@ class FacilityCharacter(models.Model):
     is_active = models.BooleanField(default=True)
    
     def __str__(self):
-        return self.name + ' - ' + self.sector_category.name
+        return self.name 
     
         
     class Meta:
