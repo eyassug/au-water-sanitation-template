@@ -42,6 +42,7 @@ class PriorityArea(models.Model):
 
     class Meta:
         verbose_name_plural = "Priority Areas"
+        unique_together = ("country", "name")
      
 class SectorCategory(models.Model):
     name = models.CharField(max_length=120, null=False, blank=False, unique=True)
@@ -67,6 +68,7 @@ class TenderProcedureProperty(models.Model):
     class Meta:
         verbose_name_plural = "Tender & Procedure Properties"
         ordering = ['name']
+        unique_together = ("sector_category", "name")
     
 class Technology(models.Model):
     facility_character = models.ForeignKey('FacilityCharacter')
@@ -79,6 +81,7 @@ class Technology(models.Model):
     class Meta:
         verbose_name_plural = "Technologies"
         ordering = ['name']
+        unique_together = ("facility_character", "name")
         
 class FacilityCharacter(models.Model):
     sector_category = models.ForeignKey('SectorCategory')
@@ -92,6 +95,7 @@ class FacilityCharacter(models.Model):
     class Meta:
         verbose_name_plural = "Facility Characters"
         ordering = ['name']
+        unique_together = ("sector_category", "name")
     
 class CommunityApproachType(models.Model):
     name = models.CharField(max_length=120, null=False, blank=False, unique=True)
