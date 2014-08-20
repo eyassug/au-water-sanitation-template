@@ -62,8 +62,9 @@ class TenderProcedureProperty(models.Model):
     name = models.CharField(max_length=120, null=False, blank=False, unique=True)
     is_active = models.BooleanField(default=True)
     
-    def __str__(self):
+    def __unicode__(self):
         return self.name + ' - ' + self.sector_category.name
+    
     
     class Meta:
         verbose_name_plural = "Tender & Procedure Properties"
