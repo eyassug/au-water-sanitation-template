@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = (
     'widget_tweaks',
-    'south',
+    #'south',
     'django_admin_bootstrapped',    
     'django.contrib.admin',
     'django.contrib.auth',
