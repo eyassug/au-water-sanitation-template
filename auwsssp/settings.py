@@ -75,6 +75,10 @@ DATABASES = {
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
+LANGUAGES = (
+  ('en-us', ('English')),
+  ('fr', ('French')),
+)
 
 TIME_ZONE = 'UTC'
 

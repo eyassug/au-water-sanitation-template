@@ -1,8 +1,9 @@
 {% extends 'welcome.html' %}
 
 {% block content_container %}
-    <div class ="col-md-6">
-    <div class="boarder">
+    
+        
+    <div class="boarder login" >
          <h2>Login</h2>
         <form class="boarder" role="form" action="/login/" method="post">{% csrf_token %}
              {% if next %}
@@ -23,4 +24,5 @@
         </form>
     </div>
     </div>
+    
 {% endblock %}
