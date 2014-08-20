@@ -81,4 +81,8 @@
     {% include "snippets/technology_gap_clustered_by_pa_report.html" %}
 {% endif %}
 
+<script>
+    FilterFacilityCharacters({{ technology.facility_character.id }});
+    FilterTechnologiesNew({{ technology.id }}, {{ technology.facility_character.id }});
+</script>
 {% endblock %}
