@@ -59,7 +59,7 @@ class SectorCategory(models.Model):
 
 class TenderProcedureProperty(models.Model):
     sector_category = models.ForeignKey('SectorCategory')
-    name = models.CharField(max_length=120, null=False, blank=False, unique=True)
+    name = models.CharField(max_length=120, null=False, blank=False)
     is_active = models.BooleanField(default=True)
     
     def __unicode__(self):
