@@ -71,7 +71,8 @@ class PriorityAreaAdmin(admin.ModelAdmin):
      
     #code
 
-
+class TenderProcedurePropertyAdmin(admin.ModelAdmin):
+    list_display = ['name','sector_category']
 # Re-register UserAdmin
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
@@ -81,3 +82,6 @@ admin.site.register(PriorityArea,PriorityAreaAdmin)
 
 admin.site.unregister(Technology)
 admin.site.register(Technology,TechnologyAdmin)
+
+admin.site.unregister(TenderProcedureProperty)
+admin.site.register(TenderProcedureProperty,TenderProcedurePropertyAdmin)
