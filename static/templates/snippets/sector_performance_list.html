@@ -11,6 +11,9 @@
             <th>Funds Mobilized (USD)</th>
             <th>Funds Availed (USD)</th>
             <th>Funds Used (USD)</th>
+        {% if user.is_superuser %}
+            <th>Country</th>
+        {% endif %}
             <th>&nbsp;</th>
         </tr>
     </thead>
@@ -27,6 +30,9 @@
         <td>{{ d.fund_mobilised }}</td>
         <td>{{ d.fund_availed }}</td>
         <td>{{ d.fund_used }}</td>
+    {% if user.is_superuser %}
+        <td>{{ d.country }}</td>
+    {% endif %}
         <td><a href="/report/SectorPerformance/{{ d.id }}">Edit</a></td>
     </tr>
     

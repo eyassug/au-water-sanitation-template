@@ -20,7 +20,10 @@
             <th>Year</th>
             <th>Contribution to Government Staff (USD)</th>
             <th>Contribution to Own Staff (USD)</th>
-            <th>Total Budget Contributed</th>            
+            <th>Total Budget Contributed</th>
+        {% if user.is_superuser %}
+            <th>Country</th>
+        {% endif %}
             <th>&nbsp;</th>
         </tr>
     </thead>
@@ -36,6 +39,9 @@
         <td>{{ d.government_staff_contribution }}</td>
         <td>{{ d.own_staff_contribution }}</td>        
         <td>{{ d.total_event_contribution }}</td>
+    {% if user.is_superuser %}
+        <td>{{ d.country }}</td>
+    {% endif %}
         <td><a href="/report/partnereventcontribution/{{d.id}}">Edit</a></td>
     </tr>
     

@@ -18,7 +18,10 @@
             <th>Partner</th>
             <th>Annual Contribution (USD)</th>
             <th>In-kind Contribution (%)</th>
-            <th>Financial Contribution (%)</th>            
+            <th>Financial Contribution (%)</th>
+        {% if user.is_superuser %}
+            <th>Country</th>
+        {% endif %}
             <th>&nbsp;</th>
         </tr>
     </thead>
@@ -32,6 +35,9 @@
         <td>{{ d.annual_contribution }}</td>
         <td>{{ d.in_kind_contribution }}</td>        
         <td>{{ d.financial_contribution }}</td>
+    {% if user.is_superuser %}
+        <td>{{ d.country }}</td>
+    {% endif %}
         <td><a href="/report/partnercontribution/{{d.id}}">Edit</a></td>
     </tr>
     

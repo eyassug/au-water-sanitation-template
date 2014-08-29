@@ -20,6 +20,9 @@
             <th>Year</th>
             <th>Number Registered</th>
             <th>Number Executed</th>
+        {% if user.is_superuser %}
+            <th>Country</th>
+        {% endif %}
             <th>&nbsp;</th>
         </tr>
     </thead>
@@ -33,6 +36,9 @@
         <td>{{ d.year }}</td>        
         <td>{{ d.registered }}</td>
         <td>{{ d.executed }}</td>
+    {% if user.is_superuser %}
+        <th>{{ d.country }}</th>
+    {% endif %}
         <td><a href="/report/TenderProcPerformance/{{ d.id }}">Edit</a></td>
     </tr>
     

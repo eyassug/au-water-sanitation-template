@@ -18,6 +18,9 @@
             <th>Year</th>
             <th>Population</th>
             <th># of Households</th>
+        {% if user.is_superuser %}
+            <th>PA - Country</th>
+        {% endif %}
             <th></th>
         </tr>
     </thead>
@@ -30,7 +33,10 @@
         <td>{{d.priority_area.name}}</td>
         <td>{{ d.year }}</td>
         <td>{{ d.population }}</td>
-        <td>{{ d.number_of_households }}</td>        
+        <td>{{ d.number_of_households }}</td>
+    {% if user.is_superuser %}
+        <td>{{ d.priority_area }}</td>
+    {% endif %}
         <td><a href="/report/PriorityStatus/{{ d.id }}">Edit</a></td>
     </tr>
     
