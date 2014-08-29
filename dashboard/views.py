@@ -97,7 +97,7 @@ class FacilityAccessCreate(LoginRequiredMixin,View):
             form = DFacilityAccessForm()
         
         form.filter(country=user_country)
-        data = models.FacilityAccess.objects.all()
+        data = models.FacilityAccess.objects.filter(priority_area__country=user_country)
         return render(request, 'facility_access_form.html', {
             'form': form,
             'country': user_country,
@@ -107,7 +107,7 @@ class FacilityAccessCreate(LoginRequiredMixin,View):
     def post(self,request, id=None):
         form = DFacilityAccessForm(request.POST)
         user_country = request.user.usercountry.country
-        data = models.FacilityAccess.objects.all()
+        data = models.FacilityAccess.objects.filter(priority_area__country=user_country)
         if form.is_valid():
             if(id):
                 form.instance.id = int(id)
@@ -164,6 +164,7 @@ class CountryStatusCreate(LoginRequiredMixin,View):
         else:
             form = CountryStatusForm()
         form.instance.country = user_country
+        
         data = models.CountryDemographic.objects.filter(country=user_country)
         return render(request, self.template_name, {
             'form': form,
@@ -365,7 +366,7 @@ class CommunityApproachCreate(LoginRequiredMixin,View):
             form=form_class(instance=instance)
         else:
             form=form_class(initial={'approach_name':"", 'description':"",'lessons_learnt':''})
-        data = models.CommunityApproach.objects.all()
+        data = models.CommunityApproach.objects.filter(country=user_country)
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
@@ -377,7 +378,7 @@ class CommunityApproachCreate(LoginRequiredMixin,View):
         form_class = modelform_factory(CommunityApproach, exclude=['country'])
         form = form_class(request.POST)
         form.instance.country = user_country
-        data = models.CommunityApproach.objects.all()
+        data = models.CommunityApproach.objects.filter(country=user_country)
         if(form.is_valid()):
             if(id):
                 form.instance.id = int(id)
@@ -414,7 +415,7 @@ class PartnerContributionCreate(LoginRequiredMixin,CreateView):
             form = form_class(instance=instance)
         else:
             form = form_class(initial={'in_kind_contribution':'','financial_contribution':'', 'annual_contribution':''})
-        data = models.PartnerContribution.objects.all()
+        data = models.PartnerContribution.objects.filter(country=user_country)
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
@@ -425,7 +426,7 @@ class PartnerContributionCreate(LoginRequiredMixin,CreateView):
         form_class = modelform_factory(PartnerContribution, exclude=['country'])
         form = form_class(request.POST)
         form.instance.country = user_country
-        data = models.PartnerContribution.objects.all()
+        data = models.PartnerContribution.objects.filter(country=user_country)
         if(form.is_valid()):
             if(id):
                 form.instance.id = int(id)
@@ -461,7 +462,7 @@ class PartnerEventContributionCreate(LoginRequiredMixin,CreateView):
             form = form_class(instance=instance)
         else:
             form = form_class()
-        data = models.PartnerEventContribution.objects.all()
+        data = models.PartnerEventContribution.objects.filter(country=user_country)
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
@@ -472,7 +473,7 @@ class PartnerEventContributionCreate(LoginRequiredMixin,CreateView):
         form_class = modelform_factory(PartnerEventContribution, exclude=['country'])
         form = form_class(request.POST)
         form.instance.country = user_country
-        data = models.PartnerEventContribution.objects.all()
+        data = models.PartnerEventContribution.objects.filter(country=user_country)
         if(form.is_valid()):
             if(id):
                 form.instance.id = int(id)
@@ -508,7 +509,7 @@ class SWOTAndConclusionCreate(LoginRequiredMixin,View):
             form = form_class(instance=instance)
         else:
             form = form_class(initial={'strengths':'', 'opportunities':'','mitigation_measures':'','overall_challenges':'','kap_recommendations':'','risks':'','weaknesses':'','conclusion':''})
-        data = models.SWOT.objects.all()
+        data = models.SWOT.objects.filter(country=user_country)
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
@@ -519,7 +520,7 @@ class SWOTAndConclusionCreate(LoginRequiredMixin,View):
         form_class = modelform_factory(SWOT,exclude=['country'])
         form = form_class(request.POST)
         form.instance.country = user_country
-        data = models.SWOT.objects.all()
+        data = models.SWOT.objects.filter(country=user_country)
         if(form.is_valid()):
             #if(id):
             #    form.instance.id = int(id)
