@@ -46,7 +46,10 @@ class SectorPerformanceCreate(LoginRequiredMixin,CreateView):
             form = SectorPerformanceForm(instance=instance)
         else:
             form = SectorPerformanceForm(initial={'success_challenges':'','general_comment':'','bottlenecks':'','measures_taken':''})
-        data = models.SectorPerformance.objects.filter(country=user_country)
+        if not request.user.is_superuser:
+            data = models.SectorPerformance.objects.filter(country=user_country)
+        else:
+            data = models.SectorPerformance.objects.all()
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
@@ -57,7 +60,10 @@ class SectorPerformanceCreate(LoginRequiredMixin,CreateView):
         form_class = modelform_factory(SectorPerformance, exclude=['country'])
         form = form_class(request.POST)
         form.instance.country = user_country
-        data = models.SectorPerformance.objects.filter(country=user_country)
+        if not request.user.is_superuser:
+            data = models.SectorPerformance.objects.filter(country=user_country)
+        else:
+            data = models.SectorPerformance.objects.all()
         if(form.is_valid()):
             if(id):
                 form.instance.id = int(id)
@@ -97,7 +103,10 @@ class FacilityAccessCreate(LoginRequiredMixin,View):
             form = DFacilityAccessForm()
         
         form.filter(country=user_country)
-        data = models.FacilityAccess.objects.filter(priority_area__country=user_country)
+        if not request.user.is_superuser:
+            data = models.FacilityAccess.objects.filter(priority_area__country=user_country)
+        else:
+            data = models.FacilityAccess.objects.all()
         return render(request, 'facility_access_form.html', {
             'form': form,
             'country': user_country,
@@ -107,7 +116,11 @@ class FacilityAccessCreate(LoginRequiredMixin,View):
     def post(self,request, id=None):
         form = DFacilityAccessForm(request.POST)
         user_country = request.user.usercountry.country
-        data = models.FacilityAccess.objects.filter(priority_area__country=user_country)
+        if not request.user.is_superuser:
+            data = models.FacilityAccess.objects.filter(priority_area__country=user_country)
+        else:
+            data = models.FacilityAccess.objects.all()
+        
         if form.is_valid():
             if(id):
                 form.instance.id = int(id)
@@ -164,8 +177,10 @@ class CountryStatusCreate(LoginRequiredMixin,View):
         else:
             form = CountryStatusForm()
         form.instance.country = user_country
-        
-        data = models.CountryDemographic.objects.filter(country=user_country)
+        if not request.user.is_superuser:
+            data = models.CountryDemographic.objects.filter(country=user_country)
+        else:
+            data = models.CountryDemographic.objects.all()
         return render(request, self.template_name, {
             'form': form,
             'country': user_country,
@@ -189,7 +204,10 @@ class CountryStatusCreate(LoginRequiredMixin,View):
                 new_form.instance.country = user_country
                 new_form.instance.year = form.instance.year
                 new_form.instance.population = 0
-                data = models.CountryDemographic.objects.filter(country=user_country)
+                if not request.user.is_superuser:
+                    data = models.CountryDemographic.objects.filter(country=user_country)
+                else:
+                    data = models.CountryDemographic.objects.all()
                 return render(request, self.template_name, {
                     'form': new_form,
                     'country': user_country,
@@ -211,8 +229,11 @@ class PriorityAreaStatusCreate(LoginRequiredMixin,View):
             form = PriorityAreaStatusForm()
             
         form.filter(country=user_country)
-        data = models.PriorityAreaStatus.objects.filter(priority_area__country = user_country)
-
+        if not request.user.is_superuser:
+            data = models.PriorityAreaStatus.objects.filter(priority_area__country = user_country)
+        else:
+            data = models.PriorityAreaStatus.objects.all()
+                            
         return render(request,'priority_area_status_form.html', {
             'form': form,
             'country': user_country,
@@ -223,7 +244,10 @@ class PriorityAreaStatusCreate(LoginRequiredMixin,View):
         user_country = request.user.usercountry.country            
         form = PriorityAreaStatusForm(request.POST)
         form.filter(country=user_country)
-        data = models.PriorityAreaStatus.objects.filter(priority_area__country = user_country)
+        if not request.user.is_superuser:
+            data = models.PriorityAreaStatus.objects.filter(priority_area__country = user_country)
+        else:
+            data = models.PriorityAreaStatus.objects.all()
 
         if form.is_valid():
             
@@ -263,7 +287,10 @@ class PlanningPerformanceCreate(LoginRequiredMixin,View):
             form = form_class(instance=instance)
         else:
             form = form_class(initial={'success_challenges':'','general_comment':'','bottlenecks':'','measures_taken':''})
-        data = models.PlanningPerformance.objects.filter(country=user_country)
+        if not request.user.is_superuser:
+            data = models.PlanningPerformance.objects.filter(country=user_country)
+        else:
+            data = models.PlanningPerformance.objects.all()
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
@@ -275,7 +302,10 @@ class PlanningPerformanceCreate(LoginRequiredMixin,View):
         form_class = modelform_factory(PlanningPerformance, exclude=['country'])
         form = form_class(request.POST)
         form.instance.country = user_country
-        data = models.PlanningPerformance.objects.filter(country=user_country)
+        if not request.user.is_superuser:
+            data = models.PlanningPerformance.objects.filter(country=user_country)
+        else:
+            data = models.PlanningPerformance.objects.all()
         if(form.is_valid()):
             if(id):
                 form.instance.id = int(id)
@@ -311,7 +341,10 @@ class TenderProcedurePerformanceCreate(LoginRequiredMixin,View):
         else:
             form = DTenderProcPerformanceForm(initial={'success_challenges':'','general_comment':'','bottlenecks':'','measures_taken':''})      
         user_country = request.user.usercountry.country
-        data = models.TenderProcedurePerformance.objects.filter(country=user_country)
+        if not request.user.is_superuser:
+            data = models.TenderProcedurePerformance.objects.filter(country=user_country)
+        else:
+            data = models.TenderProcedurePerformance.objects.all()
 
         return render(request,self.template_name, {
             'form': form,
@@ -322,7 +355,10 @@ class TenderProcedurePerformanceCreate(LoginRequiredMixin,View):
         user_country = request.user.usercountry.country            
         form = DTenderProcPerformanceForm(request.POST)
         form.instance.country = user_country
-        data = models.TenderProcedurePerformance.objects.filter(country=user_country)
+        if not request.user.is_superuser:
+            data = models.TenderProcedurePerformance.objects.filter(country=user_country)
+        else:
+            data = models.TenderProcedurePerformance.objects.all()
         if(form.is_valid()):
             form.instance.country = user_country
             if(id):
@@ -366,7 +402,10 @@ class CommunityApproachCreate(LoginRequiredMixin,View):
             form=form_class(instance=instance)
         else:
             form=form_class(initial={'approach_name':"", 'description':"",'lessons_learnt':''})
-        data = models.CommunityApproach.objects.filter(country=user_country)
+        if not request.user.is_superuser:
+            data = models.CommunityApproach.objects.filter(country=user_country)
+        else:
+            data = models.CommunityApproach.objects.all()
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
@@ -378,7 +417,10 @@ class CommunityApproachCreate(LoginRequiredMixin,View):
         form_class = modelform_factory(CommunityApproach, exclude=['country'])
         form = form_class(request.POST)
         form.instance.country = user_country
-        data = models.CommunityApproach.objects.filter(country=user_country)
+        if not request.user.is_superuser:
+            data = models.CommunityApproach.objects.filter(country=user_country)
+        else:
+            data = models.CommunityApproach.objects.all()
         if(form.is_valid()):
             if(id):
                 form.instance.id = int(id)
@@ -415,7 +457,10 @@ class PartnerContributionCreate(LoginRequiredMixin,CreateView):
             form = form_class(instance=instance)
         else:
             form = form_class(initial={'in_kind_contribution':'','financial_contribution':'', 'annual_contribution':''})
-        data = models.PartnerContribution.objects.filter(country=user_country)
+        if not request.user.is_superuser:
+            data = models.PartnerContribution.objects.filter(country=user_country)
+        else:
+            data = models.PartnerContribution.objects.all()
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
@@ -426,7 +471,10 @@ class PartnerContributionCreate(LoginRequiredMixin,CreateView):
         form_class = modelform_factory(PartnerContribution, exclude=['country'])
         form = form_class(request.POST)
         form.instance.country = user_country
-        data = models.PartnerContribution.objects.filter(country=user_country)
+        if not request.user.is_superuser:
+            data = models.PartnerContribution.objects.filter(country=user_country)
+        else:
+            data = models.PartnerContribution.objects.all()
         if(form.is_valid()):
             if(id):
                 form.instance.id = int(id)
@@ -462,7 +510,10 @@ class PartnerEventContributionCreate(LoginRequiredMixin,CreateView):
             form = form_class(instance=instance)
         else:
             form = form_class()
-        data = models.PartnerEventContribution.objects.filter(country=user_country)
+        if not request.user.is_superuser:
+            data = models.PartnerEventContribution.objects.filter(country=user_country)
+        else:
+            data = models.PartnerEventContribution.objects.all()
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
@@ -473,7 +524,10 @@ class PartnerEventContributionCreate(LoginRequiredMixin,CreateView):
         form_class = modelform_factory(PartnerEventContribution, exclude=['country'])
         form = form_class(request.POST)
         form.instance.country = user_country
-        data = models.PartnerEventContribution.objects.filter(country=user_country)
+        if not request.user.is_superuser:
+            data = models.PartnerEventContribution.objects.filter(country=user_country)
+        else:
+            data = models.PartnerEventContribution.objects.all()
         if(form.is_valid()):
             if(id):
                 form.instance.id = int(id)
@@ -509,7 +563,10 @@ class SWOTAndConclusionCreate(LoginRequiredMixin,View):
             form = form_class(instance=instance)
         else:
             form = form_class(initial={'strengths':'', 'opportunities':'','mitigation_measures':'','overall_challenges':'','kap_recommendations':'','risks':'','weaknesses':'','conclusion':''})
-        data = models.SWOT.objects.filter(country=user_country)
+        if not request.user.is_superuser:
+            data = models.SWOT.objects.filter(country=user_country)
+        else:
+            data = models.SWOT.objects.all()
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
@@ -520,7 +577,10 @@ class SWOTAndConclusionCreate(LoginRequiredMixin,View):
         form_class = modelform_factory(SWOT,exclude=['country'])
         form = form_class(request.POST)
         form.instance.country = user_country
-        data = models.SWOT.objects.filter(country=user_country)
+        if not request.user.is_superuser:
+            data = models.SWOT.objects.filter(country=user_country)
+        else:
+            data = models.SWOT.objects.all()
         if(form.is_valid()):
             #if(id):
             #    form.instance.id = int(id)
