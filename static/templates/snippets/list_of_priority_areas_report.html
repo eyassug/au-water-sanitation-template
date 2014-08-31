@@ -10,7 +10,7 @@
 			});
 		</script>
 
-<h2 class="page-header">List of Priortiy Areas of {{ country }}</h2>
+
 <div class="exportpdfdiv">
 <a href="/report/listofpriorityareasreportpdf" target="_blank" class="btn btn-danger exportpdf active" role="button">Export to PDF</a>
 </div>
@@ -36,19 +36,19 @@
     
     {% for p in population %}
     <tr>
-            <th>{{ forloop.counter }}</th>
-            <th>{{ p.priority_area }}</th>
-            <th>{{ p.population }}</th>
-            <th>{{ p.number_of_households }}</th>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ p.priority_area }}</td>
+            <td>{{ p.population }}</td>
+            <td>{{ p.number_of_households }}</td>
         
        
     </tr>
     {% endfor %}
     <tr>
         <td></td>
-        <td>Total</td>
-        <td>{{ total_population }}</td>
-        <td>{{ total_households }}</td>
+        <th>Total</th>
+        <th>{{ total_population }}</th>
+        <th>{{ total_households }}</th>
     </tr>
     
 

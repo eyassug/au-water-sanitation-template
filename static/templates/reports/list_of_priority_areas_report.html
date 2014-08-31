@@ -1,7 +1,13 @@
 {% extends 'welcome.html' %}
 {% block content_container %}
+<h2 class="page-header">List of Priortiy Areas of {{ country }}</h2>
 <div class ="col-md-8">
 {% include "snippets/report_style.html" %}   
+{% if population %}
 {% include "snippets/list_of_priority_areas_report.html" %}
+{% else %}
+    <h3>No data to display</h3>
+{% endif %}
+
 </div>
 {% endblock %}
