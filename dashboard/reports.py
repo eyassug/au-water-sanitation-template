@@ -7,8 +7,8 @@ class PriorityAreaPopulationReport():
     def generate(self,country):    
         priority_areas = models.PriorityArea.objects.filter(country=country)
         population = models.PriorityAreaStatus.objects.filter(priority_area__country=country)
-        total_population = models.PriorityAreaStatus.objects.aggregate(Sum('population'))
-        total_households = models.PriorityAreaStatus.objects.aggregate(Sum('number_of_households'))
+        total_population = models.PriorityAreaStatus.objects.filter(priority_area__country=country).aggregate(Sum('population'))
+        total_households = models.PriorityAreaStatus.objects.filter(priority_area__country=country).aggregate(Sum('number_of_households'))
         
         return {
             'priority_areas':priority_areas,
