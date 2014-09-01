@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = (
     'widget_tweaks',
-    #'django_admin_bootstrapped.bootstrap3',
+    #'south',
     'django_admin_bootstrapped',    
     'django.contrib.admin',
     'django.contrib.auth',
@@ -75,6 +75,10 @@ DATABASES = {
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
+LANGUAGES = (
+  ('en-us', ('English')),
+  ('fr', ('French')),
+)
 
 TIME_ZONE = 'UTC'
 

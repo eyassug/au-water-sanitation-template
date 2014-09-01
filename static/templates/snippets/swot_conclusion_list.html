@@ -12,6 +12,9 @@
             <th>Measurement of Mitigation</th>
             <th>Weaknesses</th>
             <th>Conclusion</th>
+        {% if user.is_superuser %}
+            <th>Country</th>
+        {% endif %}
             <th>&nbsp;</th>
         </tr>
     </thead>
@@ -29,6 +32,9 @@
         <td>{{ d.mitigation_measures }}</td>
         <td>{{ d.kap_recommendations }}</td>
         <td>{{d.conclusion}}</td>
+    {% if user.is_superuser %}
+        <td>{{ d.country }}</td>
+    {% endif %}
         
         <td><a href="/report/swot/{{d.id}}">Edit</a></td>
     </tr>

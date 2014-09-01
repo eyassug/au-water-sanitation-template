@@ -19,6 +19,9 @@
             <th>Approach Name</th>
             <th>Year of Initiation</th>
             <th>Cost/Capita (USD)</th>
+        {% if user.is_superuser %}
+            <th>Country</th>
+        {% endif %}
             <th>&nbsp;</th>
         </tr>
     </thead>
@@ -32,6 +35,9 @@
         <td>{{ d.approach_name }}</td>
         <td>{{ d.year }}</td>
         <td>{{ d.cost_per_capita }}</td>
+    {% if user.is_superuser %}
+        <td>{{ d.country}}</td>
+    {% endif %}
         <td><a href="/report/communityapproach/{{d.id}}">Edit</a></td>
     </tr>
     

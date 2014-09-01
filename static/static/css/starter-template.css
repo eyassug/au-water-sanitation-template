@@ -4,6 +4,7 @@ padding-top: 40px;
 
 
 .boarder {
+margin-top: 50px;
 margin-left: 0;
 margin-right: 0;
 background-color: #D6D6D6;
@@ -13,14 +14,20 @@ border-radius: 4px 4px 0 0;
 box-shadow: none;
 padding-right: 40px;
 padding-left: 20px;
-padding-bottom: 10px;
-padding-top: 10px;
+padding-bottom: 5px;
+padding-top: 5px;
 
 }
 
 .lead {
 text-align: left;
 font-size:18px;
+color: rgb(112,48,160);
+text-align: center;
+font-style: italic;
+font-family: serif;
+
+
 }
 .jumbotron
 {
@@ -127,5 +134,40 @@ margin-left: 0%;
 }
 .nav>li>a {
 padding: 5px 15px;
+}
+.welcome
+{
+  color: rgb(112,48,160);
+  font-size: 25px;
+  font-style: italic;
+  text-align: center;
+  font-family: serif;
+  font-weight: bolder;
+  
+}
+IMG.displayed {
+    display: block;
+    margin-left: auto;
+    margin-right: auto }
+
+.bodytext
+{
+  text-align: justify;
+}
+.login {
+  display: block;
+    margin-left: 30%;
+    margin-right: 30%
+}
+.enbody
+{
+  display: block;
+    margin-left: 19%;
+    margin-right: 19%; 
+}
+.line {
+  display: block; height: 1px;
+    border: 0; border-top: 2px solid #000000;
+     padding: 0; 
 }
 

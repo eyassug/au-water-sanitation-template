@@ -42,6 +42,7 @@ class PriorityArea(models.Model):
 
     class Meta:
         verbose_name_plural = "Priority Areas"
+        unique_together = ("country", "name")
      
 class SectorCategory(models.Model):
     name = models.CharField(max_length=120, null=False, blank=False, unique=True)
@@ -58,19 +59,21 @@ class SectorCategory(models.Model):
 
 class TenderProcedureProperty(models.Model):
     sector_category = models.ForeignKey('SectorCategory')
-    name = models.CharField(max_length=120, null=False, blank=False, unique=True)
+    name = models.CharField(max_length=120, null=False, blank=False)
     is_active = models.BooleanField(default=True)
     
-    def __str__(self):
+    def __unicode__(self):
         return self.name + ' - ' + self.sector_category.name
+    
     
     class Meta:
         verbose_name_plural = "Tender & Procedure Properties"
         ordering = ['name']
+        unique_together = ("sector_category", "name")
     
 class Technology(models.Model):
     facility_character = models.ForeignKey('FacilityCharacter')
-    name = models.CharField(max_length=120, null=False, blank=False, unique=True)
+    name = models.CharField(max_length=120, null=False, blank=False, unique=False, verbose_name = "Technology")
     is_active = models.BooleanField(default=True)
    
     def __str__(self):
@@ -79,6 +82,7 @@ class Technology(models.Model):
     class Meta:
         verbose_name_plural = "Technologies"
         ordering = ['name']
+        unique_together = ("facility_character", "name")
         
 class FacilityCharacter(models.Model):
     sector_category = models.ForeignKey('SectorCategory')
@@ -86,12 +90,13 @@ class FacilityCharacter(models.Model):
     is_active = models.BooleanField(default=True)
    
     def __str__(self):
-        return self.name + ' - ' + self.sector_category.name
+        return self.name 
     
         
     class Meta:
         verbose_name_plural = "Facility Characters"
         ordering = ['name']
+        unique_together = ("sector_category", "name")
     
 class CommunityApproachType(models.Model):
     name = models.CharField(max_length=120, null=False, blank=False, unique=True)
@@ -245,13 +250,14 @@ class PartnerEventContribution(models.Model):
         unique_together = ("country", "sector_category", "year")
     
 class SWOT(models.Model):
+    id = models.AutoField(primary_key=True)
     country = models.ForeignKey('Country', blank=False)
     sector_category = models.ForeignKey('SectorCategory', blank=False)
-    overall_challenges = models.TextField()
-    strengths = models.TextField()
-    weaknesses = models.TextField()
-    opportunities = models.TextField()
-    risks = models.TextField()
-    mitigation_measures = models.TextField()
-    kap_recommendations = models.TextField()
-    conclusion = models.TextField()
+    overall_challenges = models.TextField(blank=True)
+    strengths = models.TextField(blank=True)
+    weaknesses = models.TextField(blank=True)
+    opportunities = models.TextField(blank=True)
+    risks = models.TextField(blank=True)
+    mitigation_measures = models.TextField(blank=True)
+    kap_recommendations = models.TextField(blank=True)
+    conclusion = models.TextField(blank=True)

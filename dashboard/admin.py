@@ -35,6 +35,15 @@ class UserAdmin(UserAdmin):
     def country(self,obj):
         return obj.usercountry.country.name
     
+class TechnologyAdmin(admin.ModelAdmin):
+    list_display = ['name','facility_character','get_sectorCategory']
+    #code
+    def get_sectorCategory(self, obj):
+        return obj.facility_character.sector_category
+    get_sectorCategory.short_description = 'Sector Category'
+    get_sectorCategory.admin_order_field = 'facility_character__sector_category'
+    
+
 class PriorityAreaAdmin(admin.ModelAdmin):
     form = CustomPriortyAreaForm
     list_display = ['name','country']
@@ -54,7 +63,7 @@ class PriorityAreaAdmin(admin.ModelAdmin):
         return super(PriorityAreaAdmin,self).get_form(request,obj,**kwargs)
     
     def save_model(self, request, obj, form, change):
-        if not request.user.is_superuser():
+        if not request.user.is_superuser:
             obj.country = request.user.usercountry.country
         obj.save()
     def get_country(self, obj):    
@@ -62,10 +71,17 @@ class PriorityAreaAdmin(admin.ModelAdmin):
      
     #code
 
-
+class TenderProcedurePropertyAdmin(admin.ModelAdmin):
+    list_display = ['name','sector_category']
 # Re-register UserAdmin
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 
 admin.site.unregister(PriorityArea)
 admin.site.register(PriorityArea,PriorityAreaAdmin)
+
+admin.site.unregister(Technology)
+admin.site.register(Technology,TechnologyAdmin)
+
+admin.site.unregister(TenderProcedureProperty)
+admin.site.register(TenderProcedureProperty,TenderProcedurePropertyAdmin)

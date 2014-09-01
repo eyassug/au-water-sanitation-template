@@ -18,6 +18,9 @@
             <th>#</th>
             <th>Year</th>
             <th>Population</th>
+        {% if user.is_superuser %}
+            <th>Country</th>
+        {% endif %}
             <th></th>
         </tr>
     </thead>
@@ -29,6 +32,9 @@
         <td>{{ forloop.counter }}</td>
         <td>{{ d.year }}</td>
         <td>{{ d.population }}</td>
+    {% if user.is_superuser %}
+        <td>{{ d.country }}</td>
+    {% endif %}
         <td><a href="/report/countrystatus/{{ d.id }}/">Edit</a></td>
     </tr>
     

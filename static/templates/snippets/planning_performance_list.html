@@ -18,6 +18,9 @@
             <th>Year</th>
             <th>Delay in preparing plan (days)</th>
             <th>Delay in adopting plan (days)</th>
+        {% if user.is_superuser %}
+            <th>Country</th>
+        {% endif %}
             <th>&nbsp;</th>
         </tr>
     </thead>
@@ -30,6 +33,9 @@
         <td>{{ d.year }}</td>        
         <td>{{ d.plan_preparation_delay }}</td>
         <td>{{ d.plan_adoption_delay }}</td>
+    {% if user.is_superuser %}
+        <td>{{ d.country }}</td>
+    {% endif %}
         <td><a href="/report/PlanningPerformance/{{ d.id }}">Edit</a></td>
     </tr>
     
