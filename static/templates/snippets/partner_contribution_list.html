@@ -9,8 +9,9 @@
 				});
 			});
 		</script>
-<a href="/report/viewpartnercontributionpdf">Export</a>
+
 <div class="table-responsive">
+<a href="/report/viewpartnercontributionpdf" target="_blank" class="btn btn-danger btn-danger-right">Export To PDF</a>   
 <table class="table table-hover table-bordered" id="pc">
     <thead>
         <tr>
@@ -30,7 +31,7 @@
 {% for d in data %}
 
     <tr>
-        <td>{{ loop.counter }}</td>
+        <td>{{ forloop.counter }}</td>
         <td>{{ d.sector_category }}</td>
         <td>{{ d.partner }}</td>        
         <td>{{ d.annual_contribution }}</td>
