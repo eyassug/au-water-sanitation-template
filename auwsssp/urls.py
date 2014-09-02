@@ -52,6 +52,18 @@ urlpatterns = patterns('',
     url(r'^(?i)report/technologygapclusteredbypa$', report_views.TechnologyGapClusteredByPAReport.as_view(), name='technology_gap_clustered_by_pa_report'),
     url(r'^(?i)report/technologiesgapsforthecategorypdf$', report_views.TechnologiesGapsForTheCategoryReport.as_view(), name='technologiesgaps_for_the_category_report'),
     url(r'^(?i)report/estimatedoverallgapspdf$', report_views.EstimatedOverallGaps.as_view(), name='estimated_overall_gaps'),
+    #List to PDF
+    url(r'^(?i)report/viewfacilityaccessinpdf$', report_views.view_facilityaccess_in_pdf.as_view(), name='view_facilityaccess_in_pdf'),
+    url(r'^(?i)report/viewcomunityapprochinpdf$', report_views.view_comunityapproch_in_pdf.as_view(), name='view_comunityapproch_in_pdf'),
+    url(r'^(?i)report/viewcountrydemographicpdf$', report_views.view_countrydemographic_in_pdf.as_view(), name='view_countrydemographic_in_pdf'),
+    url(r'^(?i)report/viewpartnercontributionpdf$', report_views.view_partnercontribution_in_pdf.as_view(), name='view_partnercontribution_in_pdf'),
+    url(r'^(?i)report/vieweventcontributionpdf$', report_views.view_eventcontribution_in_pdf.as_view(), name='view_eventcontribution_in_pdf'),
+    url(r'^(?i)report/viewplanningperformancepdf$', report_views.view_planningperformance_in_pdf.as_view(), name='view_planningperformance_in_pdf'),
+    url(r'^(?i)report/viewprioritystatuspdf$', report_views.view_priorityareastatus_in_pdf.as_view(), name='view_priorityareastatus_in_pdf'),
+    url(r'^(?i)report/viewsectorperformancepdf$', report_views.view_sectorperformace_in_pdf.as_view(), name='view_sectorperformace_in_pdf'),
+    url(r'^(?i)report/viewswotconclusionpdf$', report_views.view_swotconclision_in_pdf.as_view(), name='view_swotconclision_in_pdf'),
+    url(r'^(?i)report/viewtenderprocperformancepdf$', report_views.view_tender_proc_performance_in_pdf.as_view(), name='view_tender_proc_performance_in_pdf'),
+    
     
     url(r'^(?i)login/$', 'django.contrib.auth.views.login', name='login'),    
     url(r'^(?i)logout/$', views.Logout.as_view(), name='logout'),      
