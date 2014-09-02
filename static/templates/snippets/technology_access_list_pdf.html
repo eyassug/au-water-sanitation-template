@@ -1,0 +1,96 @@
+<style type="text/css">
+            @page {
+                size: {{ pagesize|default:'legal landscape' }};
+                margin: 1.5cm 1cm;
+                border: 1px solid #fff;
+                @frame header {
+                    -pdf-frame-content: headerContent;
+                    top: 0.5cm;
+                    margin-left: 1cm;
+                    margin-right: 1cm;
+                    height: 2cm;
+                    border-color: #000;
+                    
+                }
+                @frame footer {
+                    -pdf-frame-content: footerContent;
+                    bottom: 0.5cm;
+                    margin-left: 1cm;
+                    margin-right: 1cm;
+                    height: 0.5cm;
+                }     
+            }
+            #report_lists {
+                border: 1px solid #000 ;
+                line-height: 12px;
+                padding: 3px;
+                
+            }
+
+            #report_head {
+                background-color: #000;
+                font-size: 12px;
+            }
+	    td {
+		border: 1px solid black;
+		text-align: left;
+		padding-left: 2px;
+		padding-top: 5px;
+		}
+		th {
+			background-color: rgb(192,192,192);
+			border: none;
+			padding-top: 5px;
+			text-align: left;
+			padding-left: 2px;
+			border: 1px solid black;
+			
+			
+		}
+        </style>
+
+<div class="table-responsive">
+<table class="report_lists" >
+    <thead id="report_head">
+        <tr>
+            <th>#</th>
+            <th>Priority Area</th>
+            <th>Technology</th>
+            <th>Year</th>
+            <th>No of Facilities Planned</th>
+            <th>No of Facilities Reported</th>
+            <th>No of Tech Secured</th>
+            <th>Unit Cost (USD)</th>
+            <th>Household Contribution (%)</th>
+            <th>Government Contribution (%)</th>
+            
+        </tr>
+    </thead>
+<tbody>
+    
+{% for d in data %}
+
+    <tr class="headerLeft">
+        <td>{{forloop.counter}}</td>
+        <td>{{ d.priority_area }}</td>
+        <td>{{ d.technology }}</td>
+        <td>{{ d.year }}</td>        
+        <td>{{ d.planned }}</td>
+        <td>{{ d.actual }}</td>
+        <td>{{d.secured}}</td>
+        <td>{{ d.unit_cost }}</td>        
+        <td>{{ d.house_hold_contribution }}</td>
+        <td>{{ d.government_contribution }}</td>
+        
+    </tr>
+    
+{% endfor %}
+
+</tbody>
+</table>
+
+</div>
+<div id="footerContent">
+            <table><tr><td>Kigali Action Plan</td>
+            <td align="center">Category Gap <pdf:pagenumber> / <pdf:pagecount> </td> <td align="right">{% now "M d, Y" %} {% now "P" %}</td></tr></table>
+        </div>

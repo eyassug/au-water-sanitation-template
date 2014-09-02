@@ -1,0 +1,85 @@
+<style type="text/css">
+            @page {
+                size: {{ pagesize|default:'legal landscape' }};
+                margin: 1.5cm 1cm;
+                border: 1px solid #fff;
+                @frame header {
+                    -pdf-frame-content: headerContent;
+                    top: 0.5cm;
+                    margin-left: 1cm;
+                    margin-right: 1cm;
+                    height: 2cm;
+                    border-color: #000;
+                    
+                }
+                @frame footer {
+                    -pdf-frame-content: footerContent;
+                    bottom: 0.5cm;
+                    margin-left: 1cm;
+                    margin-right: 1cm;
+                    height: 0.5cm;
+                }     
+            }
+            #report_lists {
+                border: 1px solid #000 ;
+                line-height: 12px;
+                padding: 3px;
+                
+            }
+
+            #report_head {
+                background-color: #000;
+                font-size: 12px;
+            }
+	    td {
+		border: 1px solid black;
+		text-align: left;
+		padding-left: 2px;
+		padding-top: 5px;
+		}
+		th {
+			background-color: rgb(192,192,192);
+			border: none;
+			padding-top: 5px;
+			text-align: left;
+			padding-left: 2px;
+			border: 1px solid black;
+			
+			
+		}
+        </style>
+
+<div class="table-responsive">
+    
+<table class="table table-hover table-bordered" id="cd">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Year</th>
+            <th>Population</th>
+        {% if user.is_superuser %}
+            <th>Country</th>
+        {% endif %}
+            
+        </tr>
+    </thead>
+<tbody>
+
+{% for d in data %}
+
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ d.year }}</td>
+        <td>{{ d.population }}</td>
+    {% if user.is_superuser %}
+        <td>{{ d.country }}</td>
+    {% endif %}
+        
+    </tr>
+    
+{% endfor %}
+
+</tbody>
+</table>
+
+</div>
