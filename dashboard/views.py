@@ -753,7 +753,8 @@ class TechnologyGapPerPriorityAreaReport(LoginRequiredMixin,View):
         form = report_forms.TechnologyGapByPriorityArea(request.POST)
         user_country = request.user.usercountry.country        
         if(form.is_valid()):
-            technology = form.cleaned_data['technology']
+            technology_id = form.cleaned_data['technology']
+            technology = Technology.objects.get(pk=int(technology_id))
             start_year = form.cleaned_data['start_year']
             end_year = form.cleaned_data['end_year']
             report_factory = reports.TechnologyGapReport()
