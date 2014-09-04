@@ -67,7 +67,7 @@
             
             <div class="form-group{% if form.fund_needed.errors %} has-error{% endif %}">
                 <label for="id_fund_needed">Fund Needed(USD)</label>
-                <input id="id_fund_needed" name="fund_needed" type="number" min="0" max="99999999" value="{{ form.fund_needed.value }}" step="0.01" size="4" 
+                <input id="id_fund_needed" name="fund_needed" type="number" min="0" max="9999999999999" value="{{ form.fund_needed.value }}" step="0.01" size="4" 
                         title="Currency Format - no dollar sign and no comma(s) - cents (.##) are optional"  class="form-control" tabindex="5" />
                 {% if form.fund_needed.errors %}
                   {{ form.fund_needed.errors }}
@@ -75,7 +75,7 @@
             </div>
             <div class="form-group{% if form.fund_availed.errors %} has-error{% endif %}">
                 <label for="id_fund_availed">Fund Availed(USD)</label>
-                <input id="id_fund_availed" name="fund_availed" type="number" min="0" max="99999999" value="{{ form.fund_availed.value }}" step="0.01" size="4" 
+                <input id="id_fund_availed" name="fund_availed" type="number" min="0" max="9999999999999" value="{{ form.fund_availed.value }}" step="0.01" size="4" 
                         title="Currency Format - no dollar sign and no comma(s) - cents (.##) are optional"  class="form-control" tabindex="7" />
                 {% if form.fund_availed.errors %}
                   {{ form.fund_availed.errors }}
@@ -94,7 +94,7 @@
             </div>
             <div class="form-group{% if form.fund_mobilised.errors %} has-error{% endif %}">
                 <label for="id_fund_mobilised">Fund Mobilized(USD)</label>
-                <input id="id_fund_mobilised" name="fund_mobilised" type="number" value="{{ form.fund_mobilised.value }}" min="0" max="99999999" step="0.01" size="4" 
+                <input id="id_fund_mobilised" name="fund_mobilised" type="number" value="{{ form.fund_mobilised.value }}" min="0" max="9999999999999" step="0.01" size="4" 
                         title="Currency Format - no dollar sign and no comma(s) - cents (.##) are optional"  class="form-control" tabindex="6" />
                 {% if form.fund_mobilised.errors %}
                   {{ form.fund_mobilised.errors }}
@@ -103,7 +103,7 @@
             
             <div class="form-group{% if form.fund_used.errors %} has-error{% endif %}">
                 <label for="id_fund_used">Fund Used(USD)</label>
-                <input id="id_fund_used" name="fund_used" type="number" min="0" value="{{ form.fund_used.value }}" max="99999999" step="0.01" size="4" 
+                <input id="id_fund_used" name="fund_used" type="number" min="0" value="{{ form.fund_used.value }}" max="9999999999999" step="0.01" size="4" 
                         title="Currency Format - no dollar sign and no comma(s) - cents (.##) are optional"  class="form-control" tabindex="8" />
                 {% if form.fund_used.errors %}
                   {{ form.fund_used.errors }}
