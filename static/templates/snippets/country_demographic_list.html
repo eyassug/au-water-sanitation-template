@@ -17,7 +17,7 @@
 <table class="table table-hover table-bordered" id="cd">
     <thead>
         <tr>
-            <th>#</th>
+            
             <th>Year</th>
             <th>Population</th>
         {% if user.is_superuser %}
@@ -31,7 +31,7 @@
 {% for d in data %}
 
     <tr>
-        <td>{{ forloop.counter }}</td>
+        
         <td>{{ d.year }}</td>
         <td>{{ d.population }}</td>
     {% if user.is_superuser %}

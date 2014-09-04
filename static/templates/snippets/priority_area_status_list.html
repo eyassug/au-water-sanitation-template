@@ -6,9 +6,9 @@
 <table class="table table-striped table-bordered" id="ps">
     <thead>
         <tr>
-            <th>#</th>
-            <th>Priority Area</th>
             <th>Year</th>
+            <th>Priority Area</th>
+            
             <th>Population</th>
             <th># of Households</th>
         {% if user.is_superuser %}
@@ -22,9 +22,9 @@
 {% for d in data %}
 
     <tr>
-        <td>{{ forloop.counter }}</td>
-        <td>{{d.priority_area.name}}</td>
         <td>{{ d.year }}</td>
+        <td>{{d.priority_area.name}}</td>
+        
         <td>{{ d.population }}</td>
         <td>{{ d.number_of_households }}</td>
     {% if user.is_superuser %}

@@ -7,10 +7,10 @@
 <table class="table table-striped table-bordered" id="tpp">
     <thead>
         <tr>
-            <th>#</th>
+            <th>Year</th>
             
             <th>Tender & Proc. Property - Sector Category</th>
-            <th>Year</th>
+            
             <th>Number Registered</th>
             <th>Number Executed</th>
         {% if user.is_superuser %}
@@ -23,10 +23,10 @@
 {% for d in data %}
 
     <tr>
-        <td>{{ forloop.counter }}</td>
+        <td>{{ d.year }}</td>        
         
         <td>{{ d.tender_procedure_property }}</td>
-        <td>{{ d.year }}</td>        
+        
         <td>{{ d.registered }}</td>
         <td>{{ d.executed }}</td>
     {% if user.is_superuser %}

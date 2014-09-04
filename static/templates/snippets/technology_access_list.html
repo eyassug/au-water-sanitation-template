@@ -17,10 +17,10 @@
 <table class="table table-hover table-bordered" id="ta">
     <thead>
         <tr>
-            <th>#</th>
+            <th>Year</th>
             <th>Priority Area</th>
             <th>Technology</th>
-            <th>Year</th>
+            
             <th>No of Facilities Planned</th>
             <th>No of Facilities Reported</th>
             <th>No of Tech Secured</th>
@@ -35,10 +35,10 @@
 {% for d in data %}
 
     <tr>
-        <td>{{forloop.counter}}</td>
+        <td>{{ d.year }}</td>        
         <td>{{ d.priority_area }}</td>
         <td>{{ d.technology }}</td>
-        <td>{{ d.year }}</td>        
+        
         <td>{{ d.planned }}</td>
         <td>{{ d.actual }}</td>
         <td>{{d.secured}}</td>
