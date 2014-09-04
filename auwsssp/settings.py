@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = (
     'widget_tweaks',
+    'django_tables2',
     'django_admin_bootstrapped',    
     'django.contrib.admin',
     'django.contrib.auth',
