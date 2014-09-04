@@ -1,3 +1,5 @@
+{% load pagination_tags %}
+{% autopaginate data 10 %}
 <script type="text/javascript">
 				/* Table initialisation */
 			$(document).ready(function() {
@@ -43,12 +45,13 @@
         <td>{{ d.unit_cost }}</td>        
         <td>{{ d.house_hold_contribution }}</td>
         <td>{{ d.government_contribution }}</td>
-        <td><a href="/report/facilityaccess/{{d.id}}">Edit</a></td>
+        <td><a href="/report/facilityaccessedit/{{d.id}}">Edit</a></td>
     </tr>
     
 {% endfor %}
 
 </tbody>
 </table>
+{% paginate %}
 
 </div>

@@ -1,14 +1,5 @@
-<script type="text/javascript">
-				/* Table initialisation */
-			$(document).ready(function() {
-				$('#pp').dataTable( {
-					"bSort": true,        // Disable sorting
-					"iDisplayLength": 5,   // records per page
-					"sDom": "t<'row'<'col-md-6'i><'col-md-6'p>>",
-					"sPaginationType": "bootstrap"
-				});
-			});
-		</script>
+{% load pagination_tags %}
+{% autopaginate data 10 %}
 
 <div class="table-responsive">
 <a href="/report/viewplanningperformancepdf" target="_blank" class="btn btn-danger btn-danger-right">Export To PDF</a>   
@@ -38,12 +29,13 @@
     {% if user.is_superuser %}
         <td>{{ d.country }}</td>
     {% endif %}
-        <td><a href="/report/PlanningPerformance/{{ d.id }}">Edit</a></td>
+        <td><a href="/report/PlanningPerformanceedit/{{ d.id }}">Edit</a></td>
     </tr>
     
 {% endfor %}
 
 </tbody>
 </table>
+{% paginate %}
 
 </div>

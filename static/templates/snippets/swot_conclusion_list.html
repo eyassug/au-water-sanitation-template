@@ -1,4 +1,5 @@
-
+{% load pagination_tags %}
+{% autopaginate data 10 %}
 
 <div class="table-responsive">
 <a href="/report/viewswotconclusionpdf" target="_blank" class="btn btn-danger btn-danger-right">Export To PDF</a>   
@@ -39,12 +40,13 @@
         <td>{{ d.country }}</td>
     {% endif %}
         
-        <td><a href="/report/swot/{{d.id}}">Edit</a></td>
+        <td><a href="/report/swotedit/{{d.id}}">Edit</a></td>
     </tr>
     
 {% endfor %}
 
 </tbody>
 </table>
+{% paginate %}
 
 </div>

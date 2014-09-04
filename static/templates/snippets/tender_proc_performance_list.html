@@ -1,14 +1,6 @@
-<script type="text/javascript">
-				/* Table initialisation */
-			$(document).ready(function() {
-				$('#tpp').dataTable( {
-					"bSort": true,        // Disable sorting
-					"iDisplayLength": 5,   // records per page
-					"sDom": "t<'row'<'col-md-6'i><'col-md-6'p>>",
-					"sPaginationType": "bootstrap"
-				});
-			});
-		</script>
+{% load pagination_tags %}
+{% autopaginate data 10 %}
+
 
 <div class="table-responsive">
  <a href="/report/viewtenderprocperformancepdf" target="_blank" class="btn btn-danger btn-danger-right">Export To PDF</a>      
@@ -40,12 +32,13 @@
     {% if user.is_superuser %}
         <th>{{ d.country }}</th>
     {% endif %}
-        <td><a href="/report/TenderProcPerformance/{{ d.id }}">Edit</a></td>
+        <td><a href="/report/TenderProcPerformanceedit/{{ d.id }}">Edit</a></td>
     </tr>
     
 {% endfor %}
 
 </tbody>
 </table>
+{% paginate %}
 
 </div>

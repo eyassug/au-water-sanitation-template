@@ -29,6 +29,7 @@ from django.forms.util import ErrorList
 from dashboard import reports
 import xhtml2pdf.pisa as pisa 
 from dashboard import report_forms
+
 # html to pdf example
 
     
@@ -86,7 +87,58 @@ class SectorPerformanceCreate(LoginRequiredMixin,CreateView):
             'country': user_country,
             'data': data
         })
-    
+class SectorPerformanceEdit(LoginRequiredMixin,CreateView):
+    model = SectorPerformance
+    template_name = 'sector_performance_edit_form.html'
+    def get(self, request,id=None):
+        user_country = request.user.usercountry.country        
+        if(id):
+            instance = models.SectorPerformance.objects.get(pk=int(id))
+            form = SectorPerformanceForm(instance=instance)
+        else:
+            form = SectorPerformanceForm(initial={'success_challenges':'','general_comment':'','bottlenecks':'','measures_taken':''})
+        if not request.user.is_superuser:
+            data = models.SectorPerformance.objects.filter(country=user_country)
+        else:
+            data = models.SectorPerformance.objects.all()
+        return render(request,self.template_name, {
+            'form': form,
+            'country': user_country,
+            'data':data
+        })
+    def post(self, request,id=None):
+        user_country = request.user.usercountry.country            
+        form_class = modelform_factory(SectorPerformance, exclude=['country'])
+        form = form_class(request.POST)
+        form.instance.country = user_country
+        if not request.user.is_superuser:
+            data = models.SectorPerformance.objects.filter(country=user_country)
+        else:
+            data = models.SectorPerformance.objects.all()
+        if(form.is_valid()):
+            if(id):
+                form.instance.id = int(id)
+            try:
+                form.save()
+                messages.success(request, 'Report has been successfully submitted.')
+            except IntegrityError as e:
+                messages.error(request,'Could not Save! Duplicate Entry for Country '+ str(form.instance.country) + ' and Sector Category '+ str(form.instance.sector_category) + ' and Year '+ str(form.instance.year))
+            if (request.POST.has_key('save_add')):
+                new_form = form_class(initial={'sector_category':form.cleaned_data['sector_category']})                
+                return render(request,self.template_name, {
+                    'form': new_form,
+                    'country': user_country,
+                    'data': data
+                })
+            return HttpResponseRedirect('/report/SectorPerformance')
+        
+        return render(request,self.template_name, {
+            'form': form,
+            'country': user_country,
+            'data': data
+        })
+    #def sectorperformance(self,request):
+        #return render(request, "sector_performance_list.html", {"sectorperformance" : models.SectorPerformance.objects.all()})
     
 class FacilityAccessCreate(LoginRequiredMixin,View):
     def get(self,request, id=None):
@@ -163,7 +215,81 @@ class FacilityAccessCreate(LoginRequiredMixin,View):
             'country': user_country,
             'data':data
         })
+class FacilityAccessEdit(LoginRequiredMixin,View):
+    def get(self,request, id=None):
+        user_country = request.user.usercountry.country
+        if(id):
+            instance=models.FacilityAccess.objects.get(pk=int(id))
+            form=DFacilityAccessForm(instance=instance,initial={
+                    'sector_category':instance.technology.facility_character.sector_category,
+                    'priority_area':instance.priority_area,
+                    'facility_character':instance.technology.facility_character,
+                    'technology':instance.technology
+                })
+        else:
+            form = DFacilityAccessForm()
+        
+        form.filter(country=user_country)
+        if not request.user.is_superuser:
+            data = models.FacilityAccess.objects.filter(priority_area__country=user_country)
+        else:
+            data = models.FacilityAccess.objects.all()
+        return render(request, 'facility_access_edit_form.html', {
+            'form': form,
+            'country': user_country,
+            'data':data
+        })
     
+    def post(self,request, id=None):
+        form = DFacilityAccessForm(request.POST)
+        user_country = request.user.usercountry.country
+        if not request.user.is_superuser:
+            data = models.FacilityAccess.objects.filter(priority_area__country=user_country)
+        else:
+            data = models.FacilityAccess.objects.all()
+        
+        if form.is_valid():
+            if(id):
+                form.instance.id = int(id)
+            tech_id = form.cleaned_data['technology']
+            try:
+                technology = Technology.objects.get(pk=tech_id)
+            except Technology.DoesNotExist:
+                technology = None
+            
+            if not (technology):
+                form._errors["technology"] = ErrorList([u"This field is required"])
+                return render(request, 'facility_access_edit_form.html', {
+                    'form': form,
+                    'country': user_country,
+                    'data':data
+                })
+    
+            form.instance.technology = technology
+            try:
+                form.save()
+                messages.success(request, 'Report has been successfully submitted.')
+            except IntegrityError as e:
+                messages.error(request,'Could not Save! Duplicate Entry for Priority Area '+ str(form.instance.priority_area) + ' and Year '+ str(form.instance.year) + ' and Technology '+ str(form.instance.technology))
+            if (request.POST.has_key('save_add')):
+                new_form = DFacilityAccessForm(initial={'priority_area':form.instance.priority_area,
+                                                        'sector_category':form.cleaned_data['sector_category'],
+                                                        'facility_character':form.instance.technology.facility_character,
+                                                        'technology':form.instance.technology
+                                                        })                
+                return render(request, 'facility_access_edit_form.html', {
+                    'form': new_form,
+                    'country': user_country,
+                    'data':data,
+                    'facility_character':form.cleaned_data['facility_character'],
+                    'technology':form.cleaned_data['technology']
+                })
+            return HttpResponseRedirect('/report/facilityaccess#list')
+        return render(request, 'facility_access_edit_form.html', {
+            'form': form,
+            'country': user_country,
+            'data':data
+        })    
 class CountryStatusCreate(LoginRequiredMixin,View):
     model = CountryDemographic
     template_name = 'country_status_form.html'
@@ -218,6 +344,61 @@ class CountryStatusCreate(LoginRequiredMixin,View):
             'form': form,
             'country': user_country
         })
+
+class CountryStatusEdit(LoginRequiredMixin,View):
+    model = CountryDemographic
+    template_name = 'country_status_edit_form.html'
+    success_url = "/report/countrystatus"
+    
+    def get(self,request,id=None):
+        user_country = request.user.usercountry.country
+        if(id):
+            instance = models.CountryDemographic.objects.get(pk=int(id))
+            form = CountryStatusForm(instance=instance)
+        else:
+            form = CountryStatusForm()
+        form.instance.country = user_country
+        if not request.user.is_superuser:
+            data = models.CountryDemographic.objects.filter(country=user_country)
+        else:
+            data = models.CountryDemographic.objects.all()
+        return render(request, self.template_name, {
+            'form': form,
+            'country': user_country,
+            'data':data
+        })
+    
+    def post(self,request,id=None):
+        user_country = request.user.usercountry.country
+        form = CountryStatusForm(request.POST)
+        if(form.is_valid()):
+            form.instance.country = user_country
+            if(id):
+                form.instance.id = int(id)
+            try:
+                ins = form.save()
+                messages.success(request, 'Report has been successfully submitted.')
+            except IntegrityError as e:
+                messages.error(request,'Could not Save! Duplicate Entry for Country '+ str(user_country) + ' and Year '+ str(form.instance.year))
+            if(request.POST.has_key('save_add')):
+                new_form = CountryStatusForm(initial={'country':user_country,'year':form.instance.year})
+                new_form.instance.country = user_country
+                new_form.instance.year = form.instance.year
+                new_form.instance.population = 0
+                if not request.user.is_superuser:
+                    data = models.CountryDemographic.objects.filter(country=user_country)
+                else:
+                    data = models.CountryDemographic.objects.all()
+                return render(request, self.template_name, {
+                    'form': new_form,
+                    'country': user_country,
+                    'data':data
+                })
+            return HttpResponseRedirect(self.success_url+'#list')
+        return render(request, self.template_name, {
+            'form': form,
+            'country': user_country
+        })    
 class PriorityAreaStatusCreate(LoginRequiredMixin,View):
     
     def get(self, request,id=None):        
@@ -273,7 +454,62 @@ class PriorityAreaStatusCreate(LoginRequiredMixin,View):
                 })
             return HttpResponseRedirect('/report/prioritystatus')
         return render(request, 'priority_area_status_form.html', {'form': form,'country':user_country,'data':data})
+ 
+class PriorityAreaStatusEdit(LoginRequiredMixin,View):
     
+    def get(self, request,id=None):        
+        user_country = request.user.usercountry.country
+        if(id):
+            instance = models.PriorityAreaStatus.objects.get(pk=int(id))
+            form = PriorityAreaStatusForm(instance=instance)
+        else:
+            form = PriorityAreaStatusForm()
+            
+        form.filter(country=user_country)
+        if not request.user.is_superuser:
+            data = models.PriorityAreaStatus.objects.filter(priority_area__country = user_country)
+        else:
+            data = models.PriorityAreaStatus.objects.all()
+                            
+        return render(request,'priority_area_status_edit_form.html', {
+            'form': form,
+            'country': user_country,
+            'data':data
+        })    
+    
+    def post(self,request,id=None):
+        user_country = request.user.usercountry.country            
+        form = PriorityAreaStatusForm(request.POST)
+        form.filter(country=user_country)
+        if not request.user.is_superuser:
+            data = models.PriorityAreaStatus.objects.filter(priority_area__country = user_country)
+        else:
+            data = models.PriorityAreaStatus.objects.all()
+
+        if form.is_valid():
+            
+            if(id):
+                form.instance.id = int(id)
+            try:
+                ins = form.save()
+                messages.success(request, 'Report has been successfully submitted.')
+            except IntegrityError as e:
+                messages.error(request,'Could not Save! Duplicate Entry for Priority Area: '+ str(form.instance.priority_area) + ' and Year '+ str(form.instance.year))
+                messages.show()
+            except:
+                messages.error(request,'An unexpected error occured.\n'+ str(sys.exc_info()[0]) + '\n'+ str(ex))
+                messages.show()
+                
+            if (request.POST.has_key('save_add')):
+                new_form = PriorityAreaStatusForm(initial={'priority_area':form.cleaned_data['priority_area']})
+                new_form.filter(country=user_country)
+                return render(request,'priority_area_status_form.html', {
+                    'form': new_form,
+                    'country': user_country,
+                    'data':data
+                })
+            return HttpResponseRedirect('/report/prioritystatus')
+        return render(request, 'priority_area_status_edit_form.html', {'form': form,'country':user_country,'data':data})   
 class PlanningPerformanceCreate(LoginRequiredMixin,View):
     model = PlanningPerformance
     template_name = 'planning_performance_form.html'
@@ -328,7 +564,61 @@ class PlanningPerformanceCreate(LoginRequiredMixin,View):
             'country': user_country,
             'data': data
         })
+
+class PlanningPerformanceEdit(LoginRequiredMixin,View):
+    model = PlanningPerformance
+    template_name = 'planning_performance_edit_form.html'
+    success_url = "/report/PlanningPerformance"
     
+    def get(self, request,id=None):
+        form_class = modelform_factory(PlanningPerformance)        
+        user_country = request.user.usercountry.country
+        if(id):
+            instance = models.PlanningPerformance.objects.get(pk=int(id))
+            form = form_class(instance=instance)
+        else:
+            form = form_class(initial={'success_challenges':'','general_comment':'','bottlenecks':'','measures_taken':''})
+        if not request.user.is_superuser:
+            data = models.PlanningPerformance.objects.filter(country=user_country)
+        else:
+            data = models.PlanningPerformance.objects.all()
+        return render(request,self.template_name, {
+            'form': form,
+            'country': user_country,
+            'data': data
+        })
+    
+    def post(self, request,id=None):
+        user_country = request.user.usercountry.country            
+        form_class = modelform_factory(PlanningPerformance, exclude=['country'])
+        form = form_class(request.POST)
+        form.instance.country = user_country
+        if not request.user.is_superuser:
+            data = models.PlanningPerformance.objects.filter(country=user_country)
+        else:
+            data = models.PlanningPerformance.objects.all()
+        if(form.is_valid()):
+            if(id):
+                form.instance.id = int(id)
+            try:
+                form.save()
+                messages.success(request, 'Report has been successfully submitted.')
+            except IntegrityError as e:
+                messages.error(request,'Could not Save! Duplicate Entry for Country '+ str(form.instance.country) + ' and Sector Category '+ str(form.instance.sector_category) + ' and Year '+ str(form.instance.year))
+            if (request.POST.has_key('save_add')):
+                new_form = form_class(initial={'sector_category':form.cleaned_data['sector_category']})                
+                return render(request,self.template_name, {
+                    'form': new_form,
+                    'country': user_country,
+                    'data': data
+                })
+            return HttpResponseRedirect('/report/planningperformance')
+        
+        return render(request,self.template_name, {
+            'form': form,
+            'country': user_country,
+            'data': data
+        })    
 class TenderProcedurePerformanceCreate(LoginRequiredMixin,View):
     model = TenderProcedurePerformance
     template_name = 'tender_proc_performance_form.html'
@@ -390,6 +680,66 @@ class TenderProcedurePerformanceCreate(LoginRequiredMixin,View):
             'data': data
         })
 
+class TenderProcedurePerformanceEdit(LoginRequiredMixin,View):
+    model = TenderProcedurePerformance
+    template_name = 'tender_proc_performance_edit_form.html'
+    success_url = "/report/TenderProcPerformance"
+    def get(self, request,id=None):
+        if(id):
+            instance = TenderProcedurePerformance.objects.get(pk=int(id))
+            form = DTenderProcPerformanceForm(instance=instance,initial={'sector_category':instance.tender_procedure_property.sector_category,'tender_procedure_property':instance.tender_procedure_property})
+            #form.filter(instance.tender_procedure_property.sector_category)
+        else:
+            form = DTenderProcPerformanceForm(initial={'success_challenges':'','general_comment':'','bottlenecks':'','measures_taken':''})      
+        user_country = request.user.usercountry.country
+        if not request.user.is_superuser:
+            data = models.TenderProcedurePerformance.objects.filter(country=user_country)
+        else:
+            data = models.TenderProcedurePerformance.objects.all()
+
+        return render(request,self.template_name, {
+            'form': form,
+            'country': user_country,
+            'data': data
+        })
+    def post(self, request,id=None):
+        user_country = request.user.usercountry.country            
+        form = DTenderProcPerformanceForm(request.POST)
+        form.instance.country = user_country
+        if not request.user.is_superuser:
+            data = models.TenderProcedurePerformance.objects.filter(country=user_country)
+        else:
+            data = models.TenderProcedurePerformance.objects.all()
+        if(form.is_valid()):
+            form.instance.country = user_country
+            if(id):
+                form.instance.id=int(id)
+            prop_id = form.cleaned_data['tender_procedure_property']
+            try:
+                prop = models.TenderProcedureProperty.objects.get(pk=prop_id)
+            except models.TenderProcedureProperty.DoesNotExist:
+                prop = None
+            form.instance.tender_procedure_property = prop
+            try:
+                form.save()
+                messages.success(request, 'Report has been successfully submitted.')
+            except IntegrityError as e:
+                messages.error(request,'Could not Save! Duplicate Entry for Country '+ str(form.instance.country) + ' and Tender Procedure Property '+ str(form.instance.tender_procedure_property) + ' and Year '+ str(form.instance.year))
+            
+            if (request.POST.has_key('save_add')):
+                new_form = DTenderProcPerformanceForm(initial={'sector_category':form.cleaned_data['sector_category'], 'tender_procedure_property':form.cleaned_data['tender_procedure_property']})
+                return render(request,self.template_name, {
+                    'form': new_form,
+                    'country': user_country,
+                    'data': data
+                })
+            return HttpResponseRedirect('/report/TenderProcPerformance')
+        
+        return render(request,self.template_name, {
+            'form': form,
+            'country': user_country,
+            'data': data
+        })
 class CommunityApproachCreate(LoginRequiredMixin,View):
     model = CommunityApproach
     template_name = 'community_approach_form.html'
@@ -444,10 +794,117 @@ class CommunityApproachCreate(LoginRequiredMixin,View):
             'country': user_country,
             'data': data
         })
+
+class CommunityApproachEdit(LoginRequiredMixin,View):
+    model = CommunityApproach
+    template_name = 'community_approach_edit_form.html'
+    success_url = "/report/CommunityApproach"
+    def get(self, request, id=None):
+        form_class = modelform_factory(CommunityApproach)        
+        user_country = request.user.usercountry.country
+        if(id):
+            instance = models.CommunityApproach.objects.get(pk=int(id))
+            form=form_class(instance=instance)
+        else:
+            form=form_class(initial={'approach_name':"", 'description':"",'lessons_learnt':''})
+        if not request.user.is_superuser:
+            data = models.CommunityApproach.objects.filter(country=user_country)
+        else:
+            data = models.CommunityApproach.objects.all()
+        return render(request,self.template_name, {
+            'form': form,
+            'country': user_country,
+            'data': data
+        })
     
+    def post(self, request, id=None):
+        user_country = request.user.usercountry.country            
+        form_class = modelform_factory(CommunityApproach, exclude=['country'])
+        form = form_class(request.POST)
+        form.instance.country = user_country
+        if not request.user.is_superuser:
+            data = models.CommunityApproach.objects.filter(country=user_country)
+        else:
+            data = models.CommunityApproach.objects.all()
+        if(form.is_valid()):
+            if(id):
+                form.instance.id = int(id)
+            try:
+                form.save()
+                messages.success(request, 'Report has been successfully submitted.')
+            except IntegrityError as e:
+                messages.error(request,'Could not Save! Duplicate Entry for Country '+ str(form.instance.country) + ' and Sector Category '+ str(form.instance.sector_category) + ' and Year '+ str(form.instance.year))
+            
+            if (request.POST.has_key('save_add')):
+                new_form = form_class(initial={'approach_type':form.cleaned_data['approach_type'], 'sector_category':form.cleaned_data['sector_category']})                
+                return render(request,self.template_name, {
+                    'form': new_form,
+                    'country': user_country,
+                    'data': data
+                })
+            return HttpResponseRedirect('/report/communityapproach')
+        
+        return render(request,self.template_name, {
+            'form': form,
+            'country': user_country,
+            'data': data
+        })    
 class PartnerContributionCreate(LoginRequiredMixin,CreateView):
     model = PartnerContribution
     template_name = 'partner_contribution_form.html'
+    success_url = "/report/PartnerContribution"
+    def get(self, request, id=None):
+        form_class = modelform_factory(PartnerContribution)        
+        user_country = request.user.usercountry.country
+        if(id):
+            instance = models.PartnerContribution.objects.get(pk=int(id))
+            form = form_class(instance=instance)
+        else:
+            form = form_class(initial={'in_kind_contribution':'','financial_contribution':'', 'annual_contribution':''})
+        if not request.user.is_superuser:
+            data = models.PartnerContribution.objects.filter(country=user_country)
+        else:
+            data = models.PartnerContribution.objects.all()
+        return render(request,self.template_name, {
+            'form': form,
+            'country': user_country,
+            'data': data
+        })
+    def post(self, request, id=None):
+        user_country = request.user.usercountry.country            
+        form_class = modelform_factory(PartnerContribution, exclude=['country'])
+        form = form_class(request.POST)
+        form.instance.country = user_country
+        if not request.user.is_superuser:
+            data = models.PartnerContribution.objects.filter(country=user_country)
+        else:
+            data = models.PartnerContribution.objects.all()
+        if(form.is_valid()):
+            if(id):
+                form.instance.id = int(id)
+            try:
+                form.save()
+                messages.success(request, 'Report has been successfully submitted.')
+            except IntegrityError as e:
+                messages.error(request,'Could not Save! Duplicate Entry for Country '+ str(form.instance.country) + ', Sector Category '+ str(form.instance.sector_category) + ' and Partner '+ str(form.instance.partner))
+            
+            if (request.POST.has_key('save_add')):
+                new_form = form_class(initial={'sector_category':form.cleaned_data['sector_category'], 'partner':form.cleaned_data['partner']})                
+                return render(request,self.template_name, {
+                    'form': new_form,
+                    'country': user_country,
+                    'data': data
+                })
+            return HttpResponseRedirect('/report/PartnerContribution')
+        
+        return render(request,self.template_name, {
+            'form': form,
+            'country': user_country,
+            'data': data
+        })
+class PartnerContributionEdit(LoginRequiredMixin,CreateView):
+    model = PartnerContribution
+    template_name = 'partner_contribution_edit_form.html'
     success_url = "/report/PartnerContribution"
     def get(self, request, id=None):
         form_class = modelform_factory(PartnerContribution)        
@@ -551,6 +1008,59 @@ class PartnerEventContributionCreate(LoginRequiredMixin,CreateView):
             'country': user_country,
             'data': data
         })
+class PartnerEventContributionEdit(LoginRequiredMixin,CreateView):
+    model = PartnerEventContribution
+    template_name = 'partner_event_contribution_Edit_form.html'
+    success_url = "/report/PartnerEventContribution"
+    def get(self, request, id=None):
+        form_class = modelform_factory(PartnerEventContribution)        
+        user_country = request.user.usercountry.country
+        if(id):
+            instance = models.PartnerEventContribution.objects.get(pk=int(id))
+            form = form_class(instance=instance)
+        else:
+            form = form_class()
+        if not request.user.is_superuser:
+            data = models.PartnerEventContribution.objects.filter(country=user_country)
+        else:
+            data = models.PartnerEventContribution.objects.all()
+        return render(request,self.template_name, {
+            'form': form,
+            'country': user_country,
+            'data': data    
+        })
+    def post(self, request, id=None):
+        user_country = request.user.usercountry.country            
+        form_class = modelform_factory(PartnerEventContribution, exclude=['country'])
+        form = form_class(request.POST)
+        form.instance.country = user_country
+        if not request.user.is_superuser:
+            data = models.PartnerEventContribution.objects.filter(country=user_country)
+        else:
+            data = models.PartnerEventContribution.objects.all()
+        if(form.is_valid()):
+            if(id):
+                form.instance.id = int(id)
+            try:
+                form.save()
+                messages.success(request, 'Report has been successfully submitted.')
+            except IntegrityError as e:
+                messages.error(request,'Could not Save! Duplicate Entry for Country '+ str(form.instance.country) + ', Sector Category '+ str(form.instance.sector_category) + ' and Year '+ str(form.instance.year))
+            
+            if (request.POST.has_key('save_add')):
+                new_form = form_class(initial={'sector_category':form.cleaned_data['sector_category'], 'partner':form.cleaned_data['partner'], 'event':form.cleaned_data['event']})                
+                return render(request,self.template_name, {
+                    'form': new_form,
+                    'country': user_country,
+                    'data': data
+                })
+            return HttpResponseRedirect('/report/PartnerEventContribution')
+        
+        return render(request,self.template_name, {
+            'form': form,
+            'country': user_country,
+            'data': data
+        })
 class SWOTAndConclusionCreate(LoginRequiredMixin,View):
     model = SWOT
     template_name = 'swot_form.html'
@@ -604,7 +1114,60 @@ class SWOTAndConclusionCreate(LoginRequiredMixin,View):
             'country': user_country,
             'data': data
         })
-    
+
+class SWOTAndConclusionEdit(LoginRequiredMixin,View):
+    model = SWOT
+    template_name = 'swot_edit_form.html'
+    success_url = "/report/swot"
+    def get(self, request, id=None):
+        form_class = modelform_factory(SWOT)        
+        user_country = request.user.usercountry.country
+        if(id):
+            instance = models.SWOT.objects.get(pk=int(id))
+            form = form_class(instance=instance)
+        else:
+            form = form_class(initial={'strengths':'', 'opportunities':'','mitigation_measures':'','overall_challenges':'','kap_recommendations':'','risks':'','weaknesses':'','conclusion':''})
+        if not request.user.is_superuser:
+            data = models.SWOT.objects.filter(country=user_country)
+        else:
+            data = models.SWOT.objects.all()
+        return render(request,self.template_name, {
+            'form': form,
+            'country': user_country,
+            'data': data
+        })
+    def post(self, request):
+        user_country = request.user.usercountry.country            
+        form_class = modelform_factory(SWOT,exclude=['country'])
+        form = form_class(request.POST)
+        form.instance.country = user_country
+        if not request.user.is_superuser:
+            data = models.SWOT.objects.filter(country=user_country)
+        else:
+            data = models.SWOT.objects.all()
+        if(form.is_valid()):
+            #if(id):
+            #    form.instance.id = int(id)
+            try:
+                form.save()
+                messages.success(request, 'Report has been successfully submitted.')
+            except IntegrityError as e:
+                messages.error(request,'Could not Save!' )
+            
+            if (request.POST.has_key('save_add')):
+                new_form = form_class(initial={'sector_category':form.cleaned_data['sector_category']})                
+                return render(request,self.template_name, {
+                    'form': new_form,
+                    'country': user_country,
+                    'data': data
+                })
+            return HttpResponseRedirect('/report/swot')
+        
+        return render(request,self.template_name, {
+            'form': form,
+            'country': user_country,
+            'data': data
+        })    
 class Login(View):
     def get(self, request):
         auth_err = ''

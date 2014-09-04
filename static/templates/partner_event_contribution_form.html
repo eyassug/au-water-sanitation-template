@@ -2,6 +2,8 @@
 {% block content_container %}
     {% load widget_tweaks %}
     <script src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
+    
+
     <h2 class="page-header">Partner Contribution to Events for {{ country }}</h2>
     
     <div class="container msg-scc" id='message' >
@@ -23,14 +25,16 @@
                {% endif %}
     </div>
     
-    <ul class="nav nav-tabs" id="tab1">
-      <li class="active"><a href="#add" data-toggle="tab">Add</a></li>
-      <li><a href="#list" data-toggle="tab">List</a></li>
+    <ul class="nav nav-tabs" id="myTabList">
+      <li class="active"><a href="#list" data-toggle="tab">List</a></li>
+      <li><a href="#add" data-toggle="tab">Add</a></li>
+      
    </ul>
     
 <!-- Tab panes -->
+
    <div class="tab-content">
-      <div class="tab-pane active" id="add">
+      <div class="tab-pane" id="add">
         <!--<div class="alert alert-warning">Fields in <strong>bold</strong> are required.</div> -->
      <div class ="col-md-6">
     
@@ -116,7 +120,7 @@
 
      </div>
      </div>
-  <div class="tab-pane col-md-8" id="list">
+  <div class="tab-pane active col-md-8" id="list">
     {% include "snippets/partner_event_contribution_list.html" %}
   </div>
 </div>

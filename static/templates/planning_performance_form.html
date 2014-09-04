@@ -23,13 +23,14 @@
     </div>
     
     <ul class="nav nav-tabs" id="tab1">
-      <li class="active"><a href="#add" data-toggle="tab">Add</a></li>
-      <li><a href="#list" data-toggle="tab">List</a></li>
+      <li class="active"><a href="#list" data-toggle="tab">List</a></li>
+      <li ><a href="#add" data-toggle="tab">Add</a></li>
+      
    </ul>
     
 <!-- Tab panes -->
    <div class="tab-content">
-      <div class="tab-pane active" id="add">
+      <div class="tab-pane" id="add">
         <!--<div class="alert alert-warning">Fields in <strong>bold</strong> are required.</div> -->
      <div class ="col-md-6">
     
@@ -118,7 +119,7 @@
     </form>
      </div>
      </div>
-  <div class="tab-pane col-md-8" id="list">
+  <div class="tab-pane active col-md-8" id="list">
     {% include "snippets/planning_performance_list.html" %}
   </div>
 </div>
