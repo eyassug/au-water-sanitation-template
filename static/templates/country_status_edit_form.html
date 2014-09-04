@@ -1,0 +1,88 @@
+{% extends 'welcome.html' %}
+{% block content_container %}
+    {% load widget_tweaks %}
+    <h2 class="page-header">Population for {{ country }}</h2>
+    
+    <div class="container msg-scc" id='message' >
+               {% if messages %}
+           <div class="row">
+            <div  class="succuess col-sm-6">
+              {% for message in messages %}
+                   <p {% if message.tags == "success" %}
+                      class="alert alert-success">{{ message }}
+                      {% endif %}
+                   </p>
+                   <p {%if message.tags == "error" %}
+                      class="alert alert-danger">{{ message }}
+                      {% endif %}
+                   </p>
+                     {% endfor %}
+            </div>
+           </div>
+               {% endif %}
+    </div>
+    
+      
+   <ul class="nav nav-tabs" id="tab1">
+      <li class="active"><a href="#add" data-toggle="tab">Add</a></li>
+      <li ><a href="#list" data-toggle="tab">List</a></li>
+      
+      
+   </ul>
+    
+<!-- Tab panes -->
+   <div class="tab-content">
+      <div class="tab-pane active" id="add">
+     <!--<div class="alert alert-warning">Fields in <strong>bold</strong> are required.</div> -->
+   
+
+    <div class ="col-md-6">
+        
+   <form action="" method="post" role="form">
+    {% csrf_token %}
+         <div class="col-md-12 form-group">
+            <div class="form-group{% if form.year.errors %} has-error{% endif %}">
+            <label for="id_year">Year</label>
+                {% render_field form.year class+="form-control" %}
+                {% if form.year.errors %}
+                  {{ form.year.errors }}
+                {% endif %}
+            </div>
+            <div class="form-group{% if form.population.errors %} has-error{% endif %}">
+                <label for="id_population">Population</label>
+                 {% render_field form.population class+="form-control" %}
+                  {% if form.population.errors %}
+                {{ form.population.errors }}
+                
+                {% endif %}
+            </div>
+           </div>
+            <div class="bt-submit">
+               <button  name="save" type="submit" class="btn btn-success">Save</button>
+           
+               <button name="save_add" type="submit" class="btn btn-primary" id="save_add">Save & Add</button>
+            
+               <button name="cancel" type="reset" class="btn btn-danger">Cancel</button>
+            </div>
+         
+    
+ </form>
+
+    </div>
+    
+    </div>
+  <div class="tab-pane  col-md-8" id="list">
+    {% include "snippets/country_demographic_list.html" %}
+  </div>
+</div>
+   <script>
+     $(function() {
+    // setTimeout() function will be fired after page is loaded
+    // it will wait for 5 sec. and then will fire
+    // $("#successMessage").hide() function
+    setTimeout(function() {
+        $("#message").hide();
+});
+     </script>
+  
+{% endblock %}
