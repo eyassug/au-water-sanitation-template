@@ -29,6 +29,7 @@ from django.forms.util import ErrorList
 from dashboard import reports
 import xhtml2pdf.pisa as pisa 
 from dashboard import report_forms
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # html to pdf example
 
@@ -51,10 +52,19 @@ class SectorPerformanceCreate(LoginRequiredMixin,CreateView):
             data = models.SectorPerformance.objects.filter(country=user_country)
         else:
             data = models.SectorPerformance.objects.all()
+        paginator = Paginator(data, 30)
+        page_num = request.GET.get('page', 1)
+        try:
+            page = paginator.page(page_num)
+        except EmptyPage:
+            page = paginator.page(paginator.num_pages)
+        except PageNotAnInteger:
+                page = paginator.page(1)
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
-            'data':data
+            'data':data,
+            'page':page
         })
     def post(self, request,id=None):
         user_country = request.user.usercountry.country            
@@ -101,10 +111,19 @@ class SectorPerformanceEdit(LoginRequiredMixin,CreateView):
             data = models.SectorPerformance.objects.filter(country=user_country)
         else:
             data = models.SectorPerformance.objects.all()
+        paginator = Paginator(data, 30)
+        page_num = request.GET.get('page', 1)
+        try:
+            page = paginator.page(page_num)
+        except EmptyPage:
+            page = paginator.page(paginator.num_pages)
+        except PageNotAnInteger:
+                page = paginator.page(1)
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
-            'data':data
+            'data':data,
+            'page':page
         })
     def post(self, request,id=None):
         user_country = request.user.usercountry.country            
@@ -159,10 +178,20 @@ class FacilityAccessCreate(LoginRequiredMixin,View):
             data = models.FacilityAccess.objects.filter(priority_area__country=user_country)
         else:
             data = models.FacilityAccess.objects.all()
+        paginator = Paginator(data, 30)
+        page_num = request.GET.get('page', 1)
+        try:
+            page = paginator.page(page_num)
+        except EmptyPage:
+            page = paginator.page(paginator.num_pages)
+        except PageNotAnInteger:
+                page = paginator.page(1)
+        
         return render(request, 'facility_access_form.html', {
             'form': form,
             'country': user_country,
-            'data':data
+            'data':data,
+            'page':page
         })
     
     def post(self,request, id=None):
@@ -234,10 +263,19 @@ class FacilityAccessEdit(LoginRequiredMixin,View):
             data = models.FacilityAccess.objects.filter(priority_area__country=user_country)
         else:
             data = models.FacilityAccess.objects.all()
+        paginator = Paginator(data, 30)
+        page_num = request.GET.get('page', 1)
+        try:
+            page = paginator.page(page_num)
+        except EmptyPage:
+            page = paginator.page(paginator.num_pages)
+        except PageNotAnInteger:
+                page = paginator.page(1)
         return render(request, 'facility_access_edit_form.html', {
             'form': form,
             'country': user_country,
-            'data':data
+            'data':data,
+            'page':page
         })
     
     def post(self,request, id=None):
@@ -294,6 +332,7 @@ class CountryStatusCreate(LoginRequiredMixin,View):
     model = CountryDemographic
     template_name = 'country_status_form.html'
     success_url = "/report/countrystatus"
+    #data = models.CountryDemographic.objects.filter(country=user_country)
     
     def get(self,request,id=None):
         user_country = request.user.usercountry.country
@@ -307,11 +346,22 @@ class CountryStatusCreate(LoginRequiredMixin,View):
             data = models.CountryDemographic.objects.filter(country=user_country)
         else:
             data = models.CountryDemographic.objects.all()
+        paginator = Paginator(data, 30)
+        page_num = request.GET.get('page', 1)
+        try:
+            page = paginator.page(page_num)
+        except EmptyPage:
+            page = paginator.page(paginator.num_pages)
+        except PageNotAnInteger:
+                page = paginator.page(1)
+        
         return render(request, self.template_name, {
             'form': form,
             'country': user_country,
-            'data':data
+            'data':data,
+            'page':page
         })
+    
     
     def post(self,request,id=None):
         user_country = request.user.usercountry.country
@@ -362,10 +412,19 @@ class CountryStatusEdit(LoginRequiredMixin,View):
             data = models.CountryDemographic.objects.filter(country=user_country)
         else:
             data = models.CountryDemographic.objects.all()
+        paginator = Paginator(data, 30)
+        page_num = request.GET.get('page', 1)
+        try:
+            page = paginator.page(page_num)
+        except EmptyPage:
+            page = paginator.page(paginator.num_pages)
+        except PageNotAnInteger:
+                page = paginator.page(1)
         return render(request, self.template_name, {
             'form': form,
             'country': user_country,
-            'data':data
+            'data':data,
+            'page':page
         })
     
     def post(self,request,id=None):
@@ -414,11 +473,20 @@ class PriorityAreaStatusCreate(LoginRequiredMixin,View):
             data = models.PriorityAreaStatus.objects.filter(priority_area__country = user_country)
         else:
             data = models.PriorityAreaStatus.objects.all()
+        paginator = Paginator(data, 30)
+        page_num = request.GET.get('page', 1)
+        try:
+            page = paginator.page(page_num)
+        except EmptyPage:
+            page = paginator.page(paginator.num_pages)
+        except PageNotAnInteger:
+                page = paginator.page(1)
                             
         return render(request,'priority_area_status_form.html', {
             'form': form,
             'country': user_country,
-            'data':data
+            'data':data,
+            'page':page
         })    
     
     def post(self,request,id=None):
@@ -470,11 +538,20 @@ class PriorityAreaStatusEdit(LoginRequiredMixin,View):
             data = models.PriorityAreaStatus.objects.filter(priority_area__country = user_country)
         else:
             data = models.PriorityAreaStatus.objects.all()
+        paginator = Paginator(data, 30)
+        page_num = request.GET.get('page', 1)
+        try:
+            page = paginator.page(page_num)
+        except EmptyPage:
+            page = paginator.page(paginator.num_pages)
+        except PageNotAnInteger:
+                page = paginator.page(1)
                             
         return render(request,'priority_area_status_edit_form.html', {
             'form': form,
             'country': user_country,
-            'data':data
+            'data':data,
+            'page':page
         })    
     
     def post(self,request,id=None):
@@ -527,10 +604,19 @@ class PlanningPerformanceCreate(LoginRequiredMixin,View):
             data = models.PlanningPerformance.objects.filter(country=user_country)
         else:
             data = models.PlanningPerformance.objects.all()
+        paginator = Paginator(data, 30)
+        page_num = request.GET.get('page', 1)
+        try:
+            page = paginator.page(page_num)
+        except EmptyPage:
+            page = paginator.page(paginator.num_pages)
+        except PageNotAnInteger:
+                page = paginator.page(1)
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
-            'data': data
+            'data': data,
+            'page':page
         })
     
     def post(self, request,id=None):
@@ -582,10 +668,19 @@ class PlanningPerformanceEdit(LoginRequiredMixin,View):
             data = models.PlanningPerformance.objects.filter(country=user_country)
         else:
             data = models.PlanningPerformance.objects.all()
+        paginator = Paginator(data, 30)
+        page_num = request.GET.get('page', 1)
+        try:
+            page = paginator.page(page_num)
+        except EmptyPage:
+            page = paginator.page(paginator.num_pages)
+        except PageNotAnInteger:
+                page = paginator.page(1)
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
-            'data': data
+            'data': data,
+            'page':page
         })
     
     def post(self, request,id=None):
@@ -635,11 +730,20 @@ class TenderProcedurePerformanceCreate(LoginRequiredMixin,View):
             data = models.TenderProcedurePerformance.objects.filter(country=user_country)
         else:
             data = models.TenderProcedurePerformance.objects.all()
+        paginator = Paginator(data, 30)
+        page_num = request.GET.get('page', 1)
+        try:
+            page = paginator.page(page_num)
+        except EmptyPage:
+            page = paginator.page(paginator.num_pages)
+        except PageNotAnInteger:
+                page = paginator.page(1)
 
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
-            'data': data
+            'data': data,
+            'page':page
         })
     def post(self, request,id=None):
         user_country = request.user.usercountry.country            
@@ -696,11 +800,21 @@ class TenderProcedurePerformanceEdit(LoginRequiredMixin,View):
             data = models.TenderProcedurePerformance.objects.filter(country=user_country)
         else:
             data = models.TenderProcedurePerformance.objects.all()
+        paginator = Paginator(data, 30)
+        page_num = request.GET.get('page', 1)
+        try:
+            page = paginator.page(page_num)
+        except EmptyPage:
+            page = paginator.page(paginator.num_pages)
+        except PageNotAnInteger:
+                page = paginator.page(1)
 
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
-            'data': data
+            'data': data,
+            'page':page
+            
         })
     def post(self, request,id=None):
         user_country = request.user.usercountry.country            
@@ -756,10 +870,19 @@ class CommunityApproachCreate(LoginRequiredMixin,View):
             data = models.CommunityApproach.objects.filter(country=user_country)
         else:
             data = models.CommunityApproach.objects.all()
+        paginator = Paginator(data, 30)
+        page_num = request.GET.get('page', 1)
+        try:
+            page = paginator.page(page_num)
+        except EmptyPage:
+            page = paginator.page(paginator.num_pages)
+        except PageNotAnInteger:
+                page = paginator.page(1)
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
-            'data': data
+            'data': data,
+            'page':page
         })
     
     def post(self, request, id=None):
@@ -811,10 +934,19 @@ class CommunityApproachEdit(LoginRequiredMixin,View):
             data = models.CommunityApproach.objects.filter(country=user_country)
         else:
             data = models.CommunityApproach.objects.all()
+        paginator = Paginator(data, 30)
+        page_num = request.GET.get('page', 1)
+        try:
+            page = paginator.page(page_num)
+        except EmptyPage:
+            page = paginator.page(paginator.num_pages)
+        except PageNotAnInteger:
+                page = paginator.page(1)
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
-            'data': data
+            'data': data,
+            'page':page
         })
     
     def post(self, request, id=None):
@@ -865,10 +997,19 @@ class PartnerContributionCreate(LoginRequiredMixin,CreateView):
             data = models.PartnerContribution.objects.filter(country=user_country)
         else:
             data = models.PartnerContribution.objects.all()
+        paginator = Paginator(data, 30)
+        page_num = request.GET.get('page', 1)
+        try:
+            page = paginator.page(page_num)
+        except EmptyPage:
+            page = paginator.page(paginator.num_pages)
+        except PageNotAnInteger:
+                page = paginator.page(1)
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
-            'data': data
+            'data': data,
+            'page':page
         })
     def post(self, request, id=None):
         user_country = request.user.usercountry.country            
@@ -918,10 +1059,19 @@ class PartnerContributionEdit(LoginRequiredMixin,CreateView):
             data = models.PartnerContribution.objects.filter(country=user_country)
         else:
             data = models.PartnerContribution.objects.all()
+        paginator = Paginator(data, 30)
+        page_num = request.GET.get('page', 1)
+        try:
+            page = paginator.page(page_num)
+        except EmptyPage:
+            page = paginator.page(paginator.num_pages)
+        except PageNotAnInteger:
+                page = paginator.page(1)
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
-            'data': data
+            'data': data,
+            'page':page
         })
     def post(self, request, id=None):
         user_country = request.user.usercountry.country            
@@ -971,10 +1121,19 @@ class PartnerEventContributionCreate(LoginRequiredMixin,CreateView):
             data = models.PartnerEventContribution.objects.filter(country=user_country)
         else:
             data = models.PartnerEventContribution.objects.all()
+        paginator = Paginator(data, 30)
+        page_num = request.GET.get('page', 1)
+        try:
+            page = paginator.page(page_num)
+        except EmptyPage:
+            page = paginator.page(paginator.num_pages)
+        except PageNotAnInteger:
+                page = paginator.page(1)
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
-            'data': data    
+            'data': data,
+            'page':page
         })
     def post(self, request, id=None):
         user_country = request.user.usercountry.country            
@@ -1024,10 +1183,19 @@ class PartnerEventContributionEdit(LoginRequiredMixin,CreateView):
             data = models.PartnerEventContribution.objects.filter(country=user_country)
         else:
             data = models.PartnerEventContribution.objects.all()
+        paginator = Paginator(data, 30)
+        page_num = request.GET.get('page', 1)
+        try:
+            page = paginator.page(page_num)
+        except EmptyPage:
+            page = paginator.page(paginator.num_pages)
+        except PageNotAnInteger:
+                page = paginator.page(1)
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
-            'data': data    
+            'data': data,
+            'page':page
         })
     def post(self, request, id=None):
         user_country = request.user.usercountry.country            
@@ -1077,10 +1245,19 @@ class SWOTAndConclusionCreate(LoginRequiredMixin,View):
             data = models.SWOT.objects.filter(country=user_country)
         else:
             data = models.SWOT.objects.all()
+        paginator = Paginator(data, 30)
+        page_num = request.GET.get('page', 1)
+        try:
+            page = paginator.page(page_num)
+        except EmptyPage:
+            page = paginator.page(paginator.num_pages)
+        except PageNotAnInteger:
+                page = paginator.page(1)
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
-            'data': data
+            'data': data,
+            'page':page
         })
     def post(self, request):
         user_country = request.user.usercountry.country            
@@ -1131,10 +1308,19 @@ class SWOTAndConclusionEdit(LoginRequiredMixin,View):
             data = models.SWOT.objects.filter(country=user_country)
         else:
             data = models.SWOT.objects.all()
+        paginator = Paginator(data, 30)
+        page_num = request.GET.get('page', 1)
+        try:
+            page = paginator.page(page_num)
+        except EmptyPage:
+            page = paginator.page(paginator.num_pages)
+        except PageNotAnInteger:
+                page = paginator.page(1)
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
-            'data': data
+            'data': data,
+            'page':page
         })
     def post(self, request):
         user_country = request.user.usercountry.country            
