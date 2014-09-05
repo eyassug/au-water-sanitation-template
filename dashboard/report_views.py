@@ -162,8 +162,8 @@ class view_facilityaccess_in_pdf(LoginRequiredMixin,View):
             return HttpResponse(result.getvalue(), mimetype='application/pdf')
             
             """ Enable if you want to generate pdf in a new file """
-            #response['Content-Disposition'] = 'attachment; filename=output.pdf'
-            #return response
+            response['Content-Disposition'] = 'attachment; filename=output.pdf'
+            return response
         except:
             return HttpResponse('We had some errors<pre>%s</pre>' % escape(html))
 
@@ -334,8 +334,8 @@ class view_planningperformance_in_pdf(LoginRequiredMixin,View):
             return HttpResponse(result.getvalue(), mimetype='application/pdf')
             
             """ Enable if you want to generate pdf in a new file """
-            #response['Content-Disposition'] = 'attachment; filename=output.pdf'
-            #return response
+            response['Content-Disposition'] = 'attachment; filename=output.pdf'
+            return response
         except:
             return HttpResponse('We had some errors<pre>%s</pre>' % escape(html))        
 
@@ -368,8 +368,8 @@ class view_priorityareastatus_in_pdf(LoginRequiredMixin,View):
             return HttpResponse(result.getvalue(), mimetype='application/pdf')
             
             """ Enable if you want to generate pdf in a new file """
-            #response['Content-Disposition'] = 'attachment; filename=output.pdf'
-            #return response
+            response['Content-Disposition'] = 'attachment; filename=output.pdf'
+            return response
         except:
             return HttpResponse('We had some errors<pre>%s</pre>' % escape(html))        
 
