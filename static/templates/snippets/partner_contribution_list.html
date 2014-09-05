@@ -1,5 +1,5 @@
 {% load pagination_tags %}
-{% autopaginate data 10 %}
+{% autopaginate data 30 %}
 <script type="text/javascript">
 				/* Table initialisation */
 			$(document).ready(function() {
@@ -33,7 +33,7 @@
 {% for d in data %}
 
     <tr>
-        <td>{{ forloop.counter }}</td>
+        <td>{{ forloop.counter0|add:page.start_index }}</td>
         <td>{{ d.sector_category }}</td>
         <td>{{ d.partner }}</td>        
         <td>{{ d.annual_contribution }}</td>
@@ -50,4 +50,5 @@
 </tbody>
 </table>
 {% paginate %}
+{{ page.object_list|length }} of {{ page.paginator.count }} Results on Page {{ page.number }} of {{ page.paginator.num_pages }}
 </div>

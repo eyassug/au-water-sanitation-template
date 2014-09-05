@@ -1,5 +1,5 @@
 {% load pagination_tags %}
-{% autopaginate data 10 %}
+{% autopaginate data 30 %}
 
 <div class="table-responsive">
 <a href="/report/viewswotconclusionpdf" target="_blank" class="btn btn-danger btn-danger-right">Export To PDF</a>   
@@ -26,7 +26,7 @@
 {% for d in data %}
 
     <tr>
-        <td>{{ forloop.counter }}</td>
+        <td>{{ forloop.counter0|add:page.start_index }}</td>
         <td>{{ d.sector_category }}</td>
         <td>{{ d.overall_challenges }}</td>        
         <td>{{ d.strengths }}</td>
@@ -48,5 +48,6 @@
 </tbody>
 </table>
 {% paginate %}
+{{ page.object_list|length }} of {{ page.paginator.count }} Results on Page {{ page.number }} of {{ page.paginator.num_pages }}
 
 </div>
