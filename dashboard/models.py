@@ -43,7 +43,7 @@ class PriorityArea(models.Model):
     class Meta:
         verbose_name_plural = "Priority Areas"
         unique_together = ("country", "name")
-     
+        ordering = ['name']
 class SectorCategory(models.Model):
     name = models.CharField(max_length=120, null=False, blank=False, unique=True)
     is_active = models.BooleanField(default=True)

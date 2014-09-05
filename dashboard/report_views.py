@@ -159,10 +159,8 @@ class view_facilityaccess_in_pdf(LoginRequiredMixin,View):
                        link_callback=path)
                        
         try:
-            return HttpResponse(result.getvalue(), mimetype='application/pdf')
-            
-            """ Enable if you want to generate pdf in a new file """
-            response['Content-Disposition'] = 'attachment; filename=output.pdf'
+            response = HttpResponse(result.getvalue(), mimetype='application/pdf')
+            response['Content-Disposition'] = 'attachment; filename=tender_proc_performance.pdf'
             return response
         except:
             return HttpResponse('We had some errors<pre>%s</pre>' % escape(html))
@@ -467,10 +465,8 @@ class view_tender_proc_performance_in_pdf(LoginRequiredMixin,View):
                        link_callback=path)
                        
         try:
-            return HttpResponse(result.getvalue(), mimetype='application/pdf')
-            
-            """ Enable if you want to generate pdf in a new file """
-            #response['Content-Disposition'] = 'attachment; filename=output.pdf'
-            #return response
+            response = HttpResponse(result.getvalue(), mimetype='application/pdf')
+            response['Content-Disposition'] = 'attachment; filename=tender_proc_performance.pdf'
+            return response
         except:
             return HttpResponse('We had some errors<pre>%s</pre>' % escape(html))        

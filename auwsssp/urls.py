@@ -22,6 +22,8 @@ urlpatterns = patterns('',
     url(r'^(?i)report/sectorperformance$', views.SectorPerformanceCreate.as_view(), name='sector_performance_create'),    
     url(r'^(?i)report/sectorperformanceedit/(?P<id>[0-9]+)/$', views.SectorPerformanceEdit.as_view(), name='sector_performance_create'),    
     url(r'^(?i)report/sectorperformance/list$', views.SectorPerformanceGridView.as_view(), name='sector_performance_create'),    
+    url(r'^(?i)report/priorityareaview/list$', views.PriorityAreaView.as_view(), name='Priorityreaview'),    
+    
     url(r'^(?i)report/facilityaccess$', views.FacilityAccessCreate.as_view(), name='facility_access_create'),
     url(r'^(?i)report/facilityaccessedit/(?P<id>[0-9]+)/$', views.FacilityAccessEdit.as_view(), name='facility_access_create'),
     url(r'^(?i)report/facilityaccess/list$', views.TechnologyAccessGridView.as_view(), name='facility_access_create'),

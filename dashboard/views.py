@@ -35,7 +35,30 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
     
 
-
+class PriorityAreaView(LoginRequiredMixin,CreateView):
+    model = PriorityArea
+    template_name = 'snippets/priority_area_list.html'
+    def get(self, request,id=None):
+        user_country = request.user.usercountry.country        
+        
+        if not request.user.is_superuser:
+            data = models.PriorityArea.objects.filter(country=user_country)
+        else:
+            data = models.PriorityArea.objects.all()
+        paginator = Paginator(data, 30)
+        page_num = request.GET.get('page', 1)
+        try:
+            page = paginator.page(page_num)
+        except EmptyPage:
+            page = paginator.page(paginator.num_pages)
+        except PageNotAnInteger:
+                page = paginator.page(1)
+        return render(request,self.template_name, {
+            
+            'country': user_country,
+            'data':data,
+            'page':page
+        })
 
 # Sector Performance Category
 class SectorPerformanceCreate(LoginRequiredMixin,CreateView):
