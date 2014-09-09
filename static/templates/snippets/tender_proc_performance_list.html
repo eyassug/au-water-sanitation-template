@@ -17,6 +17,7 @@
             <th>Country</th>
         {% endif %}
             <th>&nbsp;</th>
+            <th>&nbsp;</th>
         </tr>
     </thead>
 <tbody>
@@ -31,8 +32,10 @@
         <td>{{ d.executed }}</td>
     {% if user.is_superuser %}
         <th>{{ d.country }}</th>
+        
     {% endif %}
         <td><a href="/report/TenderProcPerformanceedit/{{ d.id }}">Edit</a></td>
+        <td><a href="/report/TenderProcPerformancedelete/{{ d.id }}">Delete</a></td>
     </tr>
     
 {% endfor %}

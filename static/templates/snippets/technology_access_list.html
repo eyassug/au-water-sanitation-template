@@ -28,6 +28,7 @@
             <th>Household Contribution (%)</th>
             <th>Government Contribution (%)</th>
             <th>&nbsp;</th>
+            <th>&nbsp;</th>
         </tr>
     </thead>
 <tbody>
@@ -46,6 +47,7 @@
         <td>{{ d.house_hold_contribution }}</td>
         <td>{{ d.government_contribution }}</td>
         <td><a href="/report/facilityaccessedit/{{d.id}}">Edit</a></td>
+        <td><a href="/report/facilityaccessdelete/{{d.id}}">Delete</a></td>
     </tr>
     
 {% endfor %}

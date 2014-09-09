@@ -15,6 +15,7 @@
             <th>Country</th>
         {% endif %}
             <th>&nbsp;</th>
+            <th>&nbsp;</th>
         </tr>
     </thead>
 <tbody>
@@ -30,6 +31,7 @@
         <td>{{ d.country }}</td>
     {% endif %}
         <td><a href="/report/PlanningPerformanceedit/{{ d.id }}">Edit</a></td>
+        <td><a href="/report/PlanningPerformancedelete/{{ d.id }}">Delete</a></td>
     </tr>
     
 {% endfor %}

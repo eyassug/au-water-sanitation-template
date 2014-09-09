@@ -24,6 +24,7 @@
             <th>Country</th>
         {% endif %}
             <th></th>
+            <th></th>
         </tr>
     </thead>
 <tbody>
@@ -38,6 +39,7 @@
         <td>{{ d.country }}</td>
     {% endif %}
         <td><a href="/report/countrystatusedit/{{ d.id }}/">Edit</a></td>
+        <td><a href="/report/countrystatusDelete/{{d.id}}/">Delete</a></td>
     </tr>
     
 {% endfor %}
