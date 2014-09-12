@@ -1,0 +1,15 @@
+{% extends 'welcome.html' %}
+{% block content_container %}
+    
+    {% load widget_tweaks %}
+
+
+
+{%for d in data%}
+
+<h3>Are you sure you want to delete {{d.id}}?</h3>
+<form action="" method="post">{% csrf_token %}
+<a href="/report/countrystatus/{{d.id}}&{{d.id}}">Yes</a></td> <input type="button" value="No..." onclick="window.history.go(-1);"/>
+</form>
+{% endfor %}
+{% endblock %}

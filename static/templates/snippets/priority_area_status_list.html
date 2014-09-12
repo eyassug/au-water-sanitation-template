@@ -33,14 +33,74 @@
         <td>{{ d.priority_area }}</td>
     {% endif %}
         <td><a href="/report/PriorityStatusedit/{{ d.id }}">Edit</a></td>
-        <td><a href="/report/PriorityStatusdelete/{{ d.id }}">Delete</a></td>
+        <td><a class="delete" href="/prioritystatusdelete/{{ d.id }}/delete/">Delete</a></td>
+    
     </tr>
     
 {% endfor %}
 
 </tbody>
 </table>
+
 {% paginate %}
 {{ page.object_list|length }} of {{ page.paginator.count }} Results on Page {{ page.number }} of {{ page.paginator.num_pages }}
 
 </div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+
+<script type="text/javascript">
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    $(document).ready(function() {
+
+        var csrftoken = getCookie('csrftoken');
+
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        $.ajaxSetup({
+            crossDomain: false, // obviates need for sameOrigin test
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type)) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+
+        // This function must be customized
+        var onDelete = function(){
+            $.post(this.href, function(data) {
+                if (data.result == "ok"){
+                    alert("data deleted successfully");
+                    location.reload();
+                   
+                } else {
+                    // handle error processed by server here
+                    alert("smth goes wrong");
+                }
+            }).fail(function() {
+                // handle unexpected error here
+                alert("error");
+            });
+            return false;
+        }
+
+        $(".delete").click(onDelete);
+    });
+</script>
+ 
