@@ -1,16 +1,6 @@
 {% load pagination_tags %}
 {% autopaginate data 30 %}
-<script type="text/javascript">
-				/* Table initialisation */
-			$(document).ready(function() {
-				$('#ta').dataTable( {
-					"bSort": true,        // Disable sorting
-					"iDisplayLength": 5,   // records per page
-					"sDom": "t<'row'<'col-md-6'i><'col-md-6'p>>",
-					"sPaginationType": "bootstrap"
-				});
-			});
-		</script>
+
 <div class="table-responsive">
     
     <a href="/report/viewfacilityaccessinpdf" target="_blank" class="btn btn-danger btn-danger-right">Export To PDF</a>   
@@ -60,7 +50,8 @@
 {{ page.object_list|length }} of {{ page.paginator.count }} Results on Page {{ page.number }} of {{ page.paginator.num_pages }}
 
 </div>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+
+<!--<script src="//ajax.microsoft.com/ajax/jQuery/jquery-1.9.1.min.js"></script>-->
 
 <script type="text/javascript">
     function getCookie(name) {
