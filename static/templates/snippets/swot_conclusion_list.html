@@ -55,9 +55,10 @@
 {{ page.object_list|length }} of {{ page.paginator.count }} Results on Page {{ page.number }} of {{ page.paginator.num_pages }}
 
 </div>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script src="//ajax.microsoft.com/ajax/jQuery/jquery-1.9.1.min.js"></script>
 
 <script type="text/javascript">
+    var jQuery_1_9_1  = $.noConflict(true);
     function getCookie(name) {
         var cookieValue = null;
         if (document.cookie && document.cookie != '') {
@@ -74,7 +75,7 @@
         return cookieValue;
     }
 
-    $(document).ready(function() {
+    jQuery_1_9_1(document).ready(function() {
 
         var csrftoken = getCookie('csrftoken');
 
@@ -82,7 +83,7 @@
             // these HTTP methods do not require CSRF protection
             return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
         }
-        $.ajaxSetup({
+        jQuery_1_9_1.ajaxSetup({
             crossDomain: false, // obviates need for sameOrigin test
             beforeSend: function(xhr, settings) {
                 if (!csrfSafeMethod(settings.type)) {
@@ -92,8 +93,9 @@
         });
 
         // This function must be customized
+        
         var onDelete = function(){
-            $.post(this.href, function(data) {
+            jQuery_1_9_1.post(this.href, function(data) {
                 if (data.result == "ok"){
                     alert("data deleted successfully");
                     location.reload();
@@ -109,7 +111,7 @@
             return false;
         }
 
-        $(".delete").click(onDelete);
+        jQuery_1_9_1(".delete").click(onDelete);
     });
 </script>
  
