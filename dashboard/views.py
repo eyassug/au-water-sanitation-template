@@ -337,13 +337,23 @@ class FacilityAccessCreate(LoginRequiredMixin,View):
                                                         'sector_category':form.cleaned_data['sector_category'],
                                                         'facility_character':form.instance.technology.facility_character,
                                                         'technology':form.instance.technology
-                                                        })                
+                                                        })
+                paginator = Paginator(data, 30)
+                page_num = request.GET.get('page', 1)
+                try:
+                    page = paginator.page(page_num)
+                except EmptyPage:
+                    page = paginator.page(paginator.num_pages)
+                except PageNotAnInteger:
+                    page = paginator.page(1)
                 return render(request, 'facility_access_form.html', {
                     'form': new_form,
                     'country': user_country,
                     'data':data,
                     'facility_character':form.cleaned_data['facility_character'],
-                    'technology':form.cleaned_data['technology']
+                    'technology':form.cleaned_data['technology'],
+                    'page':page
+                    
                 })
             return HttpResponseRedirect('/report/facilityaccess#list')
         return render(request, 'facility_access_form.html', {
@@ -608,14 +618,24 @@ class CountryStatusCreate(LoginRequiredMixin,View):
                 new_form.instance.country = user_country
                 new_form.instance.year = form.instance.year
                 new_form.instance.population = 0
+                
                 if not request.user.is_superuser:
                     data = models.CountryDemographic.objects.filter(country=user_country)
                 else:
                     data = models.CountryDemographic.objects.all()
+                paginator = Paginator(data, 30)
+                page_num = request.GET.get('page', 1)
+                try:
+                    page = paginator.page(page_num)
+                except EmptyPage:
+                    page = paginator.page(paginator.num_pages)
+                except PageNotAnInteger:
+                    page = paginator.page(1)
                 return render(request, self.template_name, {
                     'form': new_form,
                     'country': user_country,
-                    'data':data
+                    'data':data,
+                    'page':page
                 })
             
             return HttpResponseRedirect(self.success_url+'#list')
@@ -846,10 +866,19 @@ class PriorityAreaStatusCreate(LoginRequiredMixin,View):
             if (request.POST.has_key('save_add')):
                 new_form = PriorityAreaStatusForm(initial={'priority_area':form.cleaned_data['priority_area']})
                 new_form.filter(country=user_country)
+                paginator = Paginator(data, 30)
+                page_num = request.GET.get('page', 1)
+                try:
+                    page = paginator.page(page_num)
+                except EmptyPage:
+                    page = paginator.page(paginator.num_pages)
+                except PageNotAnInteger:
+                    page = paginator.page(1)
                 return render(request,'priority_area_status_form.html', {
                     'form': new_form,
                     'country': user_country,
-                    'data':data
+                    'data':data,
+                    'page':page
                 })
             return HttpResponseRedirect('/report/prioritystatus')
         return render(request, 'priority_area_status_form.html', {'form': form,'country':user_country,'data':data})
@@ -1053,11 +1082,20 @@ class PlanningPerformanceCreate(LoginRequiredMixin,View):
             except IntegrityError as e:
                 messages.error(request,'Could not Save! Duplicate Entry for Country '+ str(form.instance.country) + ' and Sector Category '+ str(form.instance.sector_category) + ' and Year '+ str(form.instance.year))
             if (request.POST.has_key('save_add')):
-                new_form = form_class(initial={'sector_category':form.cleaned_data['sector_category']})                
+                new_form = form_class(initial={'sector_category':form.cleaned_data['sector_category']})
+                paginator = Paginator(data, 30)
+                page_num = request.GET.get('page', 1)
+                try:
+                    page = paginator.page(page_num)
+                except EmptyPage:
+                    page = paginator.page(paginator.num_pages)
+                except PageNotAnInteger:
+                    page = paginator.page(1)
                 return render(request,self.template_name, {
                     'form': new_form,
                     'country': user_country,
-                    'data': data
+                    'data': data,
+                    'page':page
                 })
             return HttpResponseRedirect('/report/planningperformance')
         
@@ -1270,6 +1308,14 @@ class TenderProcedurePerformanceCreate(LoginRequiredMixin,View):
             
             if (request.POST.has_key('save_add')):
                 new_form = DTenderProcPerformanceForm(initial={'sector_category':form.cleaned_data['sector_category'], 'tender_procedure_property':form.cleaned_data['tender_procedure_property']})
+                paginator = Paginator(data, 30)
+                page_num = request.GET.get('page', 1)
+                try:
+                    page = paginator.page(page_num)
+                except EmptyPage:
+                    page = paginator.page(paginator.num_pages)
+                except PageNotAnInteger:
+                    page = paginator.page(1)
                 return render(request,self.template_name, {
                     'form': new_form,
                     'country': user_country,
@@ -1280,7 +1326,8 @@ class TenderProcedurePerformanceCreate(LoginRequiredMixin,View):
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
-            'data': data
+            'data': data,
+            'page':page
         })
 
 class TenderProcedurePerformanceEdit(LoginRequiredMixin,View):
@@ -1494,11 +1541,20 @@ class CommunityApproachCreate(LoginRequiredMixin,View):
                 messages.error(request,'Could not Save! Duplicate Entry for Country '+ str(form.instance.country) + ' and Sector Category '+ str(form.instance.sector_category) + ' and Year '+ str(form.instance.year))
             
             if (request.POST.has_key('save_add')):
-                new_form = form_class(initial={'approach_type':form.cleaned_data['approach_type'], 'sector_category':form.cleaned_data['sector_category']})                
+                new_form = form_class(initial={'approach_type':form.cleaned_data['approach_type'], 'sector_category':form.cleaned_data['sector_category']})
+                paginator = Paginator(data, 30)
+                page_num = request.GET.get('page', 1)
+                try:
+                    page = paginator.page(page_num)
+                except EmptyPage:
+                    page = paginator.page(paginator.num_pages)
+                except PageNotAnInteger:
+                    page = paginator.page(1)
                 return render(request,self.template_name, {
                     'form': new_form,
                     'country': user_country,
-                    'data': data
+                    'data': data,
+                    'page':page
                 })
             return HttpResponseRedirect('/report/communityapproach')
         
@@ -1640,11 +1696,20 @@ class PartnerContributionCreate(LoginRequiredMixin,CreateView):
                 messages.error(request,'Could not Save! Duplicate Entry for Country '+ str(form.instance.country) + ', Sector Category '+ str(form.instance.sector_category) + ' and Partner '+ str(form.instance.partner))
             
             if (request.POST.has_key('save_add')):
-                new_form = form_class(initial={'sector_category':form.cleaned_data['sector_category'], 'partner':form.cleaned_data['partner']})                
+                new_form = form_class(initial={'sector_category':form.cleaned_data['sector_category'], 'partner':form.cleaned_data['partner']})
+                paginator = Paginator(data, 30)
+                page_num = request.GET.get('page', 1)
+                try:
+                    page = paginator.page(page_num)
+                except EmptyPage:
+                    page = paginator.page(paginator.num_pages)
+                except PageNotAnInteger:
+                    page = paginator.page(1)
                 return render(request,self.template_name, {
                     'form': new_form,
                     'country': user_country,
-                    'data': data
+                    'data': data,
+                    'page':page
                 })
             return HttpResponseRedirect('/report/PartnerContribution')
         
@@ -1846,11 +1911,20 @@ class PartnerEventContributionCreate(LoginRequiredMixin,CreateView):
                 messages.error(request,'Could not Save! Duplicate Entry for Country '+ str(form.instance.country) + ', Sector Category '+ str(form.instance.sector_category) + ' and Year '+ str(form.instance.year))
             
             if (request.POST.has_key('save_add')):
-                new_form = form_class(initial={'sector_category':form.cleaned_data['sector_category'], 'partner':form.cleaned_data['partner'], 'event':form.cleaned_data['event']})                
+                new_form = form_class(initial={'sector_category':form.cleaned_data['sector_category'], 'partner':form.cleaned_data['partner'], 'event':form.cleaned_data['event']})
+                paginator = Paginator(data, 30)
+                page_num = request.GET.get('page', 1)
+                try:
+                    page = paginator.page(page_num)
+                except EmptyPage:
+                    page = paginator.page(paginator.num_pages)
+                except PageNotAnInteger:
+                    page = paginator.page(1)
                 return render(request,self.template_name, {
                     'form': new_form,
                     'country': user_country,
-                    'data': data
+                    'data': data,
+                    'page':page
                 })
             return HttpResponseRedirect('/report/PartnerEventContribution')
         
@@ -2052,11 +2126,20 @@ class SWOTAndConclusionCreate(LoginRequiredMixin,View):
                 messages.error(request,'Could not Save!' )
             
             if (request.POST.has_key('save_add')):
-                new_form = form_class(initial={'sector_category':form.cleaned_data['sector_category']})                
+                new_form = form_class(initial={'sector_category':form.cleaned_data['sector_category']})
+                paginator = Paginator(data, 30)
+                page_num = request.GET.get('page', 1)
+                try:
+                    page = paginator.page(page_num)
+                except EmptyPage:
+                    page = paginator.page(paginator.num_pages)
+                except PageNotAnInteger:
+                    page = paginator.page(1)
                 return render(request,self.template_name, {
                     'form': new_form,
                     'country': user_country,
-                    'data': data
+                    'data': data,
+                    'page':page
                 })
             return HttpResponseRedirect('/report/swot')
         
