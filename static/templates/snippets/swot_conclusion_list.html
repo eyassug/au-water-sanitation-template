@@ -42,7 +42,7 @@
     {% endif %}
         
         <td><a href="/report/swotedit/{{d.id}}">Edit</a></td>
-        <td><a class="delete" href="/swotdelete/{{ d.id }}/delete/">Delete</a></td>
+        <td><a class="delete" href="/swotdelete/{{ d.id }}/delete/" onclick="return confirm('Are you sure you want to delete this record?');">Delete</a></td>
     
     </tr>
     
@@ -97,7 +97,7 @@
         var onDelete = function(){
             jQuery_1_9_1.post(this.href, function(data) {
                 if (data.result == "ok"){
-                    alert("data deleted successfully");
+                    
                     location.reload();
                    
                 } else {
