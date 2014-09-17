@@ -285,7 +285,7 @@ class FacilityAccessCreate(LoginRequiredMixin,View):
             data = models.FacilityAccess.objects.filter(priority_area__country=user_country)
         else:
             data = models.FacilityAccess.objects.all()
-        paginator = Paginator(data, 30)
+        paginator = Paginator(data, 2000)
         page_num = request.GET.get('page', 1)
         try:
             page = paginator.page(page_num)
