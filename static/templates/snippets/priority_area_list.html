@@ -3,8 +3,8 @@
     {% load widget_tweaks %}
    
 
-{% load pagination_tags %}
-{% autopaginate data 30 %}
+
+
 <h2 class="page-header">Priorty Area of {{ country }}</h2>
 <div class="table-responsive">
 
@@ -40,8 +40,8 @@
 
 </tbody>
 </table>
-{% paginate %}
-{{ page.object_list|length }} of {{ page.paginator.count }} Results on Page {{ page.number }} of {{ page.paginator.num_pages }}
+
+
 
 </div>
 <!--<script>
