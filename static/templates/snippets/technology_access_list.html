@@ -3,8 +3,8 @@
 
 <div class="table-responsive">
     
-    <a href="/report/viewfacilityaccessinpdf" target="_blank" class="btn btn-danger btn-danger-right">Export To PDF</a>   
-<table class="table table-hover table-bordered" id="ta">
+    
+<table id="ta" class="display" cellspacing="0" width="100%" >
     <thead>
         <tr>
             <th>#</th>
@@ -110,4 +110,21 @@
         jQuery_1_9_1(".delete").click(onDelete);
     });
 </script>
+
+ <script type="text/javascript" language="javascript" src="/static/js/jquery.js"></script>
+        <script type="text/javascript" language="javascript" src="/static/js/jquery.dataTables.js"></script>
+        <script type="text/javascript" language="javascript" src="/static/js/dataTables.tableTools.js"></script>
+        <script type="text/javascript" charset="utf-8">
+            var jQuery_1_9_1  = $.noConflict(true);
+                    jQuery_1_9_1(document).ready( function () {
+                        jQuery_1_9_1('#ta').dataTable( {
+                        dom: 'T<"clear">lfrtip',
+                        "bPaginate": false,
+                        "info":     false,
+                        tableTools: {
+                        "sSwfPath": "/static/swf/copy_csv_xls_pdf.swf"
+                }
+                        } );
+                    } );
+                </script>
  
