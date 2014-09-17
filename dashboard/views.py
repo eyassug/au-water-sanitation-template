@@ -48,7 +48,7 @@ class PriorityAreaView(LoginRequiredMixin,CreateView):
             data = models.PriorityArea.objects.filter(country=user_country)
         else:
             data = models.PriorityArea.objects.all()
-        paginator = Paginator(data, 30)
+        paginator = Paginator(data, 2000)
         page_num = request.GET.get('page', 1)
         try:
             page = paginator.page(page_num)
@@ -79,7 +79,7 @@ class SectorPerformanceCreate(LoginRequiredMixin,CreateView):
             data = models.SectorPerformance.objects.filter(country=user_country)
         else:
             data = models.SectorPerformance.objects.all()
-        paginator = Paginator(data, 30)
+        paginator = Paginator(data, 2000)
         page_num = request.GET.get('page', 1)
         try:
             page = paginator.page(page_num)
@@ -138,7 +138,7 @@ class SectorPerformanceEdit(LoginRequiredMixin,CreateView):
             data = models.SectorPerformance.objects.filter(country=user_country)
         else:
             data = models.SectorPerformance.objects.all()
-        paginator = Paginator(data, 30)
+        paginator = Paginator(data, 2000)
         page_num = request.GET.get('page', 1)
         try:
             page = paginator.page(page_num)
@@ -218,7 +218,7 @@ class SectorPerformanceDelete(DeleteView):
 #            data = models.SectorPerformance.objects.filter(country=user_country)
 #        else:
 #            data = models.SectorPerformance.objects.all()
-#        paginator = Paginator(data, 30)
+#        paginator = Paginator(data, 2000)
 #        page_num = request.GET.get('page', 1)
 #        try:
 #            page = paginator.page(page_num)
@@ -338,7 +338,7 @@ class FacilityAccessCreate(LoginRequiredMixin,View):
                                                         'facility_character':form.instance.technology.facility_character,
                                                         'technology':form.instance.technology
                                                         })
-                paginator = Paginator(data, 30)
+                paginator = Paginator(data, 2000)
                 page_num = request.GET.get('page', 1)
                 try:
                     page = paginator.page(page_num)
@@ -482,7 +482,7 @@ class FacilityAccessDelete(DeleteView):
 #            data = models.FacilityAccess.objects.filter(priority_area__country=user_country)
 #        else:
 #            data = models.FacilityAccess.objects.all()
-#        paginator = Paginator(data, 30)
+#        paginator = Paginator(data, 2000)
 #        page_num = request.GET.get('page', 1)
 #        try:
 #            page = paginator.page(page_num)
@@ -568,7 +568,7 @@ class CountryStatusCreate(LoginRequiredMixin,View):
             data = models.CountryDemographic.objects.filter(country=user_country)
         else:
             data = models.CountryDemographic.objects.all()
-        paginator = Paginator(data, 30)
+        paginator = Paginator(data, 2000)
         page_num = request.GET.get('page', 1)
         try:
             page = paginator.page(page_num)
@@ -623,7 +623,7 @@ class CountryStatusCreate(LoginRequiredMixin,View):
                     data = models.CountryDemographic.objects.filter(country=user_country)
                 else:
                     data = models.CountryDemographic.objects.all()
-                paginator = Paginator(data, 30)
+                paginator = Paginator(data, 2000)
                 page_num = request.GET.get('page', 1)
                 try:
                     page = paginator.page(page_num)
@@ -662,7 +662,7 @@ class CountryStatusEdit(LoginRequiredMixin,View):
             data = models.CountryDemographic.objects.filter(country=user_country)
         else:
             data = models.CountryDemographic.objects.all()
-        paginator = Paginator(data, 30)
+        paginator = Paginator(data, 2000)
         page_num = request.GET.get('page', 1)
         try:
             page = paginator.page(page_num)
@@ -745,7 +745,7 @@ class CountryStatusDelete(DeleteView):
 #            data = models.CountryDemographic.objects.filter(country=user_country)
 #        else:
 #            data = models.CountryDemographic.objects.all()
-#        paginator = Paginator(data, 30)
+#        paginator = Paginator(data, 2000)
 #        page_num = request.GET.get('page', 1)
 #        try:
 #            page = paginator.page(page_num)
@@ -824,7 +824,7 @@ class PriorityAreaStatusCreate(LoginRequiredMixin,View):
             data = models.PriorityAreaStatus.objects.filter(priority_area__country = user_country)
         else:
             data = models.PriorityAreaStatus.objects.all()
-        paginator = Paginator(data, 30)
+        paginator = Paginator(data, 2000)
         page_num = request.GET.get('page', 1)
         try:
             page = paginator.page(page_num)
@@ -866,7 +866,7 @@ class PriorityAreaStatusCreate(LoginRequiredMixin,View):
             if (request.POST.has_key('save_add')):
                 new_form = PriorityAreaStatusForm(initial={'priority_area':form.cleaned_data['priority_area']})
                 new_form.filter(country=user_country)
-                paginator = Paginator(data, 30)
+                paginator = Paginator(data, 2000)
                 page_num = request.GET.get('page', 1)
                 try:
                     page = paginator.page(page_num)
@@ -898,7 +898,7 @@ class PriorityAreaStatusEdit(LoginRequiredMixin,View):
             data = models.PriorityAreaStatus.objects.filter(priority_area__country = user_country)
         else:
             data = models.PriorityAreaStatus.objects.all()
-        paginator = Paginator(data, 30)
+        paginator = Paginator(data, 2000)
         page_num = request.GET.get('page', 1)
         try:
             page = paginator.page(page_num)
@@ -981,7 +981,7 @@ class PriorityAreaStatusDelete(DeleteView):
 #            data = models.PriorityAreaStatus.objects.filter(priority_area__country = user_country)
 #        else:
 #            data = models.PriorityAreaStatus.objects.all()
-#        paginator = Paginator(data, 30)
+#        paginator = Paginator(data, 2000)
 #        page_num = request.GET.get('page', 1)
 #        try:
 #            page = paginator.page(page_num)
@@ -1049,7 +1049,7 @@ class PlanningPerformanceCreate(LoginRequiredMixin,View):
             data = models.PlanningPerformance.objects.filter(country=user_country)
         else:
             data = models.PlanningPerformance.objects.all()
-        paginator = Paginator(data, 30)
+        paginator = Paginator(data, 2000)
         page_num = request.GET.get('page', 1)
         try:
             page = paginator.page(page_num)
@@ -1083,7 +1083,7 @@ class PlanningPerformanceCreate(LoginRequiredMixin,View):
                 messages.error(request,'Could not Save! Duplicate Entry for Country '+ str(form.instance.country) + ' and Sector Category '+ str(form.instance.sector_category) + ' and Year '+ str(form.instance.year))
             if (request.POST.has_key('save_add')):
                 new_form = form_class(initial={'sector_category':form.cleaned_data['sector_category']})
-                paginator = Paginator(data, 30)
+                paginator = Paginator(data, 2000)
                 page_num = request.GET.get('page', 1)
                 try:
                     page = paginator.page(page_num)
@@ -1122,7 +1122,7 @@ class PlanningPerformanceEdit(LoginRequiredMixin,View):
             data = models.PlanningPerformance.objects.filter(country=user_country)
         else:
             data = models.PlanningPerformance.objects.all()
-        paginator = Paginator(data, 30)
+        paginator = Paginator(data, 2000)
         page_num = request.GET.get('page', 1)
         try:
             page = paginator.page(page_num)
@@ -1203,7 +1203,7 @@ class PlanningPerformanceDelete(DeleteView):
 #            data = models.PlanningPerformance.objects.filter(country=user_country)
 #        else:
 #            data = models.PlanningPerformance.objects.all()
-#        paginator = Paginator(data, 30)
+#        paginator = Paginator(data, 2000)
 #        page_num = request.GET.get('page', 1)
 #        try:
 #            page = paginator.page(page_num)
@@ -1267,7 +1267,7 @@ class TenderProcedurePerformanceCreate(LoginRequiredMixin,View):
             data = models.TenderProcedurePerformance.objects.filter(country=user_country)
         else:
             data = models.TenderProcedurePerformance.objects.all()
-        paginator = Paginator(data, 30)
+        paginator = Paginator(data, 2000)
         page_num = request.GET.get('page', 1)
         try:
             page = paginator.page(page_num)
@@ -1308,7 +1308,7 @@ class TenderProcedurePerformanceCreate(LoginRequiredMixin,View):
             
             if (request.POST.has_key('save_add')):
                 new_form = DTenderProcPerformanceForm(initial={'sector_category':form.cleaned_data['sector_category'], 'tender_procedure_property':form.cleaned_data['tender_procedure_property']})
-                paginator = Paginator(data, 30)
+                paginator = Paginator(data, 2000)
                 page_num = request.GET.get('page', 1)
                 try:
                     page = paginator.page(page_num)
@@ -1346,7 +1346,7 @@ class TenderProcedurePerformanceEdit(LoginRequiredMixin,View):
             data = models.TenderProcedurePerformance.objects.filter(country=user_country)
         else:
             data = models.TenderProcedurePerformance.objects.all()
-        paginator = Paginator(data, 30)
+        paginator = Paginator(data, 2000)
         page_num = request.GET.get('page', 1)
         try:
             page = paginator.page(page_num)
@@ -1435,7 +1435,7 @@ class TenderProcedurePerformanceDelete(DeleteView):
 #            data = models.TenderProcedurePerformance.objects.filter(country=user_country)
 #        else:
 #            data = models.TenderProcedurePerformance.objects.all()
-#        paginator = Paginator(data, 30)
+#        paginator = Paginator(data, 2000)
 #        page_num = request.GET.get('page', 1)
 #        try:
 #            page = paginator.page(page_num)
@@ -1507,7 +1507,7 @@ class CommunityApproachCreate(LoginRequiredMixin,View):
             data = models.CommunityApproach.objects.filter(country=user_country)
         else:
             data = models.CommunityApproach.objects.all()
-        paginator = Paginator(data, 30)
+        paginator = Paginator(data, 2000)
         page_num = request.GET.get('page', 1)
         try:
             page = paginator.page(page_num)
@@ -1542,7 +1542,7 @@ class CommunityApproachCreate(LoginRequiredMixin,View):
             
             if (request.POST.has_key('save_add')):
                 new_form = form_class(initial={'approach_type':form.cleaned_data['approach_type'], 'sector_category':form.cleaned_data['sector_category']})
-                paginator = Paginator(data, 30)
+                paginator = Paginator(data, 2000)
                 page_num = request.GET.get('page', 1)
                 try:
                     page = paginator.page(page_num)
@@ -1580,7 +1580,7 @@ class CommunityApproachEdit(LoginRequiredMixin,View):
             data = models.CommunityApproach.objects.filter(country=user_country)
         else:
             data = models.CommunityApproach.objects.all()
-        paginator = Paginator(data, 30)
+        paginator = Paginator(data, 2000)
         page_num = request.GET.get('page', 1)
         try:
             page = paginator.page(page_num)
@@ -1663,7 +1663,7 @@ class PartnerContributionCreate(LoginRequiredMixin,CreateView):
             data = models.PartnerContribution.objects.filter(country=user_country)
         else:
             data = models.PartnerContribution.objects.all()
-        paginator = Paginator(data, 30)
+        paginator = Paginator(data, 2000)
         page_num = request.GET.get('page', 1)
         try:
             page = paginator.page(page_num)
@@ -1697,7 +1697,7 @@ class PartnerContributionCreate(LoginRequiredMixin,CreateView):
             
             if (request.POST.has_key('save_add')):
                 new_form = form_class(initial={'sector_category':form.cleaned_data['sector_category'], 'partner':form.cleaned_data['partner']})
-                paginator = Paginator(data, 30)
+                paginator = Paginator(data, 2000)
                 page_num = request.GET.get('page', 1)
                 try:
                     page = paginator.page(page_num)
@@ -1734,7 +1734,7 @@ class PartnerContributionEdit(LoginRequiredMixin,CreateView):
             data = models.PartnerContribution.objects.filter(country=user_country)
         else:
             data = models.PartnerContribution.objects.all()
-        paginator = Paginator(data, 30)
+        paginator = Paginator(data, 2000)
         page_num = request.GET.get('page', 1)
         try:
             page = paginator.page(page_num)
@@ -1814,7 +1814,7 @@ class PartnerContributionDelete(DeleteView):
 #            data = models.PartnerContribution.objects.filter(country=user_country)
 #        else:
 #            data = models.PartnerContribution.objects.all()
-#        paginator = Paginator(data, 30)
+#        paginator = Paginator(data, 2000)
 #        page_num = request.GET.get('page', 1)
 #        try:
 #            page = paginator.page(page_num)
@@ -1878,7 +1878,7 @@ class PartnerEventContributionCreate(LoginRequiredMixin,CreateView):
             data = models.PartnerEventContribution.objects.filter(country=user_country)
         else:
             data = models.PartnerEventContribution.objects.all()
-        paginator = Paginator(data, 30)
+        paginator = Paginator(data, 2000)
         page_num = request.GET.get('page', 1)
         try:
             page = paginator.page(page_num)
@@ -1912,7 +1912,7 @@ class PartnerEventContributionCreate(LoginRequiredMixin,CreateView):
             
             if (request.POST.has_key('save_add')):
                 new_form = form_class(initial={'sector_category':form.cleaned_data['sector_category'], 'partner':form.cleaned_data['partner'], 'event':form.cleaned_data['event']})
-                paginator = Paginator(data, 30)
+                paginator = Paginator(data, 2000)
                 page_num = request.GET.get('page', 1)
                 try:
                     page = paginator.page(page_num)
@@ -1949,7 +1949,7 @@ class PartnerEventContributionEdit(LoginRequiredMixin,CreateView):
             data = models.PartnerEventContribution.objects.filter(country=user_country)
         else:
             data = models.PartnerEventContribution.objects.all()
-        paginator = Paginator(data, 30)
+        paginator = Paginator(data, 2000)
         page_num = request.GET.get('page', 1)
         try:
             page = paginator.page(page_num)
@@ -2029,7 +2029,7 @@ class PartnerEventContributionDelete(DeleteView):
 #            data = models.PartnerEventContribution.objects.filter(country=user_country)
 #        else:
 #            data = models.PartnerEventContribution.objects.all()
-#        paginator = Paginator(data, 30)
+#        paginator = Paginator(data, 2000)
 #        page_num = request.GET.get('page', 1)
 #        try:
 #            page = paginator.page(page_num)
@@ -2093,7 +2093,7 @@ class SWOTAndConclusionCreate(LoginRequiredMixin,View):
             data = models.SWOT.objects.filter(country=user_country)
         else:
             data = models.SWOT.objects.all()
-        paginator = Paginator(data, 30)
+        paginator = Paginator(data, 2000)
         page_num = request.GET.get('page', 1)
         try:
             page = paginator.page(page_num)
@@ -2127,7 +2127,7 @@ class SWOTAndConclusionCreate(LoginRequiredMixin,View):
             
             if (request.POST.has_key('save_add')):
                 new_form = form_class(initial={'sector_category':form.cleaned_data['sector_category']})
-                paginator = Paginator(data, 30)
+                paginator = Paginator(data, 2000)
                 page_num = request.GET.get('page', 1)
                 try:
                     page = paginator.page(page_num)
@@ -2165,7 +2165,7 @@ class SWOTAndConclusionEdit(LoginRequiredMixin,View):
             data = models.SWOT.objects.filter(country=user_country)
         else:
             data = models.SWOT.objects.all()
-        paginator = Paginator(data, 30)
+        paginator = Paginator(data, 2000)
         page_num = request.GET.get('page', 1)
         try:
             page = paginator.page(page_num)
@@ -2245,7 +2245,7 @@ class SWOTDelete(DeleteView):
 #            data = models.SWOT.objects.filter(country=user_country)
 #        else:
 #            data = models.SWOT.objects.all()
-#        paginator = Paginator(data, 30)
+#        paginator = Paginator(data, 2000)
 #        page_num = request.GET.get('page', 1)
 #        try:
 #            page = paginator.page(page_num)
