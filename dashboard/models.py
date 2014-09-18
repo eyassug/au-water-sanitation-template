@@ -170,7 +170,9 @@ class FacilityAccess(models.Model):
     class Meta:
         unique_together = ("priority_area","technology", "year")
     def getpacountru(self):
-        return self.priority_area.country   
+        return self.priority_area.country
+    def getsectorcat(self):
+        return self.technology.facility_character.sector_category
         
 class SectorPerformance(models.Model):
     country = models.ForeignKey('Country', blank=False)
