@@ -1,20 +1,8 @@
-{% load pagination_tags %}
-{% autopaginate data 30 %}
-<script type="text/javascript">
-				/* Table initialisation */
-			$(document).ready(function() {
-				$('#pc').dataTable( {
-					"bSort": true,        // Disable sorting
-					"iDisplayLength": 5,   // records per page
-					"sDom": "t<'row'<'col-md-6'i><'col-md-6'p>>",
-					"sPaginationType": "bootstrap"
-				});
-			});
-		</script>
+
 
 <div class="table-responsive">
-<a href="/report/viewpartnercontributionpdf" target="_blank" class="btn btn-danger btn-danger-right">Export To PDF</a>   
-<table class="table table-hover table-bordered" id="pc">
+
+<table class="display" cellspacing="0" width="100%" id="pc">
     <thead>
         <tr>
             <th>#</th>
@@ -53,8 +41,7 @@
 </tbody>
 </table>
 
-{% paginate %}
-{{ page.object_list|length }} of {{ page.paginator.count }} Results on Page {{ page.number }} of {{ page.paginator.num_pages }}
+
 
 </div>
 <script src="//ajax.microsoft.com/ajax/jQuery/jquery-1.9.1.min.js"></script>
@@ -116,5 +103,24 @@
         jQuery_1_9_1(".delete").click(onDelete);
     });
 </script>
+<script type="text/javascript" language="javascript" src="/static/js/jquery.js"></script>
+        <script type="text/javascript" language="javascript" src="/static/js/jquery.dataTables.js"></script>
+        <script type="text/javascript" language="javascript" src="/static/js/dataTables.tableTools.js"></script>
+        <script type="text/javascript" charset="utf-8">
+            var jQuery_1_9_1  = $.noConflict(true);
+                    jQuery_1_9_1(document).ready( function () {
+                        jQuery_1_9_1('#pc').dataTable( {
+                        dom: 'T<"clear">lfrtip',
+                        //"bPaginate": false,
+                        //"info":     false,
+                        tableTools: {
+                        "sSwfPath": "/static/swf/copy_csv_xls_pdf.swf"
+                                    }
+                
+                        }
+                        
+                        );
+                    } );
+                </script>
  
  
