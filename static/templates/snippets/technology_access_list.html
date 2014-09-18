@@ -10,6 +10,7 @@
             <th>#</th>
             <th>Priority Area</th>
             <th>Country</th>
+            <th>Sector Cat.</th>
             <th>Technology</th>
             <th>Year</th>
             <th>No of Facilities Planned</th>
@@ -33,6 +34,7 @@
         <td>{{ forloop.counter0|add:page.start_index }}</td>        
         <td>{{ d.priority_area }}</td>
         <td>{{ d.getpacountru }}</td>
+        <td>{{ d.getsectorcat }}</td>
         <td>{{ d.technology }}</td>
         <td>{{ d.year }}</td>        
         <td>{{ d.planned }}</td>
