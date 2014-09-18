@@ -9,11 +9,15 @@
         <tr>
             <th>#</th>
             <th>Priority Area</th>
+            <th>Country</th>
             <th>Technology</th>
             <th>Year</th>
             <th>No of Facilities Planned</th>
+            <th>Pop Planned</th>
             <th>No of Facilities Reported</th>
+            <th>Pop Reached</th>
             <th>No of Tech Secured</th>
+            <th>Pop Secured</th>
             <th>Unit Cost (USD)</th>
             <th>Household Contribution (%)</th>
             <th>Government Contribution (%)</th>
@@ -28,11 +32,15 @@
     <tr>
         <td>{{ forloop.counter0|add:page.start_index }}</td>        
         <td>{{ d.priority_area }}</td>
+        <td>{{ d.getpacountru }}</td>
         <td>{{ d.technology }}</td>
         <td>{{ d.year }}</td>        
         <td>{{ d.planned }}</td>
+        <td>{{ d.planned_pop_affected }}</td>
         <td>{{ d.actual }}</td>
-        <td>{{d.secured}}</td>
+        <td>{{ d.actual_pop_affected }}</td>
+        <td>{{ d.secured }}</td>
+        <td>{{ d.secured_pop_affected }}</td>
         <td>{{ d.unit_cost }}</td>        
         <td>{{ d.house_hold_contribution }}</td>
         <td>{{ d.government_contribution }}</td>
