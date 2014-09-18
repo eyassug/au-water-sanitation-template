@@ -37,8 +37,9 @@ class PriorityArea(models.Model):
     longitude = models.DecimalField(max_digits=19, decimal_places=10, null=False, blank=True)
     is_active = models.BooleanField(default=True)
     
+    
     def __str__(self):
-        return self.name + ' - ' + self.country.name
+        return self.name
 
     class Meta:
         verbose_name_plural = "Priority Areas"
@@ -163,9 +164,13 @@ class FacilityAccess(models.Model):
     unit_cost = models.DecimalField(max_digits=19, decimal_places=2, null=True, blank=True)
     house_hold_contribution = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     government_contribution = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
-    
+    #FacilityAccess._meta.get_field('PriorityArea').rel.to
+    #priority_area;
+    #priorityarea = PriorityArea.objects.get(pk=priority_area)
     class Meta:
         unique_together = ("priority_area","technology", "year")
+    def getpacountru(self):
+        return self.priority_area.country   
         
 class SectorPerformance(models.Model):
     country = models.ForeignKey('Country', blank=False)
