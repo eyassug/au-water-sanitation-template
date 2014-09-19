@@ -12,14 +12,15 @@
     <thead>
         <tr>
             <th>#</th>
+            {% if user.is_superuser %}
+            <th>Country</th>
+            {% endif %}
             <th>Sector Category</th>
             <th>Approach Type</th>
             <th>Approach Name</th>
             <th>Year of Initiation</th>
             <th>Cost/Capita (USD)</th>
-        {% if user.is_superuser %}
-            <th>Country</th>
-        {% endif %}
+        
             <th>&nbsp;</th>
             <th>&nbsp;</th>
         </tr>
@@ -30,14 +31,15 @@
 
     <tr>
         <td>{{ forloop.counter0|add:page.start_index }}</td>
+        {% if user.is_superuser %}
+        <td>{{ d.country}}</td>
+        {% endif %}
         <td>{{ d.sector_category }}</td>
         <td>{{ d.approach_type }}</td>        
         <td>{{ d.approach_name }}</td>
         <td>{{ d.year }}</td> 
         <td>{{ d.cost_per_capita|default_if_none:0 }}</td>
-    {% if user.is_superuser %}
-        <td>{{ d.country}}</td>
-    {% endif %}
+    
         <td><a href="/report/communityapproachedit/{{d.id}}">Edit</a></td>
         <td><a class="delete" href="/communityapproachdelete/{{ d.id }}/delete/" onclick="return confirm('Are you sure you want to delete this record?');">Delete</a></td>
     </tr>
