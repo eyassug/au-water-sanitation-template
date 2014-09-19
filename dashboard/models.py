@@ -257,6 +257,7 @@ class PartnerEventContribution(models.Model):
     
     class Meta:
         unique_together = ("country", "sector_category", "year")
+        ordering = ['country']
     
 class SWOT(models.Model):
     id = models.AutoField(primary_key=True)
