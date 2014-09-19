@@ -15,3 +15,5 @@ static/templates/snippets/technology_gap_clustered_by_pa_report.html.orig
 static/static/js/jquery-2.1.1.min.js
 static/static/js/jquery-git1.js
 static/static/js/exp/icons/Thumbs.db
+static/static/js/swf/copy_csv_xls.swf
+static/static/js/swf/copy_csv_xls_pdf.swf
