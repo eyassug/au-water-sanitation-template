@@ -109,7 +109,29 @@
                         //"bPaginate": false,
                         //"info":     false,
                         tableTools: {
-                        "sSwfPath": "/static/swf/copy_csv_xls_pdf.swf"
+                        "sSwfPath": "/static/swf/copy_csv_xls_pdf.swf",
+                        "aButtons": [
+                                        {
+                                            "sExtends": "copy",
+                                            "mColumns": [0, 1, 2]
+                                        },
+                                        {
+                                            "sExtends": "csv",
+                                            "mColumns": [0, 1, 2]
+                                        },
+                                        {
+                                            "sExtends": "xls",
+                                            "mColumns": [0, 1, 2]
+                                        },
+                                        {
+                                            "sExtends": "pdf",
+                                            "mColumns": [0, 1, 2]
+                                        },
+                                        {
+                                            "sExtends": "print",
+                                            "mColumns": [0, 1, 2]
+                                        },
+                                    ]
                                     }
                 
                         }

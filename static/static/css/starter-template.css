@@ -179,4 +179,6 @@ IMG.displayed {
 margin-bottom: 5px;
 
 }
-
+.display-small {
+  font-size: small;
+}

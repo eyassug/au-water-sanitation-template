@@ -1,6 +1,10 @@
 {% extends 'welcome.html' %}
 {% block content_container %}
     {% load widget_tweaks %}
+    
+    {% block title %}
+    <title>Partner Contribution to Events List - {{ country }}</title>
+    {% endblock %}
     <script src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
     
 
@@ -120,7 +124,7 @@
 
      </div>
      </div>
-  <div class="tab-pane active col-md-8" id="list">
+  <div class="tab-pane active col-md-12" id="list">
     {% include "snippets/partner_event_contribution_list.html" %}
   </div>
 </div>

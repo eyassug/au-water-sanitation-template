@@ -1,6 +1,9 @@
 {% extends 'welcome.html' %}
 {% block content_container %}
     {% load widget_tweaks %}
+    {% block title %}
+    <title>Country Status Population for List - {{ country }}</title>
+{% endblock %}
     <h2 class="page-header">Population for {{ country }}</h2>
     
     <div class="container msg-scc" id='message' >
@@ -70,7 +73,7 @@
     </div>
     
     </div>
-  <div class="tab-pane active col-md-8" id="list">
+  <div class="tab-pane active col-md-12" id="list">
     {% include "snippets/country_demographic_list.html" %}
   </div>
 </div>

@@ -1,6 +1,9 @@
 {% extends 'welcome.html' %}
 {% block content_container %}
     {% load widget_tweaks %}
+    {% block title %}
+    <title>Sector Performance List - {{ country }}</title>
+    {% endblock %}
    <h2 class="page-header">Sector Performance for {{ country }} </h2>
     <div class="container msg-scc" id='message' >
                {% if messages %}
@@ -155,7 +158,7 @@
 
      </div>
      </div>
-  <div class="tab-pane active col-md-8" id="list">
+  <div class="tab-pane active col-md-12" id="list">
     {% include "snippets/sector_performance_list.html" %}
   </div>
 </div>

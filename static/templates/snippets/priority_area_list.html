@@ -4,7 +4,9 @@
    
 
 
-
+    {% block title %}
+    <title>Priorty Areas List - {{ country }}</title>
+    {% endblock %}
 <h2 class="page-header">Priorty Area of {{ country }}</h2>
 <div class="table-responsive">
 
@@ -64,7 +66,8 @@ jQuery_1_9_1(document).ready(function() {
                         jQuery_1_9_1('#ps').dataTable( {
                         dom: 'T<"clear">lfrtip',
                          tableTools: {
-                        "sSwfPath": "/static/swf/copy_csv_xls_pdf.swf"
+                        "sSwfPath": "/static/swf/copy_csv_xls_pdf.swf",
+                        
                 }
                         } );
                     } );

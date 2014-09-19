@@ -2,6 +2,9 @@
 
 {% block content_container %}
   {% load widget_tweaks %}
+{% block title %}
+    <title>Access to Water & Sanitation Technology List - {{ country }}</title>
+{% endblock %}
  <script src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
   <h2 class="page-header">Access to Water & Sanitation Technology for {{ country }}</h2>
   
@@ -180,7 +183,7 @@
     </form>
    </div>
    </div>
-  <div class="tab-pane active col-md-8" id="list">
+  <div class="tab-pane active col-md-12" id="list">
     {% include "snippets/technology_access_list.html" %}
   </div>
 </div>

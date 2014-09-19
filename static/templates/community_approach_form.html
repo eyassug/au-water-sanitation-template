@@ -1,6 +1,9 @@
 {% extends 'welcome.html' %}
 {% block content_container %}
     {% load widget_tweaks %}
+    {% block title %}
+    <title>Community Approach for List - {{ country }}</title>
+    {% endblock %}
    <h2 class="page-header">Community Approach for {{ country }}</h2>
    
    <div class="container msg-scc" id='message' >
@@ -112,7 +115,7 @@
     </form>
     </div>
     </div>
-  <div class="tab-pane active col-md-8" id="list">
+  <div class="tab-pane active col-md-12" id="list">
     {% include "snippets/community_approach_list.html" %}
   </div>
 </div>
