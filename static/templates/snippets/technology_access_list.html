@@ -35,15 +35,15 @@
         <td>{{ d.getsectorcat }}</td>
         <td>{{ d.technology }}</td>
         <td>{{ d.year }}</td>        
-        <td>{{ d.planned }}</td>
-        <td>{{ d.planned_pop_affected }}</td>
-        <td>{{ d.actual }}</td>
-        <td>{{ d.actual_pop_affected }}</td>
-        <td>{{ d.secured }}</td>
-        <td>{{ d.secured_pop_affected }}</td>
-        <td>{{ d.unit_cost }}</td>        
-        <td>{{ d.house_hold_contribution }}</td>
-        <td>{{ d.government_contribution }}</td>
+        <td>{{ d.planned|default_if_none:0 }}</td>
+        <td>{{ d.planned_pop_affected|default_if_none:0 }}</td>
+        <td>{{ d.actual|default_if_none:0 }}</td>
+        <td>{{ d.actual_pop_affected|default_if_none:0 }}</td>
+        <td>{{ d.secured|default_if_none:0 }}</td>
+        <td>{{ d.secured_pop_affected|default_if_none:0 }}</td>
+        <td>{{ d.unit_cost|default_if_none:0 }}</td>        
+        <td>{{ d.house_hold_contribution|default_if_none:0.00 }}</td>
+        <td>{{ d.government_contribution|default_if_none:0.00 }}</td>
         <td><a href="/report/facilityaccessedit/{{d.id}}">Edit</a></td>
         <td><a class="delete" href="/facilityaccessdelete/{{ d.id }}/delete/" onclick="return confirm('Are you sure you want to delete this record?');">Delete</a></td>
     
