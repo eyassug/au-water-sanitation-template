@@ -25,9 +25,9 @@
         <td>{{ forloop.counter0|add:page.start_index }}</td>
         <td>{{ d.sector_category }}</td>
         <td>{{ d.partner }}</td>        
-        <td>{{ d.annual_contribution }}</td>
-        <td>{{ d.in_kind_contribution }}</td>        
-        <td>{{ d.financial_contribution }}</td>
+        <td>{{ d.annual_contribution|default_if_none:0 }}</td>
+        <td>{{ d.in_kind_contribution|default_if_none:0 }}</td>        
+        <td>{{ d.financial_contribution|default_if_none:0 }}</td>
     {% if user.is_superuser %}
         <td>{{ d.country }}</td>
     {% endif %}

@@ -34,7 +34,7 @@
         <td>{{ d.approach_type }}</td>        
         <td>{{ d.approach_name }}</td>
         <td>{{ d.year }}</td> 
-        <td>{{ d.cost_per_capita }}</td>
+        <td>{{ d.cost_per_capita|default_if_none:0 }}</td>
     {% if user.is_superuser %}
         <td>{{ d.country}}</td>
     {% endif %}

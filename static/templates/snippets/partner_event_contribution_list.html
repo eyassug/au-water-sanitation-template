@@ -28,9 +28,9 @@
         <td>{{ d.partner }}</td>
         <td>{{ d.event }}</td>    
         <td>{{ d.year }}</td>
-        <td>{{ d.government_staff_contribution }}</td>
-        <td>{{ d.own_staff_contribution }}</td>        
-        <td>{{ d.total_event_contribution }}</td>
+        <td>{{ d.government_staff_contribution|default_if_none:0 }}</td>
+        <td>{{ d.own_staff_contribution|default_if_none:0 }}</td>        
+        <td>{{ d.total_event_contribution|default_if_none:0 }}</td>
     {% if user.is_superuser %}
         <td>{{ d.country }}</td>
     {% endif %}

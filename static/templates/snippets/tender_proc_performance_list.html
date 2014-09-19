@@ -27,8 +27,8 @@
         
         <td>{{ d.tender_procedure_property }}</td>
         <td>{{ d.year }}</td>
-        <td>{{ d.registered }}</td>
-        <td>{{ d.executed }}</td>
+        <td>{{ d.registered|default_if_none:0 }}</td>
+        <td>{{ d.executed|default_if_none:0 }}</td>
     {% if user.is_superuser %}
         <th>{{ d.country }}</th>
         

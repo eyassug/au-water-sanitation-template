@@ -24,8 +24,8 @@
         <td>{{ forloop.counter0|add:page.start_index }}</td>        
         <td>{{ d.sector_category }}</td>
         <td>{{ d.year }}</td> 
-        <td>{{ d.plan_preparation_delay }}</td>
-        <td>{{ d.plan_adoption_delay }}</td>
+        <td>{{ d.plan_preparation_delay|default_if_none:0 }}</td>
+        <td>{{ d.plan_adoption_delay|default_if_none:0 }}</td>
     {% if user.is_superuser %}
         <td>{{ d.country }}</td>
     {% endif %}

@@ -27,12 +27,12 @@
         <td>{{ forloop.counter0|add:page.start_index }}</td>       
         <td>{{ d.sector_category }}</td>
         <td>{{ d.year }}</td>
-        <td>{{ d.coverage_target }}</td>
-        <td>{{ d.coverage_achieved }}</td>
-        <td>{{ d.fund_needed }}</td>        
-        <td>{{ d.fund_mobilised }}</td>
-        <td>{{ d.fund_availed }}</td>
-        <td>{{ d.fund_used }}</td>
+        <td>{{ d.coverage_target|default_if_none:0 }}</td>
+        <td>{{ d.coverage_achieved|default_if_none:0 }}</td>
+        <td>{{ d.fund_needed|default_if_none:0 }}</td>        
+        <td>{{ d.fund_mobilised|default_if_none:0 }}</td>
+        <td>{{ d.fund_availed|default_if_none:0 }}</td>
+        <td>{{ d.fund_used|default_if_none:0 }}</td>
     {% if user.is_superuser %}
         <td>{{ d.country }}</td>
     {% endif %}
