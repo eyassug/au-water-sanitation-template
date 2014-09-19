@@ -232,6 +232,7 @@ class CommunityApproach(models.Model):
     
     class Meta:
         unique_together = ("country", "sector_category", "year")
+        ordering = ['country']
     
 class PartnerContribution(models.Model):
     country = models.ForeignKey('Country',blank=False)
@@ -243,6 +244,7 @@ class PartnerContribution(models.Model):
     
     class Meta:
         unique_together = ("country", "sector_category", "partner")
+        ordering = ['country']
     
 class PartnerEventContribution(models.Model):
     country = models.ForeignKey('Country', blank=False)
