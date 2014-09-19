@@ -268,3 +268,6 @@ class SWOT(models.Model):
     mitigation_measures = models.TextField(blank=True)
     kap_recommendations = models.TextField(blank=True)
     conclusion = models.TextField(blank=True)
+    class Meta:
+        verbose_name_plural = "SWOT"
+        ordering = ['sector_category']
