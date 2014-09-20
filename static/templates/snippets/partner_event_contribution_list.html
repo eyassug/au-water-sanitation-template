@@ -34,7 +34,8 @@
         <td>{{ d.year }}</td>
         <td>{{ d.government_staff_contribution|default_if_none:0 }}</td>
         <td>{{ d.own_staff_contribution|default_if_none:0 }}</td>        
-        <td>{{ d.total_event_contribution|default_if_none:0 }}</td>
+        <td>{{ d.total_budget_contributed_to_country|default_if_none:0 }}</td>
+        
     
         <td><a id="btnReview" href="/report/partnereventcontributionedit/{{d.id}}">Edit</a></td>
         <td><a class="delete" href="/partnereventcontributiondelete/{{ d.id }}/delete/" onclick="return confirm('Are you sure you want to delete this record?');">Delete</a></td>

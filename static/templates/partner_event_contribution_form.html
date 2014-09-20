@@ -104,12 +104,12 @@
                             {{ form.own_staff_contribution.errors }}
                         {% endif %}
         </div>
-        <div class="form-group{% if form.total_event_contribution.errors %} has-error{% endif %}">
-            <label for="id_total_event_contribution">Total Budget Contributed to the Country for the Event(USD)</label>
-            <input id="id_total_event_contribution" name="total_event_contribution" type="number" min="0" max="9999999" value="{{form.total_event_contribution.value}}" step="0.01" size="4" 
+        <div class="form-group{% if form.total_budget_contributed_to_country.errors %} has-error{% endif %}">
+            <label for="id_total_budget_contributed_to_country">Total Budget Contributed to the Country for the Event(USD)</label>
+            <input id="id_total_budget_contributed_to_country" name="total_budget_contributed_to_country" type="number" min="0" max="9999999" value="{{form.total_budget_contributed_to_country.value}}" step="0.01" size="4" 
                         title="Currency Format - no dollar sign and no comma(s) - cents (.##) are optional"  class="form-control" tabindex="7" />
-                        {% if form.total_event_contribution.errors %}
-                            {{ form.total_event_contribution.errors }}
+                        {% if form.total_budget_contributed_to_country.errors %}
+                            {{ form.total_budget_contributed_to_country.errors }}
                         {% endif %}
         </div>
         </div>
