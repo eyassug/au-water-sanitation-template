@@ -115,7 +115,7 @@
             var jQuery_1_9_1  = $.noConflict(true);
                     jQuery_1_9_1(document).ready( function () {
                         jQuery_1_9_1('#sp').dataTable( {
-                        dom: 'T<"clear">lfrtip',
+                        dom: "<'row'<'dataTables_header clearfix'<'col-md-6'l><'col-md-6'Tf>r>>t<'row'<'dataTables_footer clearfix'<'col-md-6'i><'col-md-12'p>>>",
                         //"bPaginate": false,
                         //"info":     false,
                         "lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"] ],
@@ -146,6 +146,7 @@
                                         {
                                             "sExtends": "pdf",
                                             "mColumns": [0, 1, 2, 3, 4, 5, 6, 7, 8],
+                                            "sPdfOrientation": "landscape",
                                             "oSelectorOpts": {
                                             page: 'current'
                                                     }
