@@ -111,28 +111,44 @@
                         dom: 'T<"clear">lfrtip',
                         //"bPaginate": false,
                         //"info":     false,
+                        "lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"] ],
                         tableTools: {
                         "sSwfPath": "/static/swf/copy_csv_xls_pdf.swf",
                         "aButtons": [
                                         {
                                             "sExtends": "copy",
-                                            "mColumns": [0, 1, 2, 3, 4]
+                                            "mColumns": [0, 1, 2, 3, 4],
+                                            "oSelectorOpts": {
+                                            page: 'current'
+                                                    }
                                         },
                                         {
                                             "sExtends": "csv",
-                                            "mColumns": [0, 1, 2, 3, 4]
+                                            "mColumns": [0, 1, 2, 3, 4],
+                                            "oSelectorOpts": {
+                                            page: 'current'
+                                                    }
                                         },
                                         {
                                             "sExtends": "xls",
-                                            "mColumns": [0, 1, 2, 3, 4]
+                                            "mColumns": [0, 1, 2, 3, 4],
+                                            "oSelectorOpts": {
+                                            page: 'current'
+                                                    }
                                         },
                                         {
                                             "sExtends": "pdf",
-                                            "mColumns": [0, 1, 2, 3, 4]
+                                            "mColumns": [0, 1, 2, 3, 4],
+                                            "oSelectorOpts": {
+                                            page: 'current'
+                                                    }
                                         },
                                         {
                                             "sExtends": "print",
-                                            "mColumns": [0, 1, 2, 3, 4]
+                                            "mColumns": [0, 1, 2, 3, 4],
+                                            "oSelectorOpts": {
+                                            page: 'current'
+                                                    }
                                         },
                                     ]
                                     }
