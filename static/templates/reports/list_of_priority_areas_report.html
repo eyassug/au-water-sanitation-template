@@ -1,9 +1,31 @@
 {% extends 'welcome.html' %}
 {% block content_container %}
+{% load widget_tweaks %}
 <h2 class="page-header">List of Priortiy Areas of {{ country }}</h2>
+<form method="post" action="">{% csrf_token %}
+
+<div class ="col-md-4">
+    <fieldset>
+    <legend>Filter by Country</legend>
+        <div class="form-group{% if form.country.errors %} has-error{% endif %}">           
+               <label for="id_Start_year">Country</label>
+               {% render_field form.country class+="form-control" tabindex+="2" %}
+               {% if form.country.errors %}
+                  {{ form.country.errors }}
+                {% endif %}
+        </div>
+        <div class="form-group ">           
+              <button type="submit" class="btn btn-success">Generate</button>
+            </div>
+    </fieldset>
+   </div>
+
+</form>
+
 <div class ="col-md-8">
 {% include "snippets/report_style.html" %}   
 {% if population %}
+<a href="/report/listofpriorityareasreportpdf?country={{ country.id }}" target="_blank" class="btn btn-danger btn-danger-right active" role="button">Export to PDF</a>     
 {% include "snippets/list_of_priority_areas_report.html" %}
 {% else %}
     <h3>No data to display</h3>

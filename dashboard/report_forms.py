@@ -7,6 +7,8 @@ YEAR_RANGE = [(i,i) for i in range(1990,2031)]
 class DynamicChoiceField(forms.ChoiceField): 
     def clean(self, value): 
         return value
+class PriorityAreaStatus(forms.Form):
+    country = forms.ModelChoiceField(required=False,queryset=Country.objects.all(), widget=forms.Select())
 class TechnologyGapByPriorityArea(forms.Form):
     sector_category = forms.ModelChoiceField(required=False,queryset=SectorCategory.objects.all(), widget=forms.Select(attrs={'onchange':'FilterFacilityCharacters();'}))
     facility_character = DynamicChoiceField(widget=forms.Select(attrs={'onchange':'FilterTechnologiesNew();'}),)
