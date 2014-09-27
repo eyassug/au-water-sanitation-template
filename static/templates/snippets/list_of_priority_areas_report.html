@@ -1,12 +1,9 @@
 <div class="table-responsive">
-   <a href="/report/listofpriorityareasreportpdf" target="_blank" class="btn btn-danger btn-danger-right active" role="button">Export to PDF</a> 
+   
 <table id="report_lists" class="table table-hover table-striped table-bordered">
     
-    <tr style=>
-                    <td><p style="color: rgb(9, 101, 238); font-weight: bolder; font-size: larger ">List of Priortiy Areas of</p></td>
-                    <td colspan="3" align="right"><p style="color: red; font-weight: bolder; font-size: larger ">{{ country }}</p>
-                    </td>
-                </tr>
+        <thead id="report_head">
+
         
         <tr>
             <th rowspan="2">No</th>
@@ -19,7 +16,7 @@
             <th>Latest number of Households</th>
             
         </tr>
-    
+        </thead>
 <tbody>
     
     {% for p in population %}
