@@ -17,8 +17,9 @@ from dashboard import report_forms,models
 class ListofPriorityAreasReportToPdf(LoginRequiredMixin,View):
     def get(self,request):
         user_country = request.user.usercountry.country
+        country_id = int(request.GET['country'])
         report_factory = reports.PriorityAreaPopulationReport()
-        context_dict = report_factory.generate(user_country)
+        context_dict = report_factory.generate(country_id)
        
         context_dict.update({'pagesize': 'Portrait'})
     

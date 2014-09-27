@@ -2427,11 +2427,25 @@ class PartnerEventContributionGridView(LoginRequiredMixin,View):
         return render(request, 'data-grids/partner_event_contribution_grid.html', {'data': data})
 class ListofPriorityAreasReport(LoginRequiredMixin,View):
     def get(self,request):
-        user_country = request.user.usercountry.country
-        report_factory = reports.PriorityAreaPopulationReport()
-        report = report_factory.generate(user_country)
-        return render(request, 'reports/list_of_priority_areas_report.html',report)
-    
+        #user_country = request.user.usercountry.country
+        form = report_forms.PriorityAreaStatus(request.POST)
+        #report_factory = reports.PriorityAreaPopulationReport()
+        #report = report_factory.generate(user_country)
+        return render(request, 'reports/list_of_priority_areas_report.html',{'form':form})
+    def post(self,request):
+        form = report_forms.PriorityAreaStatus(request.POST)
+        #user_country = request.user.usercountry.country        
+        if(form.is_valid()):
+            country = form.cleaned_data['country']
+            #technology = Technology.objects.get(pk = int(technology_id))
+            #technology = form.cleaned_data['technology']
+            #start_year = form.cleaned_data['start_year']
+            #end_year = form.cleaned_data['end_year']
+            report_factory = reports.PriorityAreaPopulationReport()
+            report = report_factory.generate(country)
+            report['form'] = form
+            return render(request, 'reports/list_of_priority_areas_report.html', report)            
+        return render(request, 'reports/list_of_priority_areas_report.html', {'form':form})
 class TechnologyGapPerPriorityAreaReport(LoginRequiredMixin,View):
     def get(self,request):
         form = report_forms.TechnologyGapByPriorityArea()        
