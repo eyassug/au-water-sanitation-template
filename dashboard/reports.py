@@ -5,23 +5,25 @@ from django.db.models import Sum
 class PriorityAreaPopulationReport():
     
     def generate(self,country):
-        #if not country.name == "[All Country]":
-        priority_areas = models.PriorityArea.objects.filter(country=country)
-        population = models.PriorityAreaStatus.objects.filter(priority_area__country=country)
-        total_population = models.PriorityAreaStatus.objects.filter(priority_area__country=country).aggregate(Sum('population'))
-        total_households = models.PriorityAreaStatus.objects.filter(priority_area__country=country).aggregate(Sum('number_of_households'))
-        cuontryName = models.Country.objects.get(pk=country)
-        #else:
-        #     priority_areas = models.PriorityArea.objects.all()
-        #     population = models.PriorityAreaStatus.objects.all()
-        #     total_population = models.PriorityAreaStatus.objects.all().aggregate(Sum('population'))
-        #     total_households = models.PriorityAreaStatus.objects.all().aggregate(Sum('number_of_households'))
+        
+        countryName = models.Country.objects.get(pk=country)
+        if not countryName.name == "[All Country]":
+            priority_areas = models.PriorityArea.objects.filter(country=country)
+            population = models.PriorityAreaStatus.objects.filter(priority_area__country=country)
+            total_population = models.PriorityAreaStatus.objects.filter(priority_area__country=country).aggregate(Sum('population'))
+            total_households = models.PriorityAreaStatus.objects.filter(priority_area__country=country).aggregate(Sum('number_of_households'))
+        
+        else:
+             priority_areas = models.PriorityArea.objects.all()
+             population = models.PriorityAreaStatus.objects.all()
+             total_population = models.PriorityAreaStatus.objects.all().aggregate(Sum('population'))
+             total_households = models.PriorityAreaStatus.objects.all().aggregate(Sum('number_of_households'))
         return {
             'priority_areas':priority_areas,
             'population':population,
             'total_population':total_population['population__sum'],
             'total_households':total_households['number_of_households__sum'],
-            'country':cuontryName
+            'country':countryName
         }
             
 class TechnologyGapReport():
@@ -57,11 +59,17 @@ class TechnologyGapReport():
         technology_access = models.FacilityAccess.objects.filter(priority_area=priority_area,technology=technology).filter(year__start_year__gt=start_year).filter(year__end_year__lt=end_year)
         technology_gaps = []
         for ta in technology_access:
-            number = ta.planned - ta.actual - ta.secured
-            unit_cost = self.get_latest_unit_cost(ta.technology,priority_area) 
-            total_cost = number or 0 * unit_cost or 0
-            government_contribution = total_cost or 0 * ta.government_contribution / 100
-            population_affected = ta.planned_pop_affected - ta.actual_pop_affected - ta.secured_pop_affected
+            number = int(ta.planned or 0) - int(ta.actual or 0) - int(ta.secured or 0)
+            
+            unit_cost = self.get_latest_unit_cost(ta.technology,priority_area)
+            
+            total_cost =  int(number or 0) * int(unit_cost or 0)
+            
+            
+                
+                            
+            government_contribution = total_cost * int(ta.government_contribution or 0) / 100
+            population_affected = int(ta.planned_pop_affected or 0) - int(ta.actual_pop_affected or 0) - int(ta.secured_pop_affected or 0)
             gap = {
                 'priority_area':priority_area,
                 'year':ta.year,
