@@ -26,7 +26,7 @@
 {% for d in data %}
 
     <tr>
-        <td>{{ forloop.counter0|add:page.start_index }}</td>
+        <td>{{ forloop.counter }}</td>
         <td>{{ d.sector_category }}</td>
         {% if user.is_superuser %}
         <td>{{ d.country }}</td>

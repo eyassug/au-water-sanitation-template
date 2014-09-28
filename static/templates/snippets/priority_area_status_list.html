@@ -23,7 +23,7 @@
 
     <tr>
         
-        <td>{{ forloop.counter0|add:page.start_index }}</td>
+        <td>{{ forloop.counter }}</td>
         <td>{{d.priority_area.name}}</td>
         <td>{{ d.year }}</td>
         <td>{{ d.population|default_if_none:0 }}</td>

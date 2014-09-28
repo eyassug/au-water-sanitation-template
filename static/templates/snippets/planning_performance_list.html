@@ -21,7 +21,7 @@
 {% for d in data %}
 
     <tr>
-        <td>{{ forloop.counter0|add:page.start_index }}</td>        
+        <td>{{ forloop.counter }}</td>        
         <td>{{ d.sector_category }}</td>
         <td>{{ d.year }}</td> 
         <td>{{ d.plan_preparation_delay|default_if_none:0 }}</td>

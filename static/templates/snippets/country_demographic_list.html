@@ -19,7 +19,10 @@
 {% for d in data %}
 
     <tr>
-        <td>{{ forloop.counter0|add:page.start_index }}</td>
+        {% comment %}{{ forloop.counter0|add:page.start_index  }}{% endcomment %}
+        
+        
+        <td>{{ forloop.counter }}</td>
         <td>{{ d.year }}</td>
         <td>{{ d.population|default_if_none:0 }}</td>
     {% if user.is_superuser %}
