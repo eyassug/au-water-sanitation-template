@@ -2515,16 +2515,26 @@ class PartnerEventContributionGridView(LoginRequiredMixin,View):
 class ListofPriorityAreasReport(LoginRequiredMixin,View):
     def get(self,request):
         #user_country = request.user.usercountry.country
+        #country_id = 40 #request.user.usercountry.country_id
         form = report_forms.PriorityAreaStatus(request.POST)
         #report_factory = reports.PriorityAreaPopulationReport()
         #report = report_factory.generate(user_country)
-        return render(request, 'reports/list_of_priority_areas_report.html',{'form':form})
+        
+        country_id = request.user.usercountry.country.id
+        report_factory = reports.PriorityAreaPopulationReport()
+        report = report_factory.generate(country_id)
+        report['form'] = form
+        return render(request, 'reports/list_of_priority_areas_report.html', report)            
+        #return render(request, 'reports/list_of_priority_areas_report.html', {'form':form}
     def post(self,request):
         form = report_forms.PriorityAreaStatus(request.POST)
         #user_country = request.user.usercountry.country        
         if(form.is_valid()):
             #country = form.cleaned_data['country']
-            country_id = int(request.POST['country'])
+            if(request.user.is_superuser):        
+                country_id = int(request.POST['country'])
+            else:
+                country_id = request.user.usercountry.country.id
             #technology = Technology.objects.get(pk = int(technology_id))
             #technology = form.cleaned_data['technology']
             #start_year = form.cleaned_data['start_year']
