@@ -59,8 +59,8 @@ class PriorityAreaView(LoginRequiredMixin,CreateView):
         return render(request,self.template_name, {
             
             'country': user_country,
-            'data':data,
-            'page':page
+            'data':data
+            
         })
 
 # Sector Performance Category
@@ -90,8 +90,8 @@ class SectorPerformanceCreate(LoginRequiredMixin,CreateView):
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
-            'data':data,
-            'page':page
+            'data':data
+           
         })
     def post(self, request,id=None):
         user_country = request.user.usercountry.country            
@@ -118,11 +118,17 @@ class SectorPerformanceCreate(LoginRequiredMixin,CreateView):
                     'data': data
                 })
             return HttpResponseRedirect('/report/SectorPerformance')
+        else:
+            try:
+                ins = form.save()
+                messages.success(request, 'Report has been successfully submitted.')
+            except ValueError as e:
+                messages.error(request,'Please correct errors on the form [Add Tab] and submit.')
         
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
-            'data': data
+            
         })
 class SectorPerformanceEdit(LoginRequiredMixin,CreateView):
     model = SectorPerformance
@@ -149,8 +155,8 @@ class SectorPerformanceEdit(LoginRequiredMixin,CreateView):
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
-            'data':data,
-            'page':page
+            'data':data
+            
         })
     def post(self, request,id=None):
         user_country = request.user.usercountry.country            
@@ -177,11 +183,16 @@ class SectorPerformanceEdit(LoginRequiredMixin,CreateView):
                     'data': data
                 })
             return HttpResponseRedirect('/report/SectorPerformance')
-        
+        else:
+            try:
+                ins = form.save()
+                messages.success(request, 'Report has been successfully submitted.')
+            except ValueError as e:
+                messages.error(request,'Please correct errors on the form [Add Tab] and submit.')
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
-            'data': data
+            
         })
     #def sectorperformance(self,request):
         #return render(request, "sector_performance_list.html", {"sectorperformance" : models.SectorPerformance.objects.all()})
@@ -297,8 +308,8 @@ class FacilityAccessCreate(LoginRequiredMixin,View):
         return render(request, 'facility_access_form.html', {
             'form': form,
             'country': user_country,
-            'data':data,
-            'page':page
+            'data':data
+            
         })
     
     def post(self,request, id=None):
@@ -351,15 +362,21 @@ class FacilityAccessCreate(LoginRequiredMixin,View):
                     'country': user_country,
                     'data':data,
                     'facility_character':form.cleaned_data['facility_character'],
-                    'technology':form.cleaned_data['technology'],
-                    'page':page
+                    'technology':form.cleaned_data['technology']
+                    
                     
                 })
             return HttpResponseRedirect('/report/facilityaccess#list')
+        else:
+            try:
+                ins = form.save()
+                messages.success(request, 'Report has been successfully submitted.')
+            except ValueError as e:
+                messages.error(request,'Please correct errors on the form [Add Tab] and submit.')
         return render(request, 'facility_access_form.html', {
             'form': form,
             'country': user_country,
-            'data':data
+            
         })
 class FacilityAccessEdit(LoginRequiredMixin,View):
     def get(self,request, id=None):
@@ -391,8 +408,8 @@ class FacilityAccessEdit(LoginRequiredMixin,View):
         return render(request, 'facility_access_edit_form.html', {
             'form': form,
             'country': user_country,
-            'data':data,
-            'page':page
+            'data':data
+            
         })
     
     def post(self,request, id=None):
@@ -440,10 +457,16 @@ class FacilityAccessEdit(LoginRequiredMixin,View):
                     'technology':form.cleaned_data['technology']
                 })
             return HttpResponseRedirect('/report/facilityaccess#list')
+        else:
+            try:
+                ins = form.save()
+                messages.success(request, 'Report has been successfully submitted.')
+            except ValueError as e:
+                messages.error(request,'Please correct errors on the form [Add Tab] and submit.')
         return render(request, 'facility_access_edit_form.html', {
             'form': form,
             'country': user_country,
-            'data':data
+            
         })
 class FacilityAccessDelete(DeleteView):
     model = FacilityAccess
@@ -568,41 +591,21 @@ class CountryStatusCreate(LoginRequiredMixin,View):
             data = models.CountryDemographic.objects.filter(country=user_country)
         else:
             data = models.CountryDemographic.objects.all()
-        paginator = Paginator(data, 2000)
-        page_num = request.GET.get('page', 1)
-        try:
-            page = paginator.page(page_num)
-        except EmptyPage:
-            page = paginator.page(paginator.num_pages)
-        except PageNotAnInteger:
-                page = paginator.page(1)
-        #if((int(delete)!=0)):
-        #    if(int(deleteit) == 0):        
-        #        #template_name = 'object_confirm_delete.html'
-        #        data = models.CountryDemographic.objects.filter(id=19)
-        #        return render(request, 'object_confirm_delete.html', {
-        #            'form': form,
-        #            'country': user_country,
-        #            'data':data,
-        #            'page':page
-        #        })
-        #if(int(delete) > 0):
-        #    #if(int(deleteit)==id):     
-        #    models.CountryDemographic.objects.filter(id=delete).delete()
-                #def get_success_url(self):
-                    #return reverse('people_list')
-                
+        page = None
+        
         return render(request, self.template_name, {
             'form': form,
             'country': user_country,
             'data':data,
             'page':page
+            
         })
     
     
     def post(self,request,id=None, delete=None):
         user_country = request.user.usercountry.country
         form = CountryStatusForm(request.POST)
+        
         if(form.is_valid()):
             form.instance.country = user_country
             if(id):
@@ -612,7 +615,7 @@ class CountryStatusCreate(LoginRequiredMixin,View):
                 messages.success(request, 'Report has been successfully submitted.')
             except IntegrityError as e:
                 messages.error(request,'Could not Save! Duplicate Entry for Country '+ str(user_country) + ' and Year '+ str(form.instance.year))
-                
+            
             if(request.POST.has_key('save_add')):
                 new_form = CountryStatusForm(initial={'country':user_country,'year':form.instance.year})
                 new_form.instance.country = user_country
@@ -623,26 +626,26 @@ class CountryStatusCreate(LoginRequiredMixin,View):
                     data = models.CountryDemographic.objects.filter(country=user_country)
                 else:
                     data = models.CountryDemographic.objects.all()
-                paginator = Paginator(data, 2000)
-                page_num = request.GET.get('page', 1)
-                try:
-                    page = paginator.page(page_num)
-                except EmptyPage:
-                    page = paginator.page(paginator.num_pages)
-                except PageNotAnInteger:
-                    page = paginator.page(1)
+                
                 return render(request, self.template_name, {
                     'form': new_form,
                     'country': user_country,
                     'data':data,
-                    'page':page
+                    
                 })
             
-            return HttpResponseRedirect(self.success_url+'#list')
+            return HttpResponseRedirect(self.success_url)
+        else:
+            try:
+                ins = form.save()
+                messages.success(request, 'Report has been successfully submitted.')
+            except ValueError as e:
+                messages.error(request,'Please correct errors on the form [Add Tab] and submit.')
+        
         return render(request, self.template_name, {
             'form': form,
             'country': user_country,
-            'data':data
+            #'data':data
         })
 
 class CountryStatusEdit(LoginRequiredMixin,View):
@@ -662,19 +665,12 @@ class CountryStatusEdit(LoginRequiredMixin,View):
             data = models.CountryDemographic.objects.filter(country=user_country)
         else:
             data = models.CountryDemographic.objects.all()
-        paginator = Paginator(data, 2000)
-        page_num = request.GET.get('page', 1)
-        try:
-            page = paginator.page(page_num)
-        except EmptyPage:
-            page = paginator.page(paginator.num_pages)
-        except PageNotAnInteger:
-                page = paginator.page(1)
+        
         return render(request, self.template_name, {
             'form': form,
             'country': user_country,
-            'data':data,
-            'page':page
+            'data':data
+            
         })
     
     def post(self,request,id=None):
@@ -703,7 +699,13 @@ class CountryStatusEdit(LoginRequiredMixin,View):
                     'country': user_country,
                     'data':data
                 })
-            return HttpResponseRedirect(self.success_url+'#list')
+            return HttpResponseRedirect(self.success_url)
+        else:
+            try:
+                ins = form.save()
+                messages.success(request, 'Report has been successfully submitted.')
+            except ValueError as e:
+                messages.error(request,'Please correct errors on the form [Add Tab] and submit.')
         return render(request, self.template_name, {
             'form': form,
             'country': user_country
@@ -836,8 +838,8 @@ class PriorityAreaStatusCreate(LoginRequiredMixin,View):
         return render(request,'priority_area_status_form.html', {
             'form': form,
             'country': user_country,
-            'data':data,
-            'page':page
+            'data':data
+            
         })    
     
     def post(self,request,id=None):
@@ -877,11 +879,17 @@ class PriorityAreaStatusCreate(LoginRequiredMixin,View):
                 return render(request,'priority_area_status_form.html', {
                     'form': new_form,
                     'country': user_country,
-                    'data':data,
-                    'page':page
+                    'data':data
+                    
                 })
             return HttpResponseRedirect('/report/prioritystatus')
-        return render(request, 'priority_area_status_form.html', {'form': form,'country':user_country,'data':data})
+        else:
+            try:
+                ins = form.save()
+                messages.success(request, 'Report has been successfully submitted.')
+            except ValueError as e:
+                messages.error(request,'Please correct errors on the form [Add Tab] and submit.')
+        return render(request, 'priority_area_status_form.html', {'form': form,'country':user_country})
  
 class PriorityAreaStatusEdit(LoginRequiredMixin,View):
     
@@ -910,8 +918,8 @@ class PriorityAreaStatusEdit(LoginRequiredMixin,View):
         return render(request,'priority_area_status_edit_form.html', {
             'form': form,
             'country': user_country,
-            'data':data,
-            'page':page
+            'data':data
+            
         })    
     
     def post(self,request,id=None):
@@ -946,7 +954,13 @@ class PriorityAreaStatusEdit(LoginRequiredMixin,View):
                     'data':data
                 })
             return HttpResponseRedirect('/report/prioritystatus')
-        return render(request, 'priority_area_status_edit_form.html', {'form': form,'country':user_country,'data':data})
+        else:
+            try:
+                ins = form.save()
+                messages.success(request, 'Report has been successfully submitted.')
+            except ValueError as e:
+                messages.error(request,'Please correct errors on the form [Add Tab] and submit.')
+        return render(request, 'priority_area_status_edit_form.html', {'form': form,'country':user_country})
 
 class PriorityAreaStatusDelete(DeleteView):
     model = PriorityAreaStatus
@@ -1060,8 +1074,8 @@ class PlanningPerformanceCreate(LoginRequiredMixin,View):
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
-            'data': data,
-            'page':page
+            'data': data
+            
         })
     
     def post(self, request,id=None):
@@ -1098,11 +1112,17 @@ class PlanningPerformanceCreate(LoginRequiredMixin,View):
                     'page':page
                 })
             return HttpResponseRedirect('/report/planningperformance')
+        else:
+            try:
+                ins = form.save()
+                messages.success(request, 'Report has been successfully submitted.')
+            except ValueError as e:
+                messages.error(request,'Please correct errors on the form [Add Tab] and submit.')
         
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
-            'data': data
+            
         })
 
 class PlanningPerformanceEdit(LoginRequiredMixin,View):
@@ -1133,8 +1153,8 @@ class PlanningPerformanceEdit(LoginRequiredMixin,View):
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
-            'data': data,
-            'page':page
+            'data': data
+            
         })
     
     def post(self, request,id=None):
@@ -1162,11 +1182,17 @@ class PlanningPerformanceEdit(LoginRequiredMixin,View):
                     'data': data
                 })
             return HttpResponseRedirect('/report/planningperformance')
+        else:
+            try:
+                ins = form.save()
+                messages.success(request, 'Report has been successfully submitted.')
+            except ValueError as e:
+                messages.error(request,'Please correct errors on the form [Add Tab] and submit.')
         
         return render(request,self.template_name, {
             'form': form,
-            'country': user_country,
-            'data': data
+            'country': user_country
+            
         })
 class PlanningPerformanceDelete(DeleteView):
     model = PlanningPerformance
@@ -1279,8 +1305,8 @@ class TenderProcedurePerformanceCreate(LoginRequiredMixin,View):
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
-            'data': data,
-            'page':page
+            'data': data
+            
         })
     def post(self, request,id=None):
         user_country = request.user.usercountry.country            
@@ -1322,12 +1348,18 @@ class TenderProcedurePerformanceCreate(LoginRequiredMixin,View):
                     'data': data
                 })
             return HttpResponseRedirect('/report/TenderProcPerformance')
+        else:
+            try:
+                ins = form.save()
+                messages.success(request, 'Report has been successfully submitted.')
+            except ValueError as e:
+                messages.error(request,'Please correct errors on the form [Add Tab] and submit.')
         
         return render(request,self.template_name, {
             'form': form,
-            'country': user_country,
-            'data': data,
-            'page':page
+            'country': user_country
+            
+            
         })
 
 class TenderProcedurePerformanceEdit(LoginRequiredMixin,View):
@@ -1358,8 +1390,8 @@ class TenderProcedurePerformanceEdit(LoginRequiredMixin,View):
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
-            'data': data,
-            'page':page
+            'data': data
+            
             
         })
     def post(self, request,id=None):
@@ -1394,11 +1426,17 @@ class TenderProcedurePerformanceEdit(LoginRequiredMixin,View):
                     'data': data
                 })
             return HttpResponseRedirect('/report/TenderProcPerformance')
+        else:
+            try:
+                ins = form.save()
+                messages.success(request, 'Report has been successfully submitted.')
+            except ValueError as e:
+                messages.error(request,'Please correct errors on the form [Add Tab] and submit.')
         
         return render(request,self.template_name, {
             'form': form,
-            'country': user_country,
-            'data': data
+            'country': user_country
+            
         })
 
 class TenderProcedurePerformanceDelete(DeleteView):
@@ -1518,8 +1556,8 @@ class CommunityApproachCreate(LoginRequiredMixin,View):
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
-            'data': data,
-            'page':page
+            'data': data
+            
         })
     
     def post(self, request, id=None):
@@ -1553,15 +1591,22 @@ class CommunityApproachCreate(LoginRequiredMixin,View):
                 return render(request,self.template_name, {
                     'form': new_form,
                     'country': user_country,
-                    'data': data,
-                    'page':page
+                    'data': data
+                    
                 })
             return HttpResponseRedirect('/report/communityapproach')
         
+        else:
+            try:
+                ins = form.save()
+                messages.success(request, 'Report has been successfully submitted.')
+            except ValueError as e:
+                messages.error(request,'Please correct errors on the form [Add Tab] and submit.')
+        
         return render(request,self.template_name, {
             'form': form,
-            'country': user_country,
-            'data': data
+            'country': user_country
+            
         })
 
 class CommunityApproachEdit(LoginRequiredMixin,View):
@@ -1591,8 +1636,8 @@ class CommunityApproachEdit(LoginRequiredMixin,View):
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
-            'data': data,
-            'page':page
+            'data': data
+            
         })
     
     def post(self, request, id=None):
@@ -1621,6 +1666,12 @@ class CommunityApproachEdit(LoginRequiredMixin,View):
                     'data': data
                 })
             return HttpResponseRedirect('/report/communityapproach')
+        else:
+            try:
+                ins = form.save()
+                messages.success(request, 'Report has been successfully submitted.')
+            except ValueError as e:
+                messages.error(request,'Please correct errors on the form [Add Tab] and submit.')
         
         return render(request,self.template_name, {
             'form': form,
@@ -1674,8 +1725,8 @@ class PartnerContributionCreate(LoginRequiredMixin,CreateView):
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
-            'data': data,
-            'page':page
+            'data': data
+            
         })
     def post(self, request, id=None):
         user_country = request.user.usercountry.country            
@@ -1708,15 +1759,21 @@ class PartnerContributionCreate(LoginRequiredMixin,CreateView):
                 return render(request,self.template_name, {
                     'form': new_form,
                     'country': user_country,
-                    'data': data,
-                    'page':page
+                    'data': data
+                    
                 })
             return HttpResponseRedirect('/report/PartnerContribution')
+        else:
+            try:
+                ins = form.save()
+                messages.success(request, 'Report has been successfully submitted.')
+            except ValueError as e:
+                messages.error(request,'Please correct errors on the form [Add Tab] and submit.')
         
         return render(request,self.template_name, {
             'form': form,
-            'country': user_country,
-            'data': data
+            'country': user_country
+            
         })
 class PartnerContributionEdit(LoginRequiredMixin,CreateView):
     model = PartnerContribution
@@ -1745,8 +1802,8 @@ class PartnerContributionEdit(LoginRequiredMixin,CreateView):
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
-            'data': data,
-            'page':page
+            'data': data
+            
         })
     def post(self, request, id=None):
         user_country = request.user.usercountry.country            
@@ -1774,11 +1831,17 @@ class PartnerContributionEdit(LoginRequiredMixin,CreateView):
                     'data': data
                 })
             return HttpResponseRedirect('/report/PartnerContribution')
+        else:
+            try:
+                ins = form.save()
+                messages.success(request, 'Report has been successfully submitted.')
+            except ValueError as e:
+                messages.error(request,'Please correct errors on the form [Add Tab] and submit.')
         
         return render(request,self.template_name, {
             'form': form,
-            'country': user_country,
-            'data': data
+            'country': user_country
+            
         })
 class PartnerContributionDelete(DeleteView):
     model = PartnerContribution
@@ -1889,8 +1952,8 @@ class PartnerEventContributionCreate(LoginRequiredMixin,CreateView):
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
-            'data': data,
-            'page':page
+            'data': data
+            
         })
     def post(self, request, id=None):
         user_country = request.user.usercountry.country            
@@ -1923,15 +1986,21 @@ class PartnerEventContributionCreate(LoginRequiredMixin,CreateView):
                 return render(request,self.template_name, {
                     'form': new_form,
                     'country': user_country,
-                    'data': data,
-                    'page':page
+                    'data': data
+                    
                 })
             return HttpResponseRedirect('/report/PartnerEventContribution')
+        else:
+            try:
+                ins = form.save()
+                messages.success(request, 'Report has been successfully submitted.')
+            except ValueError as e:
+                messages.error(request,'Please correct errors on the form [Add Tab] and submit.')
         
         return render(request,self.template_name, {
             'form': form,
-            'country': user_country,
-            'data': data
+            'country': user_country
+            
         })
 class PartnerEventContributionEdit(LoginRequiredMixin,CreateView):
     model = PartnerEventContribution
@@ -1960,8 +2029,8 @@ class PartnerEventContributionEdit(LoginRequiredMixin,CreateView):
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
-            'data': data,
-            'page':page
+            'data': data
+            
         })
     def post(self, request, id=None):
         user_country = request.user.usercountry.country            
@@ -1989,11 +2058,17 @@ class PartnerEventContributionEdit(LoginRequiredMixin,CreateView):
                     'data': data
                 })
             return HttpResponseRedirect('/report/PartnerEventContribution')
+        else:
+            try:
+                ins = form.save()
+                messages.success(request, 'Report has been successfully submitted.')
+            except ValueError as e:
+                messages.error(request,'Please correct errors on the form [Add Tab] and submit.')
         
         return render(request,self.template_name, {
             'form': form,
-            'country': user_country,
-            'data': data
+            'country': user_country
+            
         })
 class PartnerEventContributionDelete(DeleteView):
     model = PartnerEventContribution
@@ -2104,8 +2179,8 @@ class SWOTAndConclusionCreate(LoginRequiredMixin,View):
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
-            'data': data,
-            'page':page
+            'data': data
+            
         })
     def post(self, request):
         user_country = request.user.usercountry.country            
@@ -2138,15 +2213,21 @@ class SWOTAndConclusionCreate(LoginRequiredMixin,View):
                 return render(request,self.template_name, {
                     'form': new_form,
                     'country': user_country,
-                    'data': data,
-                    'page':page
+                    'data': data
+                    
                 })
             return HttpResponseRedirect('/report/swot')
+        else:
+            try:
+                ins = form.save()
+                messages.success(request, 'Report has been successfully submitted.')
+            except ValueError as e:
+                messages.error(request,'Please correct errors on the form [Add Tab] and submit.')
         
         return render(request,self.template_name, {
             'form': form,
-            'country': user_country,
-            'data': data
+            'country': user_country
+            
         })
 
 class SWOTAndConclusionEdit(LoginRequiredMixin,View):
@@ -2176,8 +2257,8 @@ class SWOTAndConclusionEdit(LoginRequiredMixin,View):
         return render(request,self.template_name, {
             'form': form,
             'country': user_country,
-            'data': data,
-            'page':page
+            'data': data
+            
         })
     def post(self, request):
         user_country = request.user.usercountry.country            
@@ -2205,11 +2286,17 @@ class SWOTAndConclusionEdit(LoginRequiredMixin,View):
                     'data': data
                 })
             return HttpResponseRedirect('/report/swot')
+        else:
+            try:
+                ins = form.save()
+                messages.success(request, 'Report has been successfully submitted.')
+            except ValueError as e:
+                messages.error(request,'Please correct errors on the form [Add Tab] and submit.')
         
         return render(request,self.template_name, {
             'form': form,
-            'country': user_country,
-            'data': data
+            'country': user_country
+            
         })
 class SWOTDelete(DeleteView):
     model = SWOT
@@ -2436,13 +2523,14 @@ class ListofPriorityAreasReport(LoginRequiredMixin,View):
         form = report_forms.PriorityAreaStatus(request.POST)
         #user_country = request.user.usercountry.country        
         if(form.is_valid()):
-            country = form.cleaned_data['country']
+            #country = form.cleaned_data['country']
+            country_id = int(request.POST['country'])
             #technology = Technology.objects.get(pk = int(technology_id))
             #technology = form.cleaned_data['technology']
             #start_year = form.cleaned_data['start_year']
             #end_year = form.cleaned_data['end_year']
             report_factory = reports.PriorityAreaPopulationReport()
-            report = report_factory.generate(country)
+            report = report_factory.generate(country_id)
             report['form'] = form
             return render(request, 'reports/list_of_priority_areas_report.html', report)            
         return render(request, 'reports/list_of_priority_areas_report.html', {'form':form})
