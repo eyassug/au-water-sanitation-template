@@ -5,4 +5,4 @@ This is a template for National Need Assessment for preparing the Kigali Action 
 
 ============================
 
-The project is developed using Python 2.7 and the Django Framework. It also uses the Bootstrap  library for presentation.
+The project is developed using Python 2.7 and Django 1.6. It also uses Bootstrap for layout & presentation.
